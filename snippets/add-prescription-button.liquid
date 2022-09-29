@@ -1,0 +1,11 @@
+{% if product.tags contains 'Rx' or product.tags contains 'RXS' %}
+    <a 
+        data-id="{{product.id}}" data-variant-id="{{product.selected_or_first_available_variant.id}}"
+        {% if customer %} 
+            data-customer-email="{{ customer.email}}"
+        {% if customer.id %} 
+            data-customer-id="{{customer.id}}"
+        {% endif %}
+    {% endif %}
+    href="javascript:void(0);" class="rx-new__prescription-btn prescriptionCtrl action_button btn btn--full" {%unless product.available %} style="display:none;"{%endunless%}>ADD PRESCRIPTION</a>
+{% endif %}

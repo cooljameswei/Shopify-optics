@@ -1,0 +1,178 @@
+{% liquid
+    assign mega_menu_navs = section.blocks | where:"type","mega-menu-nav"
+%}
+{% if mega_menu_navs.size > 0 %}
+    {%- case view -%}
+        {%- when "desktop" -%}
+            <div class="nav-content">
+                <ul class="main-nav clearfix" id="js-header-navgation-n">
+                    {% for mega_menu_nav in mega_menu_navs %}
+                        <li>
+                            {%- assign mega_menu_nav_linkList = linklists[mega_menu_nav.settings.menu_link_list] -%}
+                            {% if mega_menu_nav_linkList.links != blank %}
+                                <span class="item">{{ mega_menu_nav.settings.title }}</span>
+                                <div class="sub-nav-wrapper-n" id="sub-{{- mega_menu_nav.settings.title | handleize -}}">
+                                    <div class="sub-nav-box clearfix">
+                                        {% assign linkCounter = 0 %}
+                                        {%- assign totalSubMenu = 0 -%}
+                                        {%- assign childLinkCounter = 0 -%}
+                                        {%- assign subLinkClass = "sub-side-first" -%}
+                                        <div class="sub-nav_menu-link-container {% if mega_menu_nav.settings.image_1 == blank and mega_menu_nav.settings.image_2 == blank and mega_menu_nav.settings.image_3 == blank %}menu-link-full{% endif%}">
+                                            {%- for link in mega_menu_nav_linkList.links -%}
+                                                {% if linkCounter > 0 and linkCounter < 2 %}
+                                                    {%- assign subLinkClass = "sub-side-second" -%}
+                                                {% endif %}
+                                                {% if link.links != blank and link.links.size == 1 %}
+                                                    <dl class="sub-nav-side {{ subLinkClass }}  {% if link.links == blank %} hide {% endif %}">
+                                                        <dd class="feature-title">{{ link.title }}</dd>
+                                                        {%- for child_link in link.links -%}
+                                                            <dd><a data-event-cate="Navigation" data-event-name="{{ mega_menu_nav.settings.title }}" data-event-label="{{ child_link.title }}"
+                                                                href="{{ child_link.url }}">{{ child_link.title }}</a></dd>
+                                                        {%- endfor -%}
+                                                    </dl>
+                                                {% elsif link.links != blank and link.levels > 1 %}
+                                                        {%- assign subChildLinkClass = "discover-slide-one clearfix" -%}
+                                                        {%- for child_link in link.links -%}
+                                                            {% assign childLinkSlug = child_link.title | downcase %}
+                                                            {% if childLinkCounter > 0 and childLinkCounter < 2 %}
+                                                                {%- assign subChildLinkClass = "discover-slide-two clearfix" -%}
+                                                            {% elsif childLinkCounter > 1 and childLinkCounter < 3 %}
+                                                                {%- assign subChildLinkClass = "discover-slide-three clearfix" -%}
+                                                            {% endif %}
+                                                            {% if childLinkSlug contains "sub menu" %}
+                                                                {% if child_link.links != blank %}
+                                                                    <dl class="sub-nav-side {{ subChildLinkClass }}  {% if child_link.links == blank %} hide {% endif %}">
+                                                                        {% if childLinkCounter  == 0%}
+                                                                            <dd class="feature-title">{{ link.title }}</dd>
+                                                                        {% else %}
+                                                                            <dd class="feature-title">&nbsp;</dd>
+                                                                        {% endif %}
+                                                                        {%- for grand_child_link in child_link.links -%}
+                                                                            <dd><a data-event-cate="Navigation" data-event-name="{{ mega_menu_nav.settings.title }}" data-event-label="{{ grand_child_link.title }}"
+                                                                                href="{{ grand_child_link.url }}">{{ grand_child_link.title }}</a></dd>
+                                                                        {%- endfor -%}
+                                                                    </dl>
+                                                                    {%- assign totalSubMenu = totalSubMenu | plus:1 -%}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {%- assign childLinkCounter = childLinkCounter | plus:1 -%}
+                                                        {%- endfor -%}
+                                                {% elsif link.links != blank and link.levels == 1 %}
+                                                    {% if totalSubMenu == 0 %}
+                                                        {%- assign subChildLinkClass = subLinkClass -%}
+                                                    {% else %}    
+                                                        {% if totalSubMenu == 1%}
+                                                            {%- assign subChildLinkClass = "discover-slide-two clearfix" -%}
+                                                        {% elsif totalSubMenu > 1  %}
+                                                            {%- assign subChildLinkClass = "discover-slide-three clearfix" -%}
+                                                        {% endif %}
+                                                    {% endif %}            
+                                                    <dl class="sub-nav-side {{ subChildLinkClass }}  {% if link.links == blank %} hide {% endif %}">
+                                                        <dd class="feature-title">{{ link.title }}</dd>
+                                                        {%- for child_link in link.links -%}
+                                                            <dd><a data-event-cate="Navigation" data-event-name="{{ mega_menu_nav.settings.title }}" data-event-label="{{ child_link.title }}"
+                                                                href="{{ child_link.url }}">{{ child_link.title }}</a></dd>
+                                                        {%- endfor -%}
+                                                    </dl> 
+                                                {% endif %}
+                                                {% assign linkCounter = linkCounter | plus:1 %}
+                                            {%- endfor -%}
+                                        </div>        
+                                        {% if mega_menu_nav.settings.image_1 != blank or mega_menu_nav.settings.image_2 != blank or mega_menu_nav.settings.image_3 != blank %}
+                                            <dl class="sub-nav-image {% if linkCounter > 0 %}clearfix{% endif %}">
+                                                {% if mega_menu_nav.settings.image_1 != blank and mega_menu_nav.settings.link_1 != blank %}
+                                                    <dd>
+                                                        <a class="nav-image" data-event-cate="Navigation" data-event-name="{{ mega_menu_nav.settings.title }}"
+                                                            data-event-label="{{ mega_menu_nav.settings.title_1 }}" href="{{ mega_menu_nav.settings.link_1 }}">
+                                                            <span class="nav-picture">
+                                                                <img class=" lazyload"
+                                                                    data-src="{{ mega_menu_nav.settings.image_1 | img_url: 'master' }}"
+                                                                    alt="{{ mega_menu_nav.settings.title_1 | handleize }}">
+                                                            </span>
+                                                            <div class="bg-layer none"></div>
+                                                            <p class="nav-title-scope">
+                                                                <span class="nav-title">{{ mega_menu_nav.settings.title_1}}</span>
+                                                                {% if mega_menu_nav.settings.subtitle_1 != blank %}
+                                                                    <span class="nav-sub-title">{{ mega_menu_nav.settings.subtitle_1}}</span>
+                                                                {% endif %}
+                                                            </p>
+                                                        </a>
+                                                    </dd>
+                                                {% endif %}
+                                                {% if mega_menu_nav.settings.image_2 != blank and mega_menu_nav.settings.link_2 != blank %}
+                                                    <dd>
+                                                        <a class="nav-image" data-event-cate="Navigation" data-event-name="{{ mega_menu_nav.settings.title }}"
+                                                            data-event-label="{{ mega_menu_nav.settings.title_2 }}" href="{{ mega_menu_nav.settings.link_2 }}">
+                                                            <span class="nav-picture">
+                                                                <img class=" lazyload"
+                                                                    data-src="{{ mega_menu_nav.settings.image_2 | img_url: 'master' }}"
+                                                                    alt="{{ mega_menu_nav.settings.title_2 | handleize }}">
+                                                            </span>
+                                                            <div class="bg-layer none"></div>
+                                                            <p class="nav-title-scope">
+                                                                <span class="nav-title">{{ mega_menu_nav.settings.title_2}}</span>
+                                                                {% if mega_menu_nav.settings.subtitle_2 != blank %}
+                                                                    <span class="nav-sub-title">{{ mega_menu_nav.settings.subtitle_2}}</span>
+                                                            {% endif %}
+                                                            </p>
+                                                        </a>
+                                                    </dd>
+                                                {% endif %}
+                                                {% if mega_menu_nav.settings.image_3 != blank and mega_menu_nav.settings.link_3 != blank %}
+                                                    <dd>
+                                                        <a class="nav-image" data-event-cate="Navigation" data-event-name="{{ mega_menu_nav.settings.title }}"
+                                                            data-event-label="{{ mega_menu_nav.settings.title_3 }}" href="{{ mega_menu_nav.settings.link_3 }}">
+                                                            <span class="nav-picture">
+                                                                <img class=" lazyload"
+                                                                    data-src="{{ mega_menu_nav.settings.image_3 | img_url: 'master' }}"
+                                                                    alt="{{ mega_menu_nav.settings.title_3 | handleize }}">
+                                                            </span>
+                                                            <div class="bg-layer none"></div>
+                                                            {% if mega_menu_nav.settings.title_3 != blank or mega_menu_nav.settings.subtitle_3 != blank %}
+                                                                <p class="nav-title-scope">
+                                                                    {% if mega_menu_nav.settings.title_3 != blank %}
+                                                                        <span class="nav-title">{{ mega_menu_nav.settings.title_3}}</span>
+                                                                    {% endif %}
+                                                                    {% if mega_menu_nav.settings.subtitle_3 != blank %}
+                                                                        <span class="nav-sub-title">{{ mega_menu_nav.settings.subtitle_3}}</span>
+                                                                    {% endif %}
+                                                                </p>    
+                                                            {% endif %}
+                                                            
+                                                        </a>
+                                                    </dd>
+                                                {% endif %}
+                                            </dl>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a href="{{ mega_menu_nav.settings.title_link }}"><span class="item">{{ mega_menu_nav.settings.title }}</span></a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {%- when "mobile" -%}        
+        {% for mega_menu_nav in mega_menu_navs %}
+            {%- assign mega_menu_nav_linkList = linklists[mega_menu_nav.settings.menu_link_list] -%}
+            {%- assign menu_nav_slug = mega_menu_nav.settings.title | handleize -%}
+            {% if mega_menu_nav_linkList.links != blank %}
+                <span class="nav__link__holder">
+                    <a class="nav__link" href="javascript:void(0);" onclick="document.querySelector('[for=\'mobile-submenu-{{- menu_nav_slug -}}\']') && document.querySelector('[for=\'mobile-submenu-{{- menu_nav_slug -}}\']').click();">
+                        {% render 'header--link-tag' with mega_menu_nav.settings.title as text %}
+                    </a>
+                    <input type="checkbox" style="display: none" id="mobile-submenu-{{- menu_nav_slug -}}">
+                    <label class="mobile__submenu__toggle" for="mobile-submenu-{{- menu_nav_slug -}}"><i class="uil uil-plus"></i><i class="uil uil-minus"></i></label>
+                    {% for link in mega_menu_nav_linkList.links %}
+                        {% render 'header--link-submenu--mobile', link: link, ix: menu_nav_slug %}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <span><a class="nav__link" href="{{ mega_menu_nav.settings.title_link }}">{{ mega_menu_nav.settings.title }}</a></span>
+            {% endif %}
+        {% endfor %}
+    {%- endcase -%}
+    
+{% endif%}
+

@@ -1,0 +1,20 @@
+{
+"names": {{settings.recentlyBoughtNamesList | json}},
+{%- if settings.recentlyBoughtCollection != blank -%}
+{%- assign selected = collections[settings.recentlyBoughtCollection].products | where: "available", true -%}
+{%- else -%}
+{%- assign selected = collection.products | where: "available", true -%}
+{% endif %}
+{%- capture coll -%}
+[
+{%- for product in selected limit: 15 -%}
+{%- assign sale = false -%}
+{%- if product.compare_at_price_min > 0 %}
+{%- assign sale = true -%}
+{%- endif -%}
+{"title": {{product.title | json}}, "url": "{{product.url}}", "sale": {{sale}}, "priceFormat": "{{product.price | money | strip_html }}", "discountPriceFormat": "{{product.compare_at_price_max | money | strip_html}}", "image": "{{product.featured_image | img_url: '100x'}}"}{% unless forloop.last %},{%endunless%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+"collection": {{coll}}
+}

@@ -1,0 +1,81 @@
+<div style="display: inline-block;" class="product__countdown--holder product__countdown--{{-block.settings.style}}" {{block.shopify_attributes}}>
+    <div style="position: relative; min-width: 280px;" data-countdown data-ct-key="block-{{block.id}}" data-duration="{{block.settings.countdownTime}}" data-duration-format="{{block.settings.countdownTimeFormat}}" class="countdown product__countdown">
+        <span class="countdown__title" style="z-index: 1;">{{-block.settings.title-}}</span>
+        <span class="countdown__holder"><span class="days">00</span><br>DAYS</span>
+        <span class="countdown__holder"><span class="hours">00</span><br>HOURS</span>
+        <span class="countdown__holder"><span class="minutes">00</span><br>MINUTES</span>
+        <span class="countdown__holder"><span class="seconds">00</span><br>SECONDS</span>
+    </div>
+    <p class="countdown__warning">
+        {{-block.settings.text}}
+    </p>
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "countdown",
+    "name": "Countdown",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+    },
+    {
+        "type": "header",
+        "content": "Time settings"
+    },
+    {
+        "type": "text",
+        "default": "24",
+        "label": "Time",
+        "id": "countdownTime"
+    },
+    {
+        "type": "select",
+        "id": "countdownTimeFormat",
+        "options": [
+            {"value": "days", "label": "days"},
+            {"value": "hours", "label": "hours"},
+            {"value": "minutes", "label": "minutes"},
+            {"value": "seconds", "label": "seconds"}
+        ],
+        "default": "days",
+        "label": "Interval format"
+    },
+    {
+        "type": "paragraph",
+        "content": "Interval - enter a number and choose one of the values from a dropdown (days, hours..)."
+    },
+    {
+        "type": "paragraph",
+        "content": "Exact date - just enter the date in a YYYY/MM/DD format. For example using 2020/08/01 would make the countdown tick until August 1st 2020."
+    },
+    {
+        "type": "select",
+        "label": "Style",
+        "id": "style",
+        "default": "compact",
+        "options": [
+            {"value": "compact", "label": "Compact"},
+            {"value": "doublecolumn", "label": "Two columns"}
+        ]
+    },
+    {
+        "id": "title",
+        "label": "Countdown title",
+        "type": "text",
+        "default": "LIMITED TIME OFFER"
+    },
+    {
+        "id": "text",
+        "type": "text",
+        "label": "Warning text",
+        "default": "The price of this item will revert at the end of this countdown."
+    }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

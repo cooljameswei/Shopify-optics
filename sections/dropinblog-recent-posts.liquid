@@ -1,0 +1,53 @@
+<div class="dib-recent-widget page-width">
+    <h3 class="text-center">{{section.settings.title}}</h3>
+    <div id="dropinblogRecent"
+         data-num-posts="{{section.settings.num_posts}}"
+         data-display="{{section.settings.display}}"
+         data-categories="{{section.settings.categories}}"
+         data-shop="{{shop.domain}}">
+    </div>
+</div>
+{% schema %}
+{
+"name": "Recent Post",
+"settings": [
+{
+"id": "title",
+"type": "text",
+"label": "Heading Title",
+"default": "Recent Posts"
+},
+{
+"id": "num_posts",
+"type": "text",
+"label": "Number of posts to display",
+"default": "2"
+},
+{
+"id": "display",
+"type": "select",
+"label": "Display",
+"options": [
+{
+"value": "1",
+"label": "List"
+},
+{
+"value": "2",
+"label": "Posts"
+}
+],
+"default": "2"
+},
+{
+"id": "categories",
+"type": "text",
+"label": "Filter by category (ex: seo-tips)"
+}
+],
+"presets": [{
+"name": "Recent Posts",
+"category": "DropInBlog"
+}]
+}
+{% endschema %}

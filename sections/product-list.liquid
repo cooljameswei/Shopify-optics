@@ -1,0 +1,255 @@
+{% assign mobile = settings.cardMobile %}
+{% if section.settings.cardDesktop == "default" %}
+{% assign desktop = settings.cardDesktop %}
+{% else %}
+{% assign desktop = section.settings.cardDesktop %}
+{% endif %}
+
+{% paginate collection.products by section.settings.cardsPerPage %}
+  {% for product in collection.products %}
+    {% unless product.tags contains 'featured' %}
+      <div class="center col-{{mobile}} col-md-{{desktop}} card--holder">
+        {% render 'product-card-default' with product as product %}
+      </div>
+    {%endunless%}
+  {% else %}
+    <h2 class="font__size--medium font__family--title col-12 product-list__empty">{{'general.search.no_matches' |t}}</h2>
+  {% endfor %}
+
+  {% assign sid = 'shopify-section-' | append: section.id %}
+  {% render 'pagination', paginate: paginate, section: sid %}
+{% endpaginate %}
+
+{% assign html = '' %}
+<noscript id="JSON-filters">
+{
+  "filters": {
+    {% for filter in collection.filters %}
+      "{{filter.label|escape}}": [
+        {% for f in filter.values %}
+          {
+            "active": {{f.active}},
+            "count": {{f.count}},
+            "label": {{f.label|json}},
+            "value": {{f.value|json}},
+            "urls": {
+              "remove": "{{f.url_to_remove}}",
+              "add": "{{f.url_to_add}}"
+            }  
+          }{% unless forloop.last %},{% endunless %}{% if f.active %}{% assign html = html | append: '<span data-filter-href="' | append: f.url_to_remove | append: '">Remove: ' | append: f.label | append: '</span>'%}{% endif %}
+        {% endfor %}
+      ]{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  },
+  "html": {{html | json}},
+  "count": {{collection.products_count}}
+}
+</noscript>
+
+{% schema %}
+  {
+    "name": "Product list",
+    "class": "row--product col-12 product__list top",
+    "settings": [
+      {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458187473)"
+        },
+        {
+        "type": "select",
+        "id": "cardDesktop",
+        "label": "How many cards per row (Desktop)",
+        "options": [
+          {"value": "default", "label": "Global default"},
+          {"value": "1-5", "label": "5"},
+          {"value": "3", "label": "4"},
+          {"value": "4", "label": "3"}
+        ],
+        "default": "default"
+      },
+      {
+        "type": "range",
+        "label": "How many cards per page",
+        "id": "cardsPerPage",
+        "default": 15,
+        "min": 3,
+        "max": 50,
+        "step": 1
+      },
+	  {
+		"type":"checkbox",
+		"label":"View card by Price",
+		"id":"card-by-price",
+		"default":false
+	  },	
+	  {
+		"type":"checkbox",
+		"label":"Display Item Swatch",
+		"id":"display_item_swatch",
+		"default":true
+	  }		
+    ] 
+  }
+{% endschema%}
+<style>
+  .card--holder{
+  	padding:0px;
+  }
+  .card--default{
+  	border: 1px solid #f2f5fa;
+    margin-bottom: 30px;
+    position: relative;
+    text-align: left;
+    padding-left: 30px;
+  }
+ .card__title,
+ .card--expanded .card__title{
+  	margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3d4246;
+    text-transform: capitalize;
+    border-bottom: none;
+    display: inline-block;
+    line-height: 1.42;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+   	height:41.75px;
+  }
+  .card__price--sale,
+  .jsPrice{
+  	font-size: 14px;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    margin-top: 0;
+    color: #f30;
+    text-transform: capitalize;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  .jsPrice{
+  	margin-right:7px;
+  }
+  .card__img--ratio{
+  	padding-top:300px;
+  }
+  .card__price--old{
+  	color: #222;
+  }
+  .card--default .card__price--sale, .card--default .card__price--sale span,
+  .card--default .card__price--sale .card__price--old{
+  	font-weight:400;
+  }
+  .card__img img{
+  	object-fit:contain;
+  }
+  .card__tags{
+  	padding:10px;
+    left:0px;
+  }
+  .card__tags .tag{
+  	font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 10px 1px;
+    background: #f30;
+    color: #fff;
+    left: auto;
+    border: 1px solid transparent;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    line-height: 16px;
+    display:inline-block;
+    margin-bottom:0px !important;
+  }
+  .card--expanded .card__title{
+  	height:auto;
+  }
+  .card__description{
+  	font-size: 16px;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #666;
+    line-height: 1.375;
+  }
+  .card--default .card__brand{
+  	font-size: 12px;
+    color: rgba(34,34,34,.6);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 8px;
+    margin-top: 0;
+    line-height: 1.5;
+    display:block;
+    width:100%;
+  }
+  .card--default a.card__brand:hover{
+  	color:rgba(34,34,34,.6) !important;
+  }
+  .card__img img{
+  	width:95%;
+  }
+  .card--default:hover .card__img img {
+    transform: scale(1);
+   }
+  .price-reverse{
+  	display: flex;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .price-reverse .card__title{
+  	height: auto;
+    margin-top:5px;
+  }
+  .card__info .boost-pfs-filter-item-swatch {
+    list-style: none;
+    padding: 0;
+    margin: 0 -4px;
+    letter-spacing: -.33em;
+    line-height: 0;
+    padding-bottom: 5px;
+  }
+  .boost-pfs-filter-item-swatch li {
+    display: inline-block;
+    margin: 0 4px 0;
+    letter-spacing: normal;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+ }
+ 
+  .card__info .boost-pfs-filter-item-swatch li label {
+    display: block;
+    width: 25px;
+    height: 25px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-radius: 15px;
+    margin: 0;
+    background-size: cover;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid #fff;
+    -webkit-box-shadow: 0 0 0 1px #e6e6e6;
+    -moz-box-shadow: 0 0 0 1px #e6e6e6;
+    box-shadow: 0 0 0 1px #e6e6e6;
+  }
+  .card__info .boost-pfs-filter-item-swatch li {
+    display: inline-block;
+    margin: 0 4px 0;
+    letter-spacing: normal;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+@media(max-width:767px){
+  .card__tags{
+  	max-width:auto;
+  }  	
+}
+</style>

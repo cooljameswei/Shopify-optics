@@ -1,0 +1,69 @@
+<div class="card--default {% unless product.available %}card--soldout{% endunless %}">
+
+<div class="card__img--container">
+<div class="card__img--ratio">
+  <div class="card__img">
+    {% if settings.tagEnabled %}
+      <div class="card__tags">
+        {% if product.available == false and settings.tagSoldOut %}
+          <span class="tag tag--soldout">{{'general.buttons.sold_out' | t}}</span>
+        {% endif %}
+        {% if product.compare_at_price_min > 0 and settings.tagSale %}
+          {% if product.price_varies %}
+            <span class="tag tag--sale">{{'general.tags.sale' | t}}</span>
+          {% else %}
+            <span class="tag tag--sale">{{ product.price | minus: product.compare_at_price_max | times: 100 | divided_by: product.compare_at_price_max }}%  {{'general.tags.sale' | t}}</span>
+          {% endif %}
+        {% endif %}
+        {% for tag in product.tags %}
+          {% if tag contains 'bstr-tag-' %} {% comment %} this needs to be an if not unless  {% endcomment %}
+              <span class="tag tag--custom">{{ tag | remove_first: 'bstr-tag-' | replace: '-', ' ' }} </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% render 'card-image', image: product.featured_image.src, alt: product.featured_image.alt, desktop: dsize %}
+    {% unless product.images.size < 2 or settings.cardShowSecondary == false %}
+      {% assign secondaryImage = product.images[1] %}
+      {% render 'card-image', image: secondaryImage.src, alt: secondaryImage.alt, desktop: dsize, class: 'card__img--secondary' %}
+    {% endunless %}
+    {% if product.compare_at_price_min > 0 and settings.countdownCard and settings.countdown %}
+    <div data-countdown data-ct-key="{{product.id}}" class="countdown">
+      <span class="countdown__holder"><span class="days">00</span><br>DAYS</span>
+      <span class="countdown__holder"><span class="hours">00</span><br>HRS</span>
+      <span class="countdown__holder"><span class="minutes">00</span><br>MIN</span>
+      <span class="countdown__holder"><span class="seconds">00</span><br>SEC</span>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+{% unless settings.cardStyle == 'catalog' %}
+<div class="card__info">
+{% if settings.cardShowBrand %}
+<div class="card__brand">
+{{product.vendor}}
+</div>
+{% endif %}
+{% if settings.cardShowRating %}
+{% render 'product-card__review-stars' with product as product %}
+{% endif %}
+<div class="card__title">
+{% unless settings.cardNameLimit != "none" %}
+{{ product.title }}
+{% else %}
+{% if settings.cardNameLimit == "words" %}
+{{ product.title | truncatewords: settings.cardNameLimitAmount }}
+{% else %}
+{{ product.title | truncate: settings.cardNameLimitAmount }}
+{% endif %}
+{% endunless %}
+</div>
+<span class="card__price {% if var.compare_at_price > 0 %}card__price--sale{% endif %}">
+  <span data-iu-price class="jsPrice">{{ var.price | money | strip_html }}</span>
+  <span data-iu-price-sale class="card__price--old jsPrice">{% if var.compare_at_price > 0 %}{{v1.compare_at_price | money | strip_html}}{% endif %}</span>
+</span>
+</div>
+{% endunless %}
+</div>

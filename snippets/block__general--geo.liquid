@@ -1,0 +1,51 @@
+{% if block.settings.url != blank %}
+<a href="{{block.settings.url}}" data-bstr-geo-block="{{block.settings.text|escape}}">
+{% if request.design_mode %}
+{{block.settings.text|escape}}
+{% endif %}
+</a>
+{% else %}
+<div data-bstr-geo-block="{{block.settings.text|escape}}">
+{% if request.design_mode %}
+{{block.settings.text|escape}}
+{% endif %}
+</div>
+{% endif %}
+
+
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "geoBlock",
+    "name": "Geo Block",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+    },
+    {
+        "id": "text",
+        "label": "Block text",
+        "type": "textarea",
+        "default": "%flag_emoji% This is an example for your %country% in the city of %city% %flag_svg%"
+    },
+    {
+        "type": "paragraph",
+        "content": "Available variables:, %country%, %city%, %zip%, %flag_svg%, %flag_emoji%, %language_name%, %language_native%, %language_code%, %currency_code%, %currency_name%, %currency_symbol%"
+    },
+    {
+        "type": "paragraph",
+        "content": "Location is determined based on IP address. Accuracy of precise data (city - usually first bigger city, zip - matches city) can't be 100% trusted. We are continuously working on improving data accuracy for city and zip code information."
+    },
+    {
+        "id": "url",
+        "type": "url",
+        "label": "Block link"
+    }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

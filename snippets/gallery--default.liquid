@@ -1,0 +1,41 @@
+{% assign product_image_size = '480x480' %}
+<div class="slider--product__holder" data-bstr-ppslider="{{section.id}}">
+<div class="slider--product" data-bstr-slider-height="auto" data-bstr-slider-orientation="horizontal" data-bstr-slide-holder="1" data-bstr-slider-current="0">
+    {% for image in product.images %}
+        <div data-variants="|{% for var in image.variants %}{{var.options| join: '#' | escape}}|{% endfor %}" class="slide--product" data-bstr-slide>
+            <a href="{{ image | img_url: '480X480' }}" class="product-main___img js-modal-open-product-modal" style="cursor: pointer;">
+                <img height="{{image.height}}" width="{{image.width}}" {% unless forloop.first %}loading="lazy" class="tray-img image-zoom lazyload" {% else %}class="tray-img image-zoom"{% endunless %} alt="{{image.alt | escape}}" src="{{ image.src | img_url: '1280x' }}">
+            </a>
+        </div>
+    {% endfor %}
+    {% for media in product.media %}
+        {% case media.media_type %}
+            {% when 'image' %}
+                {% continue %}
+            {% when 'external_video' %}
+                <div class="external__holder slide--product" data-bstr-slide data-media-holder="{{media.id}}" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+                    {% capture med %}{{ media | external_video_tag: class: 'gallery__external lazyload' }}{% endcapture %}
+                    {{med | replace_first: 'src', 'data-src'}}
+                </div>
+            {% when 'video' %}
+                <div class="video__holder slide--product" data-bstr-slide data-media-holder="{{media.id}}">
+                    {% capture med %}{{ media | video_tag: class: 'gallery__video lazyload' }}{% endcapture %}
+                    {{med | replace_first: 'src', 'data-src' | replace_first: 'poster=', 'controls=true poster='}}
+                </div>
+        {% endcase %}
+    {% endfor %}
+    </div>
+</div>
+<style> 
+    .zoomImg {
+      cursor: zoom-in !important;
+    }
+    .zoom-btn-click{
+      color: grey;
+      cursor: pointer;
+      padding: 20px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  </style>

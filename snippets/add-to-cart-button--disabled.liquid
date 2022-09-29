@@ -1,0 +1,24 @@
+{% assign button = button | default: 'addToCart' %}
+{% assign color = button | append: 'Color' %}
+{% assign color = settings[color] %}
+{% assign type = button | append: 'Type' %}
+{% assign type = settings[type] %}
+{%- assign icon = button | append: 'Icon' -%}
+{%- assign icon = settings[icon] -%}
+{% if text == blank %}
+{% assign text = 'general.buttons.add_to_cart' | t  %}
+{% endif %}
+
+<button
+type="button"
+disabled
+class="button button--{{-button}} button--{{-color}} {% unless icon == 'none' %}button--icon{% endunless %}
+{% unless type == 'default' -%}
+button--{{-type}} button--{{-color-}}__{{-type}}
+{%- else -%}
+{% assign style = color | append: 'ButtonStyle' %}
+button--{{-settings[style]}} button--{{-color-}}__{{-settings[style]}}
+{%- endunless %} {{class-}}"
+>
+<span>{{- text -}}</span> 
+</button>

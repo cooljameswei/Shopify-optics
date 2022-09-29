@@ -1,0 +1,43 @@
+{%- assign socialMedia = 'Facebook,Instagram,Twitter,Whatsapp,We,Youtube,Snapchat,Viber,VK,DA,TikTok,Twitch,Linkedin,Pinterest' | split: ',' -%}
+{%- for social in socialMedia -%}
+    {%- assign prop = social | prepend: 's' -%}
+    {%- if settings[prop] != blank -%}
+        {%- assign name = social | downcase -%}
+        <a class="icon-link" href="{{settings[prop]}}">{% render 'get-icon' with name as icon %}</a>
+    {%- endif -%}
+{%- endfor -%}
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "social",
+    "name": "Social media",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Show for desktop",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "enabledMobile",
+            "label": "Show for mobile",
+            "default": true
+        },
+        {
+            "id": "align",
+            "label": "Alignment",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "auto"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

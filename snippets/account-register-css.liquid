@@ -1,0 +1,471 @@
+<style>
+  
+  .customer-register {
+    /*max-width: 1300px;*/
+    /*------As per the new requiremnet TW#33265426-----*/
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .customer-register .grid {
+    list-style: none;
+    padding: 0;
+    max-width: 1063px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 28px;
+    margin: auto;
+    padding-bottom: 28px;
+  }
+  
+  .customer-register .grid .grid__items-one {
+    width: 40.357478833%;
+    padding: 56px 69px 0 48px;
+    background-color: #f2f2f0;
+  }
+  
+  .customer-register .grid__items-one h5 {
+	letter-spacing: 0;
+	color: #2b2e34;
+	font-size: 21px;
+	text-align: left;
+	font-weight: 600 !important;
+	padding-bottom: 34px;
+	font-family: Montserrat, sans-serif;
+	margin-bottom: 0;
+	line-height: 1.1;
+  }
+  
+  .customer-register .heading-red {
+	letter-spacing: 0;
+	font-size: 30px;
+	color: #ce3330;
+	font-weight: 600;
+	display: block;
+	font-family: Montserrat, sans-serif;
+	line-height: 1.1;
+  }
+  
+  .customer-register .grid__item-one-pro {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	max-width: 309.5px;
+	list-style-type: none;
+	padding: 0;
+	margin-top: 0;
+  }
+  
+  .customer-register .manage-menu {
+	padding: 26px 0;
+    border-bottom: 1px solid #707070;
+  }
+
+  .customer-register .manage-menu:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .customer-register .manage-menu-img {
+    display: inline-block;
+    width: 44.29px;
+    text-align: center;
+  }
+  
+  .customer-register .manage-menu-img img {
+    vertical-align: middle;
+  }
+  
+  .customer-register .manage-menu:nth-child(4) .manage-menu-img img {
+    width: 22px;
+  }
+
+  .customer-register  p.manage-menu-desc {
+    display: inline-block;
+    margin-left: 26.71px;
+    letter-spacing: 0;
+    color: #000;
+    font-size: 16px;
+    font-family: Montserrat, sans-serif;
+    margin-top:0;
+    margin-bottom:0;
+  }
+  
+  .customer-register .grid .grid__item-two {
+    -ms-flex-preferred-size: auto;
+    -webkit-flex-basis: auto;
+    -moz-flex-basis: auto;
+    flex-basis: auto;
+    
+	width: 59.642521167%;
+	border: 1px solid #e6e6e6;
+	background-color: #fff;
+	padding: 56px 113px 144px 114px;
+  }
+  
+  .customer-register .cx-register {
+    padding: 0;
+  	margin-bottom: 0;
+    background-color: #FFFFFF;
+    text-align: center;
+  }
+  
+  .customer-register .cx-register h4 {
+	letter-spacing: 2px;
+	color: #000;
+	text-transform: uppercase;
+	font-size: 20px;
+	font-family: Lato, HelveticaNeue, "Helvetica Neue", sans-serif;
+	font-weight: 400;
+  	margin: 0 0 .625em;
+  }
+  
+  
+  .customer-register p.customer-login-desc {
+	text-align: center;
+	letter-spacing: .7px;
+	color: #000;
+	padding: 0 38px 0 40px;
+	margin-bottom: 30px;
+	font-family: Montserrat, sans-serif;
+	font-size: 13px;
+  }
+  
+  .customer-register .form-container {
+  	text-align: center;
+  }
+  
+  .customer-register .form-container .register-names {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .customer-register .register-names input {
+    border-radius: 0;
+    line-height: 1.375;
+    color: #333;
+    border: 0;
+    max-width: 100%;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e6e6e6;
+	font-size: 13px;
+    letter-spacing: .65px;
+    padding: 13px 25px;
+    display: block;
+    border-radius: 0;
+  }
+  
+  
+  .customer-register .form-container input[type="email"],
+  .customer-register .form-container input[type="password"]{
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 0;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 13px;
+    letter-spacing: .65px;
+    padding: 13px 25px;
+    max-width: 100%;
+    line-height: 1.375;
+    border-radius: 0;
+  }
+  
+  .customer-register .form-container input[type=submit] {
+    display: inline-block;
+    margin-top: 30px;
+    background-color: #ce3330;
+    padding: 15px 0 14px 0;
+    letter-spacing: 1.4px;
+    color: #fff;
+    text-transform: uppercase;
+    opacity: 1;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Montserrat, sans-serif;
+    border-radius: 0;
+    border: 1px solid transparent;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .customer-register .register-bottom-text {
+	letter-spacing: 1.2px;
+	color: #000;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  
+  .customer-register .register-bottom-text p {
+    color: #000;
+    font-size: 16px;
+    line-height: 22px;
+  }
+  
+  .customer-register .register-bottom-text a {
+    font-size: 16px;
+  }
+  
+  .customer-register .errors {
+    background-color: #ce3330;
+	color: #fff;
+	padding: 15px 0 14px 0;
+	margin: 0 0 10px;
+  }
+  
+  .customer-register .errors ul {
+    list-style: none;
+	padding: 0;
+	margin: 0;
+  }
+
+  .customer-register .errors ul li {
+    font-size: 14px;	
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.375;
+    letter-spacing: 1.1px;
+    font-family: Montserrat, sans-serif;
+  }
+
+  .customer-register .grid__item[class*="--push"] {
+    position: relative;
+  }
+
+  .customer-register .grid:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .customer-register .form-success {
+    color: #fff;
+  }
+
+  .errors,
+  .form-success,
+  .note {
+    padding: 13px;
+    margin: 0 0 10px;
+  }
+
+  .link-accent-color, a {
+    transition: color .1s ease-in, background-color .1s ease-in;
+    background-color: transparent;
+  }
+
+
+  #create_customer input::-webkit-input-placeholder,
+  #create_customer input::-moz-placeholder,
+  #create_customer input:-ms-input-placeholder {
+	letter-spacing: 0.65px;
+	color: #000000;
+	text-transform: uppercase;
+	opacity: 1;
+	font-size: 13px;
+	font-family: 'Montserrat', sans-serif;
+  }
+
+
+  .customer-register input:focus{
+	border-color: #000000;
+	border-bottom: 2px solid #000000;
+	border-radius: 0;
+  }
+
+  #customer_register_link u a {
+	color: #000;
+  }
+
+
+  .form-success {
+    padding: 13px;
+    margin: 0 0 10px;
+    background-color: #59ac6c;
+  }
+
+  .form-success span {
+    padding: 13px;
+    color: #FFF;
+  }
+
+
+  .form-success-link {
+    background-color: #59ac6c;
+    padding: 13px !important;
+    position: absolute;
+    top: 0;
+  }
+
+  .link-accent-color:hover,
+  a:hover,
+  .link-accent-color:focus,
+  .link-accent-color:hover,
+  a:focus,
+  a:hover {
+    color: #8c292a !important;
+  }
+
+@media only screen and (max-width: 1024px) {
+	.customer-register .grid .grid__item-two {
+		width: 59.642521167%!important;
+		border: 1px solid #e6e6e6;
+		background-color: #fff;
+		padding: 56px 50px 144px 50px!important;
+	}
+	.customer-register p.customer-login-desc  {
+		padding: 0 20px 0 20px;
+		font-size: 14px;
+	}
+	.cx-register h4 {
+		letter-spacing: 2px;
+		color: #000;
+		text-transform: uppercase;
+		font-size: 20px;
+		font-weight: 400 !important;
+		margin-bottom: 10px !important;
+	}
+	.customer-register .grid .grid__items-one {
+		padding: 56px 50px 0 39px;
+	}
+	.grid__items-one h5 {
+		font-size: 18px;
+	}
+	.heading-red {
+		letter-spacing: 0;
+		font-size: 21px!important;
+	}
+	.manage-menu-img {
+		width: 30.29px;
+	}
+	.manage-menu-img p:last-child {
+		margin-bottom: 0;
+	}
+	.manage-menu-desc {
+		margin-left: 14.71px;
+		font-size: 11px;
+	}
+	.customer-register .grid .grid__item-two {
+		padding: 56px 50px 144px 50px!important;
+	}
+	.register-names {
+		display: flex;
+		gap: 10px;
+	}
+	.register-bottom-text {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 767px) {
+	.main-content .page-width {
+		padding: 0 15px;
+	}
+	.customer-register p.customer-login-desc  {
+		font-size: 14px;
+	}
+	#shopify-section-account--register .form-vertical input[type=submit] {
+		padding: 8px 0 8px 0;
+		font-size: 13px;
+	}
+	.customer-register .grid {
+		flex-direction: column-reverse;
+		padding-bottom: 0;
+	}
+	.customer-register .grid .grid__items-one {
+		display: none;
+	}
+	.grid__items-one h5 {
+		padding-top: 20px;
+	}
+	.grid__item-one-pro {
+		width: 100%;
+		max-width: 100%;
+	}
+	.manage-menu {
+		max-width: 76%;
+		margin: auto;
+		width: 100%;
+	}
+	.manage-menu-img {
+		margin-left: 15px;
+	}
+	.manage-menu-desc {
+		margin-left: 15.71px;
+		font-size: 14px;
+	}
+	.customer-register .grid .grid__item-two,
+	.customer-register .grid .grid__items-one {
+		border: none;
+		padding: 0 !important;
+		width: 100% !important;
+	}
+	.register-names {
+		justify-content: space-between;
+		width: 100%;
+	}
+	.register-fname,
+	.register-lname {
+		width: 50%;
+	}
+	#create_customer .btn {
+		padding: 8px 0 8px 0;
+		font-size: 13px;
+	}
+	.register-bottom-text {
+		font-size: 14px;
+	}
+	
+	
+	.shopify-section {
+		padding-bottom: 0;
+	}
+	.page-width {
+		padding: 0 15px;
+	}
+	.customer-register input:focus {
+		border-color: #e59837;
+		border-bottom: 2px solid #000;
+		border-radius: 0;
+	}
+	
+	#shopify-section-account--register .errors{
+		padding: 8px 20px;
+	}
+	#RecoverPasswordForm input {
+		padding: 8px 20px;
+	}
+	.h1,
+	.h1--mini,
+	h1 {
+		font-family: Lato, HelveticaNeue, "Helvetica Neue", sans-serif;
+		font-weight: 700;
+		font-size: 1.875em !important;
+	}
+  	
+  #create_customer input::-webkit-input-placeholder,
+  #create_customer input::-moz-placeholder,
+  #create_customer input:-ms-input-placeholder,
+  #create_customer input:-moz-placeholder {
+    font-size: 10px;
+  }
+  
+  #customer_register_link {
+    margin-bottom: 0;
+  }
+  
+  .customer-register .form-vertical input,
+  .form-vertical select,
+  .form-vertical textarea,
+  .customer-register .form-container input[type="email"], 
+  .customer-register .form-container input[type="password"] {
+    padding: 13px;
+  }
+}
+</style>

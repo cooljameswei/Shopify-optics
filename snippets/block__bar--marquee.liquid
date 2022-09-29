@@ -1,0 +1,48 @@
+{%- assign messageArr = block.settings.messages | split: '</p>' -%}
+<div data-currentMessage=0 data-blocktype="{{block.type}}" data-blockid="{{block.id}}" data-messagescount={{messageArr.size | minus: 1}} id="marquee--{{block.id}}" class="marquee-container" {{ block.shopify_attributes }}>
+{%- for message in messageArr -%}
+{{message}}</p>
+{%- endfor -%}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "barTextMarquee",
+    "name": "Scrolling messages",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Show for desktop",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "enabledMobile",
+            "label": "Show for mobile",
+            "default": true
+        },
+        {
+            "id": "align",
+            "label": "Alignment",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "auto"
+        },
+        {
+            "id": "messages",
+            "type": "richtext",
+            "label": "Messages to scroll",
+            "info": "Separate messages with enter/return (new line)",
+            "default": "<p>This is one message</p><p>This is another one</p>"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

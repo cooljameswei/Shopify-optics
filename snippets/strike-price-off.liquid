@@ -1,0 +1,137 @@
+
+<style>
+    .strike__price-text p {
+      font-size: 16px;
+      border: 2px solid #008001;
+      padding: 0px 10px;
+      background: #ffffff;
+      color: #008001;
+      font-weight: 600;
+      line-height: initial;
+      letter-spacing: 1.5px;
+    }
+    .strike__price-text.sticky-price-text p {
+      font: 600 13px/37px Montserrat;
+      color: #008001;
+      border: none;
+      padding: 0;
+    }
+    .pdp-sticky-bottom .product-single__price--compare {
+      color: #505050;
+      font-weight: 400;
+    }
+  </style>
+  <script type="text/javascript">
+    window.STRIKE_PRICE_OFF = window.STRIKE_PRICE_OFF || {};
+    window.STRIKE_PRICE_OFF.settings = window.STRIKE_PRICE_OFF.settings || {}; 
+    window.STRIKE_PRICE_OFF.settings.show_strike_and_text = {{-settings.show_strike_and_text | split:"," | json-}};
+    window.STRIKE_PRICE_OFF.settings.show_text_only = {{-settings.show_text_only | split:"," | json -}};
+    window.STRIKE_PRICE_OFF.settings.hide_strike_and_text = {{-settings.hide_strike_and_text | split:"," | json-}};
+    window.STRIKE_PRICE_OFF.productVariants = window.STRIKE_PRICE_OFF.productVariants || [];
+    window.STRIKE_PRICE_OFF.productVendor = window.STRIKE_PRICE_OFF.productVendor || "";
+    window.STRIKE_PRICE_OFF.productVendor = {{-product.vendor | json-}};
+    {%- for variant in product.variants -%}
+     {%- assign percentageOff = 0 -%}
+        {%- if variant.compare_at_price > variant.price -%}
+            {% assign percentageOff = variant.compare_at_price | minus:variant.price | times:100.0 | divided_by:variant.compare_at_price | money_without_currency | times: 100 | remove: '.0' %}
+        {%- endif -%}
+      window.STRIKE_PRICE_OFF.productVariants.push({
+        variant_id:{{-variant.id | json-}},
+        price:{{-variant.price | json-}},
+        compare_at_price:{{-variant.compare_at_price | json-}},
+        save_percentage:{{percentageOff | json}}
+      });
+    {%- endfor -%}
+    
+    window.STRIKE_PRICE_OFF.hideStrikePriceSaveText  = () => {
+      let _strikePriceNodes = document.getElementsByClassName("strike__strike-price") || undefined;
+      if(_strikePriceNodes){
+        _strikePriceNodes = Array.prototype.slice.call(_strikePriceNodes);
+        for (let index = 0; index < _strikePriceNodes.length; index++) {
+          let strikePriceNode = _strikePriceNodes[index];
+          strikePriceNode.classList.add("hide");
+        }  
+      }
+      let _saveTextNodes = document.getElementsByClassName("strike__price-text") || undefined;
+      if(_saveTextNodes){
+        _saveTextNodes = Array.prototype.slice.call(_saveTextNodes);
+        for (let index = 0; index < _saveTextNodes.length; index++) {
+          let saveTextNode = _saveTextNodes[index];
+          saveTextNode.classList.add("hide")
+  
+        }  
+      }
+    }
+    
+    window.STRIKE_PRICE_OFF.hideStrikePrice  = () => {
+      let _productVendor = window.STRIKE_PRICE_OFF.productVendor;
+      let hide_strike_and_text = window.STRIKE_PRICE_OFF.settings.hide_strike_and_text;
+      let show_text_only = window.STRIKE_PRICE_OFF.settings.show_text_only;
+      if(hide_strike_and_text.includes(_productVendor) || show_text_only.includes(_productVendor)){
+        let _strikePriceNodes = document.getElementsByClassName("strike__strike-price") || undefined;
+        if(_strikePriceNodes){
+          _strikePriceNodes = Array.prototype.slice.call(_strikePriceNodes);
+          for (let index = 0; index < _strikePriceNodes.length; index++) {
+            let strikePriceNode = _strikePriceNodes[index];
+            strikePriceNode.classList.add("hide");
+          }  
+        }
+      }
+    }
+    window.STRIKE_PRICE_OFF.hideSaveText  = () => {
+      let _productVendor = window.STRIKE_PRICE_OFF.productVendor;
+      let hide_strike_and_text = window.STRIKE_PRICE_OFF.settings.hide_strike_and_text;
+      
+      if(hide_strike_and_text.includes(_productVendor)){
+        let _saveTextNodes = document.getElementsByClassName("strike__price-text") || undefined;
+        if(_saveTextNodes){
+          _saveTextNodes = Array.prototype.slice.call(_saveTextNodes);
+          for (let index = 0; index < _saveTextNodes.length; index++) {
+            let saveTextNode = _saveTextNodes[index];
+            saveTextNode.classList.add("hide")
+            
+          }  
+        }
+      }
+    }
+    window.STRIKE_PRICE_OFF.showStrikePrice  = () => {
+      let _productVendor = window.STRIKE_PRICE_OFF.productVendor;
+      let show_strike_and_text = window.STRIKE_PRICE_OFF.settings.show_strike_and_text;
+      if(show_strike_and_text.includes(_productVendor)){
+        let _strikePriceNodes = document.getElementsByClassName("strike__strike-price") || undefined;
+        if(_strikePriceNodes){
+          _strikePriceNodes = Array.prototype.slice.call(_strikePriceNodes);
+          for (let index = 0; index < _strikePriceNodes.length; index++) {
+            let strikePriceNode = _strikePriceNodes[index];
+            strikePriceNode.classList.remove("hide");
+          }  
+        }
+      }
+    }
+    window.STRIKE_PRICE_OFF.showSaveText  = () => {
+      let _productVendor = window.STRIKE_PRICE_OFF.productVendor;
+      let show_strike_and_text = window.STRIKE_PRICE_OFF.settings.show_strike_and_text;
+      let show_text_only = window.STRIKE_PRICE_OFF.settings.show_text_only;
+      if(show_strike_and_text.includes(_productVendor) || show_text_only.includes(_productVendor)){
+        let _saveTextNodes = document.getElementsByClassName("strike__price-text") || undefined;
+        if(_saveTextNodes){
+          _saveTextNodes = Array.prototype.slice.call(_saveTextNodes);
+          for (let index = 0; index < _saveTextNodes.length; index++) {
+            let saveTextNode = _saveTextNodes[index];
+            saveTextNode.classList.remove("hide");
+          }  
+        }
+      }
+    }
+    
+    window.STRIKE_PRICE_OFF.setSaveText  = (percentageAmount) => {
+      let _saveTextNodes = document.getElementsByClassName("strike__price-text") || undefined;
+      if(_saveTextNodes){
+        _saveTextNodes = Array.prototype.slice.call(_saveTextNodes);
+        for (let index = 0; index < _saveTextNodes.length; index++) {
+          let saveTextNode = _saveTextNodes[index];
+          saveTextNode.innerHTML = `<p>You save ${percentageAmount}%</p>`;
+        }  
+      }
+    }
+  </script>

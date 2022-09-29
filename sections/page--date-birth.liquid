@@ -1,0 +1,143 @@
+<script src="{{'jquery.min.js' | asset_url}}"></script>
+
+{% render 'page-date-birth-css' %}
+
+<div class="dob-container">
+  <div class="dob-inner-container">
+    <div class="dob-inner-container-one">
+      {% if section.settings.enable_successful_msg %}
+      	<p class="dob-inner-container-cong">{{section.settings.msg_txt1}}</p>
+      {% endif %}
+      {% if section.settings.enable_icon %}
+      	<img class="dob-img" src="{{section.settings.dob_icon | img_url:'60x60'}}" alt="DOB ICON"/>
+      {% endif %}
+      {% if section.settings.enable_msg_txt2 %}
+      	<p class="dob-inner-container-moredata">{{section.settings.msg_txt2}}</p>
+      {% endif %}
+      {% if section.settings.enable_msg_txt3 %}
+      	<p class="dob-inner-container-moreinfo">{{section.settings.msg_txt3}}</p>
+      {% endif %}	
+    </div>
+
+    {% if section.settings.enable_klaviyo and section.settings.klaviyo_unique_class %}
+    <div class="{{ section.settings.klaviyo_unique_class}} "></div>
+    {% endif %}
+    
+    {% if section.settings.enable_link_text %}
+    <p class="dob-inner-container-goto-ac">
+      <a href="/account/">
+        {{section.settings.link_text}}
+      </a>
+    </p>
+  	{% endif %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Page Date-Birth",
+	"class":"dob-section",
+    "settings": [
+		{
+			"type":"checkbox",
+			"id":"enable_successful_msg",
+			"label":"Successful Message",
+			"default":true
+		},
+		{
+			"type": "text",
+			"id": "msg_txt1",
+			"label": "Successful Message",
+			"default":"Congratulations you are registered successfully."
+         },
+		{
+			"type":"checkbox",
+			"id":"enable_icon",
+			"label":"Enable Icon",
+			"default":true
+		},	
+		{
+			"type": "image_picker",
+			"id": "dob_icon",
+			"label": "Featured Icon"
+         },
+		{
+			"type":"checkbox",
+			"id":"enable_msg_txt2",
+			"label":"Enable Message Text2",
+			"default":true
+		},
+		{
+			"type": "text",
+			"id": "msg_txt2",
+			"label": "Message Text2",
+			"default":"WANT SOMETHING MORE FOR YOUR BIRTHDAY"
+         },
+		{
+			"type":"checkbox",
+			"id":"enable_msg_txt3",
+			"label":"Enable Message Text3",
+			"default":true
+		},
+		{
+			"type": "text",
+			"id": "msg_txt3",
+			"label": "Message Text3",
+			"default":"Please add your <b>date of birth</b> to get special surprise on birthday (Optional)."
+         },
+		{
+			"type":"checkbox",
+			"id":"enable_link_text",
+			"label":"Enable Message Text3",
+			"default":true
+		},	
+        {
+          "type": "checkbox",
+          "id": "enable_klaviyo",
+          "label": "Enable Klaviyo",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "klaviyo_unique_class",
+          "label": "Klaviyo Unique class",
+          "default": "klaviyo-form-UZSQQC"
+        },	
+		{
+			"type": "text",
+			"id": "link_text",
+			"label": "Link text",
+			"default":"<b>Go to <u>My Account</u></b>"
+         }
+	],
+	"presets": [
+		{
+			"category": "custom-page-sections",
+			"name": "Page--Date-Birth"
+		}
+	]
+  }
+{% endschema %}
+
+<script>
+  {% assign cust_email = customer.email %}
+  var j = jQuery.noConflict();
+  j(document).ready(function () {
+    j(window).on('load',function(){
+        setTimeout(function(){
+          $(".dob-container form > div > div:first-child input").val('{{cust_email}}')
+        },1000);
+        $(document).on('click','.dob-container form > div > div:nth-child(3) > div:last-child button',function(){
+          setTimeout(function(){
+            $(".dob-container form > div > div:first-child input").val('{{cust_email}}')
+          },200)
+        })
+        $(document).on('keydown','.dob-container form > div > div:nth-child(2) input',function(){
+          setTimeout(function(){
+          	$(".dob-container form > div > div:first-child input").val('{{cust_email}}')
+         },200)
+        })
+        j(".dob-container form > div > div:nth-child(3) > div:last-child button").trigger('click');
+      }); 
+  });
+</script>

@@ -1,0 +1,344 @@
+{%liquid
+    assign condition_blocks = section.blocks
+    assign ignore_collections = section.settings.ignore_collections
+    assign max_products_limit = section.settings.max_products_limit | plus:0 | default:10
+    assign max_products_limit = max_products_limit | minus: 1
+    assign title = section.settings.title | default: "Other fine products"
+    assign show_related_products = section.settings.show_related_products
+    assign current_product = product
+    assign final_related_products = "" | split: ","
+    assign global_ignore_product_tag = "RX LENSES"
+    assign sold_out_tag = "SOLD_OUT"
+    assign default_sort='best-selling'
+    assign global_ignore_product_vendors = "Extend, Shipping Insurance" | split:","
+    assign default_collection = current_product.collections | first | default:""
+    assign no_condition_found = true
+    if condition_blocks.size > 0
+        for condition_block in condition_blocks
+            assign product_types = condition_block.settings.product_types | split:","
+            assign match_product_tags = condition_block.settings.match_product_tags | split:"," 
+            assign match_product_types = condition_block.settings.match_product_types | split:","
+            assign match_product_metaKeys = condition_block.settings.match_product_meta | split:","
+            assign check_collection = collections[condition_block.settings.check_collection] | default:default_collection 
+            
+            assign toggle_condition_state = condition_block.settings.toggle_condition_state
+            assign final_related_products = "" | split: ","
+            unless ignore_collections contains check_collection.handle
+                if toggle_condition_state == true
+                    if check_collection
+
+                        if product_types contains current_product.type
+                            assign no_condition_found = false
+                            paginate check_collection.all_products by 500
+                                for collection_product in check_collection.all_products
+
+                                    if collection_product.tags contains sold_out_tag or collection_product.tags contains global_ignore_product_tag or collection_product.handle == current_product.handle or global_ignore_product_vendors contains collection_product.vendor or current_product.type != collection_product.type
+                                        continue
+                                    endif
+                                   
+                                    assign related_product_found = false 
+                                    assign match_tag_found=true
+                                    assign match_product_type_found=true
+                                    assign match_product_metaKey_found = false
+                                    assign match_product_metaKey_found_counter = 0
+                                    if match_product_tags != blank
+                                        for match_product_tag in match_product_tags 
+                                            if collection_product.tags contains match_product_tag 
+                                                assign match_tag_found=true 
+                                                break 
+                                            endif
+                                        endfor 
+                                    endif
+                                    
+                                    if match_product_types != blank and match_product_types contains collection_product.type  
+                                        assign match_product_type_found=true
+                                    endif
+                              
+                                    if match_product_metaKeys != blank
+                                        for match_product_metaKey in match_product_metaKeys
+                                            assign meta_namespace = "ProductData"
+                                            case match_product_metaKey
+                                                when "Bridge Type"
+                                                    assign meta_namespace = "productdata"
+                                                when "Rim Type"
+                                                    assign meta_namespace = "producttype"
+                                                when "Material"
+                                                    assign meta_namespace = "ProductData"
+                                                when "Shape"
+                                                    assign meta_namespace = "ProductData"
+                                                when "Gender"
+                                                    assign meta_namespace = "ProductData"
+                                                else
+                                                    assign meta_namespace = "ProductData"
+                                            endcase
+
+                                            assign colMetaValue = collection_product.metafields.ProductData[match_product_metaKey] | handleize | downcase
+                                            assign colMetaValue = colMetaValue | default:nil
+                                            if colMetaValue == nil
+                                                assign colMetaValue = collection_product.metafields[meta_namespace][match_product_metaKey] | handleize | downcase    
+                                            endif
+                                            assign curMetaValue = current_product.metafields.ProductData[match_product_metaKey] | handleize | downcase
+                                            assign curMetaValue = curMetaValue | default:nil
+                                            if curMetaValue == nil
+                                                assign curMetaValue = current_product.metafields[meta_namespace][match_product_metaKey] | handleize | downcase    
+                                            endif
+
+                                            assign metaKey = colMetaValue | append:"-" | append:curMetaValue
+                                            assign metaKey = metaKey | strip
+                                            if metaKey != "-"
+                                                if match_product_metaKey ==  "Gender" 
+                                                    if colMetaValue == "unisex" or colMetaValue == curMetaValue
+                                                        assign match_product_metaKey_found_counter = match_product_metaKey_found_counter | plus:1
+                                                    endif
+                                                else            
+                                                    if colMetaValue == curMetaValue                 
+                                                        assign match_product_metaKey_found_counter = match_product_metaKey_found_counter | plus:1
+                                                    endif
+                                                endif
+                                            endif
+                                        endfor
+                                    endif
+
+                                    
+                                    if match_product_metaKeys.size == match_product_metaKey_found_counter
+                                        assign match_product_metaKey_found = true
+                                    endif   
+                                    
+                                    if match_tag_found or match_product_type_found
+                                        if match_product_metaKey_found 
+                                            assign related_product_found = true
+                                        endif 
+                                    elsif match_product_metaKey_found
+                                        assign related_product_found = true
+                                    else
+                                        assign related_product_found = true
+                                    endif
+                                    
+                                    if related_product_found == true 
+                                        assign handle = collection_product.handle | split:","
+                                        assign final_related_products = final_related_products | concat: handle    
+                                    endif
+                                endfor
+                                break 
+                            endpaginate
+                        endif
+                    endif
+                endif
+            endunless
+        endfor  
+    endif
+    
+    if no_condition_found
+        assign collection_products = default_collection.products | sort: default_sort
+        for collection_product in collection_products
+            if collection_product.tags contains global_ignore_product_tag or collection_product.handle == current_product.handle or global_ignore_product_vendors contains collection_product.vendor or current_product.type != collection_product.type
+                continue
+            endif
+            assign handle = collection_product.handle | split:","
+            assign final_related_products = final_related_products | concat: handle 
+        endfor
+    endif
+
+    if final_related_products.size < max_products_limit 
+        assign max_products_limit = final_related_products.size | minus: 1
+    endif    
+    
+%}
+
+{% if condition_blocks.size > 0 and section.settings.show_related_products and final_related_products.size > 0%}
+    <div class="main-content">
+        <div class="related-products-con product-template__container page-width" 
+            id="ProductSection-{{ section.id }}" 
+            data-section-id="{{ section.id }}" 
+            data-section-type="related-products" 
+            data-enable-history-state="true">
+            <aside class="grid">
+                <div class="grid__item">
+                    {% unless title == blank %}
+                        <header class="section-header">
+                            <h2 class="section-header__title">{{ title }}</h1>
+                        </header>
+                    {% endunless %}
+                    <div class="grid-uniform related-slider">
+                        {% for i in (0..max_products_limit) %}
+                            {% assign related_product = all_products[final_related_products[i]] %}
+                            <div class="grid__item medium--one-third large--one-quarter{% unless related_product.available %} sold-out{% endunless %}{% if related_product.compare_at_price > related_product.price %} on-sale{% endif %}{% if forloop.last %} last{% endif %}">
+                                <div class="product-wrapper">
+                                    {% include 'new-product-card', product:related_product %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+{% endif %}
+<script type="lazyload2">
+    $(function(){
+
+        $(".new-product-card .variant-item").hover(function(){
+            let s = $(this).attr('data-img');
+            let p = $(this).parents('.new-product-card');
+            p.find('.product-card__image-wrap img').attr('src',s);
+        });
+
+        let uniProduct_thmub = [];
+
+        $('.new-product-card .variants-wrapper').each(function(){
+            let $this = $(this);
+            $this.find('.variant-item').each(function(){
+            let img = $(this).attr('data-img');
+                if(uniProduct_thmub.indexOf(img) == -1){
+                    uniProduct_thmub.push(img)
+                }else{
+                    $(this).remove()
+                }
+            })
+        });
+
+        $('.related-slider').slick({
+            infinite: true,
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            responsive: [
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        dots:true,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        centerMode: true,
+                        dots:true,
+                        centerPadding: '70px'
+                    }
+                }
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+            ]
+        });
+    })
+</script>
+<style>
+    .related-products__section{
+        background-color: #ffffff !important;
+    }
+    .related-products__section .main-content{
+        margin-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    @media only screen and (min-width: 750px) {
+        .main-content{
+            padding-bottom: 0 !important;
+        }
+    }
+    .related-products-con{
+        margin-top:0;
+        background-color: #ffffff !important;
+    }
+    .related-products__section .section-header {
+        margin-bottom: 0;
+    }
+  </style>
+{% schema %} 
+{
+    "name": "Related products New",
+    "class":"related-products__section",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_related_products",
+            "label": "Show related products",
+            "default": false
+        },
+        {
+            "id": "title",
+            "type": "text",
+            "label": "Title",
+            "default": "Other fine products"
+        },
+        {
+            "id":"ignore_collections",
+            "type":"text",
+            "label":"Ignore collections",
+            "default": "frontpage,all",
+            "info":"Collection handle(s); Add multiple handles by comma(,) separated."
+        },
+        {
+            "type": "range",
+            "id": "max_products_limit",
+            "label": "Products limit",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "default": 10
+        }
+    ],
+    "blocks":[
+        {
+            "type": "condition_block",
+            "name": "Condition",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Condition title",
+                    "default":"Condition 1"
+                },
+                {
+                    "type": "text",
+                    "id": "product_types",
+                    "label": "Product type",
+                    "info": "Add multiple product types by comma(,) separated."
+                },
+                {
+                    "type": "collection",
+                    "id": "check_collection",
+                    "label": "Select collection",
+                    "info": "Look into this collection to find related products if below rule(s) match."
+                },
+                {
+                    "type": "text",
+                    "id": "match_product_tags",
+                    "label": "Match product tags",
+                    "info": "Add multiple product tags by comma(,) separated. if blank it then ignored"
+                },
+                {
+                    "type": "text",
+                    "id": "match_product_types",
+                    "label": "Match additional product types",
+                    "info": "Add multiple product types by comma(,) separated. if blank it then ignored"
+                },
+                {
+                    "type": "text",
+                    "id": "match_product_meta",
+                    "label": "Match product meta keys",
+                    "info": "Add multiple product meta keys by comma(,) separated. if blank it then ignored"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "toggle_condition_state",
+                    "label": "Enable",
+                    "default": true,
+                    "info": "Enable / disable condition"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "category": "Customization",
+            "name": "Related products new"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,241 @@
+{% render "blog-list-css" %}
+{% paginate blog.articles by 10 %}
+
+  <div class="row article__max-width row__blog">
+  {% for article in blog.articles %}
+    <div class="blog__listing--horizontal">
+      {% comment %}
+        <a href="{{article.url}}" class="blog__listing--ratio">
+          {% unless article.image == nil %}
+              {% render 'ratio-image', ratioType: 'vw', dratio: '50', mratio: '100', image: article.image.src, alt: article.image.alt, class: 'blog__listing--image' %}
+          {% else %}
+              {% assign imagesrc = 'no-blog-image.png' %}
+              {% render 'ratio-image-asset', ratioType: 'vw', dratio: '50', mratio: '100', image: imagesrc, class: 'blog__listing--image' %}
+          {% endunless %}
+        </a>
+      {% endcomment %}
+      {% unless article.image == nil %}
+      <a href="{{article.url}}" class="blog__listing--ratio">
+          {% render 'ratio-image', ratioType: 'vw', dratio: '50', mratio: '100', image: article.image.src, alt: article.image.alt, class: 'blog__listing--image' %}
+      </a>
+      {% endunless %}
+      <div class="blog__listing--info">
+        <a href="{{article.url}}" class="blog__listing--title">
+          {{ article.title }}
+        </a>
+        {% if section.settings.publish_date%}
+          <p class="blog__meta">
+             Updated: {{ article.published_at | time_tag: format: 'month_day_year' }}
+          </p>
+        {% endif %}
+        {% if article.excerpt.size > 0 %}
+          <p class="blog__listing--excerpt">
+            {{article.excerpt | default: article.content | truncate: 280 | strip_html }}
+          </p>
+		{% else %}
+			<p class="blog__listing--article">{{ article.content | strip_html | truncatewords: 20 }}</p>
+		{% endif %}
+        {% render 'button', type: 'primary', url: article.url, text: 'Read more' %}
+      </div>
+    </div>
+  {% endfor %}
+  {% if paginate.pages > 1 %}
+		<div class="col-12 center middle pagination">
+			{{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+		</div>
+  {% endif %}
+  </div>
+
+{% endpaginate %}
+<div class="left-sidebar blog">
+  	{% if section.settings.recent-posts %}
+		<div class="sidebar-content recent-posts">
+			<div class="widget-header">
+				<h3>Recent Posts</h3>
+			</div>
+
+			<div class="latest-blog-posts-wrapper">
+				<ul class="latest-blog-posts-list">
+					{% for article in blog.articles limit: 3 %}
+						<li><div class="left-wrap"><img src="{{ article.image | img_url: '67x42' }}"></div><div class="right-wrap">{{ article.title | link_to: article.url }}</div></li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+  	{% endif %}
+  	{% if section.settings.blog-tag %}
+		<div class="sidebar-content blog-tag">
+			<div class="widget-header">
+				<h3>BLOG TAGS</h3>
+			</div>
+			<div class="latest-blog-posts-wrapper">
+				<ul class="latest-blog-posts-list">
+					{% for tag in blog.all_tags %} 
+						<a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="link-body-color"><strong>{{ tag }}</strong></a>
+					{% endfor %}
+					
+				</ul>
+			</div>
+		</div>
+  	{% endif %}
+  	{%- assign collection = collections[section.settings.collection] -%}
+  	{% if section.settings.feature-product %}
+		<div class="sidebar-content featured-products">
+			<div class="featured-pro-wrapper">
+				<div class="blog-featured-products-main-wrapper">
+              	<h3 class="h4">Hot Deal</h3>
+                <div class="blog-featured-products-wrapper">
+                  {% for product in collection.products limit: 4 %}
+                    <div class="item-wrap">
+                      {% include 'product-card', product: product %}
+                    </div>
+			  	 {% endfor %}
+                </div>
+              </div>
+            </div>
+		</div>
+  	{% endif %}
+  	{% if section.settings.follow-us %}
+		<div class="sidebar-content follow-us">
+			<div class="featured-folow-wrapper">
+				<h3 class="h4">Follow Us</h3>
+				<ul>
+                  {% if section.settings.facebook-icon-enable %}	
+					<li class="facebook"><a href="{{section.settings.facebook-url}}"><img src="{{section.settings.facebook-icon | img_url:'master'}}" alt="facebook icon" /></a></li>
+				  {% endif %}
+                  {% if section.settings.twitter-icon-enable %}	
+					<li class="twitter"><a href="{{section.settings.twitter-url}}"><img src="{{section.settings.twitter-icon | img_url:'master'}}" alt="twitter icon" /></a></li>
+				  {% endif %}
+                  {% if section.settings.pintrest-icon-enable %}	
+					<li class="printrest"><a href="{{section.settings.pintrest-url}}"><img src="{{section.settings.pintrest-icon | img_url:'master'}}" alt="pintrest icon" /></a></li>
+				  {% endif %}
+                </ul>
+				<div class="newsletter-wrapper">
+				 <h3 class="h4">NEWSLETTER</h3>
+				 <p>Fill your email below to subscribe to our newsletter</p>
+				 <div class="klaviyo-form-WDa6ie"></div>
+         		</div>
+	
+
+			</div>
+		</div>
+  	{% endif %}
+</div>
+<link rel="stylesheet" type="text/css" href="{{'slick.css' | asset_url}}"/>
+<link rel="stylesheet" type="text/css" href="{{'slick-theme.css' | asset_url}}"/>  
+<script type="text/javascript" src="{{'slick.min.js' | asset_url}}"></script>
+<script>
+	$('.blog-featured-products-wrapper').slick({
+		infinite: true,
+		autoplay:  true,
+		arrows:  true,
+		speed: 1000,
+	})
+</script>
+
+{% schema %}
+{
+	"name":"Blog Settings",
+	"class": "blog-shopify-section",
+	"settings":[
+		{
+			"type":"checkbox",
+			"id":"publish_date",
+			"label":"Publish Date",
+			"default":true
+		},
+		{
+			"type":"checkbox",
+			"id":"recent-posts",
+			"label":"Recent Posts",
+			"default":true
+		},
+		{
+			"type":"checkbox",
+			"id":"blog-tag",
+			"label":"Blog Tags",
+			"default":true
+		},
+		{
+			"type":"checkbox",
+			"id":"feature-product",
+			"label":"Feature Product",
+			"default":true
+		},
+		{
+			"type":"checkbox",
+			"id":"follow-us",
+			"label":"Follow Us",
+			"default":true
+		},
+		{
+			"type":"checkbox",
+			"id":"block-position",
+			"label":"Swap Article Block Position",
+			"default":false
+		},
+		{
+			"type":"checkbox",
+			"id":"article-content-position",
+			"label":"Swap Article content Position",
+			"default":false
+		},
+		{
+			"type":"checkbox",
+			"id":"facebook-icon-enable",
+			"label":"Facebook Icon",
+			"default":true
+		},
+		{
+			"type": "image_picker",
+			"id": "facebook-icon",
+			"label": "Facebook Icon"
+         },
+		 {
+			"type": "text",
+			"id": "facebook-url",
+			"label": "Facebook URL",
+			"default":"https://www.facebook.com/DesignerOpticscom/"
+         },
+		 {
+			"type":"checkbox",
+			"id":"twitter-icon-enable",
+			"label":"Twitter Icon",
+			"default":true
+		},
+		{
+			"type": "image_picker",
+			"id": "twitter-icon",
+			"label": "Twitter Icon"
+         },
+		 {
+			"type": "text",
+			"id": "twitter-url",
+			"label": "Twitter URL",
+			"default":"https://twitter.com/designeroptics1"
+         },
+		 {
+			"type":"checkbox",
+			"id":"pintrest-icon-enable",
+			"label":"Pintrest Icon",
+			"default":true
+		},
+		{
+			"type": "image_picker",
+			"id": "pintrest-icon",
+			"label": "Pintrest Icon"
+         },
+		 {
+			"type": "text",
+			"id": "pintrest-url",
+			"label": "Pintrest URL",
+			"default":"#"
+         },
+		{
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+      	}
+	]
+}
+{% endschema %}

@@ -1,0 +1,270 @@
+<style>
+.faq-accordian-container .main--content .accordion-wrapper .item .body ul {
+    padding-left: 50px;
+}
+.cont-info--main {
+    background: #f7f7f7 0 0 no-repeat padding-box;
+    margin-bottom: 51px;
+}
+.faq--padd {
+    padding: 0 6.45%;
+}
+.contact--info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 21.5px 0;
+  	/*------As per the new requiremnet TW#33265426-----*/
+  	max-width: 1350px;/*--------Added this css----*/
+    margin: auto;/*--------Added this css----*/
+}
+.contact--info .contact--info-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 67%;
+}
+.contact--info-wrap div {
+    display: flex;
+    align-items: center;
+}
+.contact--info-wrap div img {
+    margin-right: 17px;
+}
+.contact--info-wrap div span {
+    text-align: left;
+    font: normal normal normal 16px/19px Karla;
+    letter-spacing: 0;
+    color: #000;
+}  
+.vertical-line {
+    width: 1px;
+    height: 30px;
+    background: #333;
+}
+.search-wrap {
+    background: #c63b3d 0 0 no-repeat padding-box;
+    border-radius: 25px;
+    padding: .5px 18px;
+}
+.search-wrap input {
+    background: 0 0;
+    outline: 0;
+    text-align: left;
+    font: normal normal normal 16px/19px Karla;
+    letter-spacing: 0;
+    color: #fff;
+  	padding:13px 15px;
+  	border: 0;
+    max-width: 100%;
+}
+.search-wrap input::placeholder{
+	color:white;
+}
+.faq-accordion .mobile_dropdownbtn {
+    display: none;
+}
+.faq-accordian-container {
+    display: flex;
+  	/*------As per the new requiremnet TW#33265426-----*/
+  	max-width: 1350px;/*--------Added this css----*/
+    margin: auto;/*--------Added this css----*/
+}
+.sidebar {
+    width: 29.25%;
+    margin-right: 5.55%;
+}
+.faq-accordion .maintitle {
+    padding: 0 16px;
+    margin-bottom: 6px;
+    background: #e9e9e9 0 0 no-repeat padding-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.faq-accordion .maintitle>img {
+    margin-right: 10px;
+    width: 25px;
+}
+.faq-accordion .maintitle h3 {
+    text-align: left;
+    font: normal normal normal 16px/19px Karla;
+    letter-spacing: 0;
+    color: #3c3c3c;
+    opacity: 1;
+    width: 100%;
+    padding: 16px 0;
+    cursor: default;
+}
+.faq-accordion .maintitle.active {
+    background: #c63b3d 0 0 no-repeat padding-box;
+}
+.faq-accordion .maintitle.active::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    background: #c63b3d;
+    z-index: 0;
+    transform: rotate(45deg);
+}
+.faq-accordion .maintitle.active h3 {
+    color: #fff;
+}
+.faq-accordion .main--content {
+    width: 63.5%;
+    margin-top: 0;
+}
+.faq-accordion .maintitle.active img {
+    filter: brightness(500%);
+}
+.faq-accordion .main--content .accordion-wrapper {
+    display: none;
+    background: #fff;
+    margin-bottom: 37.5px;
+}
+.faq-accordion .main--content .accordion-wrapper.active {
+    display: block;
+}
+.d-inline {
+    display: inline!important;
+}
+.faq-accordion .main--content .accordion-wrapper h2 {
+    text-align: left;
+    font: normal normal bold 24px/28px Karla;
+    letter-spacing: 0;
+    color: #000;
+    opacity: 1;
+  	/*As per design changes (TW:33117460)*/
+  	margin-bottom:10px;
+}
+.faq-accordion .item .title {
+    text-align: left;
+    font: normal normal normal 16px/19px Karla;
+    letter-spacing: 0;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*As per design changes (TW:33117460)*/
+    border-top: 1px solid #d9d9d9;
+    background: 0 0;
+    padding: 10px 0;
+  	cursor:pointer;
+}
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+}
+.faq-accordion .main--content .accordion-wrapper .item .title span.icon img {
+    display: block;
+    padding-top: 5px;
+}
+.faq-accordion .main--content .accordion-wrapper .item .title span.icon img:first-child {
+    display: none;
+}
+.faq-accordion .main--content .accordion-wrapper .item .title.active span.icon img:first-child {
+    display: block;
+}  
+.faq-accordion .main--content .accordion-wrapper .item .title.active span.icon img:last-child {
+    display: none;
+}  
+.faq-accordion .main--content .accordion-wrapper .item .body {
+    display: none;
+}
+.faq-accordion .item .body p {
+    text-align: justify;
+    font: normal normal normal 16px/24px Karla;
+    letter-spacing: 0;
+    color: #000;
+  	/*As per design changes (TW:33117460)*/
+    padding: 8px 8px 18px 0px;
+  	margin: 0 0 0 20px;
+}
+.faq-accordion .item .body p:last-child {
+    margin-bottom: 0;
+}
+.faq-accordion .maintitle.active {
+    background: #c63b3d 0 0 no-repeat padding-box;
+}
+.faq-accordion .maintitle h3 {
+    font-size: 16px;
+}  
+@media (max-width: 992px){
+  .contact--info {
+      flex-direction: column-reverse;
+  }
+  .contact--info .contact--info-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+   }
+  .contact--info-wrap div {
+    margin: 10px 0;
+   }
+  .vertical-line {
+    display: none;
+ }
+ .faq--padd {
+    padding: 0 2%;
+  }
+  .faq-accordion {
+    padding: 0 8px;
+  }
+  .faq-accordion .mobile_dropdownbtn {
+    display: block;
+    background: #fff;
+    padding: 9px 8px;
+    border: 1px solid #ccc;
+    position: relative;
+  }
+  .faq-accordion .mobile_dropdownbtn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: url(https://cdn.shopify.com/s/files/1/2807/8986/files/down_arrow.svg?v=1609139503);
+    z-index: 1;
+    background-repeat: no-repeat;
+    transform: translate(0px, -13%);
+	}
+    .faq-accordion .maintitle.active::before{
+    	content:none;
+    }
+  	.faq-accordion .mobile_dropdownbtn h3 {
+    	font-size: 20px;
+    	font-weight: 700;
+    	font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+	}
+  	.faq-accordion .mobile_dropdownbtn span {
+    	color: #333;
+	}
+  	.faq-accordian-container {
+    	display: flex;
+    	flex-direction: column;
+	}
+  	.faq-accordion .sidebar {
+    	width: 100%;
+    	padding: 0;
+	}
+  	.faq-accordion .maintitle {
+    	margin-bottom: 1px;
+   	 	background: #fff;
+    	border-bottom: 1px solid #ccc;
+    	padding: 0 16px;
+	}
+  	.faq-accordion .main--content {
+    	width: 100%;
+    	margin-top: 30px;
+	}
+  	.faq-accordion .main--content .accordion-wrapper>h2 {
+    	font-size: 20px;
+	}
+}  
+</style>

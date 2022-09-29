@@ -1,0 +1,84 @@
+<script>
+    {% capture locales %}
+    {
+    {% if settings.multilanguage %}
+        {% for locale in shop.enabled_locales %}
+        "{{locale.iso_code | downcase}}": {
+        primary: {{locale.primary}},
+        url: "{{locale.root_url}}"
+        },
+        {% endfor %}
+    {% endif %}
+    }
+    {% endcapture %}
+    {% capture currencies %}
+    [
+    {% unless settings.shopCurrency == 'none' %}
+    {% if settings.shopCurrency == 'convert' %}
+        {% assign currencyArr = settings.enabledCurrencies | upcase | replace: ' ', '' | split: ',' %}
+        {% unless currencyArr contains shop.currency.iso_code %}
+        "{{shop.currency.iso_code | upcase}}",
+        {% endunless %}
+        {% for currency in currencyArr %}
+        "{{currency | strip}}",
+        {% endfor %}
+    {% else %}
+        {% for currency in shop.enabled_currencies %}
+            "{{currency.iso_code | upcase}}",
+        {% endfor %}
+    {% endif %}
+    {% endunless %}
+    ]
+    {% endcapture %}
+
+    const bstri18n = {
+    locales: {{locales}},
+    currencies: {{currencies}},
+    currency_mode: "{{settings.shopCurrency}}",
+    currency_format: "{{shop.money_with_currency}}"
+    }
+
+    {% capture emptySearch %}
+    {% for item in collections[settings.emptySearch].products limit: 5 %}
+        <div class="col-12 col-md-1-5">
+        {% render 'product-card-search', product: item, dsize: '1-5' %}
+        </div>
+    {% endfor %}
+    {% endcapture %}
+    const emptySearch = `{{emptySearch}}`;
+    {% render 'shop-info' %}
+    const _settings = {{settings | json}};
+    const _bstrLocale = {
+    buttons: {
+        sold_out: `{{'general.buttons.sold_out' | t | strip}}`,
+        select: `{{'general.buttons.add_to_cart_selection' | t | strip}}`,
+        adding: `{{'general.buttons.add_to_cart_loading' | t | strip}}`,
+        back_to_shop: `{{'navigation.buttons.back_to_shop' | t | strip}}`
+    },
+    tags: {
+        off: `{{'general.tags.off'|t|strip}}`,
+        sale: `{{'general.tags.sale'|t|strip}}`
+    },
+    recentlyBought: {
+        purchased: `{{'recently_bought.purchased' | t | strip}}`,
+        ago: `{{'recently_bought.ago' | t | strip}}`,
+        someone: `{{'recently_bought.someone' | t | strip}}`
+    }
+    }
+</script>
+
+<script>
+class BstrStore{constructor(){}get(n,r=!1,a=!0){let t=localStorage.getItem(n);if(!t)return r;if(!a)return t;try{let e=JSON.parse(t);if(typeof e.data==null||typeof e.exp==null||e.storeRef!="bstr")return e;let o=new Date().getTime();return e.exp&&e.exp<o?(localStorage.removeItem(n),r):e.data}catch(e){return r}}set(n,r,a=!1){let t=!1;a&&!isNaN(a)&&(t=new Date().getTime()+a*6e4);let e={data:r,storeRef:"bstr",exp:t};return localStorage.setItem(n,JSON.stringify(e)),!0}};
+const bstore = new BstrStore()
+const bstr_modules = ['v1/deps', 'v1/evnts', 'v1/notify', 'v1/cart', 'v1/lzy', 'v1/async', 'v1/cfx', 'v1/inups', 'v1/sldr', 'v1/swthm', 'v1/swtch', 'v1/cntr', 'v1/fltrs', 'v1/insta', 'v1/vstr', 'v1/ctdw', 'v1/stock', 'v1/elems'];
+if(_settings.copycat) bstr_modules.push('v1/cpycat')
+if(_settings.recentlyBought && typeof recentlyBoughtConfig != 'undefined') bstr_modules.push('v1/recbght')
+if(_settings.OPDynTitle.trim() != '' || _settings.BPDynTitle.trim() != '') bstr_modules.push('v1/dynt')
+if(_settings.gdpr) bstr_modules.push('v1/gdpr')
+if(!'scrollBehavior' in document.documentElement.style) bstr_modules.push('v1/smthpoly');
+bstr_modules.push('v1/init');
+</script>
+
+<template id="productCardTemplate">
+    {% render 'product-card-template' %}
+</template>

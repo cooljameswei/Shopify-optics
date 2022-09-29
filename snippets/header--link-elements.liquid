@@ -1,0 +1,43 @@
+{% assign HTML = '<div><span class="nav__link__title">%TEXT%</span></div>' %}
+{% assign st = text | split: '|' %}
+{% if st.size == 1 %}
+    {{-HTML|replace: '%TEXT%', text -}}
+{% else %}
+    {% assign icon = false %}
+    {% assign txt = false %}
+    {% assign desc = false %}
+    {% for part in st %}
+        {% assign p = part | strip | split: ':' %}
+            {% if p.size == 1 %}
+                {% continue %}
+            {% endif %}
+            {% assign type = p[0] | strip | downcase %}
+            {% case type %}
+                {% when 'text' %}
+                    {% assign txt = p[1] | strip %}
+                {% when 'desc' %}
+                    {% assign desc = p[1] | strip %}
+                {% when 'icon' %}
+                    {% assign icon = p[1] | strip | downcase %}
+            {% endcase %}
+    {% endfor %}
+    {% if txt == false %}
+        {{-HTML|replace: '%TEXT%', text -}}
+    {% elsif textOnly == true %}
+        {{-HTML|replace: '%TEXT%', txt -}}
+    {% else %}
+        {% assign HTML = '%ICON%<div><span class="nav__link__title">%TEXT%</span>%DESC%</div>' | replace: '%TEXT%', txt %}
+        {% if icon %}
+            {% assign iHTML = '<i class="nav__link__icon uil uil-%ICON%"></i>' | replace: '%ICON%', icon %}
+        {% else %}
+            {% assign iHTML = '' %}
+        {% endif %}
+        {% if desc %}
+            {% assign dHTML = '<div class="nav__link__description">%DESC%</div>' | replace: '%DESC%', desc %}
+        {% else %}
+            {% assign dHTML = '' %}
+        {% endif %}
+        {% assign HTML = HTML | replace: '%DESC%', dHTML | replace: '%ICON%', iHTML %}
+        {{-HTML-}}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,582 @@
+<style type="text/css">
+#s--{{section.id}} {
+  {% if section.settings.height > 0 %}
+  height: {{section.settings.height}}px;
+  {% else %}
+  height: 100vh;
+  {% endif %} 
+  overflow: hidden;
+  color: {% unless section.settings.contentColor contains 'rgba(0,0,0,0)'  %}{{section.settings.contentColor}}{% else %}initial{% endunless %};
+}
+
+{% if section.settings.nomargin %}
+#shopify-section-{{section.id}}{
+  margin-bottom: 0px !important;
+}
+{% endif %}
+
+#s--{{-section.id}} .slide__animation .animate, #s--{{-section.id}} .slide__animation .animate:hover {
+  animation-name: animation-{{-section.settings.animation}} !important;
+}
+
+{% if section.animation != "none" %}
+#s--{{-section.id}} .slide:not(.slide__animation) > .slide__content > .animate {
+  opacity: 0;
+}
+
+#s--{{-section.id}} .slide.slide__animation > .slide__content > .animate {
+  opacity: 1;
+}
+{% endif %}
+
+{% case section.settings.displayFor %}
+{% when 'hide-desktop' %}
+@media screen and (min-width: 768px){
+  #shopify-section-{{section.id}}{
+    display: none !important;
+  }
+}
+{% when 'hide-mobile' %}
+@media screen and (max-width: 767px){
+  #shopify-section-{{section.id}}{
+    display: none !important;
+  }
+}
+{% endcase %}
+
+{% if section.settings.scopedCSS != blank %}
+{% assign sid = '#shopify-section-' | append: section.id %}
+{{section.settings.scopedCSS | replace: '##scoped', sid}}
+{% endif %}
+
+{% unless section.settings.delayAnimation %}
+#s--{{-section.id}} .animate:nth-child(2) {
+  animation-delay: 0.20s;
+}
+
+#s--{{-section.id}} .animate:nth-child(3) {
+  animation-delay: 0.40s;
+}
+
+#s--{{-section.id}} .animate:nth-child(4) {
+  animation-delay: 0.60s;
+}
+{% endunless %}
+</style>
+
+<div data-bstr-section-slider="{{section.id}}" {% if section.settings.autoplay %}data-bstr-autoplay=true{% endif %} onmouseover="this.dataset.paused = -1;" onmouseout="this.dataset.paused = new Date().getTime();" 
+id="s--{{section.id}}" class="{% render 'common-class', section: section, class: 'slider', vAlign: false %}">
+{% if section.blocks.size > 1 %}
+<button data-bstr-slider-button="-" class="slider__button hide-mobile"><i class="uil uil-angle-left-b"></i></button>
+<button data-bstr-slider-button="+" class="slider__button slider__button--next hide-mobile"><i class="uil uil-angle-right-b"></i></button>
+{% endif %}
+<div class="slider__holder" data-bstr-slide-loop="true" data-bstr-slider-orientation="horizontal" data-bstr-slide-holder="1|1|1" data-bstr-slider-current="0">
+{%- for block in section.blocks %}
+<div data-bstr-slide data-type="bannerSlider" class="slide">
+{% render 'get-block', block: block, first: forloop.first %}
+</div>
+{% endfor %}
+</div>
+</div>
+
+{% schema %}
+{
+    "name": {
+        "en": "Slideshow"
+    },
+    "settings": [
+      {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458157772)"
+    },
+    {
+    "type": "header",
+    "content": "Section layout"
+},
+{
+  "type": "radio",
+  "id": "displayFor",
+  "label": "Show this section on",
+  "options": [
+    {"value": "display--both", "label": "All devices"},
+    {"value": "hide-desktop", "label": "Mobile only"},
+    {"value": "hide-mobile", "label": "Desktop only"}
+  ],
+  "default": "display--both"
+},
+{
+  "type": "select",
+  "id": "layout",
+  "label": "Section layout",
+  "options": [
+    {"value": "default", "label": "Global default"},
+    {"value": "boxed", "label": "Boxed"},
+    {"value": "stretchBg", "label": "Full width background"},
+    {"value": "stretchContent", "label": "Full width"}
+  ],
+  "default": "default"
+},
+{
+  "type": "checkbox",
+  "id": "nomargin",
+  "default": false,
+  "label": "Remove section's bottom margin"
+},
+{
+  "type": "textarea",
+  "id": "scopedCSS",
+  "label": "Section-scoped CSS",
+  "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+},
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Height",
+      "default": 300,
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "info": "If set to 0px, slider will take up all of screen's height. Best used in combination with a transparent header."
+    },
+    {
+      "type": "header",
+      "content": "Content layout"
+    },
+    {
+      "type": "color",
+      "id": "contentColor",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "default": true,
+      "label": "Autoplay slides",
+      "info": "If checked, slider will automatically rotate between slides"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Content animation",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "fade", "label": "Fade in"},
+        {"value": "slide-fade", "label": "Slide and fade in"},
+        {"value": "slide-top", "label": "Slide from top"},
+        {"value": "slide-bottom", "label": "Slide from bottom"},
+        {"value": "slide-left", "label": "Slide from left"},
+        {"value": "slide-right", "label": "Slide from right"},
+        {"value": "scale", "label": "Grow"},
+        {"value": "scale-rotate", "label": "Rotate and grow"},
+        {"value": "shake", "label": "Shake"}
+      ],
+      "default": "none"
+    },
+    {
+      "type": "checkbox",
+      "label": "Animate all elements at once",
+      "default": false,
+      "info": "If left unchecked, elements will start animating with a slight delay inbetween.",
+      "id": "delayAnimation"
+    }
+    ],
+    "blocks": [
+        {
+    "type": "imageSlide",
+    "name": "Image slide",
+    "settings": [
+    {
+        "type": "select",
+        "id": "horizontalAlignment",
+        "label": "Content alignment (left to right)",
+        "options": [
+            {"value": "start", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "end", "label": "Right"}
+        ],
+        "default": "center"
+    },
+    {
+        "type": "select",
+        "id": "verticalAlignment",
+        "label": "Content alignment (top to bottom)",
+        "options": [
+            {"value": "top", "label": "Top"},
+            {"value": "middle", "label": "Middle"},
+            {"value": "bottom", "label": "Bottom"}
+        ],
+        "default": "middle"
+    },
+    {
+        "type": "range",
+        "id": "padding",
+        "min": 0,
+        "max": 50,
+        "default": 16,
+        "unit": "px",
+        "label": "Padding"
+    },
+    {
+        "type": "range",
+        "id": "contentSpacing",
+        "min": 0,
+        "max": 50,
+        "default": 12,
+        "unit": "px",
+        "label": "Space between content"
+    },
+    {
+        "type": "header",
+        "content": "Background"
+    },
+    {
+        "type": "color",
+        "id": "backgroundColor",
+        "label": "Background color",
+        "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "image_picker",
+        "id": "backgroundImage",
+        "label": "Background image"
+    },
+    {
+        "type": "select",
+        "id": "backgroundPosition",
+        "label": "Background image position",
+        "options": [
+            {"value": "top", "label": "Top"},
+            {"value": "middle", "label": "Middle"},
+            {"value": "bottom", "label": "Bottom"}
+        ],
+        "default": "middle"
+    },
+    {
+        "type": "header",
+        "content": "Overlay"
+    },
+    {
+        "type": "range",
+        "id": "overlayOpacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "label": "Overlay opacity",
+        "default": 40,
+        "unit": "%"
+    },
+    {
+        "type": "color",
+        "id": "overlayColor",
+        "label": "Overlay color",
+        "default": "#000000"
+    },
+    {
+        "type": "header",
+        "content": "Content"
+    },
+    {
+        "type": "text",
+        "label": "Heading",
+        "id": "heading",
+        "default": "IMAGE SLIDE"
+    },
+    {
+        "type": "color",
+        "id": "headingColor",
+        "label": "Heading color",
+        "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>Tell your brand's story through images</p>"
+    },
+    {
+        "type": "color",
+        "id": "contentColor",
+        "label": "Content color",
+        "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "header",
+        "content": "Primary button"
+    },
+    {
+        "type": "text",
+        "label": "Button text",
+        "id": "button1Text",
+        "default": "Primary button"
+    },
+    {
+        "type": "url",
+        "label": "Button link",
+        "id": "button1Link"
+    },
+    {
+        "type": "select",
+        "id": "button1Style",
+        "label": "Button style",
+        "options": [
+        {"value": "primary", "label": "Primary button"},
+        {"value": "secondary", "label": "Secondary button"}
+        ],
+        "default": "primary"
+    },
+    {
+        "id": "button1Type",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "filled", "label": "Filled"},
+        {"value": "ghost", "label": "Ghost"},
+        {"value": "underlined", "label": "Underlined"},
+        {"value": "text", "label": "Text"}
+        ],
+        "default": "default"
+    },
+    {
+        "type": "header",
+        "content": "Secondary button"
+    },
+    {
+        "type": "text",
+        "label": "Button text",
+        "id": "button2Text",
+        "default": "Secondary button"
+    },
+    {
+        "type": "url",
+        "label": "Button link",
+        "id": "button2Link"
+    },
+    {
+        "type": "select",
+        "id": "button2Style",
+        "label": "Button style",
+        "options": [
+        {"value": "primary", "label": "Primary button"},
+        {"value": "secondary", "label": "Secondary button"}
+        ],
+        "default": "secondary"
+    },
+    {
+        "id": "button2Type",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "filled", "label": "Filled"},
+        {"value": "ghost", "label": "Ghost"},
+        {"value": "underlined", "label": "Underlined"},
+        {"value": "text", "label": "Text"}
+        ],
+        "default": "default"
+    }
+]
+},{
+    "type": "videoSlide",
+    "name": "Video slide",
+    "settings": [
+    {
+        "type": "select",
+        "id": "horizontalAlignment",
+        "label": "Content alignment (left to right)",
+        "options": [
+            {"value": "start", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "end", "label": "Right"}
+        ],
+        "default": "center"
+    },
+    {
+        "type": "select",
+        "id": "verticalAlignment",
+        "label": "Content alignment (top to bottom)",
+        "options": [
+            {"value": "top", "label": "Top"},
+            {"value": "middle", "label": "Middle"},
+            {"value": "bottom", "label": "Bottom"}
+        ],
+        "default": "middle"
+    },
+    {
+        "type": "range",
+        "id": "padding",
+        "min": 0,
+        "max": 50,
+        "default": 16,
+        "unit": "px",
+        "label": "Padding"
+    },
+    {
+        "type": "header",
+        "content": "Background"
+    },
+    {
+        "type": "color",
+        "id": "backgroundColor",
+        "label": "Background color",
+        "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "text",
+        "id": "video",
+        "label": "Video URL",
+        "info": "Requires a direct link to an MP4 file. You can't use embeds (Youtube, Vimeo)."
+    },
+    {
+        "type": "header",
+        "content": "Overlay"
+    },
+    {
+        "type": "range",
+        "id": "overlayOpacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "label": "Overlay opacity",
+        "default": 40,
+        "unit": "%"
+    },
+    {
+        "type": "color",
+        "id": "overlayColor",
+        "label": "Overlay color",
+        "default": "#000000"
+    },
+    {
+        "type": "header",
+        "content": "Content"
+    },
+    {
+        "type": "text",
+        "label": "Heading",
+        "id": "heading"
+    },
+    {
+        "type": "color",
+        "id": "headingColor",
+        "label": "Heading color",
+        "default": "#FFFFFF"
+    },
+    {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+    },
+    {
+        "type": "color",
+        "id": "contentColor",
+        "label": "Content color",
+        "default": "#FFFFFF"
+    },
+    {
+        "type": "header",
+        "content": "Primary button"
+    },
+    {
+        "type": "text",
+        "label": "Button text",
+        "id": "button1Text"
+    },
+    {
+        "type": "url",
+        "label": "Button link",
+        "id": "button1Link"
+    },
+    {
+        "type": "select",
+        "id": "button1Style",
+        "label": "Button style",
+        "options": [
+        {"value": "primary", "label": "Primary button"},
+        {"value": "secondary", "label": "Secondary button"}
+        ],
+        "default": "primary"
+    },
+    {
+        "id": "button1Type",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "filled", "label": "Filled"},
+        {"value": "ghost", "label": "Ghost"},
+        {"value": "underlined", "label": "Underlined"},
+        {"value": "text", "label": "Text"}
+        ],
+        "default": "default"
+    },
+    {
+        "type": "header",
+        "content": "Secondary button"
+    },
+    {
+        "type": "text",
+        "label": "Button text",
+        "id": "button2Text"
+    },
+    {
+        "type": "url",
+        "label": "Button link",
+        "id": "button2Link"
+    },
+    {
+        "type": "select",
+        "id": "button2Style",
+        "label": "Button style",
+        "options": [
+        {"value": "primary", "label": "Primary button"},
+        {"value": "secondary", "label": "Secondary button"}
+        ],
+        "default": "secondary"
+    },
+    {
+        "id": "button2Type",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "filled", "label": "Filled"},
+        {"value": "ghost", "label": "Ghost"},
+        {"value": "underlined", "label": "Underlined"},
+        {"value": "text", "label": "Text"}
+        ],
+        "default": "default"
+    }
+]
+}
+    ],
+    "presets": [
+      {
+        "category": "Slideshow",
+        "name": "Slideshow",
+        "settings": {},
+        "blocks": [
+          {
+            "type": "imageSlide",
+            "settings": {
+              "heading": "This is your slide's heading",
+              "content": "<p>Enjoy the flexibility</p>",
+              "button1Text": "Primary button",
+              "button2Text": "Secondary button"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,141 @@
+{% if section.settings.enabled %}
+{% assign desktop = settings.cardDesktop %}
+{% assign mobile = settings.cardMobile %}
+{% if recommendations.performed %}
+{%- if recommendations.products_count > 0 -%}
+{% render 'block__general--heading' with section as section %}
+{%- for product in recommendations.products limit: 4 -%}
+<div class="col-{{mobile}} col-md-{{-desktop}} card--holder">
+{% render 'product-card-default', product: product, dsize: '3' %}
+</div>
+{%- endfor -%}
+{% elsif section.settings.defaultCollection != blank %}
+{% render 'block__general--heading' with section as section %}
+{%- for product in collections[section.settings.defaultCollection].products limit: 4 -%}
+<div class="col-{{mobile}} col-md-{{-desktop}} card--holder">
+{% render 'product-card-default', product: product, dsize: '3' %}
+</div>
+{%- endfor -%}
+{%- endif -%}
+{% else %}
+{% if section.settings.personalizedOffers %}
+<div class="row {{section.settings.layout-}}" id="s--product-page__recommended"></div>
+<script>
+(()=>{
+    fetch(`/recommendations/products?section_id=product-page__recommended&limit=5&product_id={{-product.id-}}`)
+	  .then(data=>data.text())
+    .then(data=>{
+        let parse = document.createElement('div');
+        parse.innerHTML = data;
+        parse.querySelector('.section__heading--subheading').innerHTML = "{{ section.settings.heading | escape }}"
+        parse.querySelector('.section__heading--heading h2').innerHTML = "{{ section.settings.subheading | escape }}"
+  	  	document.getElementById('s--product-page__recommended').innerHTML = parse.querySelector('.shopify-section').innerHTML;
+  		try { BoosterTheme.events.trigger('booster:content:update') }catch{}
+    })
+})()
+</script>
+{% elsif section.settings.defaultCollection != blank %}
+<div class="row {{section.settings.layout-}}" id="s--product-page__recommended">
+{% render 'block__general--heading' with section as section %}
+{%- for product in collections[section.settings.defaultCollection].products limit: 4 -%}
+<div class="col-{{mobile}} col-md-{{-desktop}} card--holder">
+{% render 'product-card-default', product: product, dsize: '3' %}
+</div>
+{%- endfor -%}
+</div>
+{%endif%}
+{% endif %}
+{% endif %}
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Recommended"
+  },
+  "settings": [
+    {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458187319)"
+        },
+    {
+      "type": "header",
+      "content": "Enable/Disable"
+    },
+    {
+        "type": "checkbox",
+        "id": "enabled",
+        "label": "Enable recommended",
+        "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "personalizedOffers",
+      "label": "Enable personalized offers",
+      "default": true,
+      "info": "Shopify provides user-tailored recommended offer. If you disable this option, the collection selected below will be used."
+    },
+    {
+      "type": "header",
+      "content": "Layout and content"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Page width",
+      "options": [
+        {"value": "max-width", "label": "Boxed"},
+        {"value": "full-width", "label": "Full width"}
+      ],
+      "default": "max-width"
+    },
+    {
+        "type": "text",
+        "id": "heading",
+        "label": "Section heading",
+        "default": "Recommended for you"
+    },
+    {
+        "type": "text",
+        "id": "subheading",
+        "label": "Section subheading",
+        "default": "CHERRY PICKED PRODUCTS"
+    },
+    {
+      "type": "select",
+      "id": "subheadingPosition",
+      "label": "Subheading position",
+      "options": [
+        {"value": "above", "label": "Above heading"},
+        {"value": "below", "label": "Below heading"}
+      ],
+      "default": "above"
+    },
+    {
+      "type": "select",
+      "id": "textAlignment",
+      "label": "Text alignment (left to right)",
+      "options": [
+        {"value": "start", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "end", "label": "Right"}
+      ],
+      "default": "start"
+    },
+    {
+      "type": "header",
+      "content": "Recommended collection"
+    },
+    {
+        "type": "collection",
+        "label": "Default recommended collection",
+        "info": "This is the default collection that will be shown if there are no recommendations availablem or you disable personalized offer.",
+        "id": "defaultCollection"
+    }
+  ]
+}
+{% endschema %}

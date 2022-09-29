@@ -1,0 +1,84 @@
+{% if block.settings.url != blank %}
+<a class="footer__image--link" href="{{block.settings.url}}">
+{% if block.settings.image != nil %}
+    <img src="{{block.settings.image | img_url: '10x10'}}" loading="lazy" height="{{block.settings.image.height}}" width="{{block.settings.image.width}}" class="lazyload" data-src="{{block.settings.image | img_url: '400x'}}" style="width: {{block.settings.imageWidth}}%;">
+{% else %}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'svg__fake' }}
+{% endif %}
+</a>
+{% else %}
+{% if block.settings.image != nil %}
+    <img src="{{block.settings.image | img_url: '10x10'}}" loading="lazy" height="{{block.settings.image.height}}" width="{{block.settings.image.width}}" class="lazyload" data-src="{{block.settings.image | img_url: '400x'}}" style="width: {{block.settings.imageWidth}}%;">
+{% else %}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'svg__fake' }}
+{% endif %}
+{% endif %}
+
+{% comment %}
+{% blockdef %}
+{
+    "name": "Image",
+    "type": "footerImage",
+    "settings": [
+        {
+            "id": "width",
+            "label": "Width",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "12", "label": "100%"},
+                {"value": "9", "label": "75%"},
+                {"value": "8", "label": "66%"},
+                {"value": "6", "label": "50%"},
+                {"value": "4", "label": "33%"},
+                {"value": "3", "label": "25%"},
+                {"value": "1-5", "label": "20%"}
+            ],
+            "default": "auto"
+        },
+        {
+            "type": "select",
+            "id": "horizontalAlignment",
+            "label": "Content alignment (left to right)",
+            "options": [
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "center"
+        },
+        {
+            "type": "select",
+            "id": "verticalAlignment",
+            "label": "Content alignment (top to bottom)",
+            "options": [
+                {"value": "top", "label": "Top"},
+                {"value": "middle", "label": "Middle"},
+                {"value": "bottom", "label": "Bottom"}
+            ],
+            "default": "middle"
+        },
+        {
+            "type": "image_picker",
+            "label": "Image",
+            "id": "image"
+        },
+        {
+            "type": "range",
+            "label": "Image width",
+            "unit": "%",
+            "id": "imageWidth",
+            "default": 100,
+            "min": 5,
+            "max": 100,
+            "step": 5
+        },
+        {
+            "type": "url",
+            "label": "Image link",
+            "id": "url"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

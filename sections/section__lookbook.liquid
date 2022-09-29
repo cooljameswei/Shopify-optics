@@ -1,0 +1,286 @@
+<style>
+{% render 'common-css' with section as section %}
+
+#s--{{-section.id}} {
+    position: relative;
+}
+
+@media screen and (max-width: 767px){
+    #s--{{-section.id}} {
+        min-height: 0;
+    }
+}
+
+#colorcode {};
+</style>
+
+<div id="s--{{-section.id}}" class="{% render 'common-class', section: section, class: 'lookbook overflow--visible', vAlign: true %} row">
+    <div class="layout__content">
+    {% unless section.settings.image == nil %}
+        {% render 'ratio-image', image: section.settings.image, mratio: '100', dratio: '100', ratioType: 'vw', maxWidth: 1920, class: 'lookbook__image' %}
+    {% else %}
+    {%if settings.demo %}
+        <img class="lazyload lookbook__image" loading="lazy" data-src="https://source.unsplash.com/random/1280x720">
+    {% else %}
+        {{'lifestyle-1' | placeholder_svg_tag}}
+    {% endif %}
+    {% endunless %}
+        <div class="lookbook__pins">
+            {% for block in section.blocks %}
+            <style>
+            #lookbook__pin--{{-block.id}} {
+                top: {{block.settings.offsetTop}}%;
+                left: {{block.settings.offsetLeft}}%;
+                background: {{block.settings.color}};
+            }
+
+            #lookbook__pin--{{-block.id}}::before {
+                background: {{block.settings.color}};
+            }
+            
+            #lookbook__pin--{{-block.id}} .lookbook__product--holder {
+                {% if block.settings.offsetTop > 50 %}bottom: 0px;{% else %}top: 0px;{% endif %};
+                {% if block.settings.offsetLeft > 50 %}right: -15px;{% else %}left: -15px;{% endif %};
+            }
+            </style>
+            <div id="lookbook__pin--{{-block.id}}" class="lookbook__pin" {{block.shopify_attributes}}>
+            {% assign product = all_products[block.settings.product] %}
+                <div href="{{product.url}}" class="lookbook__product--holder">
+                    <div class="lookbook__product">
+                        <a href="{{product.url}}">{% render 'image', src: product.featured_image, size: '200x' %}</a>
+                        <a class="lookbook__product--title" href="{{product.url}}">{{product.title}}</a>
+                        <span class="lookbook__product--price">{{product.price | money | strip_html}}</span>
+                        {% render 'quick-buy-button', href: product.url, price: product.price %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": {
+        "en": "Lookbook"
+    },
+    "settings": [
+        {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458157809)"
+    },
+    {
+        "type": "header",
+        "content": "Section layout"
+    },
+    {
+      "type": "radio",
+      "id": "displayFor",
+      "label": "Show this section on",
+      "options": [
+        {"value": "display--both", "label": "All devices"},
+        {"value": "hide-desktop", "label": "Mobile only"},
+        {"value": "hide-mobile", "label": "Desktop only"}
+      ],
+      "default": "display--both"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "nomargin",
+      "default": false,
+      "label": "Remove section's bottom margin"
+    },
+    {
+      "type": "textarea",
+      "id": "scopedCSS",
+      "label": "Section-scoped CSS",
+      "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Minimum height",
+      "default": 0,
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Section padding",
+      "default": 0,
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+    "type": "header",
+    "content": "Section background"
+  },
+  {
+    "id": "backgroundColor",
+    "type": "color",
+    "default": "rgba(0,0,0,0)",
+    "label": "Background color"
+  },
+    {
+    "type": "header",
+    "content": "Section content"
+},
+{
+  "type": "color",
+  "id": "contentColor",
+  "label": "Default text color",
+  "default": "rgba(0,0,0,0)"
+},
+{
+  "type": "select",
+  "id": "horizontalAlignment",
+  "label": "Content alignment (left to right)",
+  "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+  ],
+  "default": "center"
+},
+{
+  "type": "select",
+  "id": "verticalAlignment",
+  "label": "Content alignment (top to bottom)",
+  "options": [
+    {"value": "top", "label": "Top"},
+    {"value": "middle", "label": "Middle"},
+    {"value": "bottom", "label": "Bottom"}
+  ],
+  "default": "middle"
+},
+    {
+    "type": "header",
+    "content": "Section heading"
+},
+{
+    "type": "text",
+    "id": "heading",
+    "label": "Section heading",
+    "default": "Check out this section's heading"
+},
+{
+    "type": "color",
+    "id": "headingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Heading Color"
+},
+{
+    "type": "text",
+    "id": "subheading",
+    "label": "Section subheading",
+    "default": "THIS IS A SUBHEADING"
+},
+{
+    "type": "color",
+    "id": "subheadingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Subheading Color"
+},
+{
+    "type": "select",
+    "id": "subheadingPosition",
+    "label": "Subheading position",
+    "options": [
+      {"value": "above", "label": "Above heading"},
+      {"value": "below", "label": "Below heading"}
+    ],
+    "default": "above"
+},
+{
+    "type": "select",
+    "id": "headingAlignment",
+    "label": "Heading alignment (left to right)",
+    "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+    ],
+    "default": "center"
+},
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+    }
+    ],
+    "blocks": [
+        {
+            "type": "lookbookPin",
+            "name": "Product pin",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Product settings"
+                },
+                {
+                    "id": "color",
+                    "label": "Pin color",
+                    "default": "rgb(255,255,255)",
+                    "type": "color"
+                },
+                {
+                    "type": "product",
+                    "label": "Featured Product",
+                    "id": "product"
+                },
+                {
+                    "id": "offsetTop",
+                    "type": "range",
+                    "unit": "%",
+                    "min": 0,
+                    "max": 100,
+                    "label": "Percent from top",
+                    "default": 0,
+                    "step": 1
+                },
+                {
+                    "id": "offsetLeft",
+                    "type": "range",
+                    "unit": "%",
+                    "min": 0,
+                    "max": 100,
+                    "label": "Percent from left",
+                    "default": 0,
+                    "step": 1
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+        "category": "Products",
+        "name": "Lookbook",
+        "settings": {
+        },
+        "blocks": [
+        ]
+      }
+    ]
+  }
+{% endschema %}

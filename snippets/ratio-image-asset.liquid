@@ -1,0 +1,43 @@
+{%- assign sizes = '375,410,520,576,768,992,1024,1280,1660,1920' | split: ',' -%}
+{%- assign max = maxWidth | default: 1280 -%}
+{%- capture bgset -%}
+{%- for size in sizes -%}
+{%- assign intsize = size | plus: 0 -%}
+{%- if intsize > max -%}
+{%- break -%}
+{%- endif -%}
+{%- assign xvalue = size | append: 'x' -%}
+{{image | asset_img_url: xvalue}} {{size}}w,
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign bgset = bgset | strip_newlines | strip -%}
+{%- assign strlen = bgset.size | minus: 1 -%}
+
+{% case ratioType %}
+{% when 'col' %}
+    {% case mratio %}
+        {% when '6' %}
+           {% assign mobile = "50" %}
+        {% when '12' %}
+          {% assign mobile = "100" %}
+    {% endcase %}
+    {% case dratio %}
+        {% when '3' %}
+         {% assign desktop = "25" %}
+        {% when '4' %}
+         {% assign desktop = "33" %}
+        {% when '1-5' %}
+         {% assign desktop = "20" %}
+        {% when '6' %}
+          {% assign desktop = "50" %}
+        {% when '12' %}
+          {% assign desktop = "100" %}
+        {% when '9' %}
+          {% assign desktop = "75" %}
+    {% endcase %}
+{% when 'vw' %}
+    {% assign mobile = mratio %}
+    {% assign desktop = dratio %}
+{% endcase %}
+
+<img height="{{image.height}}" width="{{image.width}}" loading="lazy" src="{{image | asset_img_url: '10x'}}" data-srcset="{{bgset | slice: 0, strlen}}" data-sizes="(max-width: 787px) {{mobile}}vw, {{desktop}}vw" alt="{{alt}}" class="lazyload {{class}}">

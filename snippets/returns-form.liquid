@@ -1,0 +1,109 @@
+<div class="returns-page">
+  <div style="margin:0 auto;" class="pxFormGenerator" id="vuAarDn2bRYhU5jSfPU5tw"></div>
+  {% comment %}
+	<div class="full-form-wrapper">
+      <div class="page-width">
+        <div class="form-title">
+          <h3>Return Form</h3>
+        </div>
+        <div class="contact-form form-vertical return-contact-form" id="return-contact-form" action="#">
+          {% form 'contact' %}
+
+          {% if form.posted_successfully? %}
+          <p class="form-success">
+            <!-- When submit success  -->
+          </p>
+          {% endif %}
+          <div class="row">
+            <div class="col-md-12">
+              {{ form.errors | default_errors }}
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+                <label for="ContactFormFirstName" class="label-shown">First Name</label>
+                <input type="text" id="ContactFormFirstName" name="contact[fname]" placeholder="First Name" value="{% if form[fname] %}{{ form[fname] }}{% elsif customer %}{{ customer.first_name }}{% endif %}">
+            </div>
+            <div class="col-md-6">
+              <label for="ContactFormLastName" class="label-shown">Last Name</label>
+              <input type="text" id="ContactFormLastName" name="contact[lname]" placeholder="Last Name" value="{% if form[lname] %}{{ form[lname] }}{% elsif customer %}{{ customer.last_name }}{% endif %}">
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <label for="ContactFormOrderNumber" class="label-shown">Order Number#</label>
+              <input type="text" id="ContactFormOrderNumber" name="contact[ordernumber]" placeholder="Order Number">
+            </div>
+            <div class="col-md-6">
+              <label for="ContactFormEmail" class="label-shown">
+                Email<span class="asterisk">*</span>
+              </label>
+              <input type="email" id="ContactFormEmail" name="contact[email]" placeholder="Email" autocorrect="off" autocapitalize="off" required value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="ContactFormExchange" class="label-shown">Exchange for</label>
+              <input type="text" id="ContactFormExchange" name="contact[exchange]" placeholder="Exchange for">
+            </div>
+            <div class="col-md-6">
+              <label for="ContactFormPhone" class="label-shown">Phone Number</label>
+              <input type="tel" id="ContactFormPhone" name="contact[phone]" placeholder="Phone Number" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+                <label for="ContactFormProblem" class="label-shown">
+                  What went wrong<span class="asterisk">*</span>
+                </label>
+                <select id="ContactFormProblem" name="contact[problem]" required="">
+                  <option>Don't like the color</option>
+                  <option>Don't like the size</option>
+                  <option>Received Damaged</option>
+                  <option>Did not order</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+              <label for="ContactFormPurpose" class="label-shown">
+                What would you like to do<span class="asterisk">*</span>
+              </label>
+              <select id="ContactFormPurpose" name="contact[purpose]" required="">
+                <option>Exchange</option>
+                <option>Refund</option>
+                <option>Store Credit</option>
+              </select>
+           </div>
+          </div>
+          
+          {% for block in blocks %}
+            {% assign mod = forloop.index | modulo: 2 %}
+            {% if mod == 0 %}
+              <div class="row">
+            {% endif %}
+              <div class="col-md-6">
+                  <label for="ContactForm{{block.settings.field_handle}}" class="label-shown">{{ block.settings.field_name }} {% if block.settings.field_required %}<span class="asterisk">*</span>{% endif %}</label>
+                  <input type="text" id="ContactForm{{block.settings.field_handle}}" name="contact[{{ block.settings.field_handle }}]" placeholder="{{ block.settings.field_name }}" {% if block.settings.field_required %}required{% endif %}>
+              </div>
+              {% if mod == 0 %}
+                </div>
+              {% endif %} 
+          {% endfor %}
+         <div class="row"> 
+           <div class="col-md-12">
+            <label for="ContactFormMessage" class="label-shown">Message</label>
+            <textarea rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Message">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col-md-6 col-md-offset-3">
+             <input type="submit" id="submit-return-page" class="btn send-btn" value="Send">
+           </div>
+         </div>
+        {% endform %}
+      </div>
+	</div>
+  </div>
+  {% endcomment %}
+</div>

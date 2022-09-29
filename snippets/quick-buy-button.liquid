@@ -1,0 +1,32 @@
+{% assign button = 'addToCart' %}
+{% assign color = button | append: 'Color' %}
+{% assign color = settings[color] %}
+{% assign type = button | append: 'Type' %}
+{% assign type = settings[type] %}
+{%- assign icon = button | append: 'Icon' -%}
+{%- assign icon = settings[icon] -%}
+{% if price == 0 and settings.freeShipping  %}
+    {% assign text = settings.freeShippingText %}
+{% else %}
+    {% if text == blank %}
+        {% assign text = 'general.buttons.add_to_cart' | t  %}
+    {% endif %}
+{% endif %}
+
+<a href="{{href}}"
+class="button button--{{-button}} button--{{-color}} {% unless icon == 'none' %}button--icon{% endunless %}
+{% unless type == 'default' -%}
+button--{{-type}} button--{{-color-}}__{{-type}}
+{%- else -%}
+{% assign style = color | append: 'ButtonStyle' %}
+button--{{-settings[style]}} button--{{-color-}}__{{-settings[style]}}
+{%- endunless %} {{class-}}"
+{% if settings.quickBuy %}
+onclick="BoosterTheme.ELEMENTS.quickBuy(event)"
+{% endif %}
+>
+{% unless icon == 'none' %}
+{% render 'get-icon' with icon as icon %}
+{% endunless %}
+<span>{{- text -}}</span>
+</a>

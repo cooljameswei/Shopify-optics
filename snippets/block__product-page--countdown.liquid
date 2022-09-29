@@ -1,0 +1,31 @@
+{% if product.compare_at_price_min > 0 and settings.countdown %}
+<div class="product__countdown--holder product__countdown--{{-block.settings.style}} {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+    {% if block.settings.style == 'compact' or view == 'marketplace' %}
+        <div data-countdown data-ct-key="{{product.id}}" class="countdown product__countdown">
+            <span class="countdown__title">{{-block.settings.title-}}</span>
+            <span class="countdown__holder"><span class="days">00</span><br>{{'general.countdown.days' | t}}</span>
+            <span class="countdown__holder"><span class="hours">00</span><br>{{'general.countdown.hours' | t}}</span>
+            <span class="countdown__holder"><span class="minutes">00</span><br>{{'general.countdown.minutes' | t}}</span>
+            <span class="countdown__holder"><span class="seconds">00</span><br>{{'general.countdown.seconds' | t}}</span>
+        </div>
+        {%- capture originalPrice -%}<span class="countdown__original-price jsPrice">{{product.compare_at_price_max | money | strip_html}}</span>{%- endcapture -%}
+        <p class="countdown__warning">
+            {{-block.settings.text | replace: '%price%', originalPrice -}}
+        </p>
+    {% else %}
+        <div>
+            <span class="countdown__title">{{-block.settings.title-}}</span>
+            {%- capture originalPrice -%}<span class="countdown__original-price jsPrice">{{product.compare_at_price_max | money | strip_html}}</span>{%- endcapture -%}
+            <p class="countdown__warning">
+                {{-block.settings.text | replace: '%price%', originalPrice -}}
+            </p>
+        </div>
+        <div data-countdown data-ct-key="{{product.id}}" class="countdown product__countdown">
+            <span class="countdown__holder"><span class="days">00</span><br>{{'general.countdown.days' | t}}</span>
+            <span class="countdown__holder"><span class="hours">00</span><br>{{'general.countdown.hours' | t}}</span>
+            <span class="countdown__holder"><span class="minutes">00</span><br>{{'general.countdown.minutes' | t}}</span>
+            <span class="countdown__holder"><span class="seconds">00</span><br>{{'general.countdown.seconds' | t}}</span>
+        </div>
+    {% endif %}
+</div>
+{% endif %}

@@ -1,0 +1,38 @@
+{% comment %}
+ Wishlist Hero Snippets -  V 1.0.0
+{% endcomment %}
+{% unless buttonMode %}
+   {% assign buttonMode = 'icon_only' %}
+{% endunless %}
+{% unless buttonView %}
+   {% assign buttonView = 'Collection' %}
+{% endunless %}
+{% unless buttonClass %}
+   {% assign buttonClass = 'wishlisthero-floating' %}
+{% endunless  %}
+{% assign image = product.featured_image %}
+{% assign name = product.title %}
+{% capture url %}https://{{shop.domain}}{{product.url}}{% endcapture %}
+{% for var in product.variants %}
+    {% if product.selected_or_first_available_variant.id == var.id %}
+        {% if var.image and var.image.src %}
+            {% assign image = var.image.src %}
+        {% endif %}
+        {% if var.url %}
+            {%  assign url = var.url %}
+        {% endif %}
+        {% if var.name %}
+            {% assign name = var.name %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+<div data-wlh-id="{{product.id}}" 
+ data-wlh-link="{{url}}"
+data-wlh-variantid="{{product.selected_or_first_available_variant.id}}" 
+ data-wlh-price="{{product.selected_or_first_available_variant.price | remove: '.' | remove: ',' | divided_by: 100.0 }}" 
+ data-wlh-name="{{name | strip_html }}" 
+ data-wlh-image="{{image | img_url: '1024x'}}" 
+ class="wishlist-hero-custom-button {{buttonClass}}" 
+ data-wlh-mode="{{buttonMode}}"
+ data-wlh-view="{{buttonView}}"
+ style="left: auto;"></div> 

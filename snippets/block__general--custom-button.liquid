@@ -1,0 +1,260 @@
+<style type="text/css">
+{% if block.settings.customFont %}
+{% render 'font', font: block.settings.customFontFamily %}
+{% endif %}
+
+#button--{{block.id}} {
+    {% if block.settings.useBorderRadius %}
+    border-radius: {{block.settings.borderRadius}}px;
+    {% endif %}
+    {% unless block.settings.animation == "none" %}
+    animation-duration: {{block.settings.animationDuration}}ms;
+    {% if block.settings.animationInfinite %}animation-iteration-count: infinite;{% endif %};
+    {% endunless %}
+    {% if block.settings.fontSize == 'custom' %}
+    font-size: {{block.settings.customFontSize}}px;
+    {% endif %}
+    {% if block.settings.customFont %}
+    font-family: {{ block.settings.customFontFamily.family }}, {{ block.settings.customFontFamily.fallback_families }};
+    font-weight: {{block.settings.customFontFamily.weight}};
+    {% endif %}
+    {% unless block.settings.contentColor contains 'rgba(0,0,0,0)' %}color: {{block.settings.contentColor}};{% endunless %}
+    {% case block.settings.buttonStyle %}
+    {% when 'filled' %}
+    background-color: {{block.settings.fillColor}};
+    {% when 'ghost' %}
+    background: transparent;
+    border: {{block.settings.borderWidth}}px solid {{block.settings.fillColor}};
+    {% when 'underlined' %}
+    background: transparent;
+    border: 0px;
+    border-bottom: {{block.settings.borderWidth}}px solid {{block.settings.fillColor}};
+    {% endcase %}
+}
+
+#button--{{block.id}}:hover {
+    {% unless block.settings.hoverContentColor contains 'rgba(0,0,0,0)' %}color: {{block.settings.hoverContentColor}};{% endunless %}
+    {% case block.settings.buttonStyle %}
+    {% when 'filled' %}
+    background-color: {{block.settings.hoverFillColor}};
+    {% when 'ghost' %}
+    background: {{block.settings.hoverFillColor}};
+    border: {{block.settings.borderWidth}}px solid {{block.settings.hoverFillColor}};
+    {% when 'underlined' %}
+    background: {{block.settings.hoverFillColor}};
+    border-bottom: {{block.settings.borderWidth}}px solid {{block.settings.hoverFillColor}};
+    {% endcase %}
+}
+</style>
+<a
+id="button--{{block.id}}"
+class="button 
+{% unless block.settings.icon == blank %}button--icon {{block.settings.iconPosition}}{% endunless %} 
+button__animation--{{-block.settings.animation}}
+{% unless block.settings.fontSize == 'custom'%}font__size--{{-block.settings.fontSize}}{% endunless %}
+{%if block.settings.wideButton%}button--full-width{%endif%}"
+href="{{- block.settings.url -}}"
+{{ block.shopify_attributes }}>
+{% unless block.settings.icon == blank %}
+{% render 'get-icon' with block.settings.icon as icon %}
+{% endunless %}
+<span>{{- block.settings.text -}}</span>
+</a>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "customButton",
+    "name": "Custom Button",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+    },
+    {
+        "id": "text",
+        "label": "Button text",
+        "type": "text",
+        "default": "Get this now!"
+    },
+    {
+        "id": "url",
+        "type": "url",
+        "label": "Links to"
+    },
+    {
+        "type": "text",
+        "id": "icon",
+        "label": "Button icon",
+        "info": "Dashed icon from the [Unicons library](https://iconscout.com/unicons/explore/line)",
+        "placeholder": "shopping-cart"
+    },
+    {
+        "type": "select",
+        "id": "iconPosition",
+        "options": [
+            {"value": "icon--left", "label": "Left"},
+            {"value": "icon--right", "label": "Right"}
+        ],
+        "default": "icon--left",
+        "label": "Icon position"
+    },
+    {
+        "type": "header",
+        "content": "Button style"
+    },
+    {
+        "type": "select",
+        "options": [
+            {"value": "filled", "label": "Filled"},
+            {"value": "ghost", "label": "Ghost"},
+            {"value": "underlined", "label": "Underlined"},
+            {"value": "text", "label": "Text"}
+        ],
+        "default": "filled",
+        "label": "Button style",
+        "id": "buttonStyle"
+    },
+    {
+        "id": "wideButton",
+        "type": "checkbox",
+        "label": "Make the button full width",
+        "default": false
+    },
+    {
+        "id": "borderWidth",
+        "type": "range",
+        "label": "Border width",
+        "unit": "px",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "default": 0
+    },
+    {
+        "id": "useBorderRadius",
+        "label": "Custom border radius",
+        "type": "checkbox",
+        "default": false
+    },
+    {
+        "id": "borderRadius",
+        "type": "range",
+        "min": 0,
+        "max": 50,
+        "unit": "px",
+        "default": 0,
+        "label": "Border radius"
+    },
+    {
+        "type": "header",
+        "content": "Color"
+    },
+    {
+        "id": "fillColor",
+        "type": "color",
+        "label": "Fill color",
+        "default": "rgb(0,0,0)"
+    },
+    {
+        "id": "contentColor",
+        "type": "color",
+        "label": "Text color",
+        "default": "rgb(255, 255, 255)"
+    },
+    {
+        "id": "hoverFillColor",
+        "type": "color",
+        "label": "Hover fill color",
+        "default": "rgb(255, 255, 255)"
+    },
+    {
+        "id": "hoverContentColor",
+        "type": "color",
+        "label": "Hover text color",
+        "default": "rgb(0,0,0)"
+    },
+    {
+        "type": "header",
+        "content": "Font"
+    },
+    {
+        "type": "select",
+        "label": "Font size",
+        "id": "fontSize",
+        "options": [
+        {"value": "small", "label": "Small"},
+        {"value": "base", "label": "Base"},
+        {"value": "medium", "label": "Medium"},
+        {"value": "big", "label": "Big"},
+        {"value": "custom", "label": "Custom"}
+        ],
+        "default": "medium"
+    },
+    {
+        "type": "range",
+        "id": "customFontSize",
+        "label": "Custom Font size",
+        "unit": "px",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "default": 18
+    },
+    {
+        "type": "checkbox",
+        "label": "Use custom font",
+        "default": false,
+        "id": "customFont"
+    },
+    {
+        "id": "customFontFamily",
+        "label": "Custom font",
+        "type": "font_picker",
+        "default": "work_sans_n6"
+    },
+    {
+        "type": "header",
+        "content": "Animation"
+    },
+    {
+        "type": "select",
+        "label": "Animation name",
+        "id": "animation",
+        "default": "none",
+        "options": [
+        {"value": "none", "label": "None"},
+        {"value": "heartBeat", "label": "Heart Beat"},
+        {"value": "jello", "label": "Jello"},
+        {"value": "wobble", "label": "Wobble"},
+        {"value": "tada", "label": "Ta-da!"},
+        {"value": "swing", "label": "Swing"},
+        {"value": "bounce", "label": "Bounce"},
+        {"value": "flash", "label": "Flash"},
+        {"value": "pulse", "label": "Pulse"},
+        {"value": "rubberBand", "label": "Rubberband"},
+        {"value": "shake", "label": "Shake"}
+        ]
+    },
+    {
+        "type": "range",
+        "min": 100,
+        "max": 2500,
+        "step": 25,
+        "default": 1000,
+        "unit": "ms",
+        "id": "animationDuration",
+        "label": "Animation duration"
+    },
+    {
+        "type": "checkbox",
+        "label": "Animate infinitely",
+        "id": "animationInfinite",
+        "default": true
+    }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

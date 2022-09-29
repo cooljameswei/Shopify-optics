@@ -1,0 +1,105 @@
+{% unless template == 'index' or template == 'cart' or template == 'list-collections' %}
+<div class="page-width">
+<nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+  <a href="/" title="Home">Home</a>
+  {% if template contains 'page' %}
+    <span aria-hidden="true">&rsaquo;</span>
+    <span>{{ page.title }}</span>
+  {% elsif template contains 'product' %}
+    {% for c in product.collections %}
+  		
+      {% if c.title == 'Eyeglasses' or c.title == 'Sunglasses' %}
+        <span aria-hidden="true">&rsaquo;</span>
+        <a href="/collections/{{ c.handle }}">{{ c.title | escape }}</a>
+      {% endif %}
+  	{% endfor %}
+    {% assign collectionsUnique = 'All'  %}
+
+  
+    {% capture collectionTitlesHide %}
+  		Home,
+        Full Rim,Rimless,Half Rim,
+        Designer Optics,
+        Single Bridge,Double Bridge,
+		Acetate,,
+  		Male,Female,Unisex,
+  		All,
+  		Eyeglasses,Sunglasses,
+  		Products,
+  		%,
+  		Newest Products,
+  		Adult,Kids
+  		Boost All (No Change),
+  		Best Selling Products,
+  		Aviator Sunglasses & Eyeglasses,
+  		Irregular,
+  		Rectangle,
+  		Square,
+  		Pillow,
+  		Round,
+  		Butterfly,
+  		Oval,
+  		Pilot Eyeglasses,
+  		Titanium,
+  		Rubber,
+  		Aluminum,
+  		Nylon,
+  		Metal Stainless Steel,
+  		Halloween Collection,
+  		Blue Light Blocking Lenses,
+  		Holiday Specials,
+	{% endcapture %}
+	
+  	{% assign collectionTitlesHideArr = collectionTitlesHide | split:',' %}
+  
+  	{% for c in product.collections%}
+    {% assign status=false %}
+      {% for hiddenTitle in collectionTitlesHideArr %}
+        {% assign hiddenTitle = hiddenTitle | strip %}
+        {% if hiddenTitle contains c.title %}
+        {% assign status=true %}
+        {% break %}
+        {% endif %}
+      {% endfor %}
+  
+	  {% unless status %}
+  		{% assign collectionsUnique = c.title | split: ',' %}
+        <span aria-hidden="true">&rsaquo;</span>
+        <a href="/collections/{{ c.handle }}">{{ c.title | escape }}</a>
+  	  {% endunless %}
+    {% endfor %}
+    {% comment %}
+    <span aria-hidden="true">&rsaquo;</span>
+    <span>{{ product.title }}</span>
+    {% endcomment %}
+  {% elsif template contains 'collection' and collection.handle %}
+    <span aria-hidden="true">&rsaquo;</span>
+    {% if current_tags %}
+      {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+      {{ collection.title | link_to: url }}
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{{ current_tags | join: " + " }}</span>
+    {% else %}
+      <span>{{ collection.title }}</span>
+    {% endif %}
+  {% elsif template == 'blog' %}
+    <span aria-hidden="true">&rsaquo;</span>
+    {% if current_tags %}
+      {{ blog.title | link_to: blog.url }}
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{{ current_tags | join: " + " }}</span>
+    {% else %}
+    <span>{{ blog.title }}</span>
+    {% endif %}
+  {% elsif template == 'article' %}
+    <span aria-hidden="true">&rsaquo;</span>
+    {{ blog.title | link_to: blog.url }}
+    <span aria-hidden="true">&rsaquo;</span>
+    <span>{{ article.title }}</span>
+  {% else %}
+   <span aria-hidden="true">&rsaquo;</span>
+   <span>{{ page_title }}</span>
+  {% endif %}
+</nav>
+</div>
+{% endunless %}

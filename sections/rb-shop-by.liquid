@@ -1,0 +1,168 @@
+<div class="page-width rb-shop-by" style="padding:0px; {% if section.settings.shop_by_title != blank %}padding-top:50px;{% endif %}">
+  <div class="rb-container">
+                {%- comment -%} NK START{%- endcomment -%}
+                {% if section.settings.shop_by_title != blank %}
+                  <h2 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.shop_by_title}}</h2>  
+                {% endif %}
+                {%- comment -%} NK END{%- endcomment -%}
+                <div class="rb-row" style="display:flex;">
+                    <div class="rb-col-md-4 item-wrapper">
+                        <a href="{{section.settings.section_1_link}}" >
+                            <img class="lazyload" data-src="{{ section.settings.section_1 | img_url: '800x800' }}">
+                            <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_1_title}}</span> 
+                        </a>
+                    </div>
+                    <div class="rb-col-md-4 item-wrapper">
+                        <a href="{{section.settings.section_2_link}}">
+                            <img class="lazyload" data-src="{{ section.settings.section_2 | img_url: '800x800' }}">
+                            <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_2_title}}</span>
+                        </a> 
+                    </div>
+                    <div class="rb-col-md-4 item-wrapper">
+                        <a href="{{section.settings.section_3_link}}">
+                            <img class="lazyload" data-src="{{ section.settings.section_3 | img_url: '800x800' }}">
+                            <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_3_title}}</span>
+                        </a>  
+                    </div>
+                </div>
+            </div>
+</div>
+{% schema %}
+  {
+    "name": "Shop By",
+      "settings": [
+      {
+        "type": "text",
+        "id": "shop_by_title",
+        "label": "Shop By Title"
+      },
+      {
+        "type": "image_picker",
+        "id": "section_1",
+        "label": "Section 1 Image"
+      },
+      {
+        "type": "text",
+        "id": "section_1_title",
+        "label": "Section 1 Title"
+      },
+      {
+        "type": "url",
+        "id": "section_1_link",
+        "label": "Section 1 Link"
+      },
+		{
+        "type": "image_picker",
+        "id": "section_2",
+        "label": "Section 2 Image"
+      },
+      {
+        "type": "text",
+        "id": "section_2_title",
+        "label": "Section 2 Title"
+      },
+      {
+        "type": "url",
+        "id": "section_2_link",
+        "label": "Section 2 Link"
+      },
+		{
+        "type": "image_picker",
+        "id": "section_3",
+        "label": "Section 3 Image"
+      },
+      {
+        "type": "text",
+        "id": "section_3_title",
+        "label": "Section 3 Title"
+      },
+      {
+        "type": "url",
+        "id": "section_3_link",
+        "label": "Section 3 Link"
+      }
+	],
+
+ 	"presets": [
+    {
+        "name": "Shop By",
+        "category": "Image"
+    }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+ .rb-shop-by .rb-container h2 {
+    margin-top: 0 !important;
+	font-weight: 600;
+    font-size: 30px;
+    text-transform: uppercase;
+    margin: 0;
+    text-align: center;
+    letter-spacing: normal;
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+.rb-shop-by .rb-container .item-wrapper {
+   	position: relative;
+    padding: 15px 10px;
+}
+
+.rb-shop-by .rb-container .item-wrapper a:hover img {
+   	filter: brightness(0.5); 
+}
+
+.rb-shop-by .rb-container .item-wrapper img {
+   	width:100%;
+    transition: all .3s;
+}
+
+.rb-shop-by .rb-container .rb-col-md-4 {
+    -webkit-box-flex: 0;
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+}
+
+.rb-shop-by .rb-container span {
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-size: 1.7vw !important;
+    position: absolute; 
+    bottom: 32px;
+    display: block;
+	font-size: 30px !important;
+    font-weight: 600;
+    letter-spacing: 8px;
+}
+/* to solve horizontal scroll start */
+.rb-shop-by .rb-container .rb-row .item-wrapper a{
+	position:relative;
+}
+/* to solve horizontal scroll end */
+
+@media only screen and (max-width: 800px) {
+  .rb-shop-by .rb-container .rb-row {
+  	flex-direction:column;
+  }
+  
+  .rb-shop-by .rb-container .item-wrapper {
+      width:100%;
+      max-width:100%;
+      padding: 15px 20px;
+  }
+  .rb-shop-by .rb-container .rb-col-md-4 {
+      -webkit-box-flex: 0;
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+
+}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

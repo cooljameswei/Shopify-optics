@@ -1,0 +1,794 @@
+
+<link rel="stylesheet" href="{{'pdp-style.css' | asset_url}}"/>
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = product.featured_image %}
+
+<style>
+{% if section.settings.galleryPosition == "right" %}
+.product__row {
+  flex-direction: row-reverse;
+}
+{% endif %}
+.gallery.gallery__default{
+	justify-content: center;  
+}
+.gallery__vertical img {
+  width: 100%;
+  object-fit: {{section.settings.galleryImageFit}};
+}
+
+.gallery__vertical {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin: 0px -{{section.settings.galleryImageGap | divided_by: 2}}px;
+}
+
+.gallery__vertical .col-12 {
+  padding: 0px {{section.settings.galleryImageGap | divided_by: 2}}px;
+  margin-top: {{section.settings.galleryImageGap}}px;
+}
+.button.button--addToCart{
+  	padding-right: 70px;
+    text-align: center;
+    font: normal normal 600 14px/21px Montserrat;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+    padding: 12px 15px;
+    border-color: transparent;
+    transition: all .4s;
+    border-radius: 0;
+    width: 100%;
+    background-color: #c63b3d;
+    color: #fff;
+  }
+  .shopify-payment-button,
+  .swym-button-bar.swym-wishlist-button-bar.swym-inject,
+  .gallery__thumbnails{
+  	display:none;
+  }
+  .quantity--input__button{
+  	background: #ebebeb;
+    border: 0;
+    width: 36px;
+    height: 36px;
+    border-radius:5px;
+    padding:10px;
+  }
+  .quantity--input{
+  	border:0px;
+    margin-bottom:30px;
+  }
+  .quantity--input__input{
+  	width: 40px;
+    background-color: transparent;
+    font: normal normal 500 14px/24px Montserrat;
+    letter-spacing: 2.8px;
+    color: #000;
+    outline: 0;
+    text-transform: uppercase;
+    pointer-events: none;
+    background: 0 0;
+    padding: 0;
+    height:36px;
+  }
+  
+  .label-txt{
+  	margin-right:15px;
+  }
+  h1.product__title{
+  	font: normal normal 600 22px/27px Montserrat;
+    letter-spacing: 0;
+    color: #000;
+    margin-bottom: 9px;
+    font-size:22px;
+  }
+  .swatches__holder select{
+  	border:1px solid #e6e6e6;
+  }
+  .pdp-btn-addcart-wishlist .pdp-wishlist-icon{
+  	width:60px;
+  }
+  .product__atc{
+  	display:block;
+  }
+  .button.button--addToCart{
+  	width: auto;
+    padding: 15px 35px;
+  }
+  .product__atc-container .addtocart__button,
+  .product__atc-container .pdp-btn-addcart-wishlist{
+    width: auto;
+  }
+  {% if request.path contains 'gift-card'%}
+    .row.product__row.product__row--default{
+      justify-content: space-between;
+    }
+    .swatches__holder select{
+      width:62%;
+    }
+    .product-single__sku{
+      display:none;
+    }
+    #product--page .shopify-product-form > .dflex{
+      margin-bottom:15px;
+    }
+    #product--page .shopify-product-form .product__price--holder{
+      margin-bottom: 20px;
+    }
+     #product--page .shopify-product-form .swatches__holder .swatches__title{
+        margin-bottom:15px;
+     }
+     #product--page .shopify-product-form .product__atc .quantity--input{
+        margin-right:40px;
+    }
+    #product--page .shopify-product-form .product__atc-container .quantity--input label.label-txt{
+      text-align:left;
+    }
+    .product__row--default .slider--product__holder{
+      width:80%;
+    }
+    #product--page .shopify-product-form .product__atc-container{
+      align-items:flex-end;
+    }
+    #product--page .shopify-product-form .product__atc-container .quantity--input {
+      margin-bottom: 0;
+    }
+    .grid__item.product-desc{
+      padding-top: 0px;
+    }
+    
+  {% endif %}
+  #wishlisthero-product-page-button-container button {
+      border: 1px solid #c73b3d !important;
+      border-radius: 0px !important;
+      height: 53px !important;
+    }
+    #wishlist-hero-product-page-button{
+    margin-bottom:0px;
+   margin-left:15px;
+  }
+  @media(max-width:1200px){
+    #product--page .shopify-product-form .button.button--addToCart{
+     width:auto;
+     margin-top:0px;
+   }
+   #product--page .shopify-product-form .product__atc .quantity--input {
+      margin-right: 40px;
+      width: auto;
+    }
+    #product--page .shopify-product-form .addtocart__button {
+      width: auto;
+    }
+    .desktop_hide.pdp-wishlist-icon{
+      display:none;
+    }
+    .pdp-btn-addcart-wishlist{
+      width:auto;
+    }
+    .breadcrumb{
+      padding:0px 25px;
+    }
+  }
+  @media(min-width:768px) and (max-width:900px){
+      #product--page .shopify-product-form .product__atc-container{
+         flex-wrap:wrap;
+    }
+   #product--page .shopify-product-form .product__atc .quantity--input{
+        width:100%;
+       margin-right:0px; 
+     margin-bottom:15px;
+   }
+}
+  @media only screen and (max-width: 767px){
+	.product__atc .quantity--input__input {
+    	width: 40px;
+	}
+    .grid__item.product-desc .tab-content {
+    	border-bottom: none;
+    	padding-bottom: 0px;
+	}
+   #product--page .shopify-product-form .button.button--addToCart{
+     width:auto;
+     margin-top:0px;
+   }
+   #product--page .shopify-product-form .product__atc .quantity--input {
+      margin-right: 40px;
+      width: auto;
+    }
+    #product--page .shopify-product-form .addtocart__button {
+      width: auto;
+    }
+    .product__row--default .product__page--info{
+      padding:0px 25px;
+    }
+    .grid__item.product-desc{
+      padding:0px 25px;
+    }
+    
+    .product__swatches{
+      margin-bottom:20px;
+    }
+    .product__row--default .slider--product__holder {
+      margin: 20px auto;
+    }
+  }
+  @media(max-width:400px){
+    #product--page .shopify-product-form .product__atc .product__atc-container{
+       flex-wrap:wrap; 
+    }
+    #product--page .shopify-product-form .product__atc .quantity--input {
+      margin-right: 0;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    #product--page .shopify-product-form .addtocart__button {
+      width: 100%;
+    }
+    #product--page .shopify-product-form .swatches__holder select {
+      width: 100%;
+    }
+  }
+#colorcode {};
+
+</style>
+
+<div class="sticky--mobile hide-desktop sticky--closed hide">
+<div class="sticky--container">
+<div style="text-align: right">
+  <span class="sticky__close" onclick="BoosterTheme.ELEMENTS.closeSticky(this)"><i class="uil uil-times"></i></span>
+</div>
+<h4 style="text-align: center; margin-bottom: 1rem">{{product.title}}</h4>
+  {% render 'block__product-page-gift-card--price' with product as product %}
+  {% render 'block__product-page-gift-card--swatch' with product as product %}
+</div>
+<button
+data-original-text="{%- if product.price == 0 and settings.freeShipping  %}{{settings.freeShippingText}}{% else %}{{ 'general.buttons.add_to_cart' | t  }}{% endif -%}"
+data-buy-button="{{product.id}}"
+onclick="BoosterTheme.ELEMENTS.stickyBuy(this, event)"
+class="button button--primary button--{{settings['primaryButtonStyle']}}  button--primary__{{settings['primaryButtonStyle']}} sticky--atc__button"
+>
+<span data-button-text>
+{%- if product.price == 0 and settings.freeShipping  %}
+  {{settings.freeShippingText}}
+{% else %}
+    {{ 'general.buttons.add_to_cart' | t  }}
+{% endif -%}
+</span> 
+</button>
+<button
+data-product-id="{{product.id}}"
+onclick="BoosterTheme.ELEMENTS.stickyBuy(this, event)"
+class="button button--primary button--{{settings['primaryButtonStyle']}} hide button--primary__{{settings['primaryButtonStyle']}} sticky--open__button"
+>
+{%- if product.price == 0 and settings.freeShipping  %}
+  {{settings.freeShippingText}}
+{% else %}
+    {{ 'general.buttons.add_to_cart' | t  }}
+{% endif -%}
+</button>
+</div>
+
+
+{% if section.settings.view == "marketplace" %}
+{% assign size = 'col-md' %}
+{% else %}
+{% assign size = 'col-md-6' %}
+{% endif %}
+{%- comment -%}
+Product row container
+{%- endcomment -%}
+<div data-product-holder class="row product__row {{section.settings.layout}} product__row--{{section.settings.view}}">
+{%- comment -%}
+Default gallery with thumbnails (always rendered - used for mobile, featured products, modals in case another gallery type is selected) 
+{%- endcomment -%}
+<div class="col-12 {{size}} gallery gallery__default {% if section.settings.galleryStyle != 'default'%}hide-desktop{%endif%}">
+  {% render 'gallery--default', product: product, section: section %}
+</div>
+{%- comment -%}
+/Default gallery with thumbnails
+{% endcomment %}
+
+{%- comment -%}
+Checking for vertical gallery styles (additional gallery styles can be added here)
+{%- endcomment -%}
+{% case section.settings.galleryStyle %}
+  {% when 'verticalSingle' %}
+    <div data-gallery-type="vSingle" class="col-12 {{size}} gallery__vertical hide-mobile">
+      {% for image in product.images %}
+        <div data-variants="{% for var in image.variants %}{{var.id}}|{% endfor %}" class="col-12">
+          {% render 'image', size: '900x', src: image.src, alt: image.alt %}
+        </div>
+      {% endfor %}
+      {% for media in product.media %}
+        {% case media.media_type %}
+          {% when 'image' %}
+            {% continue %}
+          {% when 'external_video' %}
+          <div class="col-12">
+            <div class="external__holder" data-media-holder="{{media.id}}" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+              {% capture med %}{{ media | external_video_tag: class: 'gallery__external lazyload' }}{% endcapture %}
+              {{med | replace_first: 'src', 'data-src'}}
+            </div>
+          </div>
+          {% when 'video' %}
+          <div class="col-12">
+            <div class="video__holder" data-media-holder="{{media.id}}">
+              {% capture med %}{{ media | video_tag: class: 'gallery__video lazyload' }}{% endcapture %}
+              {{med | replace_first: 'src', 'data-src' | replace_first: 'poster=', 'controls=true poster='}}
+            </div>
+          </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  {% when 'verticalDouble' %}
+    <div data-gallery-type="vDouble" class="col-12 {{size}} gallery__vertical hide-mobile">
+      {% for image in product.images %}
+        <div data-variants="{% for var in image.variants %}{{var.id}}|{% endfor %}" {% if forloop.first %}class="col-12 col-md-12"{%else%}class="col-12 col-md-6"{%endif%}>
+          {% render 'image', size: '900x', src: image.src, alt: image.alt %}
+        </div>
+      {% endfor %}
+      {% for media in product.media %}
+        {% case media.media_type %}
+          {% when 'image' %}
+            {% continue %}
+          {% when 'external_video' %}
+          <div class="col-12 col-md-6">
+            <div class="external__holder" data-media-holder="{{media.id}}" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+              {% capture med %}{{ media | external_video_tag: class: 'gallery__external lazyload' }}{% endcapture %}
+              {{med | replace_first: 'src', 'data-src'}}
+            </div>
+          </div>
+          {% when 'video' %}
+          <div class="col-12 col-md-6">
+            <div class="video__holder" data-media-holder="{{media.id}}">
+              {% capture med %}{{ media | video_tag: class: 'gallery__video lazyload' }}{% endcapture %}
+              {{med | replace_first: 'src', 'data-src' | replace_first: 'poster=', 'controls=true poster='}}
+            </div>
+          </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+{% endcase %}
+{%- comment -%}
+/Checking for vertical gallery styles
+{%- endcomment -%}
+
+{%- comment -%}
+Rendering according to the view (default, marketplace)
+{%- endcomment -%}
+{% if section.settings.view == 'default' %}
+  <div class="col-12 {{size}} product__page--info unflex" id="product--page">
+  {% comment %} PRODUCT FORM 1 of 2{% endcomment %}
+  {% form "product", product %}
+    {% assign firstTab = true %}
+    {% for block in section.blocks %}
+      {% if block.type == '@app' %}
+        <div class="col-12 {{section.settings.layout}} unflex no-gap">
+          {% render block %}
+        </div>
+        {% continue %}
+      {% endif %}
+      {% if block.type == 'productPageTab' %}
+        {% if block.settings.showInline and firstTab %}
+          {% assign firstTab = false %}
+          {% assign tabs = section.blocks | where: 'type', 'productPageTab' %}
+          {% if tabs.size > 0 %}
+            <div class="col-12 {{section.settings.layout}} unflex tab__container tab__container--product no-gap">
+              <div class="tab__holder">
+                {% assign first = true %}
+                {% for tab in tabs %}
+                  {% if tab.settings.showInline %}
+                    <span class="tab--product {% if first %}tab--active{% endif -%}" onclick="BoosterTheme.ELEMENTS.toggleTab(this, 'tab--{{tab.id}}')">{{tab.settings.heading}}</span>
+                    {% assign first = false %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+              {% assign first = true %}
+              {% for tab in tabs %}
+                {% if tab.settings.showInline %}
+                  {% render 'get-block', block: tab, section: section, first: first, product: product %}
+                  {% assign first = false %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% else %}
+          {% continue %}
+        {% endif %}
+      {% endif %}
+      {% render 'get-block', block: block, product: product, form: form %}
+    {% else %}
+      {% render 'block__product-page-gift-card--title', product: product, noMargin: true %}
+      {% render 'block__product-page-gift-card--price', product: product %}
+      {% render 'block__product-page-gift-card--swatch' with product as product %}
+      {% render 'block__product-page-gift-card--atc', product: product, form: form %}
+    {% endfor %}
+  {% endform %}
+  {% comment %} END PRODUCT FORM {% endcomment %}
+  </div>
+{% else %}
+  <div class="col-12 {{size}} unflex product__page--info">
+    <h1 class="product__title margin__bottom--reduced">{{ product.title }}</h1>
+    {% render 'block__product-page-gift-card--price' with product as product %}
+    {% if product.description != blank %}
+    <div class="product__description">
+      <span class="product__description--title">{{'product_page.page.product_description'|t}}</span>
+      <div class="booster--revert">{{ product.description }}</div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="col-12 {{size}} product__page--info unflex fancy-scroll" id="product--page">
+  {% comment %} PRODUCT FORM 2 of 2{% endcomment %}
+  {% form "product", product %}
+    {% assign firstTab = true %}
+    {% for block in section.blocks %}
+      {% if block.type == '@app' %}
+        <div class="col-12 {{section.settings.layout}} unflex no-gap">
+          {% render block %}
+        </div>
+        {% continue %}
+      {% endif %}
+      {% if block.type == 'productPageTab' %}
+        {% if block.settings.showInline and firstTab %}
+          {% assign firstTab = false %}
+          {% assign tabs = section.blocks | where: 'type', 'productPageTab' %}
+          {% if tabs.size > 0 %}
+            <div class="col-12 {{section.settings.layout}} unflex tab__container tab__container--product no-gap">
+              <div class="tab__holder">
+                {% assign first = true %}
+                {% for tab in tabs %}
+                  {% if tab.settings.showInline %}
+                    <span class="tab--product {% if first %}tab--active{% endif -%}" onclick="BoosterTheme.ELEMENTS.toggleTab(this, 'tab--{{tab.id}}')">{{tab.settings.heading}}</span>
+                    {% assign first = false %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+              {% assign first = true %}
+              {% for tab in tabs %}
+                {% if tab.settings.showInline %}
+                  {% render 'get-block', block: tab, section: section, first: first, product: product %}
+                  {% assign first = false %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% else %}
+          {% continue %}
+        {% endif %}
+      {% endif %}
+      {% render 'get-block', block: block, product: product, form: form %}
+    {% endfor %}
+  {% endform %}
+  {% comment %} END PRODUCT FORM {% endcomment %}
+  </div>
+{% endif %}
+
+{%- comment -%}
+/Rendering according to the view
+{%- endcomment -%}
+</div>
+{%- comment -%}
+/Product container row
+{%- endcomment -%}
+
+{% assign tabs = section.blocks | where: 'type', 'productPageTab' %}
+{% if tabs.size > 0 %}
+  <div class="col-12 {{section.settings.layout}} unflex tab__container tab__container--product">
+    <div class="tab__holder">
+      {% for tab in tabs %}
+        {% if tab.settings.showInline %}
+          {% continue %}
+        {% endif %}
+        <span class="tab--product {% if forloop.first %}tab--active{% endif -%}" onclick="BoosterTheme.ELEMENTS.toggleTab(this, 'tab--{{tab.id}}')">{{tab.settings.heading}}</span>
+      {% endfor %}
+    </div>
+    {% for tab in tabs %}
+      {% if tab.settings.showInline %}
+        {% continue %}
+      {% endif %}
+      {% render 'get-block', block: tab, section: section, first: forloop.first, product: product %}
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% comment %}
+marketplace view - failover title (.hide-mobile)
+marketplace view - failover price (.hide-mobile)
+gallery failover for quickbuy modal/modals
+{% endcomment %}
+
+{% if section.settings.productNavigation %}
+{% render 'block__product-page--next__prev' %}
+{% endif %}
+<!-- Product Description with metafields -->
+	<div class="page-width pdp-container">	
+      <div class="grid product-single product-single-container">
+      	<div class="grid__item product-desc" id="tab">
+        <div class="nav nav-tabs">
+          {% if product.description != blank %}
+          <a href="#tab2" class="product-details"><span>Description</span></a>
+          {% endif %}
+          {% if section.settings.prescription_guide_url != blank %}
+          <a href="#tab3"><span>Prescription Guide</span></a>
+          {% endif %}
+          <a href="#tab4" class="product-review"><span>Ratings & Reviews</span></a>
+        </div>
+
+        <div class="tab-content">
+         {% if product.description != blank %}
+          <div class="accordion-item">
+            <div class="accordion">Description</div>
+            <div id="tab2" class="tab-pane fade booster--revert">
+              <p>{{ product.description }}</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if section.settings.prescription_guide_url != blank %}
+          <div class="accordion-item">
+            <div class="accordion">Prescription Guide</div>
+            <div id="tab3" class="tab-pane fade">
+              {% assign youtube_id = section.settings.prescription_guide_url | split:"/" | last %}
+              <div class="map-container"><iframe youtube-src="https://www.youtube.com/embed/{{youtube_id}}" frameborder="0" allow="encrypted-media" allowfullscreen></iframe></div>
+            </div>
+          </div>
+          {% endif %}
+          <div class="accordion-item">
+            <div class="accordion accordion-review">Reviews</div>
+
+            <div id="tab4" class="tab-pane fade">
+              {% include 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false %}
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+	</div>
+      <!-- End Metafields area -->
+{% schema %}
+{
+  "name": {
+    "en": "Product page content"
+  },
+  "settings": [
+    {
+        "type" : "header",
+        "content": "Instructions"
+    },
+    {
+        "type": "paragraph",
+        "content": "Blocks marked with * MUST be included in order for the page to work."
+    },
+     {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458187257)"
+        },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "view",
+      "label": "Product page type",
+      "options": [
+        {"value": "marketplace", "label": "Marketplace"},
+        {"value": "default", "label": "Default"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Page width",
+      "options": [
+        {"value": "max-width", "label": "Boxed"},
+        {"value": "full-width", "label": "Full width"}
+      ],
+      "default": "max-width"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "select",
+      "id": "galleryStyle",
+      "label": "Gallery Style",
+      "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "verticalDouble", "label": "Vertical list (2 column)"},
+        {"value": "verticalSingle", "label": "Vertical list (1 column)"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "select",
+      "id": "galleryPosition",
+      "label": "Gallery Position",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "label": "Zoom image on hover",
+      "id": "autoZoom",
+      "info": "If enabled, hovering over an image will zoom it in. Otherwise works on click only.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "label": "Change image on hover",
+      "id": "autoChange",
+      "info": "If enabled, hovering a thumbnail will change the image. Otherwise works on click only.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "label": "Verical gallery image fit",
+      "id": "galleryImageFit",
+      "options": [
+        {"value": "contain", "label": "Preserve ratio"},
+        {"value": "cover", "label": "Adjust ratio to fill empty space - crop image"}
+      ],
+      "default": "cover",
+      "info": "In case your product's image doesn't fit the image ratio you've selected below, the image can either: "
+    },
+    {
+      "type": "range",
+      "label": "Gap between vertical gallery images",
+      "id": "galleryImageGap",
+      "unit": "px",
+      "min": 0,
+      "max": 50,
+      "default": 16,
+      "info": "Vertical gap between vertical gallery images."
+    },
+    {
+      "type": "paragraph",
+      "content": "Preserve ratio - the whole image will be shown in its original dimensions, but may cause empty/white space to appear"
+    },
+    {
+      "type": "paragraph",
+      "content": "Adjust the ratio to fill empty space - if the image doesn't fit the ratio, it will be cropped and adjusted to fill the space - no empty/white space"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "productNavigation",
+      "label": "Enable previous/next product",
+      "info": "Previews next and previous product links. Only works inside collections.",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+<script>
+  $(document).ready(function() {
+    let _sku = '{% if product.has_only_default_variant %}{{-current_variant.sku-}}{% else %}{{-current_variant.title-}}{% endif%}';
+    window.gaViewItem('{{-product.title-}}','{{-product.id-}}',{{-current_variant.price | divided_by:100 -}},'{{-product.vendor-}}','{{-collection.title | default:product.collections[0].title-}}',_sku,(document.querySelector('[name="quantity"]') && document.querySelector('[name="quantity"]').value || 1));
+  });
+  /* Tabs for metafields */
+    $(document).ready(function() {
+            if(window.innerWidth < 1200){
+              $('.nav-tabs').each(function(){
+                // For each set of tabs, we want to keep track of
+                // which tab is active and its associated content
+                var $active, $content, $links = $(this).find('a');
+
+                // If the location.hash matches one of the links, use that as the active tab.
+                // If no match is found, use the first link as the initial active tab.
+                $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+                $active.addClass('active');
+
+                $content = $($active[0].hash);
+
+                // Hide the remaining content
+                $links.not($active).each(function () {
+                  $(this.hash).hide();
+                });
+
+                // Bind the click event handler
+                $(this).on('click', 'a', function(e){
+                  // Make the old tab inactive.
+                  $active.removeClass('active');
+                  $content.hide();
+
+                  // Update the variables with the new link and content
+                  $active = $(this);
+                  $content = $(this.hash);
+
+                  // Make the tab active.
+                  $active.addClass('active');
+                  $content.show();
+
+                  // Prevent the anchor's default click action
+                  e.preventDefault();
+                });
+              });
+            }
+        if ($(window).width() < 992) {
+
+          $('#accesories').css('display','none');
+          $('.accordion').click(function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            $this.toggleClass('active').next(".tab-pane").slideToggle(300).toggleClass('active').parent().siblings().find('.accordion').removeClass('active').next('.tab-pane').removeClass('active').slideUp(300)
+          });
+          $('.accordion').eq(0).trigger('click')
+
+        } else {
+          $('.nav-tabs').each(function() {
+            // For each set of tabs, we want to keep track of
+            // which tab is active and its associated content
+            var $active, $content, $links = $(this).find('a');
+
+            // If the location.hash matches one of the links, use that as the active tab.
+            // If no match is found, use the first link as the initial active tab.
+            $active = $($links.filter('[href="' + location.hash + '"]')[0] || $links[0]);
+            $active.addClass('active');
+
+            $content = $($active[0].hash);
+
+            // Hide the remaining content
+            $links.not($active).each(function() {
+              $(this.hash).hide();
+            });
+
+            // Bind the click event handler
+            $(this).on('click', 'a', function(e) {
+              $("#tab .sizing-guide-tab").removeClass("active");
+              $("#tab1").css("display", "none");
+              // Make the old tab inactive.
+              $active.removeClass('active');
+              $content.hide();
+
+              // Update the variables with the new link and content
+              $active = $(this);
+              $content = $(this.hash);
+
+              // Make the tab active.
+              $active.addClass('active');
+              $content.show();
+
+              // Prevent the anchor's default click action
+              e.preventDefault();
+            });
+          });
+        }
+  		var flag = 0;
+        // Collapse/Expand button for color thumbs
+//         if ($(".product-single__thumbnail-item").size() > 12) {
+//           $("#color-thumb-button").show();
+//         }
+        $(".color-thumb-button").click(function() {
+          flag++;
+          var $elem = $(".photos").find(".product-single__thumbnails");
+          if ($elem.hasClass("collapse")) {
+            $elem.removeClass("collapse");
+            $(this).text("Show Fewer Colors");
+          } else {
+            $elem.addClass("collapse");
+            $(this).text("Show More Colors");
+          }
+          if (flag > 1) {
+            $(".chatbox-first").css("display", "block");
+            $(".chatbox-second").css("display", "none");
+            flag = 0;
+          } else {
+            $(".chatbox-first").css("display", "none");
+            $(".chatbox-second").css("display", "block");
+          }
+        });
+  });
+</script>

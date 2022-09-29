@@ -1,0 +1,66 @@
+{% if block.settings.textColor != "rgba(0,0,0,0)" %}
+<style>
+.title--{{-block.id}}{
+    color: {{block.settings.textColor}} !important;
+}
+</style>
+{% endif %}
+
+<h2 class="title--{{-block.id}}
+font__size--{{-block.settings.fontSize}} font__family--{{-block.settings.fontFamily}}" 
+{{block.shopify_attributes}}>{{block.settings.content}}</h2>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "title",
+    "name": "Heading",
+    "settings": [
+        {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+        },
+        {
+        "id": "content",
+        "type": "text",
+        "label": "Header",
+        "default": "Hey check this out!"
+        },
+        {
+        "type": "color",
+        "id": "textColor",
+        "default": "rgba(0,0,0,0)",
+        "label": "Text color"
+        },
+        {
+        "type": "header",
+        "content": "Font"
+        },
+        {
+        "type": "radio",
+        "id": "fontFamily",
+        "label": "Font Family",
+        "options": [
+            {"value": "base", "label": "Base font family"},
+            {"value": "title", "label": "Title font family"}
+        ],
+        "default": "title"
+        },
+        {
+        "type": "select",
+        "label": "Font Size",
+        "default": "medium",
+        "id": "fontSize",
+        "options": [
+            {"value": "small", "label": "Small"},
+            {"value": "base", "label": "Base"},
+            {"value": "medium", "label": "Medium"},
+            {"value": "big", "label": "Big"}
+        ]
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

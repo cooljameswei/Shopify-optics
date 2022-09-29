@@ -1,0 +1,178 @@
+{%- assign settingsProp = block.settings.buttonStyle | append: 'ButtonStyle' -%}
+{%- assign buttonType = settings[settingsProp] %}
+{% if block.settings.buttonType != "default" and block.settings.buttonType %}
+{% assign buttonType = block.settings.buttonType %}
+{% endif %}
+
+{% unless block.settings.animation == "none" %}
+<style>
+#button--{{-block.id}} {
+    animation-duration: {{block.settings.animationDuration}}ms;
+    {% if block.settings.animationInfinite %}animation-iteration-count: infinite;{% endif %};
+}
+</style>
+{% endunless %}
+
+<a
+id="button--{{block.id}}"
+class="button button--{{-block.settings.buttonStyle}} 
+button--{{-buttonType}} button--{{-block.settings.buttonStyle-}}__{{-buttonType}}
+font__size--{{-block.settings.fontSize}} font__family--{{block.settings.fontFamily}}
+button__animation--{{-block.settings.animation}}
+{%if block.settings.wideButton%}button--full-width{%endif%}
+{% unless block.settings.icon == blank %}button--icon {{block.settings.iconPosition}}{% endunless %}"
+href="{{- block.settings.url -}}"
+{{ block.shopify_attributes }}>
+{% unless block.settings.icon == blank %}
+{% render 'get-icon' with block.settings.icon as icon %}
+{% endunless %}
+<span>{{- block.settings.text -}}</span>
+</a>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "button",
+    "name": "Button",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+    },
+    {
+        "id": "text",
+        "label": "Button text",
+        "type": "text",
+        "default": "Get this now!"
+    },
+    {
+        "id": "url",
+        "type": "url",
+        "label": "Links to"
+    },
+    {
+        "type": "text",
+        "id": "icon",
+        "label": "Button icon",
+        "info": "Dashed icon from the [Unicons library](https://iconscout.com/unicons/explore/line)",
+        "placeholder": "shopping-cart"
+    },
+    {
+        "type": "select",
+        "id": "iconPosition",
+        "options": [
+            {"value": "icon--left", "label": "Left"},
+            {"value": "icon--right", "label": "Right"}
+        ],
+        "default": "icon--left",
+        "label": "Icon position"
+    },
+    {
+        "type": "header",
+        "content": "Button style"
+    },
+    {
+        "id": "wideButton",
+        "type": "checkbox",
+        "label": "Make the button full width",
+        "default": false
+    },
+    {
+        "id": "buttonStyle",
+        "type": "select",
+        "label": "Color combination",
+        "options": [
+        {"value": "primary", "label": "Primary"},
+        {"value": "secondary", "label": "Secondary"}
+        ],
+        "default": "primary"
+    },
+    {
+        "id": "buttonType",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "filled", "label": "Filled"},
+        {"value": "ghost", "label": "Ghost"},
+        {"value": "underlined", "label": "Underlined"},
+        {"value": "text", "label": "Text"}
+        ],
+        "default": "default"
+    },
+    {
+        "type": "header",
+        "content": "Font"
+    },
+    {
+        "type": "select",
+        "label": "Font size",
+        "id": "fontSize",
+        "options": [
+        {"value": "small", "label": "Small"},
+        {"value": "base", "label": "Base"},
+        {"value": "medium", "label": "Medium"},
+        {"value": "big", "label": "Big"}
+        ],
+        "default": "base"
+    },
+    {
+        "type": "header",
+        "content": "Font"
+    },
+    {
+        "type": "radio",
+        "id": "fontFamily",
+        "label": "Font Family",
+        "options": [
+        {"value": "base", "label": "Base font family"},
+        {"value": "title", "label": "Title font family"}
+        ],
+        "default": "base"
+    },
+    {
+        "type": "header",
+        "content": "Animation"
+    },
+    {
+        "type": "select",
+        "label": "Animation name",
+        "id": "animation",
+        "default": "none",
+        "options": [
+        {"value": "none", "label": "None"},
+        {"value": "heartBeat", "label": "Heart Beat"},
+        {"value": "jello", "label": "Jello"},
+        {"value": "wobble", "label": "Wobble"},
+        {"value": "tada", "label": "Ta-da!"},
+        {"value": "swing", "label": "Swing"},
+        {"value": "bounce", "label": "Bounce"},
+        {"value": "flash", "label": "Flash"},
+        {"value": "pulse", "label": "Pulse"},
+        {"value": "rubberBand", "label": "Rubberband"},
+        {"value": "shake", "label": "Shake"}
+        ]
+    },
+    {
+        "type": "range",
+        "min": 100,
+        "max": 2500,
+        "step": 25,
+        "default": 1000,
+        "unit": "ms",
+        "id": "animationDuration",
+        "label": "Animation duration"
+    },
+    {
+        "type": "checkbox",
+        "label": "Animate infinitely",
+        "id": "animationInfinite",
+        "default": true
+    }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}
+

@@ -1,0 +1,276 @@
+<style>
+    .custom-collection__section .page-width{
+        padding: 0;
+        /*max-width: 1070px;*/
+      	/*------As per the new requiremnet TW#33265426-----*/
+    	max-width: 1350px;
+    }
+    .tab-content{
+        padding-left:0 !important;
+    }
+    .custom-collection__section .grid_item.product-desc {
+        border: none;   
+        margin-top: 0;
+    }
+    .custom-collection__section .grid__item.product-desc.margin-v {
+        margin-top: 0 !important;
+    }
+
+
+
+</style>
+<div class="product-template__container page-width">
+    <aside class="grid product-single-container">
+        <div class="grid__item product-desc margin-v" id="separateAccessories">
+            <div class="tab-content">
+                <div class="accordion-item">
+                    
+                <div id="section1">
+                     {% if section.settings.title != blank %}
+                         {{ section.settings.title }}
+                     {% else %}
+                        {{ collections[section.settings.collection].title }}
+                     {% endif %}   
+                </div>
+                <div id="accesories" class="tab-pane">
+        
+        
+                    {% if product.title contains "Shipping Insurance" %}
+                    {% else %}
+                    {% assign porLists = '' %}
+                    {% assign porActive = false %}
+                    {% for tag in product.tags %}
+                    {% if tag contains 'ff-' %}
+                    {% assign handlem = tag | replace:'ff-','' %}
+                    {% assign porLists = porLists  | append:handlem | append:'+' %}
+                    {% assign porActive = true %}   
+                    {% endif %}
+                    {% endfor %}
+                    {% assign porListsItems = porLists|split:"+" %}
+                    {% if collections[section.settings.collection].products.size > 0 or porListsItems.size > 0 %}
+                    {% if collections[section.settings.collection].products.size > 0  %}
+                    <div class="cm-ff-wrap {% if collections[section.settings.collection].products.size > 2 %}yes{% else %}no{% endif %}" >
+                    <div class="cm-slick-in" id="cm-slick-in--{{ forloop.index }}" data-position="{% if forloop.index == 1 %} 1 {% else %} {{ forloop.index | plus: 3 }} {% endif %}">
+                        {% for myPro in collections[section.settings.collection].products limit:10  %}
+                        {% if myPro.available  %}
+                        <div class="accessories-item">
+                        <div class="inner">
+                            <div class="accessories-left thumb">
+                            <div class="accessories-img-wrapper">
+                                <img src="{{ myPro.featured_image.src | product_img_url: '153x153' }}" alt="{{ myPro.featured_image.alt | escape }}">
+                            </div>
+                            <a href="{{ myPro.url | within: collection }}" class="view-hover-btn">View</a>
+                            <div style="clear:both;"></div>
+                            </div>
+                            <div class="accessories-right">
+                            <div class="accessories-title-wrap">
+                                <a class="product-title" title="{{ myPro.title }}" href="{{ myPro.url | within: collection }}">
+                                {% if settings.enable_multilang %}
+                                <span class="lang1">{{ myPro.title | split: '|' | first | truncate: 60 }}</span>
+                                <span class="lang2">{{ myPro.title | split: '|' | last | truncate: 60 }}</span>
+                                {% else %}
+                                {{ myPro.title | split: '|' | first | truncate: 60 }}
+                                {% endif %}
+                                </a>
+                            </div>
+                            <div class="accessory-price">
+                                <div class="price-box">
+                                <span class="regular-price">{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros  | strip_html  }}</span>
+                                <span class="old-price">{{ myPro.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros  | strip_html  }}</span>
+                                </div>
+                            </div>
+                            {% include 'acc-judme_widget', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false %}                
+        
+        
+                            <div class="cm-btn-wrap">
+                                <a href="javascript:;" class="cm-add-to-cart" data-value="{{ myPro.selected_or_first_available_variant.id }}">ADD TO CART</a></div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <script  type="lazyload2">
+                        $(document).ready(function(){
+        
+        
+                        var slider = $('#cm-slick-in--{{ forloop.index }}');
+                                        slider.slick({
+                                        autoplay: false,
+                                        infinite: false,
+                                        autoplaySpeed: {% if forloop.index == 1 %} 4000 {% else %} {{ '4000' | plus: 500 }} {% endif %},
+                                        slidesToShow: 4,
+                                        slidesToScroll: 1,
+                                        initialSlide:{% if forloop.index == 1 %} 1 {% else %} {{ forloop.index | plus: 3 }} {% endif %},
+                                        responsive: [
+                                        {
+                                        breakpoint: 1024,
+                                        settings: {
+                                        slidesToShow: 3,
+                                        slidesToScroll: 1,
+                                        infinite: false,
+                                        }
+                                        },
+                                        {
+                                        breakpoint: 600,
+                                        settings: {
+                                        slidesToShow: 2,
+                                        dots:true,
+                                        slidesToScroll: 1
+                                        }
+                                        },
+                                        {
+                                        breakpoint: 480,
+                                        settings: {
+                                        slidesToShow: 2,
+                                        dots:true,
+                                        slidesToScroll: 1
+                                        }
+                                        }
+                                        ]
+                                        })
+                        });
+                    </script>
+                    </div>
+                    {% else %}
+                    <div class="cm-ff-wrap {% if porListsItems.size > 2 %}yes{% else %}no{% endif %}" >
+                    <div class="cm-slick-in">
+        
+        
+        
+                        {% for proItem in porListsItems %}
+                        {% if forloop.index <= 20 %}
+                        {% assign myPro = all_products[proItem] %}
+                        {% if myPro.available  %}
+        
+        
+                        {% if myPro.title != blank %}
+                        <div class="accessories-item">
+                        <div class="inner">
+                            <div class="accessories-left thumb">
+                            <div class="accessories-img-wrapper">
+                                <img src="{{ myPro.featured_image.src | product_img_url: '153x153' }}" alt="{{ myPro.featured_image.alt | escape }}">
+                            </div>
+                            <div style="clear:both;"></div>
+                            </div>
+                            <div class="accessories-right">
+                            <div class="accessories-title-wrap">
+                                <a class="product-title" title="{{ myPro.title }}" href="{{ myPro.url | within: collection }}">
+                                {% if settings.enable_multilang %}
+                                <span class="lang1">{{ myPro.title | split: '|' | first }}</span>
+                                <span class="lang2">{{ myPro.title | split: '|' | last }}</span>
+                                {% else %}
+                                {{ myPro.title | split: '|' | first }}
+                                {% endif %}
+                                </a>
+                            </div>
+                            <div class="accessory-price">
+                                <div class="price-box">
+                                {% if on_sale %}
+                                <p class="sale">
+        
+                                    <span class="special-price">{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros  | strip_html  }}</span>
+                                    <span class="old-price">{{ myPro.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros  | strip_html  }}</span>
+                                </p>
+                                {% else %}
+                                <p class="regular-product">
+                                    <span>{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros | strip_html  }}</span>
+                                </p>
+                                {% endif %}
+                                </div>
+                            </div>
+                            <div class="cm-btn-wrap">
+                                <a href="javascript:;" class="cm-add-to-cart" data-value="{{ myPro.selected_or_first_available_variant.id }}">ADD TO CART</a></div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+        
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}    
+                    </div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
+        
+        
+        
+        
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+<style>
+    #separateAccessories .tab-content {
+         padding-top: 30px;   
+         margin-top: 0;
+    }
+    .wrapper--bottom {
+        background-color: white;
+    }
+</style>
+<script>
+      
+    $(document).ready(function(){
+        $(".cm-add-to-cart").click(function(){
+        $(".coverSpinner").show();
+        var cmVars = $(this).attr('data-value');
+        var data = 'id='+ cmVars + '&quantity=1';
+        $.ajax({
+            type: 'POST',
+            url: '/cart/add.js',
+            dataType: 'json',
+            data: data,
+            success: function(res){
+            var paramsGet = {
+                type: 'GET',
+                url: '/cart.js',
+                dataType: 'json',
+                success: function (cartData) {
+                checkInsurance(cartData, undefined, true);
+                }
+            }
+            $.ajax(paramsGet);
+            },
+            error: function(res){
+                console.log(res);
+            }
+        });
+        }); 
+    });
+</script>
+{% schema %}
+    {
+        "name":"Custom collection",
+        "class":"custom-collection__section",
+        "settings":[
+            {
+                "type":"text",
+                "id":"title",
+                "label":"title",
+                "default": "Accessories"
+            },
+            {
+                "type":"collection",
+                "id":"collection",
+                "label":"Select Collection"
+            }
+        ],
+        "presets": [
+            {
+                "category": "Custom",
+                "name":"Custom collection"
+            }
+        ]
+    }
+{% endschema %}
+{% stylesheet %}
+  .custom-collection__section{
+    background:#fff !important;
+  }
+{% endstylesheet %}

@@ -1,0 +1,279 @@
+<style>
+    .vendor-application {
+        padding: 50px 0;
+    }
+    .vendor-application .heading h1 {
+        font-size: 30px;
+        font-family: 'Karla';
+        font-weight: bold;
+    }
+    .vendor-application .top-content {
+        margin-top: 10px;
+    }
+    .vendor-application .top-content p {
+        color: #666;
+    }
+    .vendor-application .bottom_content {
+        padding-top: 50px;
+    }
+    .vendor-application .bottom_content h2 {
+        font-family: Karla;
+        font-size: 22px;
+        font-weight: bold;
+        margin: 30px 0 20px;
+    }
+    .vendor-application .bottom_content p {
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+    .vendor-application .bottom_content li {
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+    .text-justify {
+        text-align: justify;
+    }
+
+    .icon-content .icon-heading {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .vendor-content .content.rte {
+        display: inline-block;
+    }
+
+    @media screen and (min-width: 1024px){
+        .vendor-application .order-lg-1 {
+            order: 1;
+        }
+        .vendor-application .order-lg-2 {
+            order: 2;
+        }
+    }
+</style>
+
+<div class="vendor-application">
+    <div class="page-width layout__boxed">
+        {% if section.settings.main_heading != blank or section.settings.sub_heading != blank %}
+        <div class="row">
+            <div class="col-12">
+                <div class="heading">
+                    <h1>{{ section.settings.main_heading }}</h1>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="top-content">
+                    {{ section.settings.sub_heading }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="bottom_content">
+            <div class="row">
+                <div class="col-12 col-lg-6 order-lg-2">
+                    {{ section.settings.form_code }} 
+                </div>
+                <div class="col-12 col-lg-6 order-lg-1">
+                    <div class="vendor-content">
+                        {%- for block in section.blocks %}
+                            {% if block.type == 'fullImage' %}
+                                <div class="content rte full--img" {% if block.settings.margin_bottom != 0 %} style="margin-bottom: {{ block.settings.margin_bottom }}px;" {% endif %}>
+                                    <img src="{{ block.settings.full_image | img_url: 'master' }}" alt="image">
+                                </div>
+                            {% elsif block.type == 'onlyText' %}
+                                <div class="content rte" {% if block.settings.margin_bottom != 0 %} style="margin-bottom: {{ block.settings.margin_bottom }}px;" {% endif %}>
+                                    <div class="content-position text-{{ block.settings.content_position }}">
+                                        {{ block.settings.only_text }}
+                                    </div>
+                                </div>
+                            {% elsif block.type == 'iconText' %}
+                                <div class="content rte icon-text" {% if block.settings.margin_bottom != 0 %} style="margin-bottom: {{ block.settings.margin_bottom }}px;" {% endif %}>
+                                    <div class="content-position text-{{ block.settings.content_position }}">
+                                        {% if block.settings.icon_image != blank %}
+                                            <img src="{{ block.settings.icon_image | img_url: 'master' }}" alt="icon">
+                                        {% endif %}
+                                            <div class="icon-content">
+                                                {% if block.settings.icon_heading != blank %}
+                                                    <h3 class="icon-heading">{{ block.settings.icon_heading }}</h3>
+                                                {% endif %}
+                                                {{ block.settings.icon_text }}
+                                            </div>
+                                        
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {%- endfor -%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Vendor Application",
+    "class": "vendor-application-main",
+    "settings": [
+        {
+            "type": "text",
+            "id": "main_heading",
+            "label": "Main Heading"
+        },
+        {
+            "type": "richtext",
+            "id": "sub_heading",
+            "label": "Sub Heading"
+        },
+        {
+            "type": "html",
+            "id": "form_code",
+            "label": "Form Code"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "fullImage",
+            "name": "Full Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "full_image",
+                    "label": "Image"
+                },
+                {
+                    "type": "range",
+                    "id": "margin_bottom",
+                    "label": "Margin Bottom",
+                    "unit": "px",
+                    "min": 0,
+                    "max": 100,
+                    "step": 5,
+                    "default": 0
+                }
+            ]
+        },
+        {
+            "type": "onlyText",
+            "name": "Text Editor",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "only_text",
+                    "label": "Content"
+                },
+                {
+                    "type": "select",
+                    "id": "content_position",
+                    "label": "Content Position",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        },
+                        {
+                            "value": "justify",
+                            "label": "Justify"
+                        }
+                    ],
+                    "default": "left"
+                },
+                {
+                    "type": "range",
+                    "id": "margin_bottom",
+                    "label": "Margin Bottom",
+                    "unit": "px",
+                    "min": 0,
+                    "max": 100,
+                    "step": 5,
+                    "default": 0
+                }
+            ]
+        },
+        {
+            "type": "iconText",
+            "name": "Icon & Text",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "icon_image",
+                    "label": "Icon"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "icon_text",
+                    "label": "Content"
+                },
+                {
+                    "type": "select",
+                    "id": "content_position",
+                    "label": "Content Position",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        },
+                        {
+                            "value": "justify",
+                            "label": "Justify"
+                        }
+                    ],
+                    "default": "center"
+                },
+                {
+                    "type": "range",
+                    "id": "margin_bottom",
+                    "label": "Margin Bottom",
+                    "unit": "px",
+                    "min": 0,
+                    "max": 100,
+                    "step": 5,
+                    "default": 0
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Vendor Application",
+            "category": "Image"
+        }
+    ]
+
+}
+{% endschema %}

@@ -1,0 +1,35 @@
+<style>
+#grid__block--{{-block.id}} {
+    background-size: {{block.settings.backgroundSize}};
+    background-color: {{block.settings.backgroundColor}};
+    padding: 12px;
+    color: {{block.settings.textColor}};
+}
+
+{% unless block.settings.textColor contains 'rgba(0,0,0,0)' %}
+#grid__block--{{-block.id}} h2, #grid__block--{{-block.id}} p {
+    color: {{block.settings.textColor}};
+}
+{% endunless %}
+
+#colorcode {};
+</style>
+<div id="grid__block--{{-block.id}}" class="lazyload inherit bg__middle grid__block grid__block--cta {{block.settings.verticalAlignment}}" {% unless block.settings.backgroundImage == nil -%}{% render 'background', image: block.settings.backgroundImage %}{%- endunless %}>
+    {% if block.settings.overlayOpacity > 0 %}
+        <div
+        class="overlay"
+        style="opacity: {{block.settings.overlayOpacity | times: 0.01}}; background-color: {{block.settings.overlayColor}};">
+        </div>
+    {% endif %}
+    <div class="grid__block--cta-content {{block.settings.horizontalAlignment}}">
+        {% if block.settings.heading != blank %}
+        <h2 class="font__size--medium font__family--title">{{block.settings.heading}}</h2>
+        {% endif %}
+        {% if block.settings.text != blank %}
+        {{block.settings.text}}
+        {% endif %}
+        {% if block.settings.buttonText != blank %}
+            {% render 'button', url: block.settings.url, type: block.settings.buttonStyle, text: block.settings.buttonText %}
+        {% endif %}
+    </div>
+</div>

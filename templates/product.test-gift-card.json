@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+      }
+    },
+    "page": {
+      "type": "product-page__test-gift-card",
+      "settings": {
+        "view": "default",
+        "layout": "max-width",
+        "galleryStyle": "default",
+        "galleryPosition": "left",
+        "autoZoom": false,
+        "autoChange": false,
+        "galleryImageFit": "cover",
+        "galleryImageGap": 16,
+        "productNavigation": true
+      }
+    },
+    "accessories_section": {
+      "type": "pdp-bottom-section",
+      "disabled": true,
+      "settings": {
+        "show": true,
+        "image": "shopify:\/\/shop_images\/Group_2435_1.jpg",
+        "mimage": "shopify:\/\/shop_images\/Group_2456.jpg",
+        "heading": "Questions about Versace 4361 Sunglasses?",
+        "subtitle": "Contact us for advice or more details.",
+        "phone": "+91718-412-0407",
+        "phone_subheading": "Call Us or order online",
+        "email_title": "Email an expert",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "show_related_products": true,
+        "related_title": "Related Products"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "page",
+    "accessories_section",
+    "related"
+  ]
+}

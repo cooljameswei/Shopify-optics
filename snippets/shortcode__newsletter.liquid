@@ -1,0 +1,55 @@
+{% assign newsletter = 'shopify' %}
+{% assign buttonType = 'primary' %}
+{% assign email = 'john.doe@email.com' %}
+{% assign buttonText = 'Submit' %}
+{% assign align = 'start' %}
+{% assign width = '550px' %}
+
+{% for param in params %}
+    {% assign p = param | split: ':' %}
+    {% assign pname = p[0] | strip %}
+    {% assign value = p[1] | strip %}
+
+    {% case pname %}
+        {% when 'newsletter-type' %}
+            {% assign newsletter = value | downcase %}
+        {% when 'button-text' %}
+            {% assign buttonText = value %}
+        {% when 'button-type' %}
+            {% assign buttonType = value %}
+        {% when 'placeholder' %}
+            {% assign email = value %}
+        {% when 'align' %}
+            {% assign align = value %}
+        {% when 'width' %}
+            {% assign width = value %}
+    {% endcase %}
+{% endfor %}
+
+{% assign class = 'newsletter__form flex ' | append: align %}
+{% if newsletter == "shopify" %}
+{% form 'customer', class: class %}
+<div class="newsletter__inputs" style="width: {{width}}; max-width: 100%;">
+<input type="hidden" name="customer[accepts_marketing,newsletter,prospect]" value="true" />
+<input style="flex: 1; flex-shrink: 0; max-width: 100%" name="contact[email]" placeholder="{{email | default: 'Email'}}" class="newsletter__input newsletter__email" type="email">
+{% render 'button__submit', text: buttonText, type: buttonType %}
+</div>
+{% endform %}
+{% elsif newsletter == "mailchimp" %}
+{% unless settings.mcAction == blank %}
+<form action="{{settings.mcAction}}" method="POST" class="{{class}}">
+{% unless settings.mcU == blank %}<input type="hidden" name="u" value="{{settings.mcU}}">{% endunless %}
+{% unless settings.mcID == blank %}<input type="hidden" name="id" value="{{settings.mcID}}">{% endunless %}
+<div class="newsletter__inputs">
+<input style="flex: 1; flex-shrink: 0; max-width: 100%" name="EMAIL" placeholder="{{email | default: 'Email'}}" class="newsletter__input newsletter__email" type="email">
+{% render 'button__submit', text: buttonText, type: buttonType %}
+</div>
+</form>
+{% else %}
+<h2>SETUP YOUR MAILCHIMP ACTION IN Theme Settings->Newsletter</h2>
+{% endunless %}
+{% endif %}
+
+{% comment %} 
+[render newsletter, placeholder: 'Placeholder e-mail', buttonType: 'primary', buttonText: 'Submit', newsletterType: 'shopify' endrender]
+{% endcomment %}

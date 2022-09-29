@@ -1,0 +1,44 @@
+<script src="https://kit.fontawesome.com/9f0f9dfbf7.js"></script>
+<div class="page-width lab-image">
+  <h1 class="small--text-center page-prescription-title">
+    {{ page.title }} | Designer Optics
+    <div><img class="img-responsive center-line" src="{{ 'Prescriptions-underline.png' | file_img_url: '300x' }}" /></div>
+  </h1>
+
+    <div class="rte rte--indented-images">
+      <div class="interior-center-main">
+      	{{ page.content }}
+      </div>
+    </div>
+</div>
+<div class="lab-order">
+  <div class="page-width">
+    <div class="lab-content-left">
+    <h2>Order Now <i style="font-size:24px;" class="fas fa-arrow-right"></i></h2>
+    <h3>Get The Best Service From Our Cutting-Edge Lab</h3>
+    <p><strong>What are you waiting for? </strong></p>
+    <p>At Designer Optics, we use all of the latest optical tools to cut, tint, and finish your lenses perfectly. 
+      You'll get stellar results - guaranteed. </p>
+    <p>Start your order today, and let us take care of every step of the process at our advanced, in-house optical lab.
+      When you order from Designer Optics, you'll get the latest frames at the best prices, and high-quality lenses
+      that are sure to last for years to come.</p>
+    </div>
+  </div>
+</div>
+{{ 'UberAccordion.css' | asset_url | stylesheet_tag }}
+{{ 'UberAccordion.js' | asset_url | script_tag }}
+{{ 'page_our_lab.css' | asset_url | stylesheet_tag }}
+{% schema %}
+{
+  "name": "Our Lab Custom",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Our-lab",
+      "category": "Image"
+    }
+  ]
+}
+
+
+{% endschema %}

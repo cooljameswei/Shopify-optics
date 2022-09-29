@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+	 {%- if dropinblog == 1 -%}{{ dropinblog_head_top }}{%- endif -%}
+{% include 'pro-blogger-section-wrapper' %}
+    <script>
+      window.QUICK_FIX = window.QUICK_FIX || {};
+      window.QUICK_FIX.template = {{-template | json-}};
+      window.QUICK_FIX.collectionHandle = {{-collection.handle | json-}};
+    </script>
+    <!-- Google Tag Manager -->
+	<script type="text/javascript" async="async">
+  		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NX9PSGP');
+    </script>
+  <!-- End Google Tag Manager -->
+  
+  <!-- Global site tag (gtag.js) START - Google Ads: 995381954 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-995381954"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-995381954');
+</script>
+ <!-- Global site tag (gtag.js) - END -->
+
+    <title> 
+      {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags |
+      join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{
+      current_page }}{% endif %}{% unless page_title contains shop.name %}
+      &ndash; {{ shop.name }}{% endunless %}
+    </title>
+    {% if page_description %}
+    	<meta name="description" content="{{ page_description | escape }}" />
+    {% endif %}
+    <link rel="shortcut icon" href={{ 'favicon.ico' | asset_url }} type="image/png">
+    	{%- if dropinblog == 1 -%}
+		{{ dropinblog_head_social }}
+	{%- else -%}
+		{% include 'social-meta-tags' %}
+	{%- endif -%}
+    
+    <meta name="google-site-verification" content="mOcxtp6CEqIbK2UPk4M20FDK9CnetOvTV1PdSIEran0" />
+  <!-- Bing verification Start -->
+  <meta name="msvalidate.01" content="E8D21D1B71944CCA829B6AD5B47DF0C9" />
+   <!-- Bing verification End -->
+    <!-- Facebook verification Start -->
+   <meta name="facebook-domain-verification" content="vvrgaff964m0ygscw4e9vv8wwqhzq1" />
+   <!-- Facebook verification End -->
+
+   
+    {%- comment -%} NS - START{%- endcomment -%}
+    {% render "cart-hooks" %}
+    {%- comment -%} NS - END{%- endcomment -%}
+
+    
+    <link rel="canonical" href="{{ canonical_url }}" />
+    <link href="https://static.boostertheme.co" rel="preconnect" crossorigin>
+    <link rel="dns-prefetch" href="//static.boostertheme.co">
+    <link href="https://theme.boostertheme.com" rel="preconnect" crossorigin>
+    <link rel="dns-prefetch" href="//theme.boostertheme.com">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+    <script src="{{'jquery.min.js' | asset_url}}"></script>
+
+    
+    
+
+    {% render 'layout__favicon' %}
+    
+    {% capture header_captured %}
+      {{ content_for_header }}
+    {% endcapture %}
+    
+    {% if template == 'index'%}
+      {{header_captured | remove:'"https:\/\/d3g420rgevyqxw.cloudfront.net\/cffOrderifyLoader_min.js?shop=designeroptics-com.myshopify.com"' | remove:'"https:\/\/productoptions.w3apps.co\/js\/options.js?shop=designeroptics-com.myshopify.com",' | remove:'"\/\/cdn.codeblackbelt.com\/js\/modules\/shipping-rates-calculator-plus\/main.min.js?shop=designeroptics-com.myshopify.com",' | remove: '"https:\/\/cdn.judge.me\/assets\/installed.js?shop=designeroptics-com.myshopify.com",' | remove: '"https:\/\/orderstatus.w3apps.co\/js\/orderlookup.js?shop=designeroptics-com.myshopify.com",' | remove:'"https:\/\/cdn.kilatechapps.com\/media\/countdown\/28078986.min.js?shop=designeroptics-com.myshopify.com",' | remove_first: '"https:\/\/static.klaviyo.com\/onsite\/js\/klaviyo.js?company_id=V75pxh\u0026shop=designeroptics-com.myshopify.com",'}}
+    {% elsif template != "page.order-lookup" and template != "customers/account" %}  
+      {{ header_captured | remove: '"https:\/\/orderstatus.w3apps.co\/js\/orderlookup.js?shop=designeroptics-com.myshopify.com",' | remove_first: '"https:\/\/static.klaviyo.com\/onsite\/js\/klaviyo.js?company_id=V75pxh\u0026shop=designeroptics-com.myshopify.com",'}}
+    {% else %}
+      {{ header_captured}}
+    {% endif %}
+
+    <style>
+      {% render 'global-scss' %}
+      #___ratingbadge_1{
+      	display:none;
+      }
+    </style>
+    {% if template == "index" %}
+      <style>
+	  .padding-fix {
+        padding: 0 10px;
+      }
+      .page-width {
+        /*------As per the new requiremnet TW#33265426-----*/
+        max-width: 1350px;
+        margin: 0 auto;
+      }
+      .page-width:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+      @media (max-width: 767px){
+         .page-width {
+          padding: 0 15px;
+         }
+      }
+   </style>
+   {% endif %}
+    {% unless settings.headHTML == blank %}
+      {{settings.headHTML}}
+    {% endunless %}
+  
+    {% unless settings.headJS == blank %}
+      <script type="lazyload2">
+      {{settings.headJS}}
+      </script>
+    {% endunless %}
+    {% render 'layout__custom-code--head' %}
+
+    <script type="text/javascript" src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
+    
+    {% if template == 'blog' %}
+    	<link  rel="stylesheet" data-href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap' />	
+    {% endif %}
+    
+    <link rel="stylesheet" data-href='https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap'>
+
+    {% if template != 'index'%}
+      {% render 'judgeme_core' %}
+      <!-- BeginWishyAddon -->
+
+      {%- comment -%} 
+      <script>  Shopify.wishy_btn_settings = {"button_setting":"","btn_append":"before","btn_display":"block","btn_width":"auto","btn_margin_top":5,"btn_margin_left":5,"btn_margin_right":5,"btn_margin_bottom":5,"btn_margin_unit":"px","btn_placer_element":null,"btn_background_color":"#006eff","btn_border_color":"#b9b9b9","btn_border_width":0,"btn_text":"♡ Add to wishlist","btn_color":"#ffffff","remove_btn_background_color":"#5c6ac4","remove_btn_border_color":"#3f4eae","remove_btn_border_width":1,"remove_btn_color":"#ffffff","new_theme_published_at":null,"installed":true,"heart_icon_margin_right":15,"heart_icon_margin_bottom":15,"heart_icon_location":"bottom-right","heart_icon_margin_top":15,"heart_icon_margin_left":15,"setting_force_login":false,"heart_icon_url_match":"","heart_icon_enabled":false,"status":null,"spf_record":null,"floating_favorites_enabled":false,"floating_favorites_location":"right","floating_favorites_margin_top":50,"floating_favorites_url_match":"","floating_favorites_background_color":"#ffffff","floating_favorites_border_color":"#b9b9b9","floating_favorites_border_width":1,"floating_favorites_text":"♥ Favorites","floating_favorites_color":"#1b1b1b","heart_icon_type":"default","heart_icon_typedefault_background_color":"#ff8989","heart_icon_typedefault_border_color":"#ff9c9c","heart_icon_typedefault_border_width":2,"heart_icon_typedefault_icon_color":"#ffffff","heart_icon_show_count":false,"heart_icon_typecustom_image_url":"https://cc-swim.herokuapp.com/wishlist.png","btn_text_size":"16.0","locale":"en","shop_star_rating":null,"shop_star_feedback":null};  Shopify.wishy_button_css_json = "";  {% if customer %}  Shopify.wishy_customer_email = "{{ customer.email }}" ;  {% else %}  Shopify.wishy_customer_email = "" ;  {% endif %}</script><!-- EndWishyAddon -->
+      {% include 'swymSnippet' %}
+      {%- endcomment -%}
+
+    {% endif %}
+    {% if template contains 'product' or template contains 'cart' or template == '' or template == null or template == blank %}
+        {% render "extend-client", template:template %}
+    {% endif %}
+
+    {% include 'boost-pfs-style' %}
+    
+    {% include 'rx-theme-specific-css' %}
+    
+    <!-- Cart page Shipping Insurance adding issue fix start -->
+    <script>
+      if(window.location.pathname == '/cart'){       
+      }else{
+        if(sessionStorage.getItem("shipping_insurance")){
+          sessionStorage.removeItem("shipping_insurance")
+        }
+      }
+    </script>
+    <!-- Cart Page Shipping Insurance adding issue fix end -->
+  {% render 'translation-lab-language-management' %}
+	{%- if dropinblog == 1 -%}{{ dropinblog_head_bottom }}{%- endif -%}
+</head>
+  <body class="template--{{template}}"{% if customer %}data-user="true" data-useremail="{{ customer.email }}" data-userid="{{ customer.id }}" data-username="{{ customer.name }}"{% endif %} data-theme="contact-lens">
+
+  {% comment %} commented because of non-sticky header TW#33513957 {% endcomment %}
+         
+     <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NX9PSGP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="container">
+      <div class="container__top-part">
+        {% section 'top-info-bar' %}
+        
+        <div id="booster__popup--holder" class="booster__popup--holder">
+        </div>
+
+        {% if template.suffix == 'no-header' or template.suffix == 'landing-no-header' %}
+        {% elsif template.suffix == 'landing-alt-header' %}
+          {% section 'header-alt' %}
+        {% else %}
+          {% case settings.headerType %}
+            {% when 'default' %}
+              {% section 'header--default' %}
+            {% when 'inline-search' %}
+              {% section 'header--inline-search' %}
+            {% when 'logo-top' %}
+              {% section 'header--logo-top' %}
+          {% endcase %}
+        {% endif %}
+
+        {% section 'bottom-info-bar' %}
+      </div> 
+
+      <div id="quickbuy__modal" class="modal"><div onclick="closeModal(event)" class="overlay"></div><div class="content"></div></div>
+
+      {% if settings.recentlyBought %}
+        <a id="recently-bought--holder" class="recently-bought--holder {% unless settings.recentlyBoughtMobile -%}hide-mobile{%-endunless-%}">
+          <div class="recently-bought--img-ratio"><div class="recently-bought--img"><img src=""></div></div>
+          <div class="recently-bought--info">
+            <div class="recently-bought--who"></div>
+            <div class="recently-bought--what"></div>
+            <div class="recently-bought--price"><span class="current-price"></span><span class="old-price"></span></div>
+            <div class="recently-bought--when"></div>
+          </div>
+        </a>
+        <script>
+          const recentlyBoughtConfig = { useNames: {{settings.recentlyBoughtNames}}, nameFormat: '{{settings.recentlyBoughtNameFormat}}', allProductsUrl: '{{routes.all_products_collection_url}}' }
+        </script>
+      {% endif %}
+
+      <div class="add-to-cart__success--holder modal">
+        {% unless settings.cartAction == 'message' %}<div onclick="closeModal(event)" class="overlay add-to-cart__success--overlay"></div>{% endunless %}
+        <div class="add-to-cart__success" id="checkout--success">
+        {% render 'add-to-cart__template--success' %}
+        </div>
+      </div>
+
+      {% render 'layout__template--specific' %}
+      {%- comment -%} NK - index template added in below condition for slick {%- endcomment -%}
+      {% if template contains 'product' or template contains 'cart' or template contains 'index' or template contains 'press' %}
+      <link rel="stylesheet" type="text/css" data-href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+      <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+      {% endif %}
+
+      {% if template contains 'product' %}
+        {% include 'magic360.headers' %}
+        {% if template contains 'miscellaneous' or template contains 'watch' or template contains 'silhouette'%}
+          <link rel="stylesheet" href="{{"pdp-miscellenous.css"|asset_url}}">
+        {% else %}
+          <link rel="stylesheet" href="{{"pdp-style.css"|asset_url}}">
+        {% endif %}  
+      {% endif %}
+      <main class="main-content wrapper " id="MainContent" role="main">
+        {{ content_for_layout }}
+
+        <div class="wrapper--bottom">
+          {% comment %}{% section 'info-badges' %}{% endcomment %}
+          {% section 'footer' %}
+
+    
+
+    
+          {% if template != 'index'%}
+          
+          {% endif %}
+          {% section 'subfooter' %}
+        </div>
+      </main>
+    </div>
+
+    {% render 'layout__app--code' %}
+    {% render 'layout__bstr--constants' %}
+    <script src="{{ "/services/javascripts/currencies.js" }}"></script>
+    
+    <script  src="https://static.boostertheme.co/?files=supportscreen,6.0/theme.6.0" onload="initTheme();"></script>
+    <link rel="stylehsheet" data-href="{{ 'unicons.css' | asset_url  }}">
+ 
+    {% unless settings.bodyHTML == blank %}
+      {{settings.bodyHTML}}
+    {% endunless %}
+    
+    {% if template == "customers/account" %}
+    <div class="overlay-popups" onclick="closeModal()"></div>
+    <div id="modalToDisplay" class="modal"></div>
+    {% endif %}
+    
+    {% if template contains 'product' %}
+    <style>
+      #cboxOverlay{
+          background: #000;
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 999;
+          overflow: hidden;
+          -webkit-transform: translate3d(0,0,0);
+      }
+    </style>
+    <div id="cboxOverlay" style="opacity: 0.9; cursor: pointer; visibility: visible; display: none;"></div>
+    <div id="ProductModal">
+      <div class="custom-modal__inner">
+        <img id="productModalImage" src="#" class="product-modal__image" onerror="this.onerror=null;">
+        <button type="button" class="custom-modal__close">
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 32 32">
+            <path fill="#444" d="M25.313 8.55l-1.862-1.862-7.45 7.45-7.45-7.45L6.689 8.55l7.45 7.45-7.45 7.45 1.862 1.862 7.45-7.45 7.45 7.45 1.862-1.862-7.45-7.45z"></path>
+          </svg>
+          <span class="icon__fallback-text">"Close (esc)"</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+    
+    {% unless settings.bodyCSS == blank %}
+      <style type="lazyload2">
+        {{settings.bodyCSS}}
+      </style>
+    {% endunless %}
+    {% unless settings.bodyJS == blank %}
+      <script  type="lazyload2">
+        {{settings.bodyJS}}
+      </script>
+    {% endunless %}
+
+    
+    
+    {% render 'cart-js' %}
+
+    {% render 'layout__custom-code--body' %}
+   {{ 'optimization.js' | asset_url | script_tag }}
+    
+   {% if template != 'index'%}
+  {% include 'social-login' %}
+  {% endif %}
+  {% if template.name == 'product' %}
+    {%- comment -%}
+    <div id="ProductModal" class="modal">
+      <div class="modal__inner">
+        <img src="" id="ProductZoomImg" class="product-modal__image">
+      </div>
+      <button type="button" class="modal__close js-modal-close text-link">
+        {% include 'icon-close' %}
+        <span class="icon__fallback-text">close</span>
+      </button>
+    </div>
+    {% endcomment %}
+    <script>
+      $(document).ready(function() {
+        $(document).on('click', '.js-modal-open-product-modal', function(e) {
+          e.preventDefault();
+//           var href= $(this).attr('href') || "";
+          // let href = $(this).find("img") ? $(this).find("img").attr('src') : '';
+          let href = $(this).find("img.image-zoom") ? $(this).find("img.image-zoom").attr('src') : '';
+          $("#ProductModal #productModalImage").attr("src", href );
+          $("#cboxOverlay").attr("style","opacity: 0.9;cursor: pointer;visibility: visible;display: block;");
+          $("#ProductModal").show();  
+        });
+        $(document).on('click', '#ProductModal .custom-modal__close', function(e) {
+          $("#cboxOverlay").attr("style","opacity: 0.9;cursor: pointer;visibility: visible;display: none;");
+          $("#ProductModal").hide();
+        });
+      });
+    </script>
+  {% endif %}
+
+   {% unless template =='index' or template == 'collection' or template == 'blog' %}
+    	<script id="w3prescription" src="https://app1.prescriptionserver.com/public/w3prescription.js" data-width="100%" data-height="400"  data-mode="click" crossorigin="anonymous"></script>
+	{%  endunless %}
+
+	<script defer src="https://cdn.attn.tv/do/dtag.js"></script>
+	<!--begin-boost-pfs-js-->
+    	{% include 'boost-pfs' %}
+  	<!--end-boost-pfs-js-->
+    <script defer type='text/javascript' src='https://services.nofraud.com/js/14243/customer_code.js'></script>
+  	<div class="coverSpinner"></div>
+    <script>
+      if(window.location.pathname=='/challenge'){
+       $('.shopify-challenge__container form').append('<input type="hidden" name="return_to" value="/pages/date-birth">')
+      }
+	</script>
+    <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=V75pxh"></script>
+	    
+    <!-- Defer Loading of Images and iFrames for faster load times -->
+	<script type="text/javascript" async="async">
+  window.renderBadge = function() {
+    var ratingBadgeContainer = document.createElement("div");
+    document.body.appendChild(ratingBadgeContainer);
+    window.gapi.load('ratingbadge', function() {
+      window.gapi.ratingbadge.render(ratingBadgeContainer, {
+        "merchant_id": 9729688,
+        "position": "BOTTOM_LEFT"
+      });
+    });
+  }
+  window.___gcfg = {
+  lang: 'en_US'
+};
+		function initIFrameDefer() {
+			var vidDefer = document.getElementsByTagName('iframe');
+			for (var i=0; i<vidDefer.length; i++) {
+				if(vidDefer[i].getAttribute('data-src')) {
+					vidDefer[i].setAttribute('src',vidDefer[i].getAttribute('data-src'));
+		} } }
+		window.onload = initIFrameDefer;
+
+		function initImgDefer() {
+			var imgDefer = document.getElementsByTagName('img');
+			for (var i=0; i<imgDefer.length; i++) {
+			if(imgDefer[i].getAttribute('data-src')) {
+				imgDefer[i].setAttribute('src',imgDefer[i].getAttribute('data-src'));
+		} } }
+		window.onload = initImgDefer;
+	</script>
+  {% if template.suffix == 'contact-lens' %}
+    <!-- Modal -->
+    <style>
+      .contact-lens-modal {
+        opacity: 0;
+        z-index: -9999;
+        visibility: hidden;
+      }
+
+    </style>
+    <div id="contactLensErrorModalOverlay"></div>
+    <div id="contactLensErrorModal" class="contact-lens-modal modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Contact Lens Error</h5>
+        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span style="color: red; border-bottom: 1px solid; line-height: 40px;">Correct the following errors:</span>
+        <div class="modal-body-inner"></div>
+      </div>      
+    </div>
+
+    <div id="contactLensSavePresctionModal" class="contact-lens-modal modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Save Prescription Profile</h5>
+        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-inner">
+          <label for="contactlensprofileName">Prescription Name</label>
+          <input id="contactlensprofileName" type="text" value="" class="">    
+        </div>
+        <div class="modal-footer">
+          <button class="contactlens-prescription-button cancel" onClick="contactLenskipPresc();">Skip</button>
+          <button class="contactlens-prescription-button" onClick="contactLenSavePresc();">Save</button>
+        </div>
+      </div>      
+    </div>
+
+    <div id="contactLensSavedPresctionListModal" class="contact-lens-modal modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >SELECT PRESCRIPTION</h5>
+        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-inner">
+
+        </div>
+        <div class="modal-footer">
+          <button class="contactlens-prescription-button hide" id="contactLensSelectedPrescBtn">Ok</button>
+          <div style="text-align: center; padding: 12px 0;">
+            Or Add New Prescription
+          </div>
+          <button class="contactlens-prescription-button cancel" id="contactLensNewPrescBtn">New Prescription</button>
+        </div>
+      </div>      
+    </div>
+    {% endif %} 
+      {% if template contains 'product'%}
+      <script>
+          GorgiasChat.init().then(function() {
+              GorgiasChat.setPosition({
+                alignment: 'bottom-right',
+                offsetX: 0,
+                offsetY: 40
+            });
+          });
+      </script>
+    {% endif %}
+
+  <script src="//app.shippingratescalculator.com/js/core/main.min.js?timestamp=1658169717&shop=designeroptics-com.myshopify.com" defer></script>  
+<!--Gorgias Chat Widget Start--><script id="gorgias-chat-widget-install-v2" src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=154"></script>
+<script id="gorgias-chat-shopify-install">!function(_){_.SHOPIFY_PERMANENT_DOMAIN="{{shop.permanent_domain}}",_.SHOPIFY_CUSTOMER_ID="{{customer.id}}",_.SHOPIFY_CUSTOMER_EMAIL="{{customer.email}}"}(window||{});</script><!--Gorgias Chat Widget End-->
+
+{%- comment -%} GA NEW DATA LAYER START {%- endcomment -%}
+<script src="{{ 'google-new-datalayer.js' | asset_url }}" defer></script>
+{%- comment -%} GA NEW DATA LAYER END {%- endcomment -%}
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{% if product.tags.size > 0 %}
+<div class="product__tags {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+<div class="product__tags--title">{{'general.tags.tags' | t}}: </div>
+{% assign exclude = block.settings.exclude | replace: ' ', '' | downcase | split: ',' %}
+{% assign style = block.settings.style %}
+{% for tag in product.tags %}
+{% assign dcTag = tag | downcase %}
+    {% if exclude contains dcTag or dcTag contains 'bstr-tag-' %}
+        {% continue %}
+    {% endif %}
+    <span class="product__tags--tag-{{style}}"><a href="{{ routes.all_products_collection_url }}/{{tag | handleize}}">{{tag}}</a></span>
+{% endfor %}
+</div>
+{% endif %}
+
+{% comment %}
+{% blockdef %}
+
+{% endblockdef %}
+{% endcomment %}

@@ -1,0 +1,24 @@
+{%- assign settingsProp = type | append: 'ButtonStyle' -%}
+{% if buttonType != "default" and buttonType %}
+{% assign buttonType = buttonType %}
+{% else %}
+{%- assign buttonType = settings[settingsProp] %}
+{% endif %}
+{% if tag != "button" %}
+    <a
+    {{style}}
+    class="button button--{{-type}} button--{{-buttonType}}  button--{{-type-}}__{{-buttonType}} {{class-}}"
+    {{disabled}}
+    {{custom}}
+    href="{{- url -}}">
+    {{- text -}}
+    </a>
+{% else %}
+    <button
+    {{style}}
+    class="button button--{{-type}} button--{{-buttonType}}  button--{{-type-}}__{{-buttonType}} {{class-}}"
+    {{disabled}}
+    {{custom}}>
+    {{- text -}}
+    </button>
+{% endif %}

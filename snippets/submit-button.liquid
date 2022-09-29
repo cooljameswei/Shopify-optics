@@ -1,0 +1,4 @@
+{%- assign style = type | default: 'primary' | append: 'ButtonStyle' -%}
+<input
+class="button button--{{-type}} button--{{-settings[style]}}  button--{{-type-}}__{{-settings[style]}} {{class-}}"
+type="submit" value="Create">

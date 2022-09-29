@@ -1,0 +1,234 @@
+<div class="page-content-width">
+  {% if section.settings.enable_title %}
+  <h1 class="page-title">
+    {{ page.title }}
+  </h1>
+  {% endif %}
+  <div {% if section.settings.content_padding %} class="content-block" {% endif %}>
+    <div class="{% if section.settings.para_bottom_margin == 'medium' %}rte{%endif%} rte--indented-images">
+      {{ page.content }}
+    </div>
+  </div>  
+</div>
+
+<style>
+  html {
+  	font-size: 10px;
+  }
+  .page-order-lookup-sec .page-content-width {
+    width: 100%;
+    margin: auto;
+    
+    {% if section.settings.section_margin_top %}
+    margin-top: {{section.settings.section_margin_top}};
+    {% endif %}
+    
+    {% if section.settings.max_width %}
+    max-width: {{section.settings.max_width}};
+    {% endif %}
+
+    {% if section.settings.pageContentColor %}
+    color: {{section.settings.pageContentColor}};
+    {% endif %}
+
+    padding: 0 2rem;
+  }
+
+  .page-order-lookup-sec .page-content-width:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  
+  {% if section.settings.enable_title %}
+  .page-order-lookup-sec .page-content-width .page-title {
+    {% if section.settings.title_align %}
+    text-align: {{section.settings.title_align}};
+    {% endif %}
+
+    {% if section.settings.pageTitleHeaderColor %}
+    color: {{section.settings.pageTitleHeaderColor}};
+    {% endif %}
+    
+    line-height: 1.1;
+    margin-bottom: 0.625em;
+    font-weight: bold;
+    font-size: 2.25em;
+    font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  {% endif %}
+  
+  {% if section.settings.content_padding %}
+  .page-order-lookup-sec .content-block {
+    padding: {{section.settings.content_padding}};
+  }
+  {% endif %}
+  
+  .page-order-lookup-sec .page-content-width p {
+    color: #666666;
+    line-height: 1.375;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+	margin: 0;
+    margin-bottom: {{section.settings.para_bottom_margin}};
+    {% if section.settings.pageContentColor %}
+    color: {{section.settings.pageContentColor}};
+    {% endif %}
+  }
+  
+  .page-order-lookup-sec .page-content-width span {
+      font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  .w3-order-lookup .order-lookup-wrapper .order-lookup-container label{
+  	font-size: .75em;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+  }
+  .w3-order-lookup .order-lookup-wrapper .order-lookup-container input{
+  	padding: 13px 15px;
+    background-color: #f4f4f4;
+    color: #333;
+    border: 0;
+    max-width: 100%;
+    font-size: 16px;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    border-radius:0px;
+  }
+  .w3-order-lookup .order-lookup-wrapper .order-lookup-container input[type="submit"]{
+  	pointer:cursor;
+  }
+  .order-lookup-result input[type="submit"]{
+  	background-color: #f4f4f4;
+    color: #333;
+    border: 0;
+    max-width: 100%;
+    font-size: 16px;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    line-height: 1.375;
+    padding: 13px 15px;
+  }
+  .order-lookup-results-wrapper,
+  .order-lookup-result .order-lookup-results-wrapper .order-lookup-header .order-lookup-order-email span{
+  	font-size:16px;
+    color: #666;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    line-height: 1.375;
+  }
+  .order-lookup-header .order-shipping-information strong{
+  	font-weight:700;
+  }
+  .order-lookup-results-wrapper .order-lookup-product-table{
+  	width:100%;
+  }
+  .order-lookup-results-wrapper .order-lookup-product-table thead tr th{
+  	text-align:left;
+    padding:10px;
+    color:#666;
+  }
+  .order-lookup-results-wrapper .order-lookup-product-table tbody tr td{
+  	padding:10px;
+    color:#666;
+  }
+  .order-lookup-results-wrapper .order-lookup-product-table tbody tr:nth-child(even){
+  	background-color:white;
+  }
+  .order-lookup-results-wrapper .order-lookup-product-table thead tr:hover,
+  .order-lookup-results-wrapper .order-lookup-product-table tbody tr:hover{
+  	background-color:transparent;
+  }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Page Order Lookup",
+	"class": "page-order-lookup-sec",
+    "settings": [{
+      "type": "header",
+      "content": "Section Info"
+      },
+	  {
+        "type": "text",
+        "id": "max_width",
+        "default": "1350px",
+        "label": "Section Max width"
+      },
+	  {
+		"type": "text",
+		"id": "section_margin_top",
+		"label": "Top margin",
+		"default": "30px"
+	  },
+      {
+        "type": "header",
+        "content": "Page Title"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_title",
+        "default": true,
+        "label": "Enable Page Title"
+      },
+      {
+        "type": "color",
+        "id": "pageTitleHeaderColor",
+        "label": "Title and Header color",
+        "default": "#030303"
+      },
+	  {
+        "type": "select",
+        "id": "title_align",
+        "label": "Title Alignment",
+        "options": [
+          {"value": "left", "label": "Left"},
+          {"value": "center", "label": "Center"},
+          {"value": "right", "label": "Right"}
+        ],
+        "default": "left"
+      },
+	  {
+        "type": "header",
+        "content": "Page Content"
+      },
+      {
+        "type": "color",
+        "id": "pageContentColor",
+        "label": "Content color",
+        "default": "#666666"
+      },
+	  {
+        "type": "select",
+        "id": "content_padding",
+        "label": "Section Space Around",
+        "options": [
+          {"value": "0px", "label": "none"},
+          {"value": "20px", "label": "small"},
+          {"value": "40px", "label": "medium"},
+		  {"value": "60px", "label": "large"}
+        ],
+        "default": "40px"
+      },
+	  {
+        "type": "select",
+        "id": "para_bottom_margin",
+        "label": "Paragrapgh bottom margin",
+        "options": [
+          {"value": "0px", "label": "None"},
+          {"value": "10px", "label": "Small"},
+          {"value": "20px", "label": "Medium"}
+        ],
+        "default": "20px"
+      }],
+	"presets": [
+		{
+			"category": "custom-page-sections",
+			"name": "Order Lookup Page"
+		}
+	]
+  }
+{% endschema %}
+
+<style>
+  
+</style>

@@ -1,0 +1,10 @@
+{% assign sp = text | split: '(' %}
+{% if sp.size != 2 %}
+{{-text-}}
+{% elsif sp[1] contains ')' %}
+{% assign tagHTML = '<span class="nav__link__tag">%TAG%</span>' %}
+{% assign tag = sp[1] | replace: ')', '' %}
+{{-sp[0]|trim-}}{{tagHTML|replace: '%TAG%', tag}}
+{% else %}
+{{-text-}}
+{% endif %}

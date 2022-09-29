@@ -1,0 +1,66 @@
+<!-- /templates/customers/order.liquid -->
+{% section 'banner--account' %}
+
+<div class="order__page row">
+    <div class="order__billing col-12 col-md-6 unflex">
+        <h2 style="margin-bottom: 12px;">Billing Address</h2>
+        <p><span>Payment Status:</span> <span class="status_{{ order.financial_status }}">{{ order.financial_status }}</span></p>
+        <p>{{ order.billing_address.name }}</p>
+        <p>{{ order.billing_address.company }}</p>
+        <p>{{ order.billing_address.street }}</p>
+        <p>{{ order.billing_address.city }}, {{ order.billing_address.province }}</p>
+        <p>{{ order.billing_address.country }} {{ order.billing_address.zip }}</p>
+        <p>{{ order.billing_address.phone }}</p>
+    </div>
+    <div class="col-12 col-md-6 unflex">
+        <h2 style="margin-bottom: 12px;">Shipping Address</h2>
+        <p><span>Fulfillment Status:</span><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></p>
+        <p>{{ order.shipping_address.name }}</p>
+        <p>{{ order.shipping_address.company }}</p>
+        <p>{{ order.shipping_address.street }}</p>
+        <p>{{ order.shipping_address.city }}, {{ order.shipping_address.province }}</p>
+        <p>{{ order.shipping_address.country }} {{ order.shipping_address.zip }}</p>
+        <p>{{ order.shipping_address.phone }}</p>
+    </div>
+
+    <div class="col-12 unflex">
+        <table style="margin-top: 56px" class="orders__table order__items">
+            <thead>
+                <th>Item name</th>
+                <th>SKU</th>
+                <th>Original price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </thead>
+            {% for line_item in order.line_items %}
+            <tr>
+                <td data-label="Item name">{{ line_item.title | link_to: line_item.product.url }}</td>
+                <td data-label="SKU">{{ line_item.sku }}</td>
+                <td data-label="Original price">{{ line_item.original_price | money | strip_html }}</td>
+                <td data-label="Qty">{{ line_item.quantity }}</td>
+                <td data-label="Subtotal">{{ line_item.line_price | money | strip_html }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table class="order__items order__total">
+            <tr>
+                <td>Subtotal:</td>
+                <td colspan="4">{{ order.line_items_subtotal_price | money | strip_html }}</td>
+            </tr>
+            {% for tax_line in order.tax_lines %}
+            <tr>
+                <td>Tax ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%):</td>
+                <td colspan="4">{{ tax_line.price | money | strip_html }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>Shipping:</td>
+                <td colspan="4">{% if order.shipping_price == 0 %}Free{% else %}{{ order.shipping_price | money | strip_html }}{% endif %}</td>
+            </tr>
+            <tr>
+                <td><strong>Total:</strong></td>
+                <td colspan="4"><strong>{{ order.total_net_amount | money | strip_html }}</strong></td>
+            </tr>
+        </table>
+    </div>
+</div>

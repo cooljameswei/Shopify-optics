@@ -1,0 +1,179 @@
+<div class="page-width customer-login">
+  <div class="grid">
+    <div class="grid__item-two grid__item">
+      <div class="content-block text-center">
+        <div class="form-success-link">
+          {% form 'recover_customer_password' %} {{ form.errors | default_errors }}
+          {% if form.posted_successfully? %}
+          <div class="form-success">  
+            <span>We've sent you an email with a link to update your password.</span>
+          </div>
+          {% endif %}
+          {% endform %} 
+        </div>
+
+        <div id="CustomerLoginForm" class="customer-login-form">
+          {% form 'customer_login' %}
+          <h4>{{ 'customer_area.forms.sign_in_title' | t }}</h4>
+          <p class="customer-login-desc">
+            {{section.settings.welcome_text}}
+          </p>
+
+          {{ form.errors | default_errors }}
+
+          <input type="email" name="customer[email]" id="customer_email" class="{% if form.errors contains 'email' %} input--error{% endif %}" placeholder="{{ 'customer_area.forms.email' | t }}" autocorrect="off" autocapitalize="off" autofocus required>
+          {% if form.password_needed %}
+          <input type="password" value="" name="customer[password]" id="CustomerPassword" class="{% if form.errors contains 'password' %} input--error{% endif %}" placeholder="{{ 'customer_area.forms.password' | t }}" required>
+          {% endif %}
+
+          <p id="forgot-text" class="forgot-text" onClick="document.body.classList.add('forgot_page_active')">Forgot your password?</p>
+          <p>
+            <input type="submit" class="btn login-submit-btn" value="{{ 'customer_area.forms.login' | t }}">
+          </p>
+          <div style="margin-bottom:10px;">
+            <div class="one-click-social-login"></div>
+          </div>
+          <p id="customer_register_link">Don’t Have an account? <u>{{ 'customer_area.forms.register' | t | customer_register_link }}</u></p>
+          {% endform %}
+        </div>
+
+        <div id="RecoverPasswordForm" class="hide-area">
+
+          <div>
+            {% form 'recover_customer_password' %} 
+            <input type="checkbox" id="recover">
+            <div class="recover__password">
+              <h2>Reset your password</h2>
+              <p class="recover-title-text">We will send you an email to reset your password.</p>
+              <input type="email" name="email" placeholder="Email"/>
+              <input class="button" type="submit" value="SUBMIT" />
+              <p id="forgot-cancel" class="forgot-cancel" onClick="document.body.classList.remove('forgot_page_active')">Cancel</p>
+            </div>
+
+            {% endform %} 
+          </div>
+
+        </div>
+
+      </div>
+      {% if shop.checkout.guest_login %}
+      <div class="content-block text-center" class="mt-30">
+		<div class="customer-login-form">
+          {% form 'guest_login' %}
+          <h4>Continue as a guest</h4>
+          <p><input type="submit" class="btn" value="Continue"></p>
+          {% endform %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+
+
+<script>
+
+</script>
+
+{% schema %}
+  {
+    "name": "Page Content",
+	"class":"login-form-section",
+    "settings": [
+      {
+      "type": "header",
+      "content": "Section Info"
+      },
+	  {
+        "type": "text",
+        "id": "max_width",
+        "default": "1350px",
+        "label": "Section Max width"
+      },
+	  {
+        "type": "text",
+        "id": "section_above_margin",
+        "default": "0px",
+        "label": "Section Above Margin"
+      },
+	  {
+        "type": "text",
+        "id": "section_below_margin",
+        "default": "0px",
+        "label": "Section Bottom Margin"
+      },
+	  {
+        "type": "text",
+        "id": "section_above_margin_mob",
+        "default": "0px",
+        "label": "Section Above Margin(mobile)"
+      },
+	  {
+        "type": "text",
+        "id": "section_below_margin_mob",
+        "default": "0px",
+        "label": "Section Bottom Margin(mobile)"
+      },
+	  {
+        "type": "color",
+        "id": "error_color",
+        "label": "Error Color",
+        "default": "#ffffff"
+      },
+	  {
+        "type": "color",
+        "id": "error_bg_color",
+        "label": "Error Background Color",
+        "default": "#ec523e"
+      },
+	  {
+        "type": "color",
+        "id": "form_success_message_color",
+        "label": "Form Success Message Color",
+        "default": "#ffffff"
+      },
+	  {
+        "type": "color",
+        "id": "form_success_message_bg_color",
+        "label": "Form Success Message Background Color",
+        "default": "#59ac6c"
+      },
+	  {
+		"type": "text",
+		"id": "welcome_text",
+		"label": "Welcome Text",
+		"default": "<b>Welcome back!</b> Please enter details below to login to your account"
+	  },
+      {
+		"type": "text",
+		"id": "welcome_margin_top",
+		"label": "Welcome Text margin Top",
+		"default": "10px"
+      },
+      {
+		"type": "text",
+		"id": "welcome_margin_bottom",
+		"label": "Welcome Text margin Bottom",
+		"default": "30px"
+      },
+      {
+		"type": "text",
+		"id": "welcome_margin_horizontal",
+		"label": "Welcome Text margin horizontal",
+		"default": "39px"
+      },
+	  {
+		"type": "text",
+		"id": "welcome_margin_horizontal_mob",
+		"label": "Welcome Text margin horizontal(Mobile)",
+		"default": "20px"
+      }
+	]
+  }
+{% endschema %}
+
+<style>
+  {% render 'account-login-css' %}
+</style>

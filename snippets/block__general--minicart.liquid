@@ -1,0 +1,35 @@
+<div style="position: relative" class="minicart__button minicart__button--{{block.settings.cartIcon}}">
+    <input type="checkbox" data-minicart-input id="minicart__button--{{block.id}}">
+    <label class="overlay" for="minicart__button--{{block.id}}"></label>
+    <label class="minicart__label" for="minicart__button--{{block.id}}" data-cart-settings="count" data-cart-container>
+        {% if block.settings.cartIcon == "text" %}<span class="minicart__icon--text-only">Cart –<span data-count>0</span></span>{% else %}{% render 'get-icon', icon: block.settings.cartIcon %}<span class="item__count" data-count>0</span>{% endif %}
+    </label>
+    <div class="minicart__holder minicart--{{-settings.cartStyle}}" data-cart-settings="product-list" data-cart-container><div data-product-list class=""></div></div>
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "minicart",
+    "name": "Minicart",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Cart"
+        },
+        {
+            "type": "select",
+            "label": "Cart icon",
+            "id": "cartIcon",
+            "options": [
+                {"value": "shopping-bag", "label": "Bag"},
+                {"value": "shopping-cart", "label": "Cart"},
+                {"value": "shopping-basket", "label": "Basket"},
+                {"value": "text", "label": "Text only"}
+            ],
+            "default": "shopping-cart"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

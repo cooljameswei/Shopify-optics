@@ -1,0 +1,185 @@
+<style>
+.fsa-hsa{
+ 	margin-bottom:32px; 
+}
+.fsa-hsa .top-banner img{
+  	width:100%;
+}
+.page-width {
+    /*------As per the new requiremnet TW#33265426-----*/
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.content-block {
+    background-color: #fff;
+    padding: 40px;
+    margin-bottom: 20px;
+}
+.content-block:last-child {
+    margin-bottom: 0;
+}
+.interior-center-block {
+    margin: 50px 0;
+    text-align: center;
+}
+.interior-800-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.img-center {
+    margin: 0 auto;
+}
+div.interior-center-block div:not(.booster--revert)>p {
+    font-size: 20px;
+    margin-top: 25px;
+  	font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #666;
+    line-height: 1.375;
+}
+.fsa-faq-bg{
+    padding: 60px 0;
+    background-image: url(https://cdn.shopify.com/s/files/1/0003/9577/1966/files/tab-section-bg.png?6442);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.fsa-faq-bg h1.page-prescription-title {
+    font-weight: 700;
+    text-align: center;
+    font-family: Lato,sans-serif;
+  	color: #fff;
+    margin-bottom: 50px;
+}
+.center-line {
+    margin: 20px auto 0;
+}
+section#fsa-faq {
+    position: relative;
+    margin-top: 50px;
+}
+.page-prescription-title + div{
+	text-align:center;
+}
+section#fsa-faq:before, section#fsa-faqafter {
+    content: '';
+    display: table;
+}
+.page-width:after {
+    content: '';
+    display: table;
+    clear: both;
+}  
+section#fsa-faq .active {
+    cursor: default;
+    border-right: none;
+    background-color: #c63b3d;
+    color: #fff;
+}
+section#fsa-faq h4 {
+    background-color: #e9e9e9;
+    cursor: pointer;
+    border-top: none;
+    min-height: 60px;
+    padding: 20px;
+    padding-left: 80px;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: none;
+    background-image: url(https://cdn.shopify.com/s/files/1/0003/9577/1966/files/half-glasses.png?6442);
+    background-repeat: no-repeat;
+    background-position: left center;
+  	width: 33.333333333333336%;
+    height: 20%;
+    display: block;
+  	position:relative;
+}  
+section#fsa-faq h4.active:after {
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid transparent;
+    border-left: 20px solid #c63b3d;
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    right: -18px;
+    transform: translate(0,-50%);
+    top: 50%;
+}
+.faq-content {
+    max-width: 575px;
+    color: #000;
+}
+section#fsa-faq .faq-content {
+    position: relative;
+    height: auto;
+    border: 1px solid rgba(0,0,0,.2);
+    border-left: none;
+    display: none;
+	position: absolute;
+    background-color: #f4f4f4;
+    width: 64%;
+    right: 0;
+    top: 0;
+    padding: 15px 30px;
+    margin-bottom: 10px;
+}
+section#fsa-faq .active+.faq-content {
+    display: block;
+}
+section#fsa-faq .faq-content h2 {
+    font-weight: 700;
+    font-family: Lato;
+    font-size: 22px;
+  	color:black;
+  	margin: 0 0 .625em
+}
+div:not(.booster--revert) div.faq-content p{
+	font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #000;
+    line-height: 1.375;
+  	margin-bottom:10px;
+}
+div:not(.booster--revert) div.faq-content p:last-child {
+	margin-bottom:0px;  
+}
+@media (max-width:1024px){
+  section#fsa-faq:before, section#fsa-faq:after {
+  	content:none;
+  }
+}  
+@media (max-width: 767px){
+  .main-content {
+    margin-top: 20px;
+    padding-bottom: 15px;
+  }
+  section#fsa-faq h4.active:after{
+  	content:none;
+  }
+  section#fsa-faq .faq-content {
+    position: relative;
+    height: auto;
+    width:100%;
+  }
+  section#fsa-faq h4{
+  	width:100%;
+  }
+  .fsa-hsa{
+  	margin-bottom:0px;
+  }
+  .wrapper--bottom{
+  	padding-top:15px;
+  }
+  .page-width{
+  	padding:15px;
+  }
+  .center-line{
+  	margin-top:0px;
+  }
+  h1{
+  	font-size: 1.875em;
+  }
+}  
+</style>  

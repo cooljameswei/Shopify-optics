@@ -1,0 +1,50 @@
+{%- case view -%}
+    {%- when "columns" -%}
+        <link rel="stylesheet" href="{{"collection-columns-description.css" | asset_url}}">    
+        <div class="boost-pfs-filter-collection-description rte">   
+            {%- assign row_parts = collection.description | split: '<!-- ROW -->' -%}
+            {% if row_parts.size > 0 %}
+                <div class="collection-description__column-wrapper">
+                    {% for row_part in row_parts  %}
+                        {% if row_part != blank %}
+                            <div class="row"> 
+                                {% if row_part contains '<!-- COLUMN -->' %}
+                                    {%- assign column_parts = row_part | split: '<!-- COLUMN -->' -%}
+                                    
+                                    {% if column_parts.size > 0 %}
+                                        {% for column_part in column_parts  %}
+                                            {% if column_part != blank %}
+                                                <div class="col-lg-6 column__divider">{{ column_part }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% else %}
+                                    <div class="col-12 column__divider full__content">{{ row_part }}</div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {%- else -%}
+        <div class="boost-pfs-filter-collection-description rte">
+            {% if collection.description.size < 200 %}
+                {{ collection.description }}
+            {% else %}
+                {%- comment -%} NK - START{%- endcomment -%}
+                <div class="col-desc-container">
+                    <div class="col-desc-text">
+                        {{ collection.description }}
+                    </div>
+                    <a href="javascript:void(0);">View More</a>
+                </div>
+                {%- comment -%} NK - END{%- endcomment -%}
+
+                {%- comment -%}
+                <div class="short">{{ collection.description | strip_html | truncate: 200 }} <a href="#">View More</a></div>
+                <div class="full" style="display: none">{{ collection.description }} <a href="#">View Less</a></div>
+                {%- endcomment -%}
+            {% endif %}
+        </div>
+{%- endcase -%}

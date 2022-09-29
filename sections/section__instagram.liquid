@@ -1,0 +1,221 @@
+<style>
+{% render 'common-css' with section as section %}
+#colorcode{}
+</style>
+
+<div
+id="s--{{-section.id}}"
+class="{% render 'common-class', section: section, class: 'row' %}">
+  <div 
+  class="layout__content s__content">
+    {% render 'block__general--heading' with section as section %}
+    <div {% unless section.settings.instagramQuery == '' %}data-instagram-section{% endunless %} data-query="{{section.settings.instagramQuery}}" data-max-images="{{section.settings.maxImages}}" class="row instagram__holder">
+    {% unless section.settings.instagramQuery != '' %}
+      {% for i in (1..8) %}
+        {% assign prod = i | at_most: 6 %}
+        <a href="#" target="_blank" class="instagram__thumb col-6 col-md-3">{{'product-' | append: prod | placeholder_svg_tag: 'instagram__fake svg__thumb'}}<div class="instagram__info">Likes: 10<br>Comments: 5</div></a>
+      {% endfor %}
+    {% endunless %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+    "name": {
+        "en": "Instagram [BETA]"
+    },
+    "settings": [
+      {
+      "type": "header",
+      "content": "⚠ WARNING ⚠"
+    },
+    {
+      "type": "paragraph",
+      "content": "Instagram recently changed its policies. THIS SECTION IS CURRENTLY IN BETA! Read more about it [here](https://help.shopify.com/en/manual/online-store/os/using-themes/change-the-layout/instagram-feed-changes)"
+    },
+      {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458157751)"
+    },
+    {
+    "type": "header",
+    "content": "Section layout"
+},
+{
+  "type": "radio",
+  "id": "displayFor",
+  "label": "Show this section on",
+  "options": [
+    {"value": "display--both", "label": "All devices"},
+    {"value": "hide-desktop", "label": "Mobile only"},
+    {"value": "hide-mobile", "label": "Desktop only"}
+  ],
+  "default": "display--both"
+},
+{
+  "type": "select",
+  "id": "layout",
+  "label": "Section layout",
+  "options": [
+    {"value": "default", "label": "Global default"},
+    {"value": "boxed", "label": "Boxed"},
+    {"value": "stretchBg", "label": "Full width background"},
+    {"value": "stretchContent", "label": "Full width"}
+  ],
+  "default": "default"
+},
+{
+  "type": "checkbox",
+  "id": "nomargin",
+  "default": false,
+  "label": "Remove section's bottom margin"
+},
+{
+  "type": "textarea",
+  "id": "scopedCSS",
+  "label": "Section-scoped CSS",
+  "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+},
+{
+  "type": "range",
+  "id": "height",
+  "label": "Minimum height",
+  "default": 0,
+  "min": 0,
+  "max": 800,
+  "step": 10,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "padding",
+  "label": "Section padding",
+  "default": 0,
+  "min": 0,
+  "max": 50,
+  "step": 5,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "lineMargin",
+  "label": "Space between blocks",
+  "default": 12,
+  "min": 0,
+  "max": 50,
+  "step": 1,
+  "unit": "px"
+},
+    {
+    "type": "header",
+    "content": "Section background"
+  },
+  {
+    "id": "backgroundColor",
+    "type": "color",
+    "default": "rgba(0,0,0,0)",
+    "label": "Background color"
+  },
+    {
+    "type": "header",
+    "content": "Section heading"
+},
+{
+    "type": "text",
+    "id": "heading",
+    "label": "Section heading",
+    "default": "Check out this section's heading"
+},
+{
+    "type": "color",
+    "id": "headingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Heading Color"
+},
+{
+    "type": "text",
+    "id": "subheading",
+    "label": "Section subheading",
+    "default": "THIS IS A SUBHEADING"
+},
+{
+    "type": "color",
+    "id": "subheadingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Subheading Color"
+},
+{
+    "type": "select",
+    "id": "subheadingPosition",
+    "label": "Subheading position",
+    "options": [
+      {"value": "above", "label": "Above heading"},
+      {"value": "below", "label": "Below heading"}
+    ],
+    "default": "above"
+},
+{
+    "type": "select",
+    "id": "headingAlignment",
+    "label": "Heading alignment (left to right)",
+    "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+    ],
+    "default": "center"
+},
+    {
+      "type": "header",
+      "content": "Instagram"
+    },
+    {
+      "type": "text",
+      "label": "Instagram query",
+      "id": "instagramQuery",
+      "placeholder": "@boostertheme"
+    },
+    {
+      "type": "range",
+      "id": "maxImages",
+      "label": "Total images",
+      "min": 4,
+      "max": 50,
+      "step": 1,
+      "unit": "img",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Instructions"
+    },
+    {
+      "type": "paragraph",
+      "content": "In order to get the latest posts from an Instagram account use @Username as the query. (eg. @boostertheme)"
+    },
+    {
+      "type": "paragraph",
+      "content": "If you want to get the latest posts with a certain tag, use #Tag as the query. (eg. #shopify)"
+    }
+    ],
+    "blocks": [
+    ],
+    "presets": [
+      {
+        "category": "Social media",
+        "name": "Instagram [BETA]",
+        "settings": {
+          "heading": "Instagram section",
+          "subheading": "Follow us! (No API required)",
+          "subheadingPosition": "below"
+        }
+      }
+    ]
+  }
+{% endschema %}

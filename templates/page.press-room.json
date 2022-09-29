@@ -1,0 +1,374 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner--page",
+      "disabled": true,
+      "settings": {
+        "layout": "boxed",
+        "height": 120,
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "fontSize": "medium",
+        "contentColor": "#030303",
+        "fillColor": "rgba(0,0,0,0)",
+        "overlayOpacity": 0,
+        "overlayColor": "#000000"
+      }
+    },
+    "16547081340547a52e": {
+      "type": "page-main-title",
+      "settings": {
+        "page__title": "Designer Optics Press Room",
+        "btm__border": true
+      }
+    },
+    "1654708156492a4fa1": {
+      "type": "section_press_room_overview",
+      "blocks": {
+        "1654708156b735dbbb-0": {
+          "type": "title",
+          "settings": {
+            "fullWidth": true,
+            "content": "Company Overview",
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "title",
+            "fontSize": "medium"
+          }
+        },
+        "1654708156b735dbbb-1": {
+          "type": "richText",
+          "settings": {
+            "fullWidth": true,
+            "maxBWidth": 100,
+            "content": "<p>Headquartered in NYC, Designer Optics was founded in 2011 to reimagine the prescription eyewear market. After witnessing the lack of options traditional stores offer for inexpensive, high quality, name brand selections, we set out to create this ourselves. <br\/><br\/>We wanted to challenge the idea that people can’t have reliable, name brand products without a high price tag. After years of research and development, building our own in-house lab, and partnering with a second, we have grown into an international brand that serves people across the world. We’re committed to looking at the optics industry from a new lens to uncover solutions to problems that just haven’t been solved yet. In doing so, we’ve continued to earn customer loyalty and expand our selection of products. From designer names to our own brand, Blik, we offer a full lineup of prescriptions, single vision, bifocal, trifocals, and blue light glasses - and that’s just the beginning. <br\/><br\/>We take an innovative approach to eyewear to ensure that people can get what they want and what they need, all without breaking the bank. By prioritizing quality, authenticity, and modern techniques, we’re able to bring a new world of opportunities to people everywhere. <br\/><\/p>",
+            "detectLists": true,
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "base",
+            "fontSize": "base"
+          }
+        },
+        "1654708156b735dbbb-2": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "fullWidth": true,
+            "text": "Get this now!",
+            "url": "",
+            "icon": "",
+            "iconPosition": "icon--left",
+            "wideButton": false,
+            "buttonStyle": "primary",
+            "buttonType": "default",
+            "fontSize": "base",
+            "fontFamily": "base",
+            "animation": "none",
+            "animationDuration": 1000,
+            "animationInfinite": true
+          }
+        }
+      },
+      "block_order": [
+        "1654708156b735dbbb-0",
+        "1654708156b735dbbb-1",
+        "1654708156b735dbbb-2"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "default",
+        "nomargin": false,
+        "overview_text": "<p>Media Relation Email: <a href=\"mailto:\/\/Press@designeroptics.com\" target=\"_blank\" title=\"mailto:\/\/Press@designeroptics.com\">Press@designeroptics.com<\/a> <\/p>",
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 0,
+        "lineMargin": 12,
+        "backgroundColor": "#e6e6e6",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "imagePosition": "left",
+        "imageWidth": "6",
+        "image": "shopify:\/\/shop_images\/iStock-1227552861.jpg",
+        "imageOverlayOpacity": 0,
+        "imageOverlayColor": "#000000"
+      }
+    },
+    "1654708241539b6699": {
+      "type": "section_press_article",
+      "blocks": {
+        "ee676beb-8cbe-4e27-8ed3-86c2f0bd13b7": {
+          "type": "article",
+          "settings": {
+            "article__img": "shopify:\/\/shop_images\/bizcommunity.jpg",
+            "article__heading": "Incorporating fashion into your outfits with Designer Optics",
+            "article__date": "4 May 2022",
+            "article__link": "https:\/\/www.bizcommunity.com\/Article\/196\/462\/227524.html"
+          }
+        },
+        "e72cc504-2015-47f6-bb1f-fa7fcdce44b8": {
+          "type": "article",
+          "settings": {
+            "article__img": "shopify:\/\/shop_images\/ibt.png",
+            "article__heading": "Designer Optics At Forefront Of Disrupting Prescription Lens Market",
+            "article__date": "11 July 2021",
+            "article__link": "https:\/\/www.ibtimes.com\/designer-optics-forefront-disrupting-prescription-lens-market-3334444"
+          }
+        },
+        "9a698474-0281-4216-b46a-6ec2f24fde70": {
+          "type": "article",
+          "settings": {
+            "article__img": "shopify:\/\/shop_images\/techtimes.png",
+            "article__heading": "Designer Optics Making Fashionable Eyewear and Prescription Glasses Accessible Online",
+            "article__date": "2 March 2022",
+            "article__link": "https:\/\/www.techtimes.com\/articles\/272492\/20220302\/designer-optics-making-fashionable-eyewear-and-prescription-glasses-accessible-online.htm"
+          }
+        },
+        "72eee279-9ce5-4a52-afe8-dbbaca8c5064": {
+          "type": "article",
+          "settings": {
+            "article__img": "shopify:\/\/shop_images\/nn-logo.png",
+            "article__heading": "Designer Optics: how they are changing the way people are buying prescription glasses?",
+            "article__date": "22 Jan 2022",
+            "article__link": "https:\/\/english.newsnationtv.com\/india\/news\/designer-optics-how-they-are-changing-the-way-people-are-buying-prescription-glasses-259165.html"
+          }
+        },
+        "70391ee6-ecaf-4279-b178-9f8212705b6e": {
+          "type": "article",
+          "settings": {
+            "article__img": "shopify:\/\/shop_images\/news24.png",
+            "article__heading": "Designer Optics: Fashion with Practicality for corrective eyewear",
+            "article__date": "24 Jan 2022",
+            "article__link": "https:\/\/news24online.com\/news\/business\/designer-optics-fusing-fashion-practicality-those-who-require-corrective-eyewear-8b558d19\/"
+          }
+        },
+        "39eb3d0f-1adb-42ad-81cc-97335871d803": {
+          "type": "article",
+          "settings": {
+            "article__img": "shopify:\/\/shop_images\/sciencetimes.jpg",
+            "article__heading": "Designer Optics Putting The Trend In Trendy Eyewear",
+            "article__date": "3 May 2022",
+            "article__link": "https:\/\/www.sciencetimes.com\/articles\/37465\/20220503\/designer-optics-putting-the-trend-in-trendy-eyewear.htm"
+          }
+        }
+      },
+      "block_order": [
+        "ee676beb-8cbe-4e27-8ed3-86c2f0bd13b7",
+        "e72cc504-2015-47f6-bb1f-fa7fcdce44b8",
+        "9a698474-0281-4216-b46a-6ec2f24fde70",
+        "72eee279-9ce5-4a52-afe8-dbbaca8c5064",
+        "70391ee6-ecaf-4279-b178-9f8212705b6e",
+        "39eb3d0f-1adb-42ad-81cc-97335871d803"
+      ],
+      "settings": {
+        "heading": "In the Press",
+        "headingColor": "rgba(0,0,0,0)",
+        "headingAlignment": "center",
+        "displayFor": "display--both",
+        "nomargin": false,
+        "scopedCSS": ""
+      }
+    },
+    "16547083803af482a5": {
+      "type": "section_press_room_overview",
+      "blocks": {
+        "1654708379bb8e1f34-0": {
+          "type": "title",
+          "settings": {
+            "fullWidth": true,
+            "content": "Media Assets",
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "title",
+            "fontSize": "medium"
+          }
+        },
+        "1654708379bb8e1f34-1": {
+          "type": "richText",
+          "settings": {
+            "fullWidth": true,
+            "maxBWidth": 100,
+            "content": "<p>Download our high resolution logo and guideline.<\/p>",
+            "detectLists": true,
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "base",
+            "fontSize": "base"
+          }
+        },
+        "1654708379bb8e1f34-2": {
+          "type": "button",
+          "settings": {
+            "fullWidth": true,
+            "text": "Download Now",
+            "url": "https:\/\/cdn.shopify.com\/s\/files\/1\/2807\/8986\/files\/DesignerOptics-MediaKit-2022.zip?v=1655113033",
+            "icon": "",
+            "iconPosition": "icon--left",
+            "wideButton": false,
+            "buttonStyle": "primary",
+            "buttonType": "default",
+            "fontSize": "base",
+            "fontFamily": "base",
+            "animation": "none",
+            "animationDuration": 1000,
+            "animationInfinite": true
+          }
+        }
+      },
+      "block_order": [
+        "1654708379bb8e1f34-0",
+        "1654708379bb8e1f34-1",
+        "1654708379bb8e1f34-2"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "boxed",
+        "nomargin": true,
+        "overview_text": "",
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 0,
+        "lineMargin": 12,
+        "backgroundColor": "#fff5f4",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "imagePosition": "left",
+        "imageWidth": "6",
+        "image": "shopify:\/\/shop_images\/media.jpg",
+        "imageOverlayOpacity": 0,
+        "imageOverlayColor": "#000000"
+      }
+    },
+    "165470846688c35f1f": {
+      "type": "section_video_slider",
+      "blocks": {
+        "08519950-8292-4e76-9646-c6b0504f2d51": {
+          "type": "video",
+          "settings": {
+            "video__img": "shopify:\/\/shop_images\/k24pK6I9g5g-HD.jpg",
+            "article__heading": "How to read your optical prescription for glasses and order online",
+            "video__link": "https:\/\/www.youtube.com\/watch?v=k24pK6I9g5g"
+          }
+        },
+        "50ebb32f-e5cc-4550-9084-2cc6a9b01614": {
+          "type": "video",
+          "settings": {
+            "video__img": "shopify:\/\/shop_images\/vvDNqN7AOPE-HQ.jpg",
+            "article__heading": "Progressive Lenses vs Bifocal Lenses, What should you choose for your eyeglasses?",
+            "video__link": "https:\/\/www.youtube.com\/watch?v=vvDNqN7AOPE"
+          }
+        },
+        "ef99ec7e-a30b-4104-ac63-a6144b39f570": {
+          "type": "video",
+          "settings": {
+            "video__img": "shopify:\/\/shop_images\/computer-vision-syndrome.png",
+            "article__heading": "What is Computer Vision Syndrome?",
+            "video__link": "https:\/\/www.youtube.com\/watch?v=MddeFTkptSY"
+          }
+        },
+        "f43ac1b7-0f11-422d-9c42-95eb411adfdf": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "video__img": "shopify:\/\/shop_images\/OQN8ab9BR2I-HD.jpg",
+            "article__heading": "Designer Optics",
+            "video__link": "https:\/\/www.youtube.com\/watch?v=MddeFTkptSY"
+          }
+        },
+        "90d69a63-a292-4b24-b92f-c08ef1466ee1": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "video__img": "shopify:\/\/shop_images\/E7Sw1bIEaNo-HD.jpg",
+            "article__heading": "Design Optics",
+            "video__link": "https:\/\/www.youtube.com\/watch?v=OBa7Qm9mbKU"
+          }
+        }
+      },
+      "block_order": [
+        "08519950-8292-4e76-9646-c6b0504f2d51",
+        "50ebb32f-e5cc-4550-9084-2cc6a9b01614",
+        "ef99ec7e-a30b-4104-ac63-a6144b39f570",
+        "f43ac1b7-0f11-422d-9c42-95eb411adfdf",
+        "90d69a63-a292-4b24-b92f-c08ef1466ee1"
+      ],
+      "settings": {
+        "heading": "Our Videos",
+        "headingColor": "rgba(0,0,0,0)",
+        "headingAlignment": "center",
+        "displayFor": "display--both",
+        "nomargin": false,
+        "scopedCSS": "",
+        "btn__label": "View All",
+        "button_url": "https:\/\/www.youtube.com\/c\/designeroptics1\/videos"
+      }
+    },
+    "16547085774706d73a": {
+      "type": "section_specific_article",
+      "blocks": {
+        "bcb864d6-804a-498a-adff-a4a35c47c998": {
+          "type": "article",
+          "settings": {
+            "article": "news\/what-coloured-contact-lenses-to-wear-with-your-outfit"
+          }
+        },
+        "da497b6d-d365-4597-b4cc-0e208c8c7433": {
+          "type": "article",
+          "settings": {
+            "article": "news\/the-eight-business-trends-you-should-know-for-2022"
+          }
+        },
+        "2a008e59-ca69-4951-bf80-8a2e01205973": {
+          "type": "article",
+          "settings": {
+            "article": "news\/signs-youre-wearing-wrong-prescription-glasses"
+          }
+        },
+        "a87cc2fb-a4c1-4100-b935-1e0f1190e66b": {
+          "type": "article",
+          "settings": {
+            "article": "news\/the-business-outlook-of-eyewear-in-2022"
+          }
+        }
+      },
+      "block_order": [
+        "bcb864d6-804a-498a-adff-a4a35c47c998",
+        "da497b6d-d365-4597-b4cc-0e208c8c7433",
+        "2a008e59-ca69-4951-bf80-8a2e01205973",
+        "a87cc2fb-a4c1-4100-b935-1e0f1190e66b"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "boxed",
+        "nomargin": true,
+        "scopedCSS": "",
+        "backgroundColor": "rgba(0,0,0,0)",
+        "heading": "Our Blog",
+        "headingColor": "rgba(0,0,0,0)",
+        "headingAlignment": "center",
+        "btn__label": "View All",
+        "button_url": "shopify:\/\/blogs\/news"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "16547081340547a52e",
+    "1654708156492a4fa1",
+    "1654708241539b6699",
+    "16547083803af482a5",
+    "165470846688c35f1f",
+    "16547085774706d73a"
+  ]
+}

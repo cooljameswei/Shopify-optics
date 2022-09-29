@@ -1,0 +1,16 @@
+{%- assign sizes = '375,410,520,576,768,992,1024,1280,1660,1920' | split: ',' -%}
+{%- assign max = maxWidth | default: 1280 -%}
+{%- capture bgset -%}
+{%- for size in sizes -%}
+{%- assign intsize = size | plus: 0 -%}
+{%- if intsize > max -%}
+{%- break -%}
+{%- endif -%}
+{%- assign xvalue = size | append: 'x' -%}
+{{image | img_url: xvalue}} {{size}}w,
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign bgset = bgset | strip_newlines | strip -%}
+{%- assign strlen = bgset.size | minus: 1 -%}
+
+data-bgset="{{bgset | slice: 0, strlen }}"

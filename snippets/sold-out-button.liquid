@@ -1,0 +1,8 @@
+{% if text == blank %}
+{% assign text = 'general.buttons.sold_out' | t  %}
+{% endif %}
+<button 
+{{disabled}}
+class="button button--primary button--{{-settings['primaryButtonStyle']}}  button--primary__{{-settings['primaryButtonStyle']-}}">
+{{- text -}}
+</button>

@@ -1,0 +1,19 @@
+{% comment %} 
+    Check if admin or previewing, not only designMode - might be outdated
+    {% capture admin_check %}{{ content_for_header }}{% endcapture %}
+    {{ admin_check }}
+    {% if admin_check contains 'previewBarInjector' or admin_check contains 'adminBarInjector' %}
+    {% assign is_admin = true %}
+    {% else %}
+    {% assign is_admin = false %}
+    {% endif %} 
+{% endcomment %}
+
+{%- if settings.favicon != blank -%}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.favicon | img_url: '180x180', crop: 'center' }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | img_url: '32x32', crop: 'center' }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ settings.favicon | img_url: '16x16', crop: 'center' }}">
+    <link rel="manifest" href="{{ 'site.webmanifest' | asset_url }}">
+    <meta name="msapplication-TileColor" content="{{settings.primaryFill}}">
+    <meta name="theme-color" content={{settings.primaryFill}}">
+{%- endif -%}

@@ -1,0 +1,82 @@
+<style>
+.text-center{
+  text-align:center;
+}
+.error404__page {
+  padding: 120px 0;
+  margin-bottom: 20px;
+}
+div.error404__page div:not(.booster--revert)>h1{
+  font-size: 2.25em;
+  font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+  font-weight: 700;
+  color: #030303;
+  margin: 0 0 0.625em;
+}
+div.error404__page div:not(.booster--revert)>p{
+  font-size: 16px;
+  font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  color: #666;
+  line-height: 1.375;
+}
+hr {
+  margin: 20px 0;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 1px 0 0;
+}
+div.error404__page .button{
+  display: inline-block;
+  width: auto;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #c63b3d;
+  color: #fff;
+  line-height: 1.42857143;
+  background-image: none;
+  font-size: .8125em;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 15px 45px;
+  border-radius: 0;
+  transition: color .1s ease-in,background-color .1s ease-in;
+}
+div.error404__page .button:hover{
+  background-color: #a02e30;
+  color: #fff !important;
+}
+div.error404__page div:not(.booster--revert)>h1{
+  font-size: 1.875em;
+}  
+@media(max-width:767px){
+	.error404__page {
+      padding: 20px 0;
+      margin-bottom: 0;
+	}
+  	.wrapper--bottom{
+    	padding-top:35px;
+    }
+}  
+</style>
+<div class="row max-width error404__page middle">
+    <div class="col-12 unflex text-center">
+        <h1>{{ 'Page Not Found'}}</h1>
+        <p>{{ 'general.404.subtext_html' | t }}</p>
+      	<hr/>
+        {% assign back2products = 'general.404.backToProducts' | t %}
+        {% assign backhome = 'Continue shopping' %}
+        {% render 'button', type: 'secondary', url: routes.root_url, text: backhome %}
+    </div>
+</div>

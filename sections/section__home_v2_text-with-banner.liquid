@@ -1,0 +1,238 @@
+{%-style-%}{% render 'common-css' with section as section %}{%-endstyle-%}
+{%-style-%}
+    .v2-text-with-banner { margin-bottom: 0px !important; padding-bottom: 0px; }
+    .slider--responsive{ padding-bottom: 80px; }
+    .v2-text-with-banner #s--{{section.id}} { position:relative; z-index:100; }
+    .v2-text-with-banner #s--{{section.id}} .tximage__txt .title { color: {{section.settings.headingColor}}; font-size: 50px; font-weight:900; line-height:60px; }
+    .v2-text-with-banner #s--{{section.id}} .tximage__txt .s__block--richText { color: {{section.settings.contentColor}}; }
+    .v2-text-with-banner #s--{{section.id}} .tximage__txt .button--primary { background-color: #C63C3E; font-size: 20px; padding: 15px 49px; border-radius:15px; }
+    .v2-text-with-banner #s--{{section.id}} .tximage__txt .button--primary:hover { background-color: #a02e30; color: #ffffff !important; }
+    .v2-text-with-banner #s--{{section.id}} .banner-wrapper .font__family--base p{ font-size: 20px; line-height: 30px; }
+    .v2-text-with-banner .s__holder{ z-index: 100; }
+    .v2-text-with-banner #s--{{section.id}} .banner-wrapper>div{ margin-bottom: 30px; }
+    .v2-text-with-banner #s--{{section.id}} .banner-wrapper>div.s__block--button{ margin-bottom: 0px; }
+    .v2-text-with-banner .index-banners-picture{ width:100%; }
+    .v2-text-with-banner .hide-mobile .layout__boxed{ position: absolute; top: 0%; left: 0%; width:100%; display: flex; height: 98%; max-width:100%; }
+    .v2-text-with-banner .banner-wrapper{ width:100%; }
+    .v2-text-with-banner #s--{{section.id}} .s__content.layout__content{ max-width: 1350px; }
+    @media(min-width:768px){
+        .v2-text-with-banner .index-banners-picture{ position: relative; display: block; margin:0px auto -4px; }
+        .v2-text-with-banner .index-banners-image { width: 100%; }
+    }
+    @media(min-width:1024px){
+        .v2-text-with-banner .index-banners-image { width: 100%; }
+    }
+    @media(min-width:768px) and (max-width:1023px){
+        .v2-text-with-banner #s--{{section.id}} .layout__boxed>.layout__content{ width: 55%; margin: 0; }
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt .title{ font-size: 26px; }
+        .v2-text-with-banner #s--{{section.id}} .banner-wrapper .font__family--base p{ font-size:16px; }
+        .v2-text-with-banner #s--{{section.id}} .banner-wrapper>div{ margin-bottom: 20px; }
+        .v2-text-with-banner #s--{{section.id}} .font__size--base.font__family--base br{ display:none; }
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt{ margin-bottom: 0px; }
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt .button--primary{ padding: 10px 31px; border-radius: 10px; }
+    }
+    @media(min-width:1000px) and (max-width:1440px){
+        .v2-text-with-banner .index-banners-image{ min-height: 400px; object-fit: cover; }
+    }
+    @media(max-width:1280px){
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt .title { font-size: 30px; line-height: 1.3; }
+        .v2-text-with-banner #s--{{section.id}} .banner-wrapper>div{ margin-bottom: 20px; }
+    }
+    @media(max-width:900px){
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt .title { font-size: 24px; line-height: 1.3; }
+        .v2-text-with-banner #s--{{section.id}} .banner-wrapper>div{ margin-bottom: 15px; }
+        .v2-text-with-banner #s--{{section.id}} .banner-wrapper .font__family--base p{ font-size: 14px; line-height: 1.4; }
+    }
+    @media(max-width:767px){
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt .title { font-size: 28px; line-height: 40px; }
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt h2.title br{ display:none; }
+        .v2-text-with-banner #s--{{section.id}} { padding: 0px 0; }
+        .v2-text-with-banner #s--{{section.id}} .layout__boxed { height: 100%; }
+        .v2-text-with-banner #s--{{section.id}} .banner-wrapper .font__family--base p{ font-size: 18px; line-height: 30px; text-align: justify; }
+        .v2-text-with-banner #s--{{section.id}} .banner-wrapper .font__family--base p br{ display: none; }
+        .v2-text-with-banner .hide-lg{ height:900px; }
+        .v2-text-with-banner .hide-lg #s--{{section.id}}{ height: 100%; background-position: bottom; }
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt .button--primary { border-radius:10px; padding: 10px 31px; }
+        .v2-text-with-banner #s--{{section.id}} .banner-wrapper>div{ margin-bottom: 20px; }
+        .v2-text-with-banner #s--{{section.id}} .tximage__txt { padding-left: 20px; padding-right: 20px; }
+    }
+    @media(max-width:550px){
+        .v2-text-with-banner .hide-lg{ height: 700px; }
+    }
+{%-endstyle-%}
+<div class="hide-mobile" data-homeV2-desktop>
+        <div id="s--{{section.id}}">
+    {%comment%}{% unless section.settings.background_img == nil -%}
+        {% render 'background', image: section.settings.background_img %}{%- endunless %}
+        class="{% render 'common-class', section: section, class: 'row', bg: true, vAlign: false %}">{%endcomment%}
+            <div>
+                <picture class="index-banners-picture">
+                    <!--[if IE 9]><video style='display: none'><![endif]-->
+                    <source media="(min-width: 1024px)" srcset="{{section.settings.background_img | img_url: 'master'}}" width="1600px" height="520px">
+                    <source media="(min-width: 10px)" srcset="{{section.settings.background_img_middle | img_url: 'master'}}" width="1024px" height="333px">
+                                            <!--[if IE 9]></video><![endif]-->
+                    <img class="index-banners-image" data-event-cate="Homepage" data-event-name="Banners" data-event-label="Promotional Banner" data-src="{{section.settings.background_img | img_url: 'master'}}" alt="Baaner with text">
+                </picture>
+            </div>
+            <div class="layout__boxed  ">
+                <div class="row s__content middle layout__content">
+                    <div class="inherit col-12 tximage__txt">
+                        <div class="banner-wrapper">
+                            {%- if section.settings.banner_title != blank -%}
+                            <div class="no-gap s__block s__block--title col-12 start">
+                                <h2 class="title font__size--medium font__family--title">{{ section.settings.banner_title }}</h2>
+                            </div>
+                            {%- endif -%}
+                            {%- if section.settings.content != blank -%}
+                            <div class="no-gap s__block s__block--richText col-12 start">
+                                <div class="font__size--base font__family--base">
+                                    {{ section.settings.content }}
+                                </div>
+                            </div>
+                            {%- endif -%}
+                            {%- if section.settings.btn_label != blank and section.settings.btn_url != blank -%}
+                            <div class="no-gap s__block s__block--button col-12 start">
+                                <a class="button button--primary button--filled button--primary__filled font__size--base font__family--base button__animation--none" href="{{ section.settings.btn_url }}">
+                                    <span>{{ section.settings.btn_label }}</span>
+                                </a>
+                            </div>
+                            {%- endif -%}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{%- comment -%}
+{%- capture preload_mobile_banner -%}
+    {% if section.settings.mb_background_img != blank -%}{% render 'background', image: section.settings.mb_background_img %}{% else %} {% render 'background', image: section.settings.background_img %} {%- endif %}
+{%- endcapture -%}
+{%- endcomment -%}
+<div class="hide-md hide-lg" data-homeV2-mobile>
+    <div id="s--{{section.id}}"
+    {% if section.settings.mb_background_img != blank -%}{% render 'background', image: section.settings.mb_background_img %}{% else %} {% render 'background', image: section.settings.background_img %} {%- endif %}
+    class="mobile-large-banner {% render 'common-class', section: section, class: 'row', bg: true, vAlign: false %}">
+            <div class="layout__boxed  ">
+                <div class="row s__content middle layout__content">
+                    <div class="col-12 col-md-6 tximage__image">
+
+                    </div>
+                    <div class="inherit col-12 col-md-6 tximage__txt">
+                        <div class="banner-wrapper">
+                            {%- if section.settings.banner_title != blank -%}
+                            <div class="no-gap s__block s__block--title col-12 start margin__bottom--12">
+                                <h2 class="title font__size--medium font__family--title">{{ section.settings.banner_title }}</h2>
+                            </div>
+                            {%- endif -%}
+                            {%- if section.settings.content != blank -%}
+                            <div class="no-gap s__block s__block--richText col-12 start margin__bottom--12">
+                                <div class="font__size--base font__family--base">
+                                    {{ section.settings.content }}
+                                </div>
+                            </div>
+                            {%- endif -%}
+                            {%- if section.settings.btn_label != blank and section.settings.btn_url != blank -%}
+                            <div class="no-gap s__block s__block--button col-12 start margin__bottom--12">
+                                <a class="button button--primary button--filled button--primary__filled font__size--base font__family--base button__animation--none" href="{{ section.settings.btn_url }}">
+                                    <span>{{ section.settings.btn_label }}</span>
+                                </a>
+                            </div>
+                            {%- endif -%}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{%- comment -%}
+<script type="module" defer>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        let  homeV2MobileSelector = document.querySelector('[data-homeV2-mobile]'); 
+        if(homeV2MobileSelector.querySelector('#s--{{section.id}}')){
+            let preLoaderV2Banner = homeV2MobileSelector.querySelector('#s--{{section.id}}');
+            preLoaderV2Banner && (
+                preLoaderV2Banner.setAttribute('data-bgset', `{{preload_mobile_banner | replace:'data-bgset="','' | replace:'"',''}}`)
+            );     
+        }
+    });
+</script>
+{%- endcomment -%}
+{% schema %}
+{
+"name": "Home v2 Text with Banner",
+"class": "v2-text-with-banner",
+"settings": [
+    {
+        "type": "image_picker",
+        "id": "background_img",
+        "label": "Background Image"
+    },
+    {
+        "type": "image_picker",
+        "id": "background_img_middle",
+        "label": "Background Image Middle Resolution(Optional)"
+    },
+    {
+        "type": "image_picker",
+        "id": "mb_background_img",
+        "label": "Mobile Background Image"
+    },
+	{
+	  "type": "text",
+      "id": "banner_title",
+      "label": "Title"
+	},
+    {
+        "type": "color",
+        "id": "headingColor",
+        "label": "Heading color",
+        "default": "rgb(77,77,79)"
+    },
+	{
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+        "type": "color",
+        "id": "contentColor",
+        "label": "Content color",
+        "default": "rgb(77,77,79)"
+    },
+	{
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label"
+    },
+	{
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button URL"
+    },
+    {
+       "type": "select",
+       "id": "content_position",
+       "label": "Content Position",
+       "options": [
+            {
+               "value": "left",
+               "label": "Left"
+            },
+            {
+                "value": "right",
+                "label": "Right"
+            }
+       ]
+    }
+	],
+  "presets": [
+    {
+        "name": "Home v2 Text with Banner",
+        "category": "Image"
+    }
+  ]
+}
+
+{% endschema %}

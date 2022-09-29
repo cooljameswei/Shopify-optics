@@ -1,0 +1,208 @@
+<style>
+.slide--{{-block.id}} .slide__content h2, .slide--{{-block.id}} .slide__content div {
+    padding-bottom: {{block.settings.contentSpacing}}px;
+}
+
+.colorfix{};
+</style>
+
+<div
+data-type="video"
+class="slide--{{-block.id}} slide {%if first%}slide__animation{%endif%} {{block.settings.verticalAlignment}}" 
+style="background-color: {{block.settings.backgroundColor}};" {{ block.shopify_attributes }}>
+    <video class="lazyload" muted {% if first %}autoplay{% endif %} playsinline>
+        <source src="{{block.settings.video}}" data-src="{{block.settings.video}}" type="video/mp4">
+    </video>
+    {% if block.settings.overlayOpacity > 0 %}
+        <div class="overlay" style="opacity: {{block.settings.overlayOpacity | times: 0.01}}; background-color: {{block.settings.overlayColor}};"></div>
+    {% endif %}
+    <div class="slide__content {{block.settings.horizontalAlignment}} layout__content" style="padding: {{block.settings.padding}}px;">
+        <h2 class="animate font__size--medium font__family--title" style="color: {% unless block.settings.headingColor contains 'rgba(0,0,0,0)' %}{{block.settings.headingColor}}{% else %}inherit{% endunless %};">{{block.settings.heading}}</h2>
+        <div class="inherit animate" style="color: {% unless block.settings.contentColor contains 'rgba(0,0,0,0)' %}{{block.settings.contentColor}}{% else %}inherit{% endunless %}; margin-bottom: 8px;">{{block.settings.content}}</div>
+        {% unless block.settings.button1Text == blank %}
+            {% render 'button', type: block.settings.button1Style, buttonType: block.settings.button1Type, url: block.settings.button1Link, text: block.settings.button1Text, class: 'animate slide__button' %}
+        {%endunless%}
+        {% unless block.settings.button2Text == blank %}
+            {% render 'button', type: block.settings.button2Style, buttonType: block.settings.button2Type, url: block.settings.button2Link, text: block.settings.button2Text, style: 'style="margin-left: 8px;"', class: 'animate slide__button' %}
+        {%endunless%}
+    </div>
+</div>
+
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "videoSlide",
+    "name": "Video slide",
+    "settings": [
+    {
+        "type": "select",
+        "id": "horizontalAlignment",
+        "label": "Content alignment (left to right)",
+        "options": [
+            {"value": "start", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "end", "label": "Right"}
+        ],
+        "default": "center"
+    },
+    {
+        "type": "select",
+        "id": "verticalAlignment",
+        "label": "Content alignment (top to bottom)",
+        "options": [
+            {"value": "top", "label": "Top"},
+            {"value": "middle", "label": "Middle"},
+            {"value": "bottom", "label": "Bottom"}
+        ],
+        "default": "middle"
+    },
+    {
+        "type": "range",
+        "id": "padding",
+        "min": 0,
+        "max": 50,
+        "default": 16,
+        "unit": "px",
+        "label": "Padding"
+    },
+    {
+        "type": "header",
+        "content": "Background"
+    },
+    {
+        "type": "color",
+        "id": "backgroundColor",
+        "label": "Background color",
+        "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "text",
+        "id": "video",
+        "label": "Video URL",
+        "info": "Requires a direct link to an MP4 file. You can't use embeds (Youtube, Vimeo)."
+    },
+    {
+        "type": "header",
+        "content": "Overlay"
+    },
+    {
+        "type": "range",
+        "id": "overlayOpacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "label": "Overlay opacity",
+        "default": 40,
+        "unit": "%"
+    },
+    {
+        "type": "color",
+        "id": "overlayColor",
+        "label": "Overlay color",
+        "default": "#000000"
+    },
+    {
+        "type": "header",
+        "content": "Content"
+    },
+    {
+        "type": "text",
+        "label": "Heading",
+        "id": "heading"
+    },
+    {
+        "type": "color",
+        "id": "headingColor",
+        "label": "Heading color",
+        "default": "#FFFFFF"
+    },
+    {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+    },
+    {
+        "type": "color",
+        "id": "contentColor",
+        "label": "Content color",
+        "default": "#FFFFFF"
+    },
+    {
+        "type": "header",
+        "content": "Primary button"
+    },
+    {
+        "type": "text",
+        "label": "Button text",
+        "id": "button1Text"
+    },
+    {
+        "type": "url",
+        "label": "Button link",
+        "id": "button1Link"
+    },
+    {
+        "type": "select",
+        "id": "button1Style",
+        "label": "Button style",
+        "options": [
+        {"value": "primary", "label": "Primary button"},
+        {"value": "secondary", "label": "Secondary button"}
+        ],
+        "default": "primary"
+    },
+    {
+        "id": "button1Type",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "filled", "label": "Filled"},
+        {"value": "ghost", "label": "Ghost"},
+        {"value": "underlined", "label": "Underlined"},
+        {"value": "text", "label": "Text"}
+        ],
+        "default": "default"
+    },
+    {
+        "type": "header",
+        "content": "Secondary button"
+    },
+    {
+        "type": "text",
+        "label": "Button text",
+        "id": "button2Text"
+    },
+    {
+        "type": "url",
+        "label": "Button link",
+        "id": "button2Link"
+    },
+    {
+        "type": "select",
+        "id": "button2Style",
+        "label": "Button style",
+        "options": [
+        {"value": "primary", "label": "Primary button"},
+        {"value": "secondary", "label": "Secondary button"}
+        ],
+        "default": "secondary"
+    },
+    {
+        "id": "button2Type",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "filled", "label": "Filled"},
+        {"value": "ghost", "label": "Ghost"},
+        {"value": "underlined", "label": "Underlined"},
+        {"value": "text", "label": "Text"}
+        ],
+        "default": "default"
+    }
+]
+}
+{% endblockdef %}
+{% endcomment %}

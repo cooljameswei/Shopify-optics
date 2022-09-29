@@ -1,0 +1,70 @@
+{%- capture isCustomerEligibleFlag -%} 
+    {%- if isCustomerEligible.size > 0 -%}
+        YES
+    {%- else -%}
+        NO
+    {%- endif -%}
+{%- endcapture -%}
+{%- capture variantJsonId -%}VariantsJson-{{-section.id-}}{%- endcapture -%}
+<script type="application/json" id="VariantsJson-{{ section.id }}">
+    [
+      {% for variant in product.variants %}
+        {
+           "id": {{ variant.id | json }},
+           "inventory_policy": {{ variant.inventory_policy | json }},
+           "inventory_quantity": {{ variant.inventory_quantity | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+</script>
+<script>
+    window.BACKORDER_PDP = window.BACKORDER_PDP || {};
+    window.BACKORDER_PDP.selectedBrand = "{{-product.vendor-}}";
+    window.BACKORDER_PDP.backorderBrands = {{-backorder_brands | json-}};
+    window.BACKORDER_PDP.isCustomerEligible = "{{-isCustomerEligibleFlag-}}";
+    window.BACKORDER_PDP.getVariants = () => {
+        return document.getElementById(`{{-variantJsonId-}}`) && JSON.parse(document.getElementById(`{{-variantJsonId-}}`).innerText) || [];
+    }
+    window.BACKORDER_PDP.enableAtcButtons = () => {
+        let brandAtcButtons = document.querySelectorAll('[data-atc-brand-btn]') && Array.prototype.slice.call(document.querySelectorAll('[data-atc-brand-btn]')) || [];
+        if(brandAtcButtons.length > 0){
+            for (let index = 0; index < brandAtcButtons.length; index++) {
+                let brandAtcButton = brandAtcButtons[index];
+                if(brandAtcButton && brandAtcButton.disabled === true){
+                    brandAtcButton.querySelector('span.data-button-text') && (brandAtcButton.querySelector('span.data-button-text').innerText = "ADD TO CART");
+                    brandAtcButton.disabled = false;
+                }
+            }
+        }
+    }
+    window.BACKORDER_PDP.toggleATCButton = (variantId) => {
+
+        window.BACKORDER_PDP.enableAtcButtons();
+
+        if(window.BACKORDER_PDP.backorderBrands.includes(window.BACKORDER_PDP.selectedBrand)){
+            if(window.BACKORDER_PDP.backorderBrands.includes(window.BACKORDER_PDP.selectedBrand) && window.BACKORDER_PDP.isCustomerEligible === "NO"){
+                let _variants = window.BACKORDER_PDP.getVariants();
+                
+                if(_variants.length > 0) {
+                    let _currentVariant = _variants.filter(variant => {
+                        return Number(variant.id) === Number(variantId) && Number(variant.inventory_quantity) > 5000;
+                    });
+                    if(_currentVariant.length === 0){
+                        let brandAtcButtons = document.querySelectorAll('[data-atc-brand-btn]') && Array.prototype.slice.call(document.querySelectorAll('[data-atc-brand-btn]')) || [];
+                        if(brandAtcButtons.length > 0){
+                            for (let index = 0; index < brandAtcButtons.length; index++) {
+                                let brandAtcButton = brandAtcButtons[index];
+                                if(brandAtcButton){
+                                    brandAtcButton.querySelector('span[data-button-text]') && (brandAtcButton.querySelector('span[data-button-text]').innerText = "unavailable");
+                                    brandAtcButton.classList.add("disabled");
+                                    brandAtcButton.disabled = true;
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+</script>

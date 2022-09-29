@@ -1,0 +1,266 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner--page",
+      "disabled": true,
+      "settings": {
+        "layout": "boxed",
+        "height": 120,
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "fontSize": "medium",
+        "contentColor": "#030303",
+        "fillColor": "rgba(0,0,0,0)",
+        "overlayOpacity": 0,
+        "overlayColor": "#000000"
+      }
+    },
+    "16603111375d6852f0": {
+      "type": "section__home_v2_text-with-banner",
+      "settings": {
+        "background_img": "shopify:\/\/shop_images\/affiliate-banner_1.jpg",
+        "background_img_middle": "shopify:\/\/shop_images\/affiliate-banner_1.jpg",
+        "mb_background_img": "shopify:\/\/shop_images\/Group_3_1.png",
+        "banner_title": "Join Designer Optics’s <br>Affiliates Program",
+        "headingColor": "#4c4d4f",
+        "content": "<p>Recommend Products. Earn Commissions<\/p>",
+        "contentColor": "#4c4d4f",
+        "btn_label": "Join Now",
+        "btn_url": "http:\/\/app.impact.com\/campaign-campaign-info-v2\/Designer-Optics.brand",
+        "content_position": "left"
+      }
+    },
+    "1660311583e96355c8": {
+      "type": "section__content",
+      "blocks": {
+        "dbbf4743-e7d1-42ba-a7d9-1fed536d68e5": {
+          "type": "title",
+          "settings": {
+            "blockWidth": "col-md-12",
+            "vertPadding": 15,
+            "horPadding": 4,
+            "horAlign": "center",
+            "vertAlign": "middle",
+            "content": "Become an ambassador",
+            "textColor": "#4c4d4f",
+            "fontFamily": "title",
+            "fontSize": "medium"
+          }
+        },
+        "04fa57fa-6021-4d58-8864-8a575dc0e618": {
+          "type": "richText",
+          "settings": {
+            "blockWidth": "col-md-8",
+            "vertPadding": 12,
+            "horPadding": 4,
+            "horAlign": "center",
+            "vertAlign": "middle",
+            "maxBWidth": 100,
+            "content": "<p>Headquartered in NYC, Designer Optics was founded in 2011 to reimagine the prescription eyewear market. After witnessing the lack of options traditional stores offer for inexpensive, high quality, name brand selections, we set out to create this ourselves.<\/p>",
+            "detectLists": true,
+            "textColor": "#4c4d4f",
+            "fontFamily": "base",
+            "fontSize": "base"
+          }
+        },
+        "b2ed4673-dd1c-4316-803b-16b5b2f783a2": {
+          "type": "customTitle",
+          "settings": {
+            "blockWidth": "col-md-12",
+            "vertPadding": 12,
+            "horPadding": 4,
+            "horAlign": "center",
+            "vertAlign": "middle",
+            "content": "Commission up to 15% on the total of <br>every sale you initiate",
+            "textColor": "#c63c3e",
+            "fontSize": "custom",
+            "customFontSize": 30,
+            "customFont": false,
+            "customFontFamily": "work_sans_n6",
+            "customMaxWidthMK": "",
+            "customStylesMK": "",
+            "customBreakpointOneMK": "1200",
+            "customStylesBrOneMK": "",
+            "customBreakpointTwoMK": "767",
+            "customStylesBrTwoMK": ""
+          }
+        }
+      },
+      "block_order": [
+        "dbbf4743-e7d1-42ba-a7d9-1fed536d68e5",
+        "04fa57fa-6021-4d58-8864-8a575dc0e618",
+        "b2ed4673-dd1c-4316-803b-16b5b2f783a2"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "default",
+        "nomargin": false,
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 30,
+        "lineMargin": 12,
+        "backgroundColor": "rgba(0,0,0,0)",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "center",
+        "verticalAlignment": "middle"
+      }
+    },
+    "166031403517413a65": {
+      "type": "section_affiliate_image-text",
+      "blocks": {
+        "166031403544476333-0": {
+          "type": "title",
+          "settings": {
+            "fullWidth": true,
+            "content": "Why Join?",
+            "textColor": "#4c4d4f",
+            "fontFamily": "title",
+            "fontSize": "medium"
+          }
+        },
+        "166031403544476333-1": {
+          "type": "richText",
+          "settings": {
+            "fullWidth": true,
+            "maxBWidth": 100,
+            "content": "<p>- <strong>Earn a 15% commission<\/strong> on both new and existing  customer orders.<\/p><p>- <strong>Get 1:1 support<\/strong> from our dedicated in-house affiliate team.  We are here to answer your questions and help you achieve success.<\/p><p>- <strong>We stock 400 + brands,<\/strong> featuring popular brands at a great value. including Gucci, Versace, Ray Ban, and many more<\/p><p>- <strong>Receive regular newsletters<\/strong> to keep you informed, which will share insights, opportunities, and trends.<\/p>",
+            "detectLists": true,
+            "textColor": "#4c4d4f",
+            "fontFamily": "base",
+            "fontSize": "base"
+          }
+        },
+        "166031403544476333-2": {
+          "type": "button",
+          "settings": {
+            "fullWidth": true,
+            "text": "Apply Now",
+            "url": "http:\/\/app.impact.com\/campaign-campaign-info-v2\/Designer-Optics.brand",
+            "icon": "",
+            "iconPosition": "icon--left",
+            "wideButton": false,
+            "buttonStyle": "primary",
+            "buttonType": "default",
+            "fontSize": "base",
+            "fontFamily": "base",
+            "animation": "none",
+            "animationDuration": 1000,
+            "animationInfinite": true
+          }
+        }
+      },
+      "block_order": [
+        "166031403544476333-0",
+        "166031403544476333-1",
+        "166031403544476333-2"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "default",
+        "nomargin": true,
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 0,
+        "lineMargin": 12,
+        "backgroundColor": "#f5f5f5",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "titleAlignmentMobile": "below_img",
+        "imagePosition": "right",
+        "imageWidth": "6",
+        "image": "shopify:\/\/shop_images\/newman-checking-vision-with-new-glasses_1.png",
+        "imageOverlayOpacity": 0,
+        "imageOverlayColor": "#000000"
+      }
+    },
+    "166063221253bf78a5": {
+      "type": "section_affiliate_faq",
+      "blocks": {
+        "b6580ad5-5f71-4053-ae97-bec806fd4c3b": {
+          "type": "accordion",
+          "settings": {
+            "question": "<p>How do I become an affiliate?<\/p>",
+            "answer": "<p>You may apply to Partnerize here. We review applications regularly. Once accepted, you have the ability to review and agree to our terms and conditions.<\/p>"
+          }
+        },
+        "9b063b70-3f6e-4109-86a9-0bc986113bfb": {
+          "type": "accordion",
+          "settings": {
+            "question": "<p>Am I eligible to become a Designer Optics affiliate?<\/p>",
+            "answer": "<p>Yes! Everyone is welcome, please use the apply now link to get started <\/p>"
+          }
+        },
+        "c088dc65-7105-457d-b411-6e147c43811c": {
+          "type": "accordion",
+          "settings": {
+            "question": "<p>How do you track sales?<\/p>",
+            "answer": "<p>We use impact which is the top of the line software to track affilite driven sales, once you isgn up you will get your own links to use, those link are unique and will track your sales, <\/p>"
+          }
+        },
+        "0ce27366-241e-4dc4-a80c-ac7af4af9431": {
+          "type": "accordion",
+          "disabled": true,
+          "settings": {
+            "question": "<p>How and when do I get paid?<\/p>",
+            "answer": "<p>Content goes here<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "b6580ad5-5f71-4053-ae97-bec806fd4c3b",
+        "9b063b70-3f6e-4109-86a9-0bc986113bfb",
+        "c088dc65-7105-457d-b411-6e147c43811c",
+        "0ce27366-241e-4dc4-a80c-ac7af4af9431"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "default",
+        "nomargin": false,
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 0,
+        "lineMargin": 12,
+        "backgroundColor": "#f5f5f5",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "start",
+        "verticalAlignment": "top",
+        "titleAlignmentMobile": "below_img",
+        "imagePosition": "left",
+        "imageWidth": "6",
+        "image": "shopify:\/\/shop_images\/newman-checking-vision-with-new-glasses_1_1_1.png",
+        "heading": "Affiliate Program FAQs",
+        "imageOverlayOpacity": 0,
+        "imageOverlayColor": "#000000"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "16603111375d6852f0",
+    "1660311583e96355c8",
+    "166031403517413a65",
+    "166063221253bf78a5"
+  ]
+}

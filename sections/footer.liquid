@@ -1,0 +1,1129 @@
+{%- if request.design_mode == false -%}
+  {{-'footer.css' | asset_url | preload_tag: as: 'style', type:"text/css" -}}  
+{%- endif -%}
+<link rel="stylesheet" href="{{ 'footer.css' | asset_url }}" media="print" onload="this.media='all'">
+<footer style="background-color:black;"
+        class="site-footer {% if page.handle == 'locations' %}location-page-content{% endif %}" 
+        role="contentinfo">
+  <div class="page-width-full">
+    <div class="flex-footer" data-type="">
+      <div class="top-footer">
+        <div class="page-width-full newsletter-align">
+          <div class="newsletter-label">Join the exclusive Club</div>
+          <div class="klaviyo-container">
+            <div class="klaviyo-form-RQkwep"></div>
+          </div>
+        </div>
+      </div>
+      <div class="middle-footer">
+        <div class="middle-footer-one">
+          {% for block in section.blocks %}
+          {% if block.type == 'text' %}
+          <div class="company-info">
+            <h4 class="h1 site-footer__section-title" style="display:none;">{{ block.settings.title }}</h4>
+            <img width="{{block.settings.image.width}}" height="{{block.settings.image.height}}"
+                 loading="lazy"
+                 class="lazyload" data-src="{{ block.settings.image | img_url: 'master' }}" alt="" />
+            <div class="info-para">
+              {{ block.settings.text }}
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="middle-footer-two">
+          {% for block in section.blocks %}
+          {% if block.type == 'menu' %}
+          <div class="menu-list-container">
+            {% if linklists[block.settings.link_list].links.size > 0 %}
+            <h4 class="h1 site-footer__section-title">{{ linklists[block.settings.link_list].title }}</h4>
+            <ul class="site-footer__list">
+              {% for link in linklists[block.settings.link_list].links %}
+              <li class="site-footer__list-item">
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {% endif %}
+          {% endfor %}
+          <div class="menu-list-container seal-container">
+          	<!--<a href="https://www.usa-proxy.org/browse.php?u=https%3A%2F%2Fwww.bbb.org%2Fus%2Fny%2Fbrooklyn%2Fprofile%2Fretail-optical-goods%2Fdesigner-optics-corp-0121-145565%2F&b=4#sealclick" target="_blank" rel="nofollow"><img src="https://www.usa-proxy.org/browse.php?u=https%3A%2F%2Fseal-newyork.bbb.org%2Fseals%2Fblue-seal-187-130-whitetxt-bbb-145565.png&b=4" style="border: 0;" alt="Designer Optics Corp. BBB Business Review" /></a>-->
+          	<img loading="lazy" data-src="{{'BBB-logo.png' | asset_img_url:'master'}}" alt="BBB Logo"  class="bbb-seal-desktop lazyload"/>
+            <img loading="lazy" data-src="{{'BBB-logo-mob.png' | asset_img_url:'master'}}" alt="BBB Logo"  class="bbb-seal-mob lazyload"/>
+          </div>
+        </div>
+      </div>
+      <div class="social-footer">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'footerSocial' %}
+              {% if block.settings.heading != blank %}
+              <div class="left-content">
+                <h4 class="h1">{{ block.settings.heading }}</h4>
+              </div>
+              {% endif %}
+              <div class="right-content">
+                {%- assign socialMedia = 'Facebook,Instagram,Twitter,Whatsapp,We,Youtube,Snapchat,Viber,VK,DA,TikTok,Twitch,Linkedin,Pinterest,Truthsocial' | split: ',' -%}
+                {%- for social in socialMedia -%}
+                    {%- assign prop = social | prepend: 's' -%}
+                    {%- if settings[prop] != blank -%}
+                        {%- assign name = social | downcase -%}
+                        {%- assign SocialIcon = social | prepend: 's' | append: 'Icon' -%}
+
+                        <a class="icon-link" target="_blank" href="{{settings[prop]}}">
+                          {% if settings[SocialIcon] != blank %}
+                          {{ settings[SocialIcon] }}
+                          {% else %}
+                            {% render 'get-icon' with name as icon %}
+                          {% endif %}
+                        </a>
+                    {%- endif -%}
+                {%- endfor -%}
+              </div>
+              
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="middle-footer-web-address">
+        <ul class="middle-footer-w-a-list">
+          {% for block in section.blocks %}
+          {% case block.type %}
+          {% when 'Company_Information' %}
+          <li class="middle-footer-w-a-listitem"><p><a href="{{ block.settings.curl }}">{{ block.settings.ctext }}</a></p></li>
+          <li class="middle-footer-w-a-listitem"><p><a href="{{ block.settings.curl1 }}">{{ block.settings.ctext1 }}</a></p></li>
+          <li class="middle-footer-w-a-listitem"><p><a href="{{ block.settings.curl2 }}">{{ block.settings.ctext2 }}</a></p></li>
+          {% endcase %}
+		  {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-footer">
+      <div class="site-footer__copyright">
+        <div class="page-width-full">
+          <div class="grid medium-up--grid--table">
+            <div class="grid__item medium-up--one-half">
+              <small>&copy; {{ 'now' | date: "%Y" }}, {{ 'DesignerOptics.com'| link_to: '/' }}. All rights
+                reserved.</small>
+            </div>
+            <div class="money-icon-info">
+            {% for block in section.blocks %}
+          	{% case block.type %}
+           	{% when 'Money_Icons' %}
+              <img width="35" height="22" loading="lazy" class="money-icon lazyload" data-src="{{ block.settings.mimage1 | img_url }}" alt="{{block.settings.mimage_alt1}}" />
+              <img width="35" height="22" loading="lazy" class="money-icon lazyload" data-src="{{ block.settings.mimage2 | img_url }}" alt="{{block.settings.mimage_alt2}}" />
+              <img width="35" height="22" loading="lazy" class="money-icon lazyload" data-src="{{ block.settings.mimage3 | img_url }}" alt="{{block.settings.mimage_alt3}}" />
+              <img width="35" height="22" loading="lazy" class="money-icon lazyload" data-src="{{ block.settings.mimage4 | img_url }}" alt="{{block.settings.mimage_alt4}}" />
+              <img width="35" height="22" loading="lazy" class="money-icon lazyload" data-src="{{ block.settings.mimage5 | img_url }}" alt="{{block.settings.mimage_alt5}}" />
+              <img width="35" height="22" loading="lazy" class="money-icon lazyload" data-src="{{ block.settings.mimage6 | img_url }}" alt="{{block.settings.mimage_alt6}}" />
+            {% endcase %}
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script defer>
+  $(document).ready(function () {
+    $(".menu-list-container h4").append('<span class="plusminus">+</span>');
+    $(".site-footer__section-title").click(function () {
+      if ($('.site-footer__list').is(':visible')) {
+        $(".site-footer__list").slideUp(300);
+        $(".plusminus").text('+');
+      }
+      if ($(this).next(".site-footer__list").is(':visible')) {
+        $(this).next(".site-footer__list").slideUp(300);
+        $(this).children(".plusminus").text('+');
+      } else {
+        $(this).next(".site-footer__list").slideDown(300);
+        $(this).children(".plusminus").text('-');
+      }
+    });
+    $( "input[placeholder='Date of Birth']").attr("type","date");
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "footer-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458178944)"
+    },
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {
+          "value": "default",
+          "label": "Global default"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "stretchBg",
+          "label": "Full width background"
+        },
+        {
+          "value": "stretchContent",
+          "label": "Full width"
+        }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "color",
+      "label": "Background color",
+      "default": "#000",
+      "id": "fillColor"
+    },
+    {
+      "type": "color",
+      "label": "Content color",
+      "default": "#FFF",
+      "id": "contentColor"
+    },
+    {
+      "id": "spacing",
+      "label": "Spacing",
+      "type": "range",
+      "unit": "px",
+      "default": 4,
+      "min": 0,
+      "max": 50,
+      "step": 1
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Links",
+      "type": "footerLinks",
+      "settings": [
+        {
+          "id": "width",
+          "label": "Width",
+          "type": "select",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "12",
+              "label": "100%"
+            },
+            {
+              "value": "9",
+              "label": "75%"
+            },
+            {
+              "value": "8",
+              "label": "66%"
+            },
+            {
+              "value": "6",
+              "label": "50%"
+            },
+            {
+              "value": "4",
+              "label": "33%"
+            },
+            {
+              "value": "3",
+              "label": "25%"
+            },
+            {
+              "value": "1-5",
+              "label": "20%"
+            }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "select",
+          "id": "horizontalAlignment",
+          "label": "Content alignment (left to right)",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "verticalAlignment",
+          "label": "Content alignment (top to bottom)",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "middle",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "middle"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Title",
+          "default": "TITLE"
+        },
+        {
+          "id": "links",
+          "label": "Links",
+          "type": "link_list"
+        }
+      ]
+    },
+    {
+      "name": "Text",
+      "type": "footerText",
+      "settings": [
+        {
+          "id": "width",
+          "label": "Width",
+          "type": "select",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "12",
+              "label": "100%"
+            },
+            {
+              "value": "9",
+              "label": "75%"
+            },
+            {
+              "value": "8",
+              "label": "66%"
+            },
+            {
+              "value": "6",
+              "label": "50%"
+            },
+            {
+              "value": "4",
+              "label": "33%"
+            },
+            {
+              "value": "3",
+              "label": "25%"
+            },
+            {
+              "value": "1-5",
+              "label": "20%"
+            }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "select",
+          "id": "horizontalAlignment",
+          "label": "Content alignment (left to right)",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "verticalAlignment",
+          "label": "Content alignment (top to bottom)",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "middle",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "middle"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Title",
+          "default": "TITLE"
+        },
+        {
+          "id": "text",
+          "label": "Text",
+          "type": "richtext",
+          "default": "<p>Enjoy unlimited amount of characters in this field. Just go at it.</p>"
+        }
+      ]
+    },
+    {
+      "name": "Image",
+      "type": "footerImage",
+      "settings": [
+        {
+          "id": "width",
+          "label": "Width",
+          "type": "select",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "12",
+              "label": "100%"
+            },
+            {
+              "value": "9",
+              "label": "75%"
+            },
+            {
+              "value": "8",
+              "label": "66%"
+            },
+            {
+              "value": "6",
+              "label": "50%"
+            },
+            {
+              "value": "4",
+              "label": "33%"
+            },
+            {
+              "value": "3",
+              "label": "25%"
+            },
+            {
+              "value": "1-5",
+              "label": "20%"
+            }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "select",
+          "id": "horizontalAlignment",
+          "label": "Content alignment (left to right)",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "verticalAlignment",
+          "label": "Content alignment (top to bottom)",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "middle",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "middle"
+        },
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "range",
+          "label": "Image width",
+          "unit": "%",
+          "id": "imageWidth",
+          "default": 100,
+          "min": 5,
+          "max": 100,
+          "step": 5
+        },
+        {
+          "type": "url",
+          "label": "Image link",
+          "id": "url"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "type": "footerContact",
+      "settings": [
+        {
+          "id": "width",
+          "label": "Width",
+          "type": "select",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "12",
+              "label": "100%"
+            },
+            {
+              "value": "9",
+              "label": "75%"
+            },
+            {
+              "value": "8",
+              "label": "66%"
+            },
+            {
+              "value": "6",
+              "label": "50%"
+            },
+            {
+              "value": "4",
+              "label": "33%"
+            },
+            {
+              "value": "3",
+              "label": "25%"
+            },
+            {
+              "value": "1-5",
+              "label": "20%"
+            }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "select",
+          "id": "horizontalAlignment",
+          "label": "Content alignment (left to right)",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "verticalAlignment",
+          "label": "Content alignment (top to bottom)",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "middle",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "middle"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Title",
+          "default": "TITLE"
+        },
+        {
+          "type": "text",
+          "id": "phoneText",
+          "label": "Phone text"
+        },
+        {
+          "type": "text",
+          "id": "emailText",
+          "label": "Email text"
+        }
+      ]
+    },
+    {
+      "name": "Payment Icons",
+      "type": "footerPayment",
+      "settings": [
+        {
+          "id": "width",
+          "label": "Width",
+          "type": "select",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "12",
+              "label": "100%"
+            },
+            {
+              "value": "9",
+              "label": "75%"
+            },
+            {
+              "value": "8",
+              "label": "66%"
+            },
+            {
+              "value": "6",
+              "label": "50%"
+            },
+            {
+              "value": "4",
+              "label": "33%"
+            },
+            {
+              "value": "3",
+              "label": "25%"
+            },
+            {
+              "value": "1-5",
+              "label": "20%"
+            }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "select",
+          "id": "horizontalAlignment",
+          "label": "Content alignment (left to right)",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "verticalAlignment",
+          "label": "Content alignment (top to bottom)",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "middle",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "middle"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Title"
+        },
+        {
+          "type": "checkbox",
+          "label": "Use a custom list of icons",
+          "id": "customIcons",
+          "default": false
+        },
+        {
+          "type": "textarea",
+          "label": "Custom list of icons",
+          "id": "icons"
+        },
+        {
+          "type": "header",
+          "content": "List of available icons"
+        },
+        {
+          "type": "paragraph",
+          "content": "afterpay, american_express, apple_pay, bitcoin, dankort, diners_club, discover, dogecoin, dwolla, forbrugsforeningen, google_pay, ideal, jcb, klarna, klarna-pay-later, litecoin, maestro, master, paypal, shopify_pay, sofort, visa"
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "id": "link_list",
+          "type": "link_list",
+          "label": "Menu",
+          "default": "footer",
+          "info": "This menu won't show dropdown items"
+        }
+      ]
+    },
+    {
+      "type": "brands_menu",
+      "name": "family_of_brands",
+      "settings": [
+        {
+          "id": "link_list",
+          "type": "link_list",
+          "label": "Family Of Brands",
+          "default": "footer",
+          "info": "This menu won't show dropdown items"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Company Information",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Text column"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Company Logo"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Share store details, promotions, or brand content with your customers</p>"
+        }
+      ]
+    },
+    {
+      "type": "Company_Information",
+      "name": "Company Website",
+      "settings": [
+        {
+          "type": "url",
+          "id": "curl",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "ctext",
+          "label": "Web Text"
+        },
+        {
+          "type": "url",
+          "id": "curl1",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "ctext1",
+          "label": "Web Text"
+        },
+        {
+          "type": "url",
+          "id": "curl2",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "ctext2",
+          "label": "Web Text"
+        }
+      ]
+    },
+    {
+      "type": "Money_Icons",
+      "name": "Money Icons",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "mimage1",
+          "label": "Money Logo Links"
+        },
+		{
+          "type": "text",
+          "id": "mimage_alt1",
+          "label": "Money Logo Text",
+		  "default": "Money Icon 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "mimage2",
+          "label": "Money Logo Links"
+        },
+		{
+          "type": "text",
+          "id": "mimage_alt2",
+          "label": "Money Logo Text",
+		  "default": "Money Icon 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "mimage3",
+          "label": "Money Logo Links"
+        },
+		{
+          "type": "text",
+          "id": "mimage_alt3",
+          "label": "Money Logo Text",
+		  "default": "Money Icon 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "mimage4",
+          "label": "Money Logo Links"
+        },
+		{
+          "type": "text",
+          "id": "mimage_alt4",
+          "label": "Money Logo Text",
+		  "default": "Money Icon 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "mimage5",
+          "label": "Money Logo Links"
+        },
+		{
+          "type": "text",
+          "id": "mimage_alt5",
+          "label": "Money Logo Text",
+		  "default": "Money Icon 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "mimage6",
+          "label": "Money Logo Links"
+        },
+		{
+          "type": "text",
+          "id": "mimage_alt6",
+          "label": "Money Logo Text",
+		  "default": "Money Icon 6"
+        }
+      ]
+    },
+    {
+      "name": "Social media",
+      "type": "footerSocial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Title",
+          "default": "TITLE"
+        }
+      ]
+    },
+    {
+      "type": "blockNewsletter",
+      "name": "Newsletter",
+      "settings": [
+        {
+          "id": "width",
+          "label": "Width",
+          "type": "select",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "12",
+              "label": "100%"
+            },
+            {
+              "value": "9",
+              "label": "75%"
+            },
+            {
+              "value": "8",
+              "label": "66%"
+            },
+            {
+              "value": "6",
+              "label": "50%"
+            },
+            {
+              "value": "4",
+              "label": "33%"
+            },
+            {
+              "value": "3",
+              "label": "25%"
+            },
+            {
+              "value": "1-5",
+              "label": "20%"
+            }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "select",
+          "id": "horizontalAlignment",
+          "label": "Content alignment (left to right)",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "verticalAlignment",
+          "label": "Content alignment (top to bottom)",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "middle",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "middle"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Title"
+        },
+        {
+          "type": "select",
+          "label": "Newsletter provider",
+          "options": [
+            {
+              "value": "shopify",
+              "label": "Shopify"
+            },
+            {
+              "value": "mailchimp",
+              "label": "Mailchimp"
+            }
+          ],
+          "default": "shopify",
+          "id": "newsletter"
+        },
+        {
+          "type": "header",
+          "content": "Input"
+        },
+        {
+          "type": "range",
+          "min": 0,
+          "max": 1000,
+          "step": 10,
+          "unit": "px",
+          "id": "inputMaxWidth",
+          "label": "Maximum input width",
+          "default": 500
+        },
+        {
+          "id": "inputText",
+          "label": "Input text color",
+          "default": "rgba(0,0,0,0)",
+          "type": "color"
+        },
+        {
+          "id": "inputBackground",
+          "label": "Input background color",
+          "default": "rgba(0,0,0,0)",
+          "type": "color"
+        },
+        {
+          "type": "text",
+          "label": "Placeholder text",
+          "default": "Your e-mail goes here",
+          "id": "email"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "radio",
+          "default": "primary",
+          "label": "Button type",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary combination"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary combination"
+            }
+          ],
+          "id": "buttonType"
+        },
+        {
+          "type": "text",
+          "label": "Submit text",
+          "default": "Subscribe",
+          "id": "submit"
+        }
+      ]
+    },
+    {
+      "name": "Spacer",
+      "type": "footerSpacer",
+      "settings": [
+        {
+          "id": "width",
+          "label": "Width",
+          "type": "select",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "12",
+              "label": "100%"
+            },
+            {
+              "value": "9",
+              "label": "75%"
+            },
+            {
+              "value": "8",
+              "label": "66%"
+            },
+            {
+              "value": "6",
+              "label": "50%"
+            },
+            {
+              "value": "4",
+              "label": "33%"
+            },
+            {
+              "value": "3",
+              "label": "25%"
+            },
+            {
+              "value": "1-5",
+              "label": "20%"
+            }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "select",
+          "id": "horizontalAlignment",
+          "label": "Content alignment (left to right)",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

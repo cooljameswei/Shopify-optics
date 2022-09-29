@@ -1,0 +1,443 @@
+{% style %}
+    {% render 'common-css' with section as section %}
+{% endstyle %}
+
+{{ 'component-collection-content-with-image.css' |  asset_url | stylesheet_tag}}
+{% style %}
+    /*HOT FIX MARGIN START */
+    #shopify-section-{{section.id}}{
+        margin-bottom: 0px !important;
+    }
+    /*HOT FIX MARGIN END */
+    #s--{{section.id}} .collection__content-image-wrapper{
+        background-color:{{section.settings.content_bg_color | default:"transparent"}};
+        color:{{section.settings.content_text_color | default:"#4C4D4F"}};
+        margin-top:{{section.settings.margin-top}}px;
+        margin-bottom:{{section.settings.margin-bottom}}px;
+    }
+    .half-circle-side-img{
+        position:absolute;
+    }
+    .half-circle-side-img.top-position{
+        left:0px;
+        top:-20%;
+        z-index:-10;
+    }
+    .half-circle-side-img.right-position{
+        right:-13%;
+        top:0px;
+        z-index:-10;
+    }
+    .collection__content-image-group{
+        position:relative;
+    }
+    .side-pattern-image{
+        position:absolute;
+        right: -55px;
+        top: 50%;
+        z-index: 1000;
+        display: block;
+    }
+    .col__template--progressive-lenses main.main-content {
+        margin-top: 0px;
+    }
+    @media(max-width:767px){
+        #s--{{section.id}} .collection__content-image-wrapper{
+            margin-top:{{section.settings.margin-top-mob}}px;
+            margin-bottom:{{section.settings.margin-bottom-mob}}px;
+        }
+        .side-pattern-image{
+            display:none;
+        }
+        .half-circle-side-img.top-position{
+            width: 55%; 
+        }
+        .half-circle-side-img.right-position {
+            top: 50%;
+            width: 55%;
+            transform: translate(0px, -50%);
+        }
+    }
+{% endstyle %}
+<div id="s--{{section.id}}" class="{% render 'common-class', section: section, bg: false, vAlign: false %} intro-section">
+    {% if section.settings.half-circle  %}
+        <div class="half-circle-side-img {% if section.settings.circleImgPos == "top" %}top-position {% elsif section.settings.circleImgPos == "right" %}right-position{% endif%}">
+            <img src="{{'semi-circle.png' | asset_img_url: 'master'}}" alt="Half-circle-Shape" />
+        </div>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+        <div class="collection__content-image-wrapper">
+            {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                    {%- when "title" -%}
+                        {% if block.settings.title != blank %}
+                            {% if block.settings.title_text_color != blank %}
+                                {% style %}#s--{{section.id}}  .collection__content-image-wrapper .collection__content-image-title{color:{{block.settings.title_text_color}};}{% endstyle %}    
+                            {% endif %}
+                            {% if block.settings.heading-type == 'h1' %}
+                                <h1 class="collection__content-image-title">{{ block.settings.title }}</h1>
+                            {% elsif block.settings.heading-type == 'h2' %}
+                                <h2 class="collection__content-image-title">{{ block.settings.title }}</h2>
+                            {% elsif block.settings.heading-type == 'h3' %}
+                                <h3 class="collection__content-image-title">{{ block.settings.title }}</h3>
+                            {% elsif block.settings.heading-type == 'h4' %}
+                                <h4 class="collection__content-image-title">{{ block.settings.title }}</h4>
+                            {% elsif block.settings.heading-type == 'h5' %}
+                                <h5 class="collection__content-image-title">{{ block.settings.title }}</h5>
+                            {% else %}
+                                <h6 class="collection__content-image-title">{{ block.settings.title }}</h6>        
+                            {% endif %}
+                                
+                        {% endif %}
+                    {%- when "richText" -%}
+                        {% if block.settings.content_text != blank %}
+                            {% if block.settings.content_text_color != blank %}
+                                {% style %}#s--{{section.id}}  .collection__content-image-wrapper .collection__content-image-text{color:{{block.settings.content_text_color}};}{% endstyle %}    
+                            {% endif %}
+                            <div class="collection__content-image-text" style="margin-bottom:{{ block.settings.margin-bottom-content }}px; ">{{ block.settings.content_text }}</div>    
+                        {% endif %}
+                    {%- when "image" -%}
+                            {% if block.settings.image1 != blank or block.settings.image2 != blank %}
+                                <div class="collection__content-image-group">
+                                    {% if section.settings.half-pattern %}
+                                        <div class="side-pattern-image">
+                                            <img src="{{'Combined_Shape.png' | asset_img_url: 'master'}}" alt="Combined-Shape" />
+                                        </div>
+                                    {% endif %}
+                                    {% if block.settings.image1 != blank %}    
+                                        {% if block.settings.image1_link != blank and block.settings.link_to_image1 == true %}<a href="{{block.settings.image1_link}}" class="collection__content-image-group-item">{% else %}<div class="collection__content-image-group-item">{% endif %}
+                                                <picture class="collection__content-image-group-picture">
+                                                    <source media="(min-width: 1024px)" srcset="{{block.settings.image1 | img_url: 'master'}}" width="1600px" height="520px">
+                                                    <source media="(min-width: 768px)" srcset="{{block.settings.image1 |default:section.settings.image1 | img_url: 'master'}}" width="1024px" height="333px">
+                                                    <source media="(max-width: 767px)" srcset="{{block.settings.image1_mobile |default:section.settings.image1 | img_url: 'master'}}" width="750px" height="1626px">
+                                                    <img class="collection__content-image-group-img" src="{{block.settings.image1 | img_url: 'master'}}" alt="Image with text" />
+                                                </picture>
+                                                {% if block.settings.image1_title != blank and block.settings.image1_link != blank and block.settings.link_to_image1 == false %}
+                                                    <a href="{{ block.settings.image1_link }}"><span class="collection__content-image-group-item-title">{{ block.settings.image1_title }}</span></a>
+                                                {% elsif block.settings.image1_title != blank and block.settings.link_to_image1 == false and block.settings.image1_link == blank%}
+                                                    <span class="collection__content-image-group-item-title">{{ block.settings.image1_title }}</span>
+                                                {% else %}
+                                                    <span class="collection__content-image-group-item-title">{{ block.settings.image1_title }}</span>
+                                                {% endif %}
+                                        {% if block.settings.image1_link != blank and block.settings.link_to_image1 == true %}</a>{% else %}</div>{% endif %}
+                                    {% endif %}
+                                    {% if block.settings.image2 != blank %}    
+                                        {% if block.settings.image2_link != blank and block.settings.link_to_image2 == true %}<a href="{{block.settings.image2_link}}" class="collection__content-image-group-item">{% else %}<div class="collection__content-image-group-item">{% endif %}
+                                                <picture class="collection__content-image-group-picture">
+                                                    <source media="(min-width: 1024px)" srcset="{{block.settings.image2 | img_url: 'master'}}" width="1600px" height="520px">
+                                                    <source media="(min-width: 768px)" srcset="{{block.settings.image2 |default:section.settings.image2 | img_url: 'master'}}" width="1024px" height="333px">
+                                                    <source media="(max-width: 767px)" srcset="{{block.settings.image2_mobile |default:section.settings.image2 | img_url: 'master'}}" width="750px" height="1626px">
+                                                    <img class="collection__content-image-group-img" src="{{block.settings.image2 | img_url: 'master'}}" alt="Image with text" />
+                                                </picture>
+                                                {% if block.settings.image2_title != blank and block.settings.image2_link != blank and block.settings.link_to_image2 == false %}
+                                                    <a href="{{ block.settings.image2_link }}"><span class="collection__content-image-group-item-title">{{ block.settings.image2_title }}</span></a>
+                                                {% elsif block.settings.image2_title != blank and block.settings.link_to_image2 == false and block.settings.image2_link == blank%}
+                                                    <span class="collection__content-image-group-item-title">{{ block.settings.image2_title }}</span>
+                                                {% else %}
+                                                    <span class="collection__content-image-group-item-title">{{ block.settings.image2_title }}</span>
+                                                {% endif %}
+                                        {% if block.settings.image2_link != blank and block.settings.link_to_image2 == true %}</a>{% else %}</div>{% endif %}
+                                    {% endif %}
+                                </div>    
+                            {% endif %}
+                    {%- when "ItemList" -%} 
+                        {% capture ItemList %}
+                                {{ ItemList }}
+                                <li class="collection__content-image-list-item">
+                                    {% if block.settings.item_icon != blank %}
+                                        <picture class="collection__content-image-list-icon">
+                                            <source media="(min-width: 1024px)" srcset="{{block.settings.item_icon | img_url: 'master'}}" width="56px" height="56px">
+                                            <source media="(min-width: 768px)" srcset="{{block.settings.item_icon | img_url: 'master'}}" width="56px" height="56px">
+                                            <source media="(max-width: 767px)" srcset="{{block.settings.item_icon | img_url: 'master'}}" width="28px" height="28px">
+                                            <img class="collection__content-image-list-icon-img" src="{{block.settings.item_icon | img_url: 'master'}}" alt="Icon image" />
+                                        </picture>
+                                    {% endif %}
+                                    {% if block.settings.item_text != blank %}
+                                        <div class="collection__content-image-list-text">
+                                            {{ block.settings.item_text }}
+                                        </div>
+                                    {% endif %}
+                                </li>   
+                        {% endcapture %}
+                {%- endcase -%}
+            {%- endfor -%}
+            {% if ItemList != blank %}
+                <ul class="collection__content-image-list">{{ItemList}}</ul>
+            {% endif %}
+        </div> 
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Collection - Content+Img",
+    "class": "collection__text-image",
+    "settings": [
+        {
+            "type": "header",
+            "content":"Section content"
+        },
+        {
+            "type": "color",
+            "id": "content_bg_color",
+            "label": "Content background color"
+        },
+        {
+            "type": "color",
+            "id": "content_text_color",
+            "label": "Content text color",
+            "default": "#4C4D4F"
+        },
+        {
+            "type": "radio",
+            "id": "displayFor",
+            "label": "Show this section on",
+            "options": [{
+                    "value": "display--both",
+                    "label": "All devices"
+                },
+                {
+                    "value": "hide-desktop",
+                    "label": "Mobile only"
+                },
+                {
+                    "value": "hide-mobile",
+                    "label": "Desktop only"
+                }
+            ],
+            "default": "display--both"
+        },
+        {
+            "type": "range",
+            "id": "margin-top",
+            "label": "Margin Top",
+            "default": 100,
+            "min": 0,
+            "max": 400,
+            "step": 5,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "margin-bottom",
+            "label": "Margin Bottom",
+            "default": 100,
+            "min": 0,
+            "max": 400,
+            "step": 5,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "margin-top-mob",
+            "label": "Margin Top Mobile",
+            "default": 100,
+            "min": 0,
+            "max": 400,
+            "step": 5,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "margin-bottom-mob",
+            "label": "Margin Bottom Mobile",
+            "default": 100,
+            "min": 0,
+            "max": 400,
+            "step": 5,
+            "unit": "px"
+        },
+        {
+            "type":"checkbox",
+            "id":"half-circle",
+            "label":"Half Circle Image",
+            "default":true    
+        },
+        {
+            "type": "select",
+            "id": "circleImgPos",
+            "label": "Half Circle Image Position",
+            "options": [{
+                    "value": "top",
+                    "label": "Top"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ],
+            "default": "top"
+        },
+        {
+            "type":"checkbox",
+            "id":"half-pattern",
+            "label":"Half Patter Image",
+            "default":true    
+        }
+    ],
+    "blocks":[
+        {
+            "type":"title",
+            "name":"Title",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "color",
+                    "id": "title_text_color",
+                    "label": "Title color"
+                },
+                {
+                    "type": "select",
+                    "id": "heading-type",
+                    "label": "Heading Type",
+                    "options": [
+                        {
+                            "value": "h1",
+                            "label": "H1"
+                        },
+                        {
+                            "value": "h2",
+                            "label": "H2"
+                        },
+                        {
+                            "value": "h3",
+                            "label": "H3"
+                        },
+                        {
+                            "value": "h4",
+                            "label": "H4"
+                        },
+                        {
+                            "value": "h5",
+                            "label": "H5"
+                        },
+                        {
+                            "value": "h6",
+                            "label": "H6"
+                        }
+                    ],
+                    "default": "h2"
+                }
+            ]
+        },
+        {
+            "type":"richText",
+            "name":"Text",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "content_text",
+                    "label": "Content"
+                },
+                {
+                    "type": "color",
+                    "id": "content_text_color",
+                    "label": "Content color"
+                },
+                {
+                    "type": "range",
+                    "id": "margin-bottom-content",
+                    "label": "Content Margin Bottom",
+                    "default": 0,
+                    "min": 0,
+                    "max": 400,
+                    "step": 5,
+                    "unit": "px"
+                }
+            ]
+        },
+        {
+            "type":"image",
+            "name":"Image group",
+            "settings": [
+                {
+                    "type":"header",
+                    "content":"#1 Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image1",
+                    "label": "Image ( Desktop )"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image1_mobile",
+                    "label": "Image ( Mobile )"
+                },
+                {
+                    "type": "text",
+                    "id": "image1_title",
+                    "label": "Image title"
+                },
+                {
+                    "type": "url",
+                    "id": "image1_link",
+                    "label": "Image title link"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "link_to_image1",
+                    "label": "Link to image + title",
+                    "default": false
+                },
+                {
+                    "type":"header",
+                    "content":"#2 Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image2",
+                    "label": "Image ( Desktop )"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image2_mobile",
+                    "label": "Image ( Mobile )"
+                },
+                {
+                    "type": "text",
+                    "id": "image2_title",
+                    "label": "Image title"
+                },
+                {
+                    "type": "url",
+                    "id": "image2_link",
+                    "label": "Image title link"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "link_to_image2",
+                    "label": "Link to image + title",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type":"ItemList",
+            "name":"Item list",
+            "settings":[
+                {
+                    "type": "image_picker",
+                    "id": "item_icon",
+                    "label": "Icon image"
+                },
+                {
+                    "type": "richtext",
+                    "id": "item_text",
+                    "label": "Text"
+                }   
+            ]
+        }
+    ],
+    "presets":[
+        {
+            "category": "Custom collection",
+            "name": "Collection - Content + Img"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,47 @@
+<p class="product-single__vendor" data-product-variant-title>
+  {% unless product.has_only_default_variant %}
+    {{ current_variant.title }}
+  {% endunless %}
+</p>
+{%- comment -%}
+<button class="desktop_hide pdp-wishlist-icon swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}"><img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/heart_red_border.svg?v=1627885583" class="with_heart"><img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/heart_red.svg?v=1627885584" class="fil_heart"></button>
+{%- endcomment -%}
+{%- comment -%}
+<div class="desktop_hide swym-wishlist-button-bar"></div>
+{%- endcomment -%}
+<div class="dflex">
+  <div class="judgeme_review">
+    {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+  </div>
+  {% if section.settings.stock_enable %}
+  <ul class="product-single__meta-list list--no-bullets list--inline">
+    <li>
+      <span id="ProductStock-{{ section.id }}" class="product-single__stock">
+        {% if current_variant.inventory_quantity > 5000 %}
+          <span class="inStockMsg">IN STOCK <i class="ship-tooltip fas fa-question-circle" data-tip="Product will be shipped within one business day. For quick delivery choose an expedited shipping service at checkout."></i></span>
+        {% elsif current_variant.inventory_quantity > 1000 %}
+          <span class="inStockMsg">Ships within 7 to 10 Days <i class="ship-tooltip fas fa-question-circle" data-tip="Shipping information is provided by the manufacturer."></i></span>
+          {% elsif current_variant.inventory_quantity > 0%}
+            <span class="inStockMsg">back-ordered <i class="ship-tooltip fas fa-question-circle" data-tip="We don’t have a definitive shipping date from the manufacturer. Orders will be filled in the order they were placed. We’ll keep you updated via email once the order is placed."></i></span>
+        {% elsif current_variant.inventory_quantity == 0 or current_variant.inventory_quantity < 0 %}
+            <span class="inStockMsg">Discontinued<i class="ship-tooltip fas fa-question-circle" data-tip="This Product has been discontinued."></i></span>            
+        {% endif %}
+      </span>
+      {% if current_variant.inventory_quantity > 5000 %}
+          <p id="availability_alt">Product will be shipped within one business day. For quick delivery choose an expedited shipping service at checkout.</p>
+      {% elsif current_variant.inventory_quantity > 1000 %}
+          <p id="availability_alt">Shipping information is provided by the manufacturer.</p>
+      {% elsif current_variant.inventory_quantity > 0%}
+          <p id="availability_alt">We don’t have a definitive shipping date from the manufacturer. Orders will be filled in the order they were placed. We’ll keep you updated via email once the order is placed.</p>
+      {% elsif current_variant.inventory_quantity == 0 or current_variant.inventory_quantity < 0 %}
+          <p id="availability_alt">This Product has been discontinued.</p>
+      {% endif %}
+    </li>
+  </ul>
+  {% endif %}
+  <div class="product__sku">
+    <span id="ProductSku-{{ section.id }}" class="product-single__sku">
+      <label>SKU : </label><span>{{ current_variant.sku }}</span>
+    </span>
+  </div> 
+</div>

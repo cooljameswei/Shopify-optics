@@ -1,0 +1,60 @@
+{% if section.settings.enable_fsa_hsa_style %}
+	{% render 'page-fsa-hsa-style' %}
+{% endif %}
+{{ page.content }}
+{% schema %}
+  {
+    "name": "FSA-HSA",
+	"class":"fsa-hsa",
+    "settings": [
+		{
+		"type": "checkbox",
+		"id": "enable_fsa_hsa_style",
+		"label": "Enable FSA HSA style",
+		"default": false
+	  }
+	],
+	"presets": [
+		{
+			"category": "custom-page-sections",
+			"name": "Page--FSA-HSA"
+		}
+	]
+  }
+{% endschema %}
+<script type="lazyload2">
+  $('section h4').click(function(event) {
+    event.preventDefault();
+    $('section h4').removeClass('active');
+	$(this).addClass('active');
+    
+    var ph = $(this).parent().height();
+    var ch = $(this).next().height();
+
+    if (ch > ph) {
+      $(this).parent().css({
+        'min-height': ch + 'px'
+      });
+    } else {
+      $(this).parent().css({
+        'height': 'auto'
+      });
+    }
+  });
+
+  function tabParentHeight() {
+    var ph = $('section').height();
+    var ch = $('section ul').height();
+    if (ch > ph) {
+      $('section').css({
+        'height': ch + 'px'
+      });
+    } else {
+      $(this).parent().css({
+        'height': 'auto'
+      });
+    }
+  }
+  tabParentHeight();
+</script>
+

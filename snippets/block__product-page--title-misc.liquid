@@ -1,0 +1,102 @@
+<link rel="stylesheet" data-href="{{ 'tipr.css' | asset_url }}">
+<script data-src="{{ 'tipr.min.js' | asset_url }}" type="lazyload2"></script>
+
+{%- if block.settings.color != "rgba(0,0,0,0)" -%}
+<style>
+  .product__title {
+    font-size: 26px;
+  }
+  .product__title--{{block.id}} {
+    color: {{block.settings.color}};
+  }
+  .relative-pos{
+    position:relative;
+  }
+  .dflex{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+  }
+  .product-single__meta-list:before {
+    content: "|";
+    color: #707070;
+    display: inline-block;
+    margin: 0 5px;
+   }
+  .product-single__meta-list{
+    padding-top:0px;
+  }
+  .product-single__meta-list .product-single__stock .inStockMsg{
+    font: normal bold normal 14px/24px Montserrat;
+    color: #006eff;
+  }
+  .product-single__meta-list .product-single__stock .product-single__sku span,
+  .product-single__meta-list li .product-single__sku label{
+  	font: normal bold normal 13px/24px Montserrat;
+    color: #242424;
+  }
+  .product-single__meta-list li:last-child {
+    padding-right: 0;
+  }
+  .product-single__stock .inStockMsg img{
+	margin-top:-3px;
+  }
+  .desktop_hide.pdp-wishlist-icon.swym-button.swym-add-to-wishlist-view-product {
+      position: absolute;
+      right: 16px;
+      top: 20px;
+      opacity: 1!important;
+  }
+</style>
+{%- endif -%}
+<h1 
+class="relative-pos product__title product__title--{{block.id}} font__family--{{block.settings.fontFamily}} font__size--{{block.settings.fontSize}}  {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" 
+ {{block.shopify_attributes}} >
+  {{ product.title }}
+</h1>
+{%- comment -%}
+<button class="desktop_hide pdp-wishlist-icon swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}"><img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/heart_red_border.svg?v=1627885583" class="with_heart"><img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/heart_red.svg?v=1627885584" class="fil_heart"></button>
+{%- endcomment -%}
+<div class="dflex">
+  <div class="judgeme_review">
+    {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+  </div>
+  {% if section.settings.stock_enable %}
+  <ul class="product-single__meta-list list--no-bullets list--inline">
+    <li>
+      <span id="ProductStock-{{ section.id }}" class="product-single__stock">
+        {% if current_variant.inventory_quantity > 5000 %}
+          <span class="inStockMsg">IN STOCK <i class="ship-tooltip fas fa-question-circle" data-tip="Product will be shipped within one business day. For quick delivery choose an expedited shipping service at checkout."></i></span>
+          <p id="availability_alt">Product will be shipped within one business day. For quick delivery choose an expedited shipping service at checkout.</p>
+          {% elsif current_variant.inventory_quantity > 1000 %}
+          <span class="inStockMsg">Ships within 7 to 10 Days <i class="ship-tooltip fas fa-question-circle" data-tip="Shipping information is provided by the manufacturer."></i></span>
+          <p id="availability_alt">Shipping information is provided by the manufacturer.</p>
+          {% elsif current_variant.inventory_quantity > 0%}
+            <span class="inStockMsg">back-ordered <i class="ship-tooltip fas fa-question-circle" data-tip="We don’t have a definitive shipping date from the manufacturer. Orders will be filled in the order they were placed. We’ll keep you updated via email once the order is placed."></i></span>
+            <p id="availability_alt">We don’t have a definitive shipping date from the manufacturer. Orders will be filled in the order they were placed. We’ll keep you updated via email once the order is placed.</p>
+        {% elsif current_variant.inventory_quantity == 0 or current_variant.inventory_quantity < 0 %}
+            <span class="inStockMsg">Discontinued<i class="ship-tooltip fas fa-question-circle" data-tip="This Product has been discontinued."></i></span>
+            <p id="availability_alt">This Product has been discontinued.</p>
+        {% endif %}
+        {%- comment -%}
+        {% if current_variant.inventory_quantity == 0 or current_variant.inventory_quantity < 0 and current_variant.incoming %}
+          {% if current_variant.available %}
+            {% assign date = current_variant.next_incoming_date | date: "%B %-d, %Y" %}
+              Will not ship until {{ date }}
+          {% else %}
+            {% assign date = current_variant.next_incoming_date | date: "%B %-d, %Y" %}
+              Will be in stock after {{ date }}
+          {% endif %}
+          <p id="availability_alt"></p>
+        {% endif %}
+       {%- endcomment -%}
+      </span>
+    </li>
+  </ul>
+  {% endif %}
+</div>
+<div class="product__sku">
+  <span id="ProductSku-{{ section.id }}" class="product-single__sku">
+    <label>SKU : </label><span>{{ current_variant.sku }}</span>
+  </span>
+</div>

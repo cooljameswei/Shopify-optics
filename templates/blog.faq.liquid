@@ -1,0 +1,80 @@
+{% section 'faq-search' %}
+
+<div style="margin-bottom:30px;">
+	{% section 'faq-categories' %}
+</div>
+
+
+{% if current_tags %}
+<div style="text-align:center; margin-bottom:30px;">
+  {% assign handle = current_tags.first | downcase%} 
+  {% case handle %}
+  	{% when 'returns' %}
+  		<h3>Returns</h3>
+  	{% when 'shipping' %}
+  		<h3>Shipping</h3>
+  	{% when 'single vision prescription' %}
+  		<h3>Single Vision Prescription</h3>
+  	{% when 'vision insurance' %}
+  		<h3>Vision Insurance</h3>
+  	{% when 'buying prescription glasses online' %}
+  		<h3>Buying Prescription Glasses Online</h3>
+  	{% when 'lens materials' %}
+  		<h3>Lens Materials</h3>
+    {% when 'using your fsa and hsa funds' %}
+  		<h3>Using Your FSA and HSA Funds</h3>
+  
+  	{% else %}
+  		
+  {% endcase %}
+  </div>
+{% endif %}
+
+{% paginate blog.articles by 100 %}
+
+<div class="page-width">
+
+  <ul class="j-accordion">
+ 
+      {% for article in blog.articles %}
+
+    
+        <li><a class="j-item-faq">{{ article.title }}</a>
+        <div class="j-inner-faq">
+        <p>{{ article.excerpt }}</p>
+        </div>
+        </li>
+
+      {% endfor %}
+ </ul>
+
+
+  {% if paginate.pages > 1 %}
+    <div class="pagination">
+      {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+    </div>
+  {% endif %}
+
+</div>
+
+{% endpaginate %}
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.j-accordion .j-item-faq').click(function (e) {
+      e.preventDefault();
+      var $this = $(this);
+      if ($this.hasClass('open')) {
+        $this.removeClass('open');
+        $this.next().slideUp(350);
+      } else {
+        $this.parent().parent().find('.j-item').removeClass('open');
+        $this.parent().parent().find('li .j-inner').slideUp(350);
+        $this.toggleClass('open');
+        $this.next().slideToggle(350);
+      }
+    });
+    $(".j-accordion .open").next().slideDown(350);
+  });
+</script>

@@ -1,0 +1,22 @@
+{% unless block.settings.iconColor contains 'rgba(0,0,0,0)' and block.settings.textColor contains 'rgba(0,0,0,0)' %}
+<style>
+{% unless block.settings.textColor contains 'rgba(0,0,0,0)' %}
+#delivery__{{-block.id}} .urgency__text span * {
+    color: {{block.settings.textColor}};
+}
+{% endunless %}
+
+{% unless block.settings.iconColor contains 'rgba(0,0,0,0)' %}
+#delivery__{{-block.id}} .urgency__text .uil {
+    color: {{block.settings.iconColor}};
+}
+{% endunless %}
+</style>
+{% endunless %}
+
+<div id="delivery__{{-block.id}}" class="product__urgency {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+    <span class="urgency__text">
+        {% unless block.settings.icon != blank %}{% render 'get-icon', icon: 'truck' %}{% else %}{% render 'get-icon', icon: block.settings.icon %}{% endunless %}
+        <span>{{block.settings.text | replace: '%start%', '<span data-bstr-delivery-date>%start%</span>' | replace: '%start%', block.settings.start | replace: '%end%', '<span data-bstr-delivery-date>%end%</span>' | replace: '%end%', block.settings.end | default: 'No estimated delivery time available'}}</span>
+    </span>
+</div>

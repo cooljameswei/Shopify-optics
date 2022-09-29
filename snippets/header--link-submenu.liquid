@@ -1,0 +1,116 @@
+{% if section.settings.megamenu %}
+{% assign megamenu = false %}
+{% assign check_products = link.links | where: "type", "product_link" %}
+{% assign cp_size = check_products.size %}
+{% assign check_collections = link.links | where: "type", "collection_link" %}
+{% assign cc_size = check_collections.size %}
+{% assign subsubmenu = 0 %}
+{% assign has_submenu = false %}
+{% assign check_list = false %}
+{% for sublink in link.links %}
+    {% if sublink.links != empty %}
+        {% assign has_submenu = true %}
+        {% assign subsubmenu = subsubmenu | plus: 1 %}
+        {% if sublink.type == "collection_link" %}
+            {% assign cc_size = cc_size | minus: 1 %}
+        {% elsif sublink.type == "product_link" %}
+            {% assign cp_size = cp_size | minus: 1 %}
+        {% endif %}
+        {% assign check_submenu_list = sublink.links | where: "type", "product_link" %}
+        {% if check_submenu_list.size == sublink.links.size %}
+            {% assign check_list = true %}
+        {% endif %}
+        {% break %}
+    {% endif %}
+{% endfor %}
+
+{% assign combined = cp_size | plus: cc_size %}
+{% if check_list or link.links.size > 1 and subsubmenu > 2 %}
+    {% assign megamenu = true %}
+{% elsif combined >= 2 %}
+    {% assign megamenu = true %}
+{% elsif combined > 0 and has_submenu %}
+{% endif %}
+
+{% unless megamenu %}
+<div class="nav__submenu nav__submenu--regular">
+    {% for sub_link in link.links %}
+        <span class="nav__link__holder {% if sub_link.active or sub_link.child_active %}nav__link--active{% endif %}">
+            <a href="{{sub_link.url}}" class="nav__link">
+                {% render 'header--link-elements' with sub_link.title as text %}
+            </a>
+            {% if sub_link.links.size > 0 %}
+                <div class="nav__submenu nav__submenu--regular">
+                    {% for d_link in sub_link.links %}
+                        <span class="nav__link__holder {% if d_link.active or d_link.child_active %}nav__link--active{% endif %}">
+                            <a href="{{d_link.url}}" class="nav__link">
+                                {% render 'header--link-elements' with d_link.title as text %}
+                            </a>
+                        </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </span>
+    {% endfor %}
+</div>
+{% else %}
+{% assign csize = 12 | divided_by: link.links.size | at_least: 3 %}
+<div class="nav__submenu nav__submenu--mega row fancy-scroll">
+{% for sub_link in link.links %}
+    {% if sub_link.links != empty %}
+        {% assign plist = sub_link.links | where: 'type', 'product_link' %}
+        {% if plist.size == sub_link.links.size %}
+            <span class="nav__link__holder--mega col-md-{{csize}}">
+                <div class="header__plist">
+                    <a href="{{sub_link.url}}" class="nav__megamenu__title">{{sub_link.title}}</a>
+                    {% for deeplink in sub_link.links %}
+                        {% assign prdt = deeplink.object %}
+                        <div class="header__plist--item">
+                            <a href="{{prdt.url}}"><img height="{{prdt.featured_image.height}}" width="{{prdt.featured_image.width}}" src="{{prdt.featured_image | img_url: '80x'}}" class="header__plist--image"></a>
+                            <div class="header__plist--info">
+                                <a href="{{prdt.url}}" class="header__plist--name">{{prdt.title}}</a>
+                                <span class="header__plist--price">{{prdt.price | money | strip_html}}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </span>                
+        {% else %}
+            <span class="nav__link__holder--mega col-md-{{csize}}">
+                <div class="nav__megamenu__menu">
+                    <a href="{{sub_link.url}}" class="nav__megamenu__title">{{sub_link.title}}</a>
+                    {% for slink in sub_link.links %}
+                        <a href="{{slink.url}}" class="nav__megamenu__link">{{slink.title}}</a>
+                    {% endfor %}
+                </div>
+            </span>
+        {% endif %}
+        {% else %}
+            {% case sub_link.type %}
+                {% when 'product_link' %}
+                <span class="nav__link__holder--mega col-md-{{csize}}">
+                    {% render 'product-card-no-button' with sub_link.object as product %}
+                </span>
+                {% when 'collection_link' %}
+                <span class="nav__link__holder--mega col-md-{{csize}}">
+                    {% render 'collection-card' with sub_link.object as collection %}
+                </span>
+            {% endcase %}
+    {% endif %}
+{% endfor %}
+</div>
+{% endunless %}
+{% else %}
+<div class="nav__submenu nav__submenu--regular">
+    {% for sub_link in link.links %}
+        <span class="nav__link__holder {% if sub_link.active or sub_link.child_active %}nav__link--active{% endif %}">
+            <a href="{{sub_link.url}}" class="nav__link">
+                {% render 'header--link-elements' with sub_link.title as text %}
+            </a>
+            {% if sub_link.links.size > 0 %}
+                {% render 'header--link-submenu', link: sub_link, section: section %}
+            {% endif %}
+        </span>
+    {% endfor %}
+</div>
+{% endif %}

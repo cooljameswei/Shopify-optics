@@ -1,0 +1,117 @@
+<div class="home-brands">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="home-brand-h2">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <div class="home-brands-row">
+      {% assign cnt = 1 %}
+      {% for block in section.blocks %} 
+        {% assign col = block.settings.collection %}
+        {% if col.metafields.Collection_Brand.Logo.value  != blank %}
+          <div class="homee-brand-item {% if cnt > 6%}small--hide{% endif%}">
+            <a href="{{ col.url }}">
+              <img src="{{ col.metafields.Collection_Brand.Logo.value }}">
+            </a>
+          </div>
+          {% assign cnt = cnt | plus:1 %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  
+  .home-brands h2 {
+    font-weight: 600 !important;
+    font-size: 30px;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: normal;
+    line-height: 1;
+    font-family:Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    margin-bottom:8px !important;
+  }
+  .home-brands{
+  margin: 15px 0px;
+  }
+  .home-brands-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .homee-brand-item img {
+    max-width: 125px;
+    height: 65px;
+    object-fit:contain;
+  }
+  .home-brands-row .homee-brand-item {
+    flex:  0 0 12.5%;
+    max-width:12.5%;
+    padding: 10px;
+    text-align:center;
+  }
+  
+  @media (max-width:991px){
+    .home-brands-row .homee-brand-item {
+      flex: 0 0 33%;
+      max-width:33%;
+    }
+  }
+  @media (max-width:767px){
+    /*  NK - START */
+    .home-brands-row .homee-brand-item {
+      max-width:  100%;
+    }
+    /*  NK - END */
+  }
+  @media (max-width:500px){
+      /*  NK - START */
+    /* .home-brands-row .homee-brand-item {
+      max-width:  100%;
+    } */
+    /*  NK - END */
+    .homee-brand-item img {
+      max-width: 100%;
+    }
+  }
+  @media only screen and (max-width: 749px) {
+      .small--hide {
+          display: none !important;
+      }
+  }
+</style>
+
+
+{% schema %} 
+  {
+  "name": "Home Brands",
+  "max_blocks":20,
+  "settings": [
+        {
+          "id": "heading",
+          "type": "text",
+          "label": "Heading"
+        }
+  ],
+  "blocks": [
+    {
+      "type": "select",
+      "name": "select",
+      "settings": [
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+      {
+        "name": "Home Brands",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

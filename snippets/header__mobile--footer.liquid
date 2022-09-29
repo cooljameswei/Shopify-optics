@@ -1,0 +1,55 @@
+{% if settings.shopCurrency != 'none' or shop.enabled_locales.size > 1 and settings.multilanguage %}
+{% if shop.enabled_locales.size > 1 and settings.multilanguage %}
+            <select onchange="BoosterTheme.ELEMENTS.languageChange(this)" data-language-selector>
+                {% for locale in shop.enabled_locales %}
+                <option
+                {% unless locale.primary %}
+                    value="{{locale.root_url}}"
+                {% else %}
+                    value="{{locale.root_url}}"
+                {% endunless %}
+                data-locale="{{locale.iso_code}}"
+                {% if locale.iso_code == request.locale.iso_code %}selected{% endif %}>
+                    {{ locale.name }}
+                </option>
+                {% endfor %}
+            </select>           
+        {% endif %}
+        {% unless settings.shopCurrency == 'none' %}
+            {% if settings.shopCurrency == 'convert' %}
+                <select data-currency-selector onchange="BoosterTheme.ELEMENTS.convertCurrencyChange(this)" style="width: 100%">
+                {% assign currencyArr = settings.enabledCurrencies | upcase | replace: ' ', '' | split: ',' %}
+                {% unless currencyArr contains shop.currency %}
+                    <option value="{{shop.currency}}">
+                        {{shop.currency}}
+                    </option>
+                {% endunless %}
+                {% for currency in currencyArr %}
+                    <option value="{{currency}}">
+                        {{currency}}
+                    </option>
+                {% endfor %}
+                </select>
+            {% else %}
+                {% form 'currency' %}
+                    <input class="hide" name="currency" id="setCurrency">
+                    <select onchange="BoosterTheme.ELEMENTS.submitCurrencyChange(this)" style="width: 100%">
+                    {% for currency in shop.enabled_currencies %}
+                        <option value="{{currency.iso_code}}" {% if currency == cart.currency %}selected{% endif %}>
+                            {{currency.iso_code}} ({{currency.symbol}})
+                        </option>
+                    {% endfor %}
+                    </select>
+                {% endform %}
+            {% endif %}
+        {% endunless %}
+{% endif %}
+{% if shop.customer_accounts_enabled %}
+{% if customer %}
+    <a class="user__link" href="{{ routes.account_url }}">Account</a>
+    <a class="user__link" href="{{ routes.account_logout_url }}">{{'navigation.buttons.log_out'|t}}</a>
+{% else %}
+    <a class="user__link" href="{{ routes.account_login_url }}">{{'navigation.buttons.sign_in'|t}}</a>
+    <a class="user__link" href="{{ routes.account_register_url }}">{{'navigation.buttons.sign_up'|t}}</a>
+{% endif %}
+{% endif %}

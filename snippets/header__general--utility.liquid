@@ -1,0 +1,83 @@
+{% if hideSearch != true %}
+	<form action="/search" method="get" class="drawer__search search-block" role="search">
+      <input type="search" name="q" placeholder="{{'general.search.placeholder' | t }}" aria-label="Search" class="drawer__search-input">
+	  <span class="search__icon search__icon-web" onclick="BoosterTheme.ELEMENTS.openSearch(this)">{% render 'get-icon', icon: 'search' %}</span>
+    </form>
+{% endif %}
+{% if settings.shopCurrency != 'none' and mobile != true or shop.enabled_locales.size > 1 and settings.multilanguage and mobile != true %}
+<div class="i18n__button">
+    <label for="i18n__button">{% render 'get-icon', icon: 'dollar-alt' %}</label>
+    <input type="checkbox" class="hide" id="i18n__button">
+    <div class="i18n__holder">
+        {% if shop.enabled_locales.size > 1 and settings.multilanguage %}
+            <div class="i18n__title">{{'i18n.language'|t}}</div>
+            <select onchange="BoosterTheme.ELEMENTS.languageChange(this)" data-language-selector>
+                {% for locale in shop.enabled_locales %}
+                <option
+                {% unless locale.primary %}
+                    value="{{locale.root_url}}"
+                {% else %}
+                    value="{{locale.root_url}}"
+                {% endunless %}
+                data-locale="{{locale.iso_code}}"
+                {% if locale.iso_code == request.locale.iso_code %}selected{% endif %}>
+                    {{ locale.name }}
+                </option>
+                {% endfor %}
+            </select>           
+        {% endif %}
+        {% unless settings.shopCurrency == 'none' %}
+            <div class="i18n__title">{{'i18n.currency'|t}}</div>
+            {% if settings.shopCurrency == 'convert' %}
+                <select data-currency-selector onchange="BoosterTheme.ELEMENTS.convertCurrencyChange(this)" style="width: 100%">
+                {% assign currencyArr = settings.enabledCurrencies | upcase | replace: ' ', '' | split: ',' %}
+                {% unless currencyArr contains shop.currency %}
+                    <option value="{{shop.currency}}">
+                        {{shop.currency}}
+                    </option>
+                {% endunless %}
+                {% for currency in currencyArr %}
+                    <option value="{{currency}}">
+                        {{currency}}
+                    </option>
+                {% endfor %}
+                </select>
+            {% else %}
+                {% form 'currency' %}
+                    <input class="hide" name="currency" id="setCurrency">
+                    <select onchange="BoosterTheme.ELEMENTS.submitCurrencyChange(this)" style="width: 100%">
+                    {% for currency in shop.enabled_currencies %}
+                        <option value="{{currency.iso_code}}" {% if currency == cart.currency %}selected{% endif %}>
+                            {{currency.iso_code}} ({{currency.symbol}})
+                        </option>
+                    {% endfor %}
+                    </select>
+                {% endform %}
+            {% endif %}
+        {% endunless %}
+    </div>
+    <label class="overlay" for="i18n__button"></label>
+</div>
+{% endif %}
+{% if showCart == true %}
+{% unless settings.cartStyle == 'none' %}
+<div class="minicart__button minicart__button--{{section.settings.cartIcon}}">
+    <input type="checkbox" data-minicart-input id="minicart__button--{{section.id}}{% if mobile %}-mobile{% endif %}">
+    <label class="overlay" for="minicart__button--{{section.id}}{% if mobile %}-mobile{% endif %}"></label>
+    <label class="minicart__label" for="minicart__button--{{section.id}}{% if mobile %}-mobile{% endif %}" data-cart-settings="count" data-cart-container>
+        {% render 'get-icon', icon: section.settings.cartIcon %}<span class="item__count">0</span>
+    </label>
+    <div class="minicart__holder minicart--{{settings.cartStyle}}" data-cart-settings="product-list" data-cart-container>
+    	<div data-product-list class=""></div>
+    </div>
+</div>
+{% else %}
+<div class="minicart__button minicart__button--{{section.settings.cartIcon}}">
+    <a href="{{routes.cart_url}}" class="minicart__label" for="minicart__button--{{section.id}}" data-cart-settings="count" data-cart-container>
+        {% comment %}{% render 'get-icon', icon: section.settings.cartIcon %}{% endcomment%}
+        <img width="28" height="28" class="only-desktop" src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/dcart.svg?v=1624970729"/><span class="item__count">0</span>
+    </a>
+</div>
+{% endunless %}
+{% endif %}
+

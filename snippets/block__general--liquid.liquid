@@ -1,0 +1,38 @@
+{% if block.settings.customCSS != blank %}
+<style>
+{% assign scoped = '#block__' | append: section.id | append: '-' | append: block.id %}
+{{block.settings.customCSS | replace: '##scoped', scoped}}
+</style>
+{% endif %}
+
+<div id="block__{{section.id}}-{{block.id}}" class="block__liquid booster--revert">
+{{block.settings.liquid}}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "liquidBlock",
+    "name": "Liquid",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "fullWidth",
+            "default": true,
+            "label": "Single in row"
+        },
+        {
+            "type": "liquid",
+            "id": "liquid",
+            "label": "Liquid content"
+        },
+        {
+            "type": "textarea",
+            "id": "customCSS",
+            "label": "Block scoped CSS",
+            "info": "##scoped will be replaced by this block's id, making all CSS under this rule block-scoped."
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

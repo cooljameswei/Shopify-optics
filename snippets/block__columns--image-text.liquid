@@ -1,0 +1,57 @@
+<style>
+#column--{{-block.id}} .column__media img {
+    max-width: {{block.settings.imageSize}}%;
+}
+
+{% if block.settings.buttonFullWidth %}
+#column--{{-block.id}} .column__button {
+    max-width: 100%;
+    width: 100%;
+    flex-basis: 100%;
+}
+{% endif %}
+</style>
+
+<div class="column__media col-12 no-gap" {{block.shopify__attributes}}>
+{% render 'image', src: block.settings.image, size: '960x' %}
+</div>
+<div class="column__text col-12 unflex no-gap">
+<h3>{{block.settings.heading | remove: '<p>' | remove: '</p>'}}</h3>
+{{block.settings.content}}
+{%- unless block.settings.buttonText == blank %}
+{% if block.settings.openTab %}
+{% assign custom = 'target="_blank"' %}
+{% endif %}
+{% render 'button', text: block.settings.buttonText, type: block.settings.buttonStyle, buttonType: block.settings.buttonType, url: block.settings.buttonURL, class: 'column__button', custom: custom %}
+{% endunless -%}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "columnImage",
+    "name": "Image + text",
+    "settings": [{
+            "type": "header",
+            "content": "Media"
+        },
+        {
+            "type": "image_picker",
+            "label": "Image",
+            "id": "image"
+        },
+        {
+            "type": "range",
+            "label": "Image width",
+            "min": 10,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "default": 100,
+            "id": "imageSize"
+        },
+        @settings(columns-block)
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

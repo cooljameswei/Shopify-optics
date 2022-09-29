@@ -1,0 +1,25 @@
+{% unless block.settings.iconColor contains 'rgba(0,0,0,0)' and block.settings.textColor contains 'rgba(0,0,0,0)' %}
+<style>
+{% unless block.settings.textColor contains 'rgba(0,0,0,0)' %}
+#watching__{{-block.id}} .urgency__text span {
+    color: {{block.settings.textColor}};
+}
+{% endunless %}
+
+{% unless block.settings.iconColor contains 'rgba(0,0,0,0)' %}
+#watching__{{-block.id}} .urgency__text .uil {
+    color: {{block.settings.iconColor}};
+}
+{% endunless %}
+</style>
+{% endunless %}
+
+<div id="watching__{{-block.id}}" class="product__urgency {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+<span class="urgency__text">{% render 'get-icon', icon: 'eye' %}<span data-bstr-cntr-id="w-{{product.id}}" data-bstr-cntr-limit="{% unless block.settings.customMax != blank %}{{block.settings.max}}{% else %}{{block.settings.customMax}}{% endunless %}" data-bstr-cntr-interval="{{block.settings.interval}}">0</span> <span>{{'product_page.apps.watching' | t}}</span></span>
+</div>
+
+{% comment %}
+{% blockdef %}
+
+{% endblockdef %}
+{% endcomment %}

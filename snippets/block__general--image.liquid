@@ -1,0 +1,60 @@
+<style>
+#blockImage--{{-block.id}} {
+    max-width: {{block.settings.maxBWidth -}}%;
+}
+
+#blockImage--{{-block.id}} img {
+    border-radius: {{block.settings.borderRadius}}px;
+} 
+</style>
+
+<div class="block--image" id="blockImage--{{-block.id}}">
+{% if block.settings.image != nil %}
+{% render 'ratio-image', image: block.settings.image, maxWidth: 960, ratioType: 'vw', mratio: 100, dratio: block.settings.maxBWidth, class: 'image--fullWidth' %}
+{% else %}
+{{ 'product-1' | placeholder_svg_tag: 'svg__fake' }}
+{% endif %}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "blockImage",
+    "name": "Image",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+    },
+    {
+        "type": "image_picker",
+        "label": "Image",
+        "id": "image"
+    },
+    {
+        "type": "range",
+        "default": 100,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "id": "maxBWidth",
+        "label": "Width (desktop)",
+        "info": "Maximum width content of this block can span on Desktop."
+    },
+    {
+        "type": "range",
+        "default": 0,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "id": "borderRadius",
+        "label": "Border Radius"
+    }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

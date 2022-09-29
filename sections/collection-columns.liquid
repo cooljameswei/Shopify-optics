@@ -1,0 +1,559 @@
+{% style %}
+    {% render 'common-css' with section as section %}
+{% endstyle %}
+{{ 'component-collection-columns.css' |  asset_url | stylesheet_tag}}
+{% style %}
+    /*HOT FIX MARGIN START */
+    #shopify-section-{{section.id}}{
+        margin-bottom: 0px !important;
+    }
+    /*HOT FIX MARGIN END */
+    #s--{{section.id}}{
+        background-color:{{section.settings.section_bg_color | default:"transparent"}};
+        color:{{section.settings.section_font_color | default:"#4C4D4F"}};
+    }
+    #s--{{section.id}} .collection__custom-columns-wrapper h1,
+    #s--{{section.id}} .collection__custom-columns-wrapper h2,
+    #s--{{section.id}} .collection__custom-columns-wrapper p{
+        color:{{section.settings.section_font_color | default:"#4C4D4F"}};
+    }
+    #s--{{section.id}} .collection__custom-columns-wrapper{
+        padding-top:{{section.settings.pad-top}}px;
+        padding-bottom:{{section.settings.pad-bottom}}px;
+        padding-left:{{section.settings.pad-left}}px;
+        padding-right:{{section.settings.pad-right}}px;
+    }
+    {% if section.settings.border-visible %}
+        .col__template--progressive-lenses #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-columns-position--left{
+            border-right: 1px solid white;
+            padding-right: 97px;
+        }
+    {% endif %}
+    @media(max-width:1100px){
+        #s--{{section.id}} .collection__custom-columns-wrapper.view__custom-columns--container-width{
+            padding-left:50px;
+            padding-right:50px;
+        }
+    }
+    @media(min-width:769px) and (max-width:1100px){
+        #s--{{section.id}} .collection__custom-columns-wrapper.view__custom-columns--full-width{
+            padding-left:50px;
+        }
+        {% if section.settings.border-visible %}
+            .col__template--progressive-lenses #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-columns-position--left{
+                padding-right: 25px;
+            }
+        {% endif %}
+    }
+    @media(max-width:768px){
+        #s--{{section.id}} .collection__custom-columns-wrapper.view__custom-columns--full-width{
+            padding:22px 0px 0px;
+        }
+        #s--{{section.id}} .collection__custom-columns-wrapper.view__custom-columns--container-width{
+            padding:31px 16px 28px 24px;
+        }
+        {% if section.settings.border-visible %}
+            .col__template--progressive-lenses #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-columns-position--left{
+               padding-right: 0px;
+                border-right:none;
+            }
+        {% endif %}
+        .col__template--progressive-lenses #s--{{section.id}} .collection__custom-columns-wrapper.view__custom-columns--full-width .collection__custom-columns-position--left .collection__custom-col--content_block{
+            padding-top:0px;
+            padding-right:19px;
+            padding-left:24px;
+        }
+        .col__template--progressive-lenses #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-columns-position--left{
+            padding-top:0px;
+        }
+    }
+{% endstyle %}
+{% if section.blocks.size > 0 %}
+    {%- assign left_column_content = null | sort -%}    
+    {%- assign right_column_content = null | sort -%}
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when "columnContent" -%}
+                {%- capture block_styles -%}
+                    {{-block_styles-}}
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}}{
+                        background-color:{{block.settings.column_bg_color | default:"transparent"}};   
+                    }
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} h1,
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} h2,
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} p{
+                        color:{{section.settings.column_font_color | default:section.settings.section_font_color | default:"#4C4D4F"}};
+                    }
+                {%- endcapture -%}
+            {%- when "columnIconList" -%}
+                {%- capture block_styles -%}
+                    {{-block_styles-}}
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}}{
+                        background-color:{{block.settings.column_bg_color | default:"transparent"}};   
+                    }
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} h1,
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} h2,
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} p{
+                        color:{{section.settings.column_font_color | default:section.settings.section_font_color  | default:"#4C4D4F"}};
+                    }
+                {%- endcapture -%}
+            {%- when "columnItemList" -%}
+                {%- capture block_styles -%}
+                    {{-block_styles-}}
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}}{
+                        background-color:{{block.settings.column_bg_color | default:"transparent"}};   
+                    }
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} h1,
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} h2,
+                    #s--{{section.id}} .collection__custom-columns-wrapper .collection__custom-col--content_block.block--{{block.id}} p{
+                        color:{{section.settings.column_font_color | default:section.settings.section_font_color  | default:"#4C4D4F"}};
+                    }
+                {%- endcapture -%}
+        {%- endcase -%}
+        {%- assign section_block = block | sort -%}
+        {% if block.settings.column_position == "left" %}
+            {% if left_column_content.size == 0 %}
+                {%- assign left_column_content = section_block -%}    
+            {% else %}
+                {%- assign left_column_content = left_column_content | concat:section_block -%}    
+            {% endif %}
+        {% elsif block.settings.column_position == "right" %}
+                {% if right_column_content.size == 0 %}
+                    {%- assign right_column_content = section_block  -%}    
+                {% else %}
+                    {%- assign right_column_content = right_column_content | concat:section_block -%}    
+                {% endif %}
+        {% endif %}
+    {%- endfor -%}            
+{% endif %}
+{%- style -%}{{-block_styles | strip -}}{%- endstyle-%}
+
+<div id="s--{{section.id}}" class="{% render 'common-class', section: section, bg: false, vAlign: false %} collection-column">
+    <div class="collection__custom-columns-wrapper view__custom-columns--{{section.settings.section_layout}}" {% if section.settings.itemPos == 'top' %}style="align-items:flex-start;"{% elsif section.settings.itemPos == 'center' %}style="align-items:center;"{% else %}style="align-items:flex-end;"{% endif %}>
+        {% if left_column_content.size > 0 %}
+            <div class="collection__custom-columns-position--left">
+                {% for left_column_block in left_column_content %}
+                    {%- case left_column_block.type -%}
+                        {%- when "columnContent" -%}
+                            {% if left_column_block.settings.title != blank or  left_column_block.settings.text != blank %}
+                                <div class="collection__custom-col--content_block block--{{left_column_block.id}}">
+                                    {% if left_column_block.settings.title != blank %}
+                                        <h2 class="collection__custom-col--cb-heading">{{ left_column_block.settings.title }}</h2>
+                                    {% endif %}
+                                    {% if left_column_block.settings.text != blank %}
+                                        <div class="collection__custom-col--cb-text">{{ left_column_block.settings.text }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {%- when "columnImage" -%}
+                            {% if left_column_block.settings.image_desktop != blank or  left_column_block.settings.image_mobile != blank %}
+                                <div class="collection__custom-col--image_block block--{{left_column_block.id}}">
+                                    <picture class="collection__custom-col--picture">
+                                        <source media="(min-width: 1024px)" srcset="{{left_column_block.settings.image_desktop | img_url: 'master'}}" width="720px" height="700px">
+                                        <source media="(min-width: 768px)" srcset="{{left_column_block.settings.image_desktop |default:left_column_block.settings.image_desktop | img_url: 'master'}}" width="720px" height="700px">
+                                        <source media="(max-width: 767px)" srcset="{{left_column_block.settings.image_mobile |default:left_column_block.settings.image_desktop | img_url: 'master'}}" width="375px" height="370px">
+                                        <img class="collection__custom-col--img" src="{{left_column_block.settings.image_desktop | img_url: 'master'}}" alt="Image" />
+                                    </picture>
+                                </div>
+                            {% endif %}
+                        {%- when "columnIconList" -%}
+                            {%- capture columnIconList -%}
+                                {{ columnIconList }}
+                                <li class="collection__custom-col--icon_list-item block--{{left_column_block.id}}">
+                                    {% if left_column_block.settings.icon_image != blank %}
+                                        <picture class="collection__custom-col--icon">
+                                            <source media="(min-width: 1024px)" srcset="{{left_column_block.settings.icon_image | img_url: 'master'}}" width="56px" height="56px">
+                                            <source media="(min-width: 768px)" srcset="{{left_column_block.settings.icon_image | img_url: 'master'}}" width="56px" height="56px">
+                                            <source media="(max-width: 767px)" srcset="{{left_column_block.settings.icon_image | img_url: 'master'}}" width="45px" height="45px">
+                                            <img class="collection__custom-col--icon-img" src="{{left_column_block.settings.icon_image | img_url: 'master'}}" alt="Icon image" />
+                                        </picture>
+                                    {% endif %}
+                                    {% if left_column_block.settings.text != blank %}
+                                        <div class="collection__custom-col--item-text">
+                                            {{ left_column_block.settings.text }}
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {%- endcapture -%}
+                        {%- when "columnItemList" -%}
+                            {%- capture columnItemList -%}
+                                {{ columnItemList }}
+                                <li class="collection__custom-col--item_list-item block--{{left_column_block.id}}">
+                                    {% if left_column_block.settings.title != blank %}
+                                        <h3 class="collection__custom-col--il-heading">{{ left_column_block.settings.title }}</h3>
+                                    {% endif %}
+                                    {% if left_column_block.settings.text != blank %}
+                                        <div class="collection__custom-col--il-text">{{ left_column_block.settings.text }}</div>
+                                    {% endif %}
+                                </li>
+                            {%- endcapture -%}     
+                    {%- endcase -%}
+                {% endfor %}
+                {% if columnIconList != blank %}
+                    <div class="collection__custom-col--icon_block">
+                        <ul class="collection__custom-col--icon_list">
+                            {{ columnIconList }}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if columnItemList != blank %}
+                    <div class="collection__custom-col--item_block">
+                        <ul class="collection__custom-col--item_list">
+                            {{ columnItemList }}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if right_column_content.size > 0 %}
+            <div class="collection__custom-columns-position--right">
+                {% for right_column_block in right_column_content %}
+                    {%- case right_column_block.type -%}
+                        {%- when "columnContent" -%}
+                            {% if right_column_block.settings.title != blank or  right_column_block.settings.text != blank %}
+                                <div class="collection__custom-col--content_block block--{{right_column_block.id}}">
+                                    {% if right_column_block.settings.title != blank %}
+                                        <h2 class="collection__custom-col--cb-heading">{{ right_column_block.settings.title }}</h2>
+                                    {% endif %}
+                                    {% if right_column_block.settings.text != blank %}
+                                        <div class="collection__custom-col--cb-text">{{ right_column_block.settings.text }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {%- when "columnImage" -%}
+                            {% if right_column_block.settings.image_desktop != blank or  right_column_block.settings.image_mobile != blank %}
+                                <div class="collection__custom-col--image_block block--{{right_column_block.id}}">
+                                    <picture class="collection__custom-col--picture">
+                                        <source media="(min-width: 1024px)" srcset="{{right_column_block.settings.image_desktop | img_url: 'master'}}" width="720px" height="700px">
+                                        <source media="(min-width: 768px)" srcset="{{right_column_block.settings.image_desktop |default:right_column_block.settings.image_desktop | img_url: 'master'}}" width="720px" height="700px">
+                                        <source media="(max-width: 767px)" srcset="{{right_column_block.settings.image_mobile |default:right_column_block.settings.image_desktop | img_url: 'master'}}" width="375px" height="370px">
+                                        <img class="collection__custom-col--img" src="{{right_column_block.settings.image_desktop | img_url: 'master'}}" alt="Image" />
+                                    </picture>
+                                </div>
+                            {% endif %}
+                        {%- when "columnIconList" -%}
+                            {%- capture columnIconListRight -%}
+                                {{ columnIconListRight }}
+                                <li class="collection__custom-col--icon_list-item block--{{right_column_block.id}}">
+                                    {% if right_column_block.settings.icon_image != blank %}
+                                        <picture class="collection__custom-col--icon">
+                                            <source media="(min-width: 1024px)" srcset="{{right_column_block.settings.icon_image | img_url: 'master'}}" width="56px" height="56px">
+                                            <source media="(min-width: 768px)" srcset="{{right_column_block.settings.icon_image | img_url: 'master'}}" width="56px" height="56px">
+                                            <source media="(max-width: 767px)" srcset="{{right_column_block.settings.icon_image | img_url: 'master'}}" width="28px" height="28px">
+                                            <img class="collection__custom-col--icon-img" src="{{right_column_block.settings.icon_image | img_url: 'master'}}" alt="Icon image" />
+                                        </picture>
+                                    {% endif %}
+                                    {% if right_column_block.settings.text != blank %}
+                                        <div class="collection__custom-col--item-text">
+                                            {{ right_column_block.settings.text }}
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {%- endcapture -%}
+                        {%- when "columnItemList" -%}
+                            {%- capture columnItemListRight -%}
+                                {{ columnItemListRight }}
+                                <li class="collection__custom-col--item_list-item block--{{right_column_block.id}}">
+                                    {% if right_column_block.settings.title != blank %}
+                                        <h3 class="collection__custom-col--il-heading">{{ right_column_block.settings.title }}</h3>
+                                    {% endif %}
+                                    {% if right_column_block.settings.text != blank %}
+                                        <div class="collection__custom-col--il-text">{{ right_column_block.settings.text }}</div>
+                                    {% endif %}
+                                </li>
+                            {%- endcapture -%}     
+                    {%- endcase -%}
+                {% endfor %}
+                {% if columnIconListRight != blank %}
+                    <div class="collection__custom-col--icon_block">
+                        <ul class="collection__custom-col--icon_list">
+                            {{ columnIconListRight }}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if columnItemListRight != blank %}
+                    <div class="collection__custom-col--item_block">
+                        <ul class="collection__custom-col--item_list">
+                            {{ columnItemListRight }}
+                        </ul>
+                    </div>
+                {% endif %}   
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% schema %}
+{
+    "name": "Collection - Columns",
+    "class": "collection__custom-columns",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading"
+        },
+        {
+            "type": "color",
+            "id": "section_bg_color",
+            "label": "Background color"
+        },
+        {
+            "type": "color",
+            "id": "section_font_color",
+            "label": "Font color"
+        },
+        {
+            "type" : "checkbox",
+            "id": "border-visible",
+            "label": "Border Visible",
+            "default" : false
+        },
+        {
+            "type": "select",
+            "id": "itemPos",
+            "label": "Item Position",
+            "options": [
+              {
+                "value": "top",
+                "label": "Top"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              },
+              {
+                "value": "bottom",
+                "label": "Bottom"
+              }
+            ],
+            "default": "center"
+        },
+      {
+            "type": "select",
+            "id": "section_layout",
+            "label": "Layout",
+            "options": [
+              {
+                "value": "full-width",
+                "label": "Full width"
+              },
+              {
+                "value": "container-width",
+                "label": "Container width"
+              }
+            ],
+            "default": "container-width"
+        },
+        {
+            "type": "range",
+            "id": "pad-top",
+            "label": "Padding Top",
+            "default": 100,
+            "min": 0,
+            "max": 400,
+            "step": 5,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "pad-bottom",
+            "label": "Padding Bottom",
+            "default": 100,
+            "min": 0,
+            "max": 400,
+            "step": 5,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "pad-right",
+            "label": "Padding Right",
+            "default": 100,
+            "min": 0,
+            "max": 400,
+            "step": 5,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "pad-left",
+            "label": "Padding Left",
+            "default": 100,
+            "min": 0,
+            "max": 400,
+            "step": 5,
+            "unit": "px"
+        }
+    ],
+    "blocks":[
+        {
+            "type": "columnContent",
+            "name":"Title + text",
+            "settings":[
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "radio",
+                    "id": "column_position",
+                    "label": "Column position",
+                    "default": "left",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        }
+                    ]
+                },
+                {
+                    "type": "color",
+                    "id": "column_bg_color",
+                    "label": "Column color"
+                },
+                {
+                    "type": "color",
+                    "id": "column_font_color",
+                    "label": "Column font color"
+                }
+            ]
+        },
+        {
+            "type": "columnImage",
+            "name":"Image",
+            "settings":[
+                {
+                    "type": "image_picker",
+                    "id": "image_desktop",
+                    "label": "Image ( Desktop )",
+                    "info": "Recommended size: 720x700px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_mobile",
+                    "label": "Image ( Mobile )",
+                    "info": "Recommended size: 375x370px"
+                },
+                {
+                    "type": "radio",
+                    "id": "column_position",
+                    "label": "Column position",
+                    "default": "left",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "columnIconList",
+            "name":"Icon + list",
+            "settings":[
+                {
+                    "type": "image_picker",
+                    "id": "icon_image",
+                    "label": "Icon image",
+                    "info": "Recommended size: 62x62px"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "radio",
+                    "id": "column_position",
+                    "label": "Column position",
+                    "default": "left",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        }
+                    ]
+                },
+                {
+                    "type": "color",
+                    "id": "column_bg_color",
+                    "label": "Column color"
+                },
+                {
+                    "type": "color",
+                    "id": "column_font_color",
+                    "label": "Column font color"
+                }
+            ]
+        },
+        {
+            "type": "columnItemList",
+            "name":"Item + list",
+            "settings":[
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "radio",
+                    "id": "column_position",
+                    "label": "Column position",
+                    "default": "left",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        }
+                    ]
+                },
+                {
+                    "type": "color",
+                    "id": "column_bg_color",
+                    "label": "Column color"
+                },
+                {
+                    "type": "color",
+                    "id": "column_font_color",
+                    "label": "Column font color"
+                }
+            ]
+        }
+    ],
+    "presets":[
+        {
+            "category": "Custom collection",
+            "name": "Collection - Columns"
+        }
+    ]
+}
+{% endschema %}

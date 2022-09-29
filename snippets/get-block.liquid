@@ -1,0 +1,158 @@
+{% liquid
+case block.type
+    when 'button'
+        render 'block__general--button' with block as block
+    when 'customButton'
+        render 'block__general--custom-button' with block as block
+    when 'title'
+        render 'block__general--title' with block as block
+    when 'customTitle'
+        render 'block__general--custom-title' with block as block
+    when 'highlightedText'
+        render 'block__general--highlighted-text' with block as block
+    when 'richText'
+        render 'block__general--richtext' with block as block
+    when 'customRichText'
+        render 'block__general--custom-richtext' with block as block
+    when 'separator'
+        render 'block__general--separator' with block as block
+    when 'image'
+        render 'block__content--image' with block as block
+    when 'html'
+        render 'block__general--html', block: block, section: section
+    when 'liquidBlock':
+        render 'block__general--liquid', block: block, section: section
+    when 'pageBlock':
+        render 'block__general--page' with block as block 
+    when 'blockImage'
+        render 'block__general--image' with block as block
+    when 'countdown'
+        render 'block__general--countdown' with block as block
+    when 'blockNewsletter'
+        render 'block__general--newsletter', block: block, section: section
+    when 'geoBlock'
+        render 'block__general--geo.liquid', block: block
+    when 'minicart'
+        render 'block__general--minicart.liquid', block: block
+    when 'freeShippingBar'
+        render 'block__general--free-shipping.liquid', block: block
+    when 'accordion'
+        render 'block__general--accordion', block: block, section: section, first: first
+
+    when 'barTextMarquee'
+        render 'block__bar--marquee', block: block, section: section
+    when 'linkList'
+        render 'block__bar--linklist' with block as block
+    when 'social'
+        render 'block__bar--social' with block as block
+    when 'contact'
+        render 'block__bar--contact' with block as block
+    
+    
+    when 'productPagePrice'
+        render 'block__product-page--price', block: block, product: product, showQuantityBox:true
+    when 'productPageDescription'
+        render 'block__product-page--description', block: block, product: product
+    when 'productPageCountdown'
+        render 'block__product-page--countdown', block: block, product: product, view: view
+    when 'productPageATC'
+        render 'block__product-page--atc', block: block, product: product, form: form, showQuantityBox:false
+    when 'productPageSwatch'
+        render 'block__product-page--swatch', block: block, product: product,backorder_brands:backorder_brands,isCustomerEligible:isCustomerEligible,fullyOutOfStock:fullyOutOfStock
+    when 'productPageStock'
+        render 'block__product-page--stock', block: block, product: product
+    when 'productPageAccordion'
+        render 'block__product-page--accordion', block: block, product: product
+    when 'productPageTags'
+        render 'block__product-page--tags', block: block, product: product
+    when 'productPageReviewStars'
+        render 'block__product-page--review-stars', block: block, product: product
+    when 'productPageWatching'
+        render 'block__product-page--watching', block: block, product: product
+    when 'productPageInCart'
+        render 'block__product-page--incart', block: block, product: product
+    when 'productPageTab'
+        render 'block__product-page--tab', block: block, section: section, product: product, first: first
+    when 'productPageBadge'
+        render 'block__product-page--badges', block: block
+    when 'productPageDelivery'
+        render 'block__product-page--delivery', block: block
+    when 'productPageLDelivery'
+        render 'block__product-page--ldelivery', block: block
+    when 'productPageShare'
+        render 'block__product-page--share', block: block
+        
+    when 'contactFormText'
+        render 'block__contact--text', block: block, i: i
+    when 'contactFormEmail'
+        render 'block__contact--email', block: block, i: i
+    when 'contactFormTextarea'
+        render 'block__contact--textarea', block: block, i: i
+    when 'contactFormRadio'
+        render 'block__contact--radio', block: block, i: i
+    when 'contactFormDropdown'
+        render 'block__contact--dropdown', block: block, i: i
+    when 'contactFormCheckbox'
+        render 'block__contact--checkbox', block: block, i: i
+
+    when 'imageSlide'
+        render 'block__slider--slide-image', block: block, first: first
+    when 'imageSlideAdaptive'
+        render 'block__slider--slide-image--adaptive', block: block, first: first
+    when 'imageSlideResponsive'
+        render 'block__slider--slide-image--responsive', block: block, first: first
+    when 'videoSlide'
+        render 'block__slider--slide-video', block: block, first: first
+    
+    when 'gridCTA'
+        render 'block__grid--cta' with block as block
+    when 'gridImage'
+        render 'block__grid--image' with block as block
+    when 'gridColor'
+        render 'block__grid--color' with block as block
+    when 'gridProduct'
+        render 'block__grid--product' with block as block
+    when 'gridCollection'
+        render 'block__grid--collection'
+
+    when 'columnIcon'
+        render 'block__columns--icon-text' with block as block
+    when 'columnImage'
+        render 'block__columns--image-text' with block as block
+    when 'columnVideo'
+        render 'block__columns--video-text' with block as block
+
+    when 'fplistCollection'
+        render 'block__fplist--collection', block: block, section: section
+
+    when 'footerLinks'
+        render 'block__footer--links' with block as block
+    when 'footerImage'
+        render 'block__footer--image' with block as block
+    when 'footerText'
+        render 'block__footer--text' with block as block
+    when 'footerContact'
+        render 'block__footer--contact' with block as block
+    when 'footerSocial'
+        render 'block__footer--social' with block as block
+    when 'footerPayment'
+        render 'block__footer--payment-icons' with block as block
+
+    
+    when 'productPageTitleMisc'
+        render 'block__product-page--title-misc', block: block, product: product, current_variant: current_variant
+    when 'productPagePriceMisc'
+        render 'block__product-page--price-misc', block: block, product: product
+    when 'productPageATCMisc'
+        render 'block__product-page--atc-misc', block: block, product: product, form: form
+    when 'productPageSwatchMisc'
+        render 'block__product-page--swatch-misc',block: block, product: product
+
+
+
+endcase
+%}
+{%- comment -%}
+when 'productPageTitle' 
+        render 'block__product-page--title', block: block, product: product
+{%- endcomment -%}

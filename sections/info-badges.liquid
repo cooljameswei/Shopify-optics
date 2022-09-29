@@ -1,0 +1,296 @@
+{% if section.settings.enabled %}
+<style>
+{% render 'common-css' with section as section %}
+
+{% unless section.settings.contentColor contains 'rgba(0,0,0,0)'  %}
+.info-badge {
+    color: {{section.settings.contentColor}};
+}
+
+.info-badge * {
+    color: inherit;
+}
+{% endunless %};
+</style>
+{% capture layoutConfig %}{% render 'common-layout' with section as section %}{% endcapture %}
+<div
+id="s--{{-section.id}}"
+{% unless section.settings.backgroundImage == nil -%}{% render 'background', image: section.settings.backgroundImage %}{%- endunless %}
+class="lazyload row {{ section.settings.verticalAlignment }} s__holder info-badges layout__{{-layoutConfig}} bg__{{section.settings.backgroundPosition}}">
+  {% if section.settings.overlayOpacity > 0 %}
+    <div
+    class="overlay"
+    style="opacity: {{section.settings.overlayOpacity | times: 0.01}}; background-color: {{section.settings.overlayColor}};">
+    </div>
+  {% endif %}
+  <div 
+  class="row {{ section.settings.horizontalAlignment }} middle layout__content s__content">
+    {%- for block in section.blocks %}
+        <div class="col-12 col-md info-badge middle start s__block s__block--{{-block.type}} {{section.settings.iconPosition}}">
+            <i class="uil uil-{{-block.settings.icon}} info-badge__icon"></i>
+            <div class="info-badge__text">
+                {% unless block.settings.heading == blank %}<h3 class="info-badge__heading">{{block.settings.heading}}</h3>{% endunless %}
+                {% unless block.settings.subheading == blank %}<span class="info-badge__subheading">{{block.settings.subheading}}</span>{% endunless %}
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+    "name": {
+        "en": "Info badges"
+    },
+    "settings": [
+        {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458154299)"
+        },
+        {
+            "type": "header",
+            "content": "Enable/Disable"
+        },
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Enable Info badges"
+        },
+        {
+    "type": "header",
+    "content": "Section layout"
+},
+{
+  "type": "radio",
+  "id": "displayFor",
+  "label": "Show this section on",
+  "options": [
+    {"value": "display--both", "label": "All devices"},
+    {"value": "hide-desktop", "label": "Mobile only"},
+    {"value": "hide-mobile", "label": "Desktop only"}
+  ],
+  "default": "display--both"
+},
+{
+  "type": "select",
+  "id": "layout",
+  "label": "Section layout",
+  "options": [
+    {"value": "default", "label": "Global default"},
+    {"value": "boxed", "label": "Boxed"},
+    {"value": "stretchBg", "label": "Full width background"},
+    {"value": "stretchContent", "label": "Full width"}
+  ],
+  "default": "default"
+},
+{
+  "type": "checkbox",
+  "id": "nomargin",
+  "default": false,
+  "label": "Remove section's bottom margin"
+},
+{
+  "type": "textarea",
+  "id": "scopedCSS",
+  "label": "Section-scoped CSS",
+  "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+},
+{
+  "type": "range",
+  "id": "height",
+  "label": "Minimum height",
+  "default": 0,
+  "min": 0,
+  "max": 800,
+  "step": 10,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "padding",
+  "label": "Section padding",
+  "default": 0,
+  "min": 0,
+  "max": 50,
+  "step": 5,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "lineMargin",
+  "label": "Space between blocks",
+  "default": 12,
+  "min": 0,
+  "max": 50,
+  "step": 1,
+  "unit": "px"
+},
+        {
+    "type": "header",
+    "content": "Section background"
+},
+{
+  "id": "backgroundColor",
+  "type": "color",
+  "default": "rgba(0,0,0,0)",
+  "label": "Background color"
+},
+{
+  "type": "image_picker",
+  "id": "backgroundImage",
+  "label": "Background image"
+},
+{
+  "type": "select",
+  "id": "backgroundPosition",
+  "label": "Background image position",
+  "options": [
+    {"value": "top", "label": "Top"},
+    {"value": "middle", "label": "Middle"},
+    {"value": "bottom", "label": "Bottom"}
+  ],
+  "default": "middle"
+},
+{
+  "type": "select",
+  "options": [
+    {"value": "none", "label": "None"},
+    {"value": "blur", "label": "Blur"},
+    {"value": "contrast", "label": "Contrast"},
+    {"value": "grayscale", "label": "Black & White"},
+    {"value": "invert", "label": "Invert colors"},
+    {"value": "sepia", "label": "Sepia (retro)"},
+    {"value": "saturate", "label": "Saturation"}
+  ],
+  "id": "backgroundFilter",
+  "label": "Background effect",
+  "default": "none"
+},
+{
+  "type": "range",
+  "min": 0,
+  "max": 100,
+  "step": 5,
+  "label": "Effect intensity",
+  "id": "backdropIntensity",
+  "default": 50,
+  "unit": "%"
+},
+{
+  "type": "checkbox",
+  "id": "parallax",
+  "label": "Enable parallax",
+  "default": false
+},
+{
+  "type": "checkbox",
+  "id": "backgroundPattern",
+  "label": "Background pattern",
+  "default": false
+},
+{
+  "type": "header",
+  "content": "Background overlay"
+},
+{
+  "type": "range",
+  "id": "overlayOpacity",
+  "min": 0,
+  "max": 100,
+  "step": 5,
+  "label": "Overlay opacity",
+  "default": 0,
+  "unit": "%"
+},
+{
+  "type": "color",
+  "id": "overlayColor",
+  "label": "Overlay color",
+  "default": "#000000"
+},
+        {
+    "type": "header",
+    "content": "Section content"
+},
+{
+  "type": "color",
+  "id": "contentColor",
+  "label": "Default text color",
+  "default": "rgba(0,0,0,0)"
+},
+{
+  "type": "select",
+  "id": "horizontalAlignment",
+  "label": "Content alignment (left to right)",
+  "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+  ],
+  "default": "center"
+},
+{
+  "type": "select",
+  "id": "verticalAlignment",
+  "label": "Content alignment (top to bottom)",
+  "options": [
+    {"value": "top", "label": "Top"},
+    {"value": "middle", "label": "Middle"},
+    {"value": "bottom", "label": "Bottom"}
+  ],
+  "default": "middle"
+},
+        {
+            "type": "select",
+            "options": [
+                {"value": "icon--left", "label": "Left"},
+                {"value": "icon--right", "label": "Right"}
+            ],
+            "default": "icon--left",
+            "label": "Icon position",
+            "id": "iconPosition"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "infoBadge",
+            "name": "Info Badge",
+            "limit": 4,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Icon"
+                },
+                {
+                    "type": "text",
+                    "label": "Icon name",
+                    "info": "Icon name copied over from Unicons icon library. You can find the list over at [Unicons](https://iconscout.com/unicons/explore/line).",
+                    "id": "icon",
+                    "default": "shopping-cart"
+                },
+                {
+                    "type": "header",
+                    "content": "Text"
+                },
+                {
+                    "type": "text",
+                    "label": "Heading",
+                    "id": "heading",
+                    "default": "This is awesome!"
+                },
+                {
+                    "type": "text",
+                    "label": "Subheading",
+                    "id": "subheading",
+                    "default": "This is even more info about how awesome this is!"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

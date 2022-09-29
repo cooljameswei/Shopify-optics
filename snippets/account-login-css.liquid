@@ -1,0 +1,343 @@
+html {
+  font-size: 10px;
+}
+
+.login-form-section .text-center {
+  text-align: center !important;
+}
+
+.login-form-section .mt-30 {
+  margin-top: 30px;
+}
+
+.login-form-section {
+  margin-top: {{section.settings.section_above_margin}};
+  margin-bottom: {{section.settings.section_below_margin}};
+}
+
+.login-form-section .errors {
+  background-color: {{section.settings.error_bg_color}};
+  color: {{section.settings.error_color}};
+  padding: 15px 0 14px 0;
+  margin: 0 0 10px;
+}
+
+.login-form-section .errors ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.login-form-section .errors ul li {
+  line-height: 1.375;
+}
+
+.login-form-section .page-width {
+  max-width: {{section.settings.max_width}};
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.customer-login-form a:-webkit-any-link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login-form-section .customer-login .grid {
+  max-width: 1063px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 28px;
+  margin: auto!important;
+  padding-bottom: 28px;
+  list-style: none;
+  padding: 0;
+}
+
+.forgot_page_active .recover__password {
+  display: block;
+}
+
+.forgot_page_active div.customer-login-form {
+  display: none;
+}
+
+.login-form-section .grid .grid__item-two {
+  width: 59.642521167%;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  padding: 56px 113px 144px 114px;
+}
+
+.login-form-section .grid__item[class*="--push"] {
+  position: relative;
+}
+
+.login-form-section .grid:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.login-form-section .content-block {
+  padding: 0;
+  margin-bottom: 0;
+  background-color: #FFFFFF;
+}
+
+.login-form-section .errors, .login-form-section .note {
+  padding: 13px;
+  margin: 0 0 10px;
+}
+
+.login-form-section .form-success {
+  margin: 0 0 10px;
+}
+
+.login-form-section .form-success span {
+  color: {{section.settings.form_success_message_color}};
+  background-color: {{section.settings.form_success_message_bg_color}};
+  padding: 13px;
+  display: inline-block;
+}
+
+.login-form-section .customer-login-form input,
+.login-form-section #RecoverPasswordForm input[type="email"]{
+ 	display: block;
+    width: 100%;
+	font-size: 13px;
+    letter-spacing: .65px;
+	margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+	border: 0;
+    max-width: 100%;
+    line-height: 1.375;
+    border-radius: 0;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.login-form-section #RecoverPasswordForm input[type="email"] {
+	padding: 15px 25px;
+}
+
+.login-form-section .customer-login-form h4 {
+  letter-spacing: 2px;
+  color: #000;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: Montserrat,sans-serif;
+  margin: 0 0 10px;
+  line-height: 1.1;
+}
+
+.login-form-section #RecoverPasswordForm h2 {
+	font-size: 2.25em;
+	font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+    font-weight: 700;
+	color: #030303;
+    margin: 0 0 .625em;
+	line-height: 1.1;
+}
+
+.login-form-section .customer-login-desc {
+  text-align: center;
+  letter-spacing: .7px;
+  color: #000;
+  padding: 0;
+  {% if section.settings.welcome_margin_bottom %}
+	margin-bottom: {{section.settings.welcome_margin_bottom}};
+  {% else %}
+	margin-bottom: 0;
+  {% endif %}
+
+  {% if section.settings.welcome_margin_top %}
+	margin-top: {{section.settings.welcome_margin_top}};
+  {% else %}
+	margin-top: 0;
+  {% endif %}
+
+  {% if section.settings.welcome_margin_horizontal %}
+	margin-left: {{section.settings.welcome_margin_horizontal}};
+	margin-right: {{section.settings.welcome_margin_horizontal}};
+  {% else %}
+	margin-left: 0;
+	margin-right: 0;
+  {% endif %}
+
+  font-family: Montserrat,sans-serif;
+  font-size: 13px;
+}
+
+.login-form-section .customer-login-form input.btn {
+  margin-bottom: 10px;
+  background-color: #ce3330;
+  padding: 15px 0 14px 0;
+  border-bottom: 1px solid #e6e6e6;
+  margin-top: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: Montserrat,sans-serif;
+  font-weight:600;
+}
+
+.login-form-section input[type=submit] {
+  cursor: pointer;
+}
+
+.login-form-section input[type=submit]:hover {
+  background-color: #a02e30 ;
+  color: #fff;
+}
+
+.login-form-section #customer_register_link {
+  letter-spacing: 1.2px;
+  color: #000000;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 0;
+  transition: color .1s ease-in,background-color .1s ease-in;
+}
+.login-form-section #customer_register_link:hover {
+  color: #000000 !important;
+}
+
+.login-form-section #customer_login input::-webkit-input-placeholder, .login-form-section #customer_login input::-moz-placeholder, .login-form-section #customer_login input:-ms-input-placeholder, .login-form-section #customer_login input:-moz-placeholder { 
+  letter-spacing: 0.65px;
+  color: #000000;
+  opacity:1;
+  text-transform: uppercase;
+  font-size:13px !important;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.login-form-section p.forgot-text {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.login-form-section .forgot-text {
+  cursor:pointer;
+  letter-spacing: 1.2px;
+  color: #000;
+  font-size: 12px;
+  text-align: right;
+  text-decoration: underline;
+  font-family: Montserrat,sans-serif;
+}
+
+#RecoverPasswordForm .recover-title-text {
+  font-size: 16px;
+  font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  color: #666;
+  line-height: 1.375;
+  margin-top:0;
+  font-weight:normal;
+  margin-bottom:10px;
+}
+
+#RecoverPasswordForm input[type=submit]{
+  width: 100%;
+  border-bottom: 1px solid #e6e6e6;
+  margin-top:0;
+  margin-bottom: 48px;
+  display: inline-block;
+  margin-bottom: 28px;
+  background-color: #ce3330;
+  font-size: 13px;
+  letter-spacing: .65px;
+  padding: 15px 25px;
+  border-radius:0;
+  color: #ffffff;
+  font-weight: bold;
+}
+.login-form-section .customer-login-form input.btn[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+}
+#RecoverPasswordForm .forgot-cancel{
+  cursor:pointer;
+  line-height: 1.375;
+  color: #c63b3d;;
+  font-size: 16px;
+  display:inline;
+  text-align: center;
+  font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  font-weight:500;
+  transition: color .1s ease-in,background-color .1s ease-in;
+}
+
+.login-form-section #RecoverPasswordForm .forgot-cancel:hover{
+  color: #8c292a;
+}
+
+.login-form-section .btn:hover {
+  background-color: #a02e30 ;
+  color: #fff;
+}
+
+@media only screen and (max-width: 1024px){
+  .customer-login-desc {
+    padding: 0 20px 0 20px;
+    font-size: 14px;
+  }
+  .login-form-section .customer-login-form h4 {
+    margin-bottom:19px;
+  }
+  .login-form-section .grid .grid__item-two {
+    padding: 56px 50px 144px 50px;
+  }
+}
+@media (max-width: 767px){
+  .login-form-section .customer-login-desc {
+    {% if section.settings.welcome_margin_horizontal_mob %}
+      margin-left: {{section.settings.welcome_margin_horizontal_mob}};
+      margin-right: {{section.settings.welcome_margin_horizontal_mob}};
+    {% else %}
+      margin-left: 0;
+	  margin-right: 0;
+    {% endif %}
+  }
+  .login-form-section .customer-login-form input {
+	padding: 10px;
+  }
+
+  .login-form-section .page-width {
+    padding: 0 15px;
+  }
+  .customer-login-desc {
+    font-size: 14px;
+  }
+  .login-form-section .customer-login-form input.btn {
+    padding: 8px 0 8px 0;
+    font-size: 13px;
+  }
+  .login-form-section .grid .grid__item-two {
+    border: none;
+    padding:0;
+    width: 100%;
+  }
+  .login-form-section #customer_login input::-webkit-input-placeholder, .login-form-section #customer_login input::-moz-placeholder, .login-form-section #customer_login input:-ms-input-placeholder, .login-form-section #customer_login input:-moz-placeholder { 
+    font-size:10px;
+  }
+  .login-form-section .page-width {
+    padding: 0 15px;
+  }
+  .login-form-section #RecoverPasswordForm input[type="email"] {
+    padding: 8px 20px;
+  }
+  .login-form-section .customer-login input{
+    padding: 8px;
+  }
+  .login-form-section .forgot-text {
+    font-size: 11px;
+  }
+  .login-form-section .form-success span {
+	width: 100%;
+  }
+  .login-form-section .customer-login-desc {
+	font-size: 14px;
+  }
+}

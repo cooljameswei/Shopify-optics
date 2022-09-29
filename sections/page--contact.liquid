@@ -1,0 +1,184 @@
+<div class="contact-page-width contact-section">
+  <h1>{{ page.title }}</h1>
+  <div class="block-container">
+    <div class="content-block">
+      {% if page.content != blank %}
+      <div class="rte">
+        {{ page.content }}
+      </div>
+      {% endif %}
+      {% if section.settings.enable_map %}
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6050.448573966546!2d-73.95665862698364!3d40.691057754964625!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x59e041d4a0d5a4f!2sDesigner+Optics!5e0!3m2!1sen!2sus!4v1519745599658" frameborder="0" style="border:0" allowfullscreen></iframe>
+      </div>
+      {% endif %}
+    </div>
+    <div class="content-block">
+      <div class="contact-form">
+        {% form 'contact' %}
+
+          {% if form.posted_successfully? %}
+            <p class="form-success">
+             Thanks for contacting us. We'll get back to you as soon as possible.
+            </p>
+          {% endif %}
+
+          {{ form.errors | default_errors }}
+
+        <input type="text" id="ContactFormFirstName" 
+               name="contact[first_name]" placeholder="First Name"
+               value="{% if form[first_name] %}{{ form[first_name] }}{% elsif customer %}{{ customer.first_name }}{% endif %}"/>
+
+        <input type="text" id="ContactFormLastName" 
+               name="contact[last_name]" placeholder="Last Name"
+               value="{% if form[last_name] %}{{ form[last_name] }}{% elsif customer %}{{ customer.last_name }}{% endif %}"/>
+
+        <input type="email" id="ContactFormEmail" name="contact[email]" 
+               placeholder="{{ 'customer_area.forms.email' | t }}"  
+               autocorrect="off" autocapitalize="off" required
+               value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" />
+
+        <select id="ContactFormSubject" name="contact[subject]" required>
+          <option>My Order</option>
+          <option>Store Question</option>
+          <option>General Question</option>
+          <option>Question About Product</option>
+          <option>Suggestion</option>
+        </select>          
+
+        <input type="tel" id="ContactFormPhone" name="contact[phone]" placeholder="Phone Number" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+
+        <textarea rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Message">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+        <input type="submit" class="btn send-btn" value="SEND">
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Contact Page Section",
+	"class": "contact-page-section",
+    "settings": [
+		{
+      		"type": "header",
+      		"content": "Section Info"
+      	},
+	  	{
+        	"type": "text",
+        	"id": "max_width",
+        	"default": "1350px",
+        	"label": "Section Max width"
+      	},
+		{
+        	"type": "text",
+        	"id": "margin-top_mobile",
+        	"default": "30px",
+        	"label": "Margin top Mobile"
+      	},
+		{
+        	"type": "text",
+        	"id": "margin-top_desktop",
+        	"default": "20px",
+        	"label": "Margin top Desktop"
+      	},
+	  	{
+        	"type": "checkbox",
+	        "id": "enable_map",
+    	    "default": true,
+        	"label": "Display Map"
+      	},
+		{
+            "type": "color",
+            "id": "pageTitleHeaderColor",
+            "label": "Title and Header color",
+            "default": "#030303"
+      	},
+		{
+            "type": "select",
+            "id": "title_align",
+            "label": "Title Alignment",
+            "options": [
+              {"value": "left", "label": "Left"},
+              {"value": "center", "label": "Center"},
+              {"value": "right", "label": "Right"}
+            ],
+            "default": "left"
+        },
+		{
+          "type": "header",
+          "content": "Page Content"
+        },
+        {
+          "type": "color",
+          "id": "pageContentColor",
+          "label": "Content color",
+          "default": "#666666"
+        },
+        {
+          "type": "select",
+          "id": "content_padding",
+          "label": "Section Space Around",
+          "options": [
+            {"value": "0px", "label": "none"},
+            {"value": "20px", "label": "small"},
+            {"value": "40px", "label": "medium"},
+            {"value": "60px", "label": "large"}
+          ],
+          "default": "40px"
+        },
+        {
+          "type": "select",
+          "id": "para_bottom_margin",
+          "label": "Paragrapgh bottom margin",
+          "options": [
+            {"value": "0px", "label": "None"},
+            {"value": "10px", "label": "Small"},
+            {"value": "20px", "label": "Medium"}
+          ],
+          "default": "20px"
+        },
+        {
+          "type": "header",
+          "content": "Links"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_link_colors",
+          "label": "Enable Link Colors",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "linksColor",
+          "label": "Links color",
+          "default": "#c63b3d"
+        },
+        {
+          "type": "color",
+          "id": "linksHoverColor",
+          "label": "Links hover color",
+          "default": "#8c292a"
+        }
+	],
+	"presets": [
+		{
+			"category": "custom-page-sections",
+			"name": "Page Contact Custom"
+		}
+	]
+  }
+{% endschema %}
+
+<style>
+{% include "page-contact-css" %}
+</style>
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

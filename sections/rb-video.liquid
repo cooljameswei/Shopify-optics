@@ -1,0 +1,95 @@
+<div class="page-width rb-video padding-fix" style=" padding-top:50px;">
+  <section class="video">
+  <a data-fancybox href="{{section.settings.video_link}}">
+    <div class="background hide-mobile" style="background-image:url('{{section.settings.video_preview  | img_url: '1400x1400'}}')">
+    </div>
+    <div class="background hide-desktop" style="background-image:url('{{section.settings.mvideo_preview  | img_url: '1400x1400'}}')">
+    </div>
+  </a>
+</section>
+</div>
+
+{% schema %}
+{
+"name": "Video Section",
+"settings": [
+{
+"type": "text",
+"id": "video_link",
+"label": "Video Asset URL"
+},
+{
+"type": "image_picker",
+"id": "video_preview",
+"label": "Background Preview Image"
+},
+{
+"type": "image_picker",
+"id": "mvideo_preview",
+"label": "Mobile Background Preview Image"
+}
+],
+"presets": [
+{
+"name": "Video Section",
+"category": "Image"
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+.rb-video  .background {
+  position: relative;
+  box-sizing: border-box;
+  background: #fbfbfb  no-repeat center;
+  background-size: cover;
+  height: 100%;
+}
+
+.rb-video .video{
+  height: 537px;
+  margin-bottom: 6rem;
+  padding: 0px;
+}
+
+.rb-video .background::before {
+  content: "";
+  pointer-events: none;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 70px;
+  width: 70px;
+  margin-left: -35px;
+  margin-top: -35px;
+  z-index: 1;
+  cursor: pointer;
+  background: url('https://cdn.shopify.com/s/files/1/0046/6966/9491/files/play_icon_e5f292ef-eb6d-43d5-a86d-3cf1b9acfe39.png?v=1596458049') no-repeat center;
+  background-size: cover;
+  transition: all 0.25s ease-in-out;
+}
+
+.rb-video .background:hover::before {
+transform: scale(1.2);
+}
+@media only screen and (max-width: 800px) {
+.rb-video  .background {
+   height:450px;
+   margin:0px 20px;
+}
+
+}
+
+@media only screen and (max-width: 768px) {
+.rb-video  .background {
+background-image:url('{{section.settings.video_preview  | img_url: '430x450'}});
+}
+}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

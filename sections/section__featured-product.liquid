@@ -1,0 +1,260 @@
+<style type="text/css">
+{% render 'common-css' with section as section %}
+
+{% if section.settings.headingDivider %}
+#s--{{section.id}} .section__heading--heading h2 {
+  background: {% unless section.settings.backgroundColor contains 'rgba(0,0,0,0)'  %}{{section.settings.backgroundColor}}{% else %}{{settings.baseBackground}}{% endunless %};
+  padding: 0px 12px;
+  {% case section.settings.textAlignment %}
+      {% when 'start' %}
+  padding-left: 0px;
+      {% when 'end' %}
+  padding-right: 0px;
+  {% endcase %}
+}
+
+#s--{{section.id}} .section__heading--heading::before {
+  content: '';
+}
+{% endif %}
+</style>
+
+{% unless section.settings.product == blank %}
+
+{% assign product = all_products[section.settings.product] %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+
+<div id="s--{{section.id}}" class="{% render 'common-class', section: section, class: 'row padding__vertical featured-product', vAlign: false %}">
+  <div class="row s_content layout__content">
+    {% render 'block__general--heading' with section as section %}
+    <div class="col-12 col-md-6 gallery gallery__default">
+      {% render 'gallery--default', product: product, section: section %}
+    </div>
+
+    <div class="col-12 col-md-6 product__page--info unflex">
+    {% form 'product', product %}
+      {% render 'block__product-page--title' with product as product %}
+      {% render 'block__product-page--price' with product as product %}
+      {% if section.settings.showDescription %}{% render 'block__product-page--description' with product as product %}{% endif %}
+      {% render 'block__product-page--swatch' with product as product %}
+      {% render 'block__product-page--atc', product: product, form: form %}
+    {% endform %}
+    </div>
+
+  </div>
+</div>
+
+{% else %}
+
+<div id="s--{{section.id}}" class="{% render 'common-class', section: section, class: 'row padding__vertical featured-product', vAlign: false %}">
+  <div class="row s_content layout__content">
+    {% render 'block__general--heading' with section as section %}
+    <div class="col-12 col-md-6 gallery__default">
+      <div class="gallery">
+        <div class="col-min gallery__thumbnails--holder">
+          <div class="gallery__thumbnails fancy-scroll">
+          {% for image in (1..6) %}
+            <a {% if forloop.first %}class="active"{%endif%}>
+              {{ 'product-' | append: image | placeholder_svg_tag}}
+            </a>
+          {% endfor %}
+          </div>
+        </div>
+        <div class="col col-md gallery__image zoom">
+          {{'product-1' | placeholder_svg_tag: 'lazyload gallery__img gallery__fake'}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 product__page--info unflex">
+      <h1 
+        class="product__title">
+        Demo product
+      </h1>
+      <div 
+        class="product__price--holder">
+        <span class="product__price jsPrice">$179.00</span>
+      </div>
+      <div class="product__description {% if block.settings.noMargin %}margin__bottom--reduced{%endif-%}">
+        <span class="product__description--title">Product Description</span>
+        <p>This is an example product. Select a product inside this section's settings in order for it to be usable.</p>
+      </div>
+      <div class="product__atc {% if block.settings.noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+        <input style="display: none;">
+        <div class="quantity--input">
+            <button class="quantity--input__button quantity--input__incr">-</button><!--
+            --><input class="quantity--input__input" value="1" data-qty-input type="number" name="quantity" min="1"><!--
+            --><button class="quantity--input__button quantity--input__decr">+</button>
+        </div>
+        {% render 'add-to-cart-button--disabled', type: 'secondary' %}
+    </div>
+    </div>
+
+  </div>
+</div>
+{% endunless %}
+
+
+{% schema %}
+{
+    "name": {
+        "en": "Featured product"
+    },
+    "settings": [
+      {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458157889)"
+    },
+    {
+        "type": "header",
+        "content": "Section layout"
+    },
+    {
+      "type": "radio",
+      "id": "displayFor",
+      "label": "Show this section on",
+      "options": [
+        {"value": "display--both", "label": "All devices"},
+        {"value": "hide-desktop", "label": "Mobile only"},
+        {"value": "hide-mobile", "label": "Desktop only"}
+      ],
+      "default": "display--both"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "nomargin",
+      "default": false,
+      "label": "Remove section's bottom margin"
+    },
+    {
+      "type": "textarea",
+      "id": "scopedCSS",
+      "label": "Section-scoped CSS",
+      "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Minimum height",
+      "default": 0,
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Section padding",
+      "default": 0,
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+    "type": "header",
+    "content": "Section background"
+  },
+  {
+    "id": "backgroundColor",
+    "type": "color",
+    "default": "rgba(0,0,0,0)",
+    "label": "Background color"
+  },
+    {
+    "type": "header",
+    "content": "Section heading"
+},
+{
+    "type": "text",
+    "id": "heading",
+    "label": "Section heading",
+    "default": "Check out this section's heading"
+},
+{
+    "type": "color",
+    "id": "headingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Heading Color"
+},
+{
+    "type": "text",
+    "id": "subheading",
+    "label": "Section subheading",
+    "default": "THIS IS A SUBHEADING"
+},
+{
+    "type": "color",
+    "id": "subheadingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Subheading Color"
+},
+{
+    "type": "select",
+    "id": "subheadingPosition",
+    "label": "Subheading position",
+    "options": [
+      {"value": "above", "label": "Above heading"},
+      {"value": "below", "label": "Below heading"}
+    ],
+    "default": "above"
+},
+{
+    "type": "select",
+    "id": "headingAlignment",
+    "label": "Heading alignment (left to right)",
+    "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+    ],
+    "default": "center"
+},
+    {
+      "type": "header",
+      "content": "Product settings"
+    },
+    {
+        "type": "product",
+        "label": "Featured Product",
+        "id": "product"
+    },
+    {
+      "id": "showDescription",
+      "label": "Show product description",
+      "type": "checkbox",
+      "default": true
+    }
+    ],
+    "presets": [
+      {
+        "category": "Products",
+        "name": "Featured product",
+        "settings": {
+          "heading": "Check out this product!",
+          "subheading": "...it's really cool!",
+          "subheadingPosition": "below",
+          "headingAlignment": "start"
+        }
+      }
+    ]
+  }
+{% endschema %}

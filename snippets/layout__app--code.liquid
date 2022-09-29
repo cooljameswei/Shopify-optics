@@ -1,0 +1,57 @@
+{% if settings.floatingContact %}
+{% case settings.floatingContactType %}
+    {% when 'wapp' %}
+        {% assign href = 'https://wa.me/' | append: settings.storePhone | replace: '+', '' %}
+        {% assign icon = 'whatsapp' %}
+    {% when 'page' %}
+        {% assign href = pages[settings.floatingContactPage].url %}
+        {% assign icon = 'mail' %}
+    {% when 'mail' %}
+        {% assign href = 'mailto:' | append: settings.storeEmail %}
+        {% assign icon = 'mail' %}
+    {% when 'sms' %}
+        {% assign href = 'sms:' | append: settings.storePhone %}
+        {% assign icon = 'mail' %}
+    {% when 'tel' %}
+        {% assign href = 'tel:' | append: settings.storePhone %}
+        {% assign icon = 'phone' %}
+{% endcase %}
+    <a href="{{href}}" class="fcontact__button fcontact__button--{{settings.floatingContactPosition}} {% unless settings.floatingContactMobile %}hide-mobile{% endunless %}">{% render 'get-icon', icon: icon %}</a>
+{% endif %}
+
+{% if settings.messengerID != 'Your page ID here' and settings.messenger %}
+    {% unless settings.optimizedMessenger %}
+        <div id="fb-root"></div>
+        <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+            xfbml            : true,
+            version          : 'v8.0'
+            });
+        };
+        </script>
+        <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="{{settings.messengerID}}"
+        theme_color="{{settings.messengerColor}}"
+        logged_in_greeting="{{settings.messengerGreeting}}"
+        logged_out_greeting="{{settings.messengerGreeting}}">
+        </div>
+        <script id="facebook-jssdk" src="https://connect.facebook.net/{{-settings.messengerLang-}}/sdk/xfbml.customerchat.js" async defer></script>
+    {% else %}
+        <a target="_blank" href="https://m.me/{{settings.messengerID}}" style="background: {{settings.messengerColor}};color: {% if settings.messengerColor == '#ffffff' %}black{% else %}white{%endif%}" class="messenger--simple"><i class="uil uil-facebook-messenger"></i></a>
+    {% endunless %}
+{% endif %}
+
+{% if settings.gdpr %}
+    <div id="bstr--notice" class="gdpr__holder">
+    <div class="gdpr__notice">
+        <div class="gdpr__text">
+        {{settings.gdprText}}
+        </div>
+        <div class="gdpr__buttons">
+        {% render 'button--onclick', text: settings.gdprAccept, style: 'data-gdpr-accept', type: 'primary' %}
+        </div>
+    </div>
+    </div>
+{% endif %}

@@ -1,0 +1,46 @@
+<style>
+    .page-main-title { margin: 30px auto; }
+    .page-main-title .page-title-wrapper { text-align: center; }
+    .page-main-title .page-title-wrapper .page__title { font-weight: 900; }
+    .page-main-title .page-title-wrapper .btm__border { margin-top: 10px; }
+</style>
+
+<div class="page-main-title">
+    <div class="page-width">
+        <div class="page-title-wrapper">
+            <h1 class="small--text-center page__title">
+                {{ section.settings.page__title }}
+            </h1>
+            {% if section.settings.btm__border %}
+            <div class="btm__border">
+                <img class="img-responsive center-line" src="https://cdn.shopify.com/s/files/1/2807/8986/files/title-underline-black.png?368">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{   
+    "name": "Page Main Title",
+    "class": "custom-main-title",
+    "settings": [
+        {
+           "type": "text",
+           "id": "page__title",
+           "label": "Page Title"
+        },
+        {
+           "type": "checkbox",
+           "id": "btm__border",
+           "label": "Display Bottom Border"
+        }   
+    ],
+    "presets": [
+        {
+            "category": "text",
+            "name": "Page Main Title"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,68 @@
+<style>
+    {%- unless block.settings.color contains "rgba(0,0,0,0)" -%}
+    .product__price--{{block.id}} .product__price {
+        color: {{block.settings.color}};
+    }
+    {%- endunless -%}
+    
+    {%- unless block.settings.newPriceColor contains "rgba(0,0,0,0)" -%}
+    .product__price--{{block.id}} .product__price.product__price--sale {
+        color: {{block.settings.newPriceColor}};
+    }
+    {%- endunless -%}
+    
+    {%- unless block.settings.oldPriceColor contains "rgba(0,0,0,0)" -%}
+    .product__price--{{block.id}} .product__price--old {
+        /*color: {{block.settings.oldPriceColor}};*/
+        color:#aaa;
+        text-decoration: line-through;
+        font: 400 30px/37px Montserrat;
+        letter-spacing: 1.5px;
+    }
+    {%- endunless -%}
+    </style>
+    
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    {% assign s_type = block.settings.saleType | default: 'percent' %}
+    <div 
+    class="product__price--holder product__price--{{block.id}}
+    font__family--{{-block.settings.fontFamily}} font__size--{{-block.settings.fontSize}} 
+    {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+    {% if product.compare_at_price_min > 0 %}
+    {% assign sale = true %}
+    {% if current_variant.compare_at_price > 0 %}
+    {% assign currsale = true %}
+    {% else %}
+    {% assign currsale = false %}
+    {% endif %}
+    {% else %}
+    {% assign sale = false %}
+    {% assign currsale = false %}
+    {% endif %}
+    <span data-product-price="{{product.id}}" class="product__price {% if currsale %}product__price--sale{% endif %} jsPrice">{{ current_variant.price | money | strip_html }}</span>
+    <span data-product-price-sale="{{product.id}}" class="product__price--old jsPrice">{% if currsale %}{{ current_variant.compare_at_price | money | strip_html }}{% endif %}</span>
+    {%- comment -%}
+    {% if sale %}
+    {%- unless s_type == 'none' or sale == false %}
+    <span data-tag-product="{{product.id}}" data-tag-type="{{s_type}}" class="tag tag--sale {% unless currsale %}hide{% endunless %} {% if s_type == 'amount' %}jsPrice{% endif %}">
+    {% if currsale %}
+        {%- case s_type %}
+            {% when 'percent' %}
+                {{ current_variant.price | minus: current_variant.compare_at_price | times: 100 | divided_by: current_variant.compare_at_price }}% {{'general.tags.off'|t}}
+            {% when 'amount' %}
+                {{ current_variant.compare_at_price | minus: current_variant.price | money | strip_html }}
+            {% when 'text' %}
+                {{'general.tags.sale' | t}}
+        {%- endcase -%}
+    {% endif %}
+    </span>
+    {%- endunless -%}
+    {% endif %}
+    {%- endcomment -%}
+    </div>
+    
+    {% comment %}
+    {% blockdef %}
+    
+    {% endblockdef %}
+    {% endcomment %}

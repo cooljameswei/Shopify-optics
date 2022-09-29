@@ -1,0 +1,173 @@
+<script type="text/javascript">
+    
+    window.NEW_RX_PDP_TEMPLATE.addToCartCTA = (mode, variant = undefined, quantity = undefined) => {
+        let __this = event;
+        const toggleATCState = (disabled = false) => {
+            let buyButtons = document.querySelectorAll(
+                `[data-buy-button="${window.NEW_RX_PDP_TEMPLATE.current_product.id}"]`);
+            if (buyButtons) {
+                buyButtons = Array.prototype.slice.call(buyButtons);
+                for (let index = 0; index < buyButtons.length; index++) {
+                    let _buyButton = buyButtons[index];
+                    _buyButton.disabled = disabled
+                }
+            }
+        }
+        switch (mode) {
+            case "variant_mode":
+                toggleATCState(true);
+                let _quantity2 = document.querySelector('[name="quantity"]') ? Number(document.querySelector(
+                    '[name="quantity"]').value) : quantity;
+                if (window.Extend && window.ExtendShopify) {
+                    window.Extend.modal.open({
+                        referenceId: variant,
+                        onClose: function (plan, product) {
+                            if (plan && product) {
+                                window.ExtendShopify.addPlanToCart(plan, product, quantity,
+                            function () {
+                                    BoosterTheme.cart.addToCartJSON(__this, {
+                                        items: [{
+                                            id: variant,
+                                            quantity: quantity,
+                                            properties: {
+                                                "Extend Title": plan.title,
+                                                "Extend Price": BoosterTheme.cfx
+                                                    .formatMoney(plan.price),
+                                                "Term": `${(Number(plan.term)/12) <= 1 ? `${Number(plan.term)/12} year - sold by Extend` : `${Number(plan.term)/12}  years - sold by Extend` }`,
+                                                "extend_exist": "true",
+                                                "ExtendVariantTitle": `${plan.planId}-${plan.price}`,
+                                                "Warranty added for": quantity
+                                            }
+                                        }]
+                                    });
+                                });
+                            } else {
+                                BoosterTheme.cart.addToCartJSON(__this, {
+                                    items: [{
+                                        id: variant,
+                                        quantity: quantity
+                                    }]
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    BoosterTheme.cart.addToCartJSON(__this, {
+                        items: [{
+                            id: variant,
+                            quantity: _quantity2
+                        }]
+                    });
+                }
+                break;
+            default:
+                let _quantity = document.querySelector('[name="quantity"]') ? Number(document.querySelector(
+                    '[name="quantity"]').value) : 1;
+                let _variantId = window.NEW_RX_PDP_TEMPLATE.selected_variant;
+                toggleATCState(true);
+                if (window.Extend && window.ExtendShopify) {
+                    window.Extend.modal.open({
+                        referenceId: _variantId,
+                        onClose: function (plan, product) {
+                            if (plan && product) {
+                                window.ExtendShopify.addPlanToCart({
+                                    plan: plan,
+                                    product: product,
+                                    quantity: _quantity
+                                }, function () {
+                                    BoosterTheme.cart.addToCartJSON(__this, {
+                                        items: [{
+                                            id: _variantId,
+                                            quantity: _quantity,
+                                            properties: {
+                                                "Extend Title": plan.title,
+                                                "Extend Price": BoosterTheme.cfx
+                                                    .formatMoney(plan.price),
+                                                "Term": `${(Number(plan.term)/12) <= 1 ? `${Number(plan.term)/12} year - sold by Extend` : `${Number(plan.term)/12}  years - sold by Extend` }`,
+                                                "extend_exist": "true",
+                                                "ExtendVariantTitle": `${plan.planId}-${plan.price}`,
+                                                "Warranty added for": _quantity
+                                            }
+                                        }]
+                                    });
+                                });
+                            } else {
+                                BoosterTheme.cart.addToCartJSON(__this, {
+                                    items: [{
+                                        id: _variantId,
+                                        quantity: _quantity
+                                    }]
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    BoosterTheme.cart.addToCartJSON(__this, {
+                        items: [{
+                            id: _variantId,
+                            quantity: _quantity
+                        }]
+                    });
+                }
+                break;
+        }
+    }
+    window.NEW_RX_PDP_TEMPLATE.addToCartStickyCTA = (_this,event) => {
+        const toggleATCState = (disabled = false) => {
+            let buyButtons = document.querySelectorAll(
+                `[data-buy-button="${window.NEW_RX_PDP_TEMPLATE.current_product.id}"]`);
+            if (buyButtons) {
+                buyButtons = Array.prototype.slice.call(buyButtons);
+                for (let index = 0; index < buyButtons.length; index++) {
+                    let _buyButton = buyButtons[index];
+                    _buyButton.disabled = disabled
+                }
+            }
+        }
+        let _quantity = document.querySelector('[name="quantity"]') ? Number(document.querySelector(
+                    '[name="quantity"]').value) : 1;
+        let _variantId = window.NEW_RX_PDP_TEMPLATE.selected_variant;
+        toggleATCState(true);
+        if (window.Extend && window.ExtendShopify) {
+            Extend.modal.open({
+                referenceId: _variantId,
+                onClose: function (plan, product) {
+                    if (plan && product) {
+                        window.ExtendShopify.addPlanToCart({
+                            plan: plan,
+                            product: product,
+                            quantity: _quantity
+                        }, function () {
+                            BoosterTheme.cart.addToCartJSON(_this, {
+                                items: [{
+                                    id: _variantId,
+                                    quantity: _quantity,
+                                    properties: {
+                                        "Extend Title": plan.title,
+                                        "Extend Price": BoosterTheme.cfx
+                                            .formatMoney(plan.price),
+                                        "Term": `${(Number(plan.term)/12) <= 1 ? `${Number(plan.term)/12} year - sold by Extend` : `${Number(plan.term)/12}  years - sold by Extend` }`,
+                                        "extend_exist": "true",
+                                        "ExtendVariantTitle": `${plan.planId}-${plan.price}`,
+                                        "Warranty added for": _quantity
+                                    }
+                                }]
+                            });
+                        });
+                    } else {
+                        BoosterTheme.ELEMENTS.stickyBuy(_this, event);
+                    }
+                }
+            });
+        } else {
+            BoosterTheme.ELEMENTS.stickyBuy(_this, event);
+        } 
+    }
+    window.NEW_RX_PDP_TEMPLATE.sizeGuidePopUp = (isOpen = true) => {
+        if(isOpen) {
+            $('.sizing-guide').fadeIn().css('display', 'flex')
+        } else {
+            $('.sizing-guide').fadeOut().css('display', 'none');
+        }
+    }
+</script>

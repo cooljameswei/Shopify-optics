@@ -1,0 +1,7 @@
+{%- assign rfont = font -%}
+{%- if mparam != blank -%}
+{%- assign rfont = font | font_modify: mparam, mvalue -%}
+{%- endif -%}
+{%- assign fface = rfont | font_face -%}
+{%- assign fface = fface | replace: '}', 'font-display: swap;}' -%}
+{{-fface-}}

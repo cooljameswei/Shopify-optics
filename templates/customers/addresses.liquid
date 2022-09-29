@@ -1,0 +1,579 @@
+{% if customer.default_address %}
+  {% assign daddy = true %}
+{% else %}
+  {% assign daddy = false %}
+{% endif %}
+
+{% paginate customer.addresses by 5 %}
+
+<h1 class="title-heading">My Account</h1>
+<div class="cx-page-width">
+  <div class="grid_medium-up--two-third">
+    <div id="AddressNewForm" class="address-new-form hide content-block form-vertical address-form-common">
+      {% form 'customer_address', customer.new_address %}
+      {% if form.posted_successfully? %}
+      {{'customer_area.account.success_addy' | t}}
+      {% else %}
+      {% assign errors = form.errors | default_errors %}
+      {% endif %}
+      <h2 class="h3">Add a New Address</h2>
+
+      <label for="AddressFirstNameNew">First Name</label>
+      <input type="text" id="AddressFirstNameNew" name="address[first_name]">
+
+      <label for="AddressLastNameNew">Last Name</label>
+      <input type="text" id="AddressLastNameNew" name="address[last_name]">
+
+      <label for="AddressCompanyNew" class="m-label">Company</label>
+      <input type="text" id="AddressCompanyNew" name="address[company]">
+
+      <label for="AddressAddress1New" class="m-label">Address 1</label>
+      <input type="text" id="AddressAddress1New" name="address[address1]">
+
+      <label for="AddressAddress2New" class="m-label">Address 2</label>
+      <input type="text" id="AddressAddress2New" name="address[address2]">
+
+      <label for="AddressCityNew">City</label>
+      <input type="text" id="AddressCityNew" name="address[city]">
+
+      <label for="AddressCountryNew">Country</label>
+      <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+
+      <label for="AddressProvinceNew" class="m-label">Province</label>
+      <select id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}"></select>
+      <label for="AddressZipNew">Postal/Zip Code</label>
+      <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+
+      <label for="AddressPhoneNew">Phone</label>
+      <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+
+      {{ form.set_as_default_checkbox }}
+      <label for="address_default_address_new">Set as default address</label>
+
+      <p><input type="submit" class="btn add-addr-btn" value="ADD ADDRESS"></p>
+      <p class="text-center"><button type="button" class="address-new-toggle add-addr-cancel">Cancel</button></p>
+
+      {% endform %}
+    </div>
+    <div class="address-content">
+      <h2>Your Addresses</h2>
+
+      {% for address in customer.addresses %}
+      {% if address == customer.default_address %}
+      <p class="mb-10"><strong>Default</strong></p>
+      {% endif %}
+      {{ address | format_address }}
+
+      <button type="button" class="address-edit-toggle addr-edit-del-link" data-form-id="{{ address.id }}">Edit</button>
+      <form class="addr-edit-del-link"
+            method="post"
+            action="/account/addresses/{{ address.id }}"
+            >
+        <input type="hidden" name="_method" value="delete" />
+        <input onclick="confirmDelete(event)" type="submit" class="button button--secondary button--secondary__filled address-delete addr-edit-del-link" value="Delete">
+      </form>
+
+      <div id="EditAddress_{{ address.id }}" class="hide form-vertical address-form-common edit-addr">
+        {% form 'customer_address', address %}
+        {% if form.posted_successfully? %}
+        {{'customer_area.account.update_addy' | t}}
+        {% else %}
+        {{ form.errors | default_errors }}
+        {% endif %}
+
+        <h4>Edit address</h4>
+
+        <label for="AddressFirstName_{{ form.id }}">First Name</label>
+        <input type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{address.first_name}}">
+
+        <label for="AddressLastName_{{ form.id }}">Last Name</label>
+        <input type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{address.last_name}}">
+
+        <label for="AddressCompany_{{ form.id }}" class="m-label">Company</label>
+        <input type="text" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{address.company}}">
+
+        <label for="AddressAddress1_{{ form.id }}" class="m-label">Address 1</label>
+        <input type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{address.address1}}">
+
+        <label for="AddressAddress2_{{ form.id }}" class="m-label">Address 2</label>
+        <input type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{address.address2}}">
+
+        <label for="AddressCity_{{ form.id }}">City</label>
+        <input type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{address.city}}">
+
+        <label for="AddressCountry_{{ form.id }}">Country</label>
+        <select id="AddressCountry_{{ form.id }}" name="address[country]" value="{{address.country}}" data-default="{{ address.country }}">{{ all_country_option_tags }}</select>
+
+        <label for="AddressProvince_{{ form.id }}">Province</label>
+        <select id="AddressProvince_{{ form.id }}" name="address[province]" value="{{address.province}}" data-default="{{ address.province }}"></select>
+
+        <label for="AddressZip_{{ form.id }}" class="m-label">Postal/Zip Code</label>
+        <input type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ address.zip }}" autocapitalize="characters">
+
+        <label for="AddressPhone_{{ form.id }}">Phone</label>
+        <input type="tel" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ address.phone }}">
+
+        {{ form.set_as_default_checkbox }}
+        <label for="address_default_address_{{ form.id }}">Set as default address</label>
+
+        <input type="submit" class="button button--primary button--primary__filled add-addr-btn" value="UPDATE ADDRESS">
+        <p class="text-center" style="margin-top: 0.6rem;">
+          <button type="button" class="add-addr-cancel address-edit-toggle" data-form-id="{{ address.id }}">Cancel</button>
+        </p>
+        {% endform %}
+      </div>
+      {% unless forloop.last %}<hr class="addr-seperation">{% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="grid_medium-up--one-third">
+    <p><button id="addressNewToggle" type="button" class="btn address-new-toggle add-addr-new-btn">Add a new Address</button></p>
+  </div>
+  {% if paginate.pages > 1 %}
+  <div class="pagination">
+    {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+  </div>
+  {% endif %}
+  
+</div>
+<div class="return_link_container">
+  <a href="/account" class="return-link">
+    Return to Account Details
+  </a>
+</div>
+{% endpaginate %}
+
+<style>
+  html {
+    font-size: 10px;
+  }
+  .text-center {
+    text-align: center !important;
+  }
+  .cx-page-width, h1.title-heading {
+    width: 100%;
+    margin:auto;
+    padding: 0 20px;
+    /*max-width:130rem;*/
+    /*------As per the new requiremnet TW#33265426-----*/
+    max-width: 1350px;
+  }
+  .cx-page-width {
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    list-style: none;
+    margin-top:0;
+    display: flex;
+  }
+
+  .cx-page-width:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  
+  .grid_medium-up--two-third {
+    padding: 40px;
+    width: 66.6667%;
+  }
+  .grid_medium-up--one-third {
+    padding: 40px;
+    width: 33.333%;
+  }
+  
+  h4 {
+    font-size: 1.125em;
+    margin-bottom: 15px;
+  }
+
+  h1.title-heading {
+    font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+    font-weight: 700;
+    font-size: 2.25em;
+    color: #030303;
+    margin-bottom: .625em;
+    line-height: 1.1;
+  }
+  
+  .mb-10 {
+    margin-bottom: 1rem !important;
+  }
+  .content-block {
+    margin-bottom: 20px;
+  }
+  .address-content p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.375;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  .cx-page-width .address-content h2 {
+    letter-spacing: inherit;
+    text-transform: inherit;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    font-weight: 700;
+    font-size: 1.875em;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  button.add-addr-cancel {
+    background-color: #fff;
+    border: none;
+    color: #c63b3d;
+    text-decoration: none;
+  }
+  button.add-addr-cancel:hover {
+    color:#a02e30;
+  }
+  button.add-addr-new-btn {
+    font-size: .8125em;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 15px 45px;
+    transition: color .1s ease-in,background-color .1s ease-in;
+    border-radius: 0;
+    background-color: #c63b3d;
+    color: #fff;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    line-height: 1.42857143;
+  }
+  button.add-addr-new-btn:hover{
+    background-color: #CE3330;
+  }
+  button.add-addr-new-btn:active {
+    background-color: #782324;
+  }
+  .address-form-common label {
+    color: #666;
+    font-size: .75em;
+    font-weight: 700;
+    display:inline-block;
+    margin-bottom: 1.3rem;
+    text-transform: uppercase;
+  }
+  .address-form-common input {
+    border: 0;
+    color: #333;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 0;
+    max-width: 100%;
+    padding: 13px 15px;
+    line-height: 1.375;
+    margin: 0 0 1.4rem;
+    background-color: #f4f4f4;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  
+  .address-form-common select {
+    width: 100%;
+    border-radius: 0;
+    margin-bottom: 13px;
+    background-image: none;
+    background-color: #fff;
+    padding: 4px 9px 4px 10px;
+    border: 1px solid #9f9f9f;
+  }
+  
+  .pl {
+    padding-left: 20px;
+  }
+  
+  .address-form-common .m-label {
+    margin-left: 20px;
+  }
+  .address-form-common .m-label + input,
+  .address-form-common .m-label + select {
+    margin-left: 20px;
+    width: calc(100% - 20px);
+  }
+  .address-form-common #address_default_address_new {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    margin-top: 1.4rem;
+  }
+  .address-form-common #address_default_address_new + label {
+    display: inline-block;
+    margin-bottom: 1.4rem;
+    vertical-align: bottom;
+  }
+  .address-form-common input.add-addr-btn {
+    letter-spacing: .15em;
+    color: white;
+    background-color: #c63b3d;
+    font-weight: bold;
+    font-size: .8125em;
+    padding: 15px;
+  }
+  .address-form-common input.add-addr-btn:hover {
+    background-color:#a02e30;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
+  
+  .edit-addr input[type="checkbox"] {
+    display: inline-block;
+    margin-bottom: 2rem;
+    vertical-align: middle;
+    margin-top: 0.7rem;
+    margin-right: 0.5rem;
+    width: auto;
+  }
+  
+  .edit-addr input[type="checkbox"] + label {
+    display: inline-block;
+    margin-bottom: 2rem;
+    vertical-align: middle;
+    margin-top: 0.7rem;
+  }
+  .addr-edit-del-link {
+    background: none;
+    border: none;
+    color: #c63b3d;
+    padding: 0;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+    display: inline-block;
+  }
+  .addr-edit-del-link:hover {
+    background: none;
+    border: none;
+    color: #8c292a;
+  }
+  
+  .return_link_container {
+    text-align: center;
+    margin-top: 120px;
+    padding: 80px 20px;
+  }
+  
+  .return-link {
+    color: #424242;
+    font-size: 23px;
+    font-family: Lato,sans-serif;
+    letter-spacing: 0;
+    position: relative;
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .return-link:before {
+    content: '';
+    position: absolute;
+    top: -135px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background: url(https://cdn.shopify.com/s/files/1/0046/6966/9491/files/return-icon.png);
+    width: 103px;
+    height: 103px;
+  }
+  
+  .addr-seperation {
+  	margin: 20px 0;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 1px 0 0;
+  }
+  
+  
+  @media(max-width: 767px) {
+    .cx-page-width {
+      display: block;
+    }
+    .grid_medium-up--two-third, .grid_medium-up--one-third {
+      width: 100%;
+    }
+    .grid_medium-up--one-third {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .grid_medium-up--one-third p {
+      text-align: center;
+    }
+    .return_link_container {
+      padding-bottom: 0;
+      margin-top: 30px;
+    }
+    .return-link:before {
+      width: 50px;
+      height: 50px;
+      background-size: cover;
+/*       top: -80px; */
+      top: -70px;
+    }
+    .return-link {
+      display: inline-block;
+      padding-left: 40px;
+      padding-right: 40px;
+      line-height: 29px;
+    }
+  }
+  
+</style>
+
+<script>
+  
+  var toggleBtns = document.getElementsByClassName("address-new-toggle");
+  const toggleFormFn = () => {
+    document.getElementById("AddressNewForm").classList.toggle("hide");
+  };  
+  
+  var addrEditBtns = document.getElementsByClassName("address-edit-toggle");
+  const addrEditFormFn = (e) => {
+    let formId = (e.target.dataset || {}).formId;
+    if(!formId) return;
+    document.getElementById("EditAddress_" + formId).classList.toggle("hide");
+  }
+  
+  Array.from(toggleBtns).forEach(function(btn) {
+    btn.addEventListener('click', toggleFormFn);
+  });
+  
+  Array.from(addrEditBtns).forEach(function(btn) {
+    btn.addEventListener('click', addrEditFormFn);
+  });
+  
+</script>
+
+
+
+
+
+
+
+<!-- /templates/customers/addresses.liquid -->
+{% comment %}
+{% section 'banner--account' %}
+
+{% if customer.default_address %}
+  {% assign daddy = true %}
+{% else %}
+  {% assign daddy = false %}
+{% endif %}
+
+<!-- <script> -->
+function editForm(e){
+  let t = e.target;
+  let tempt = t.dataset.toggleText;
+  t.dataset.toggleText = t.innerText;
+  t.innerText = tempt;
+  let p = t.closest('.address__form');
+  let inputs = p.querySelectorAll('input');
+  let state = p.dataset.state;
+  let bool;
+  if(state == "disabled"){
+    p.dataset.state = "enabled";
+    bool = false;
+  } else {
+    p.dataset.state = "disabled";
+    bool = true;
+  }
+  for(let input of inputs){
+    input.disabled = bool;
+  }
+}
+
+function confirmDelete(e){
+  if(!window.confirm('Are you sure you want to delete this address?')){
+    e.preventDefault();
+  }
+}
+</script>
+
+<!-- <div class="account__page row"> -->
+  <div class="account__addresses unflex col-12 col-md-6">
+    {% for addy in customer.addresses %}
+    <div data-state="disabled" class="address__form" style="margin-bottom: 24px;">
+      <h2 style="margin-bottom: 12px;" class="col-12 no-gap">{{'customer_area.account.address' | t}} {{forloop.index}} <span class="address__edit__toggle" data-toggle-text="Cancel" onclick="editForm(event)">Edit address</span></h2>
+      {% form 'customer_address', addy %}
+      {% if form.posted_successfully? %}
+        {{'customer_area.account.update_addy' | t}}
+      {% else %}
+        {{ form.errors | default_errors }}
+      {% endif %}
+      <label>First name</label>
+      <input disabled value="{{addy.first_name}}" name="address[first_name]">
+      <label>Last name</label>
+      <input disabled value="{{addy.last_name}}" name="address[last_name]">
+      <label>Company (optional)</label>
+      <input disabled value="{{addy.company}}" placeholder="Company" name="address[company]">
+      <label>Address 1</label>
+      <input disabled value="{{addy.address1}}" name="address[address1]">
+      <label>Address 2 (optional)</label>
+      <input disabled value="{{addy.address2}}" placeholder="Address 2" name="address[address2]">
+      <label>City</label>
+      <input disabled value="{{addy.city}}" name="address[city]">
+      <label>Country</label>
+      <input disabled value="{{addy.country}}" name="address[country]">
+      <label>Province</label>
+      <input disabled value="{{addy.province}}" placeholder="Province" name="address[province]">
+      <label>ZIP</label>
+      <input disabled value="{{addy.zip}}" placeholder="ZIP" name="address[zip]">
+      <label>Phone</label>
+      <input disabled value="{{addy.phone}}" placeholder="Phone" name="address[phone]">
+      <input disabled type="submit" class="button button--primary button--primary__filled" value="Save changes">
+      {% endform %}
+      <form
+        method="post"
+        action="/account/addresses/{{ addy.id }}"
+      >
+        <input type="hidden" name="_method" value="delete" />
+        <input onclick="confirmDelete(event)" disabled type="submit" class="button button--secondary button--secondary__filled" value="Delete address">
+      </form>
+    </div>
+    {% else %}
+    <h2>{{'customer_area.account.no_addy' | t}}</h2>
+    {% endfor %}
+  </div>
+  <div class="col-12 col-md-6 no-gap wrap top">
+    <input id="form__toggle" type="checkbox" class="form__toggle col-12">
+    <div class="col-12">
+      <label class="button button--primary button--filled button--primary__filled  form__toggle__label" for="form__toggle"></label>
+    </div>
+    <div class="customer__form col-12 col-md-6 center end-md" style="max-width: 360px;">
+    {% form 'customer_address', customer.new_address %}
+    {% if form.posted_successfully? %}
+      {{'customer_area.account.success_addy' | t}}
+    {% else %}
+      {% assign errors = form.errors | default_errors %}
+    {% endif %}
+      <label>First name</label>
+      <input name="address[first_name]">
+      <label>Last name</label>
+      <input name="address[last_name]">
+      <label>Company (optional)</label>
+      <input name="address[company]">
+      <label>Address 1</label>
+      <input name="address[address1]">
+      <label>Address 2 (optional)</label>
+      <input name="address[address2]">
+      <label>City</label>
+      <input name="address[city]">
+      <label>Country</label>
+      <input name="address[country]">
+      <label>Province</label>
+      <input name="address[province]">
+      <label>ZIP</label>
+      <input name="address[zip]">
+      <label>Phone</label>
+      <input name="address[phone]">
+      <input type="submit" class="button button--primary button--filled button--primary__filled" value="Add an address">
+    {% endform %}
+    </div>
+    {% if errors != blank %}
+    <div style="margin-left: auto;" class="unflex end">
+      You need to correct the following errors: 
+      {{errors}}
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endcomment %}

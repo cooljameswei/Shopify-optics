@@ -1,0 +1,65 @@
+<style>
+#column--{{-block.id}} .column__media {
+    font-size: {{block.settings.iconSize}}px;
+    {% unless block.settings.iconColor contains 'rgba(0,0,0,0)' %}color: {{block.settings.iconColor}};{% endunless %}
+}
+
+{% if block.settings.buttonFullWidth %}
+#column--{{-block.id}} .column__button {
+    max-width: 100%;
+    width: 100%;
+    flex-basis: 100%;
+}
+{% endif %}
+</style>
+
+<div class="column__media col-12 no-gap" {{block.shopify__attributes}}>
+{% render 'get-icon' with block.settings.icon as icon %}
+</div>
+<div class="column__text col-12 unflex no-gap">
+<h3>{{block.settings.heading | remove: '<p>' | remove: '</p>'}}</h3>
+{{block.settings.content}}
+{%- unless block.settings.buttonText == blank %}
+{% if block.settings.openTab %}
+{% assign custom = 'target="_blank"' %}
+{% endif %}
+{% render 'button', text: block.settings.buttonText, type: block.settings.buttonStyle, buttonType: block.settings.buttonType, url: block.settings.buttonURL, class: 'column__button', custom: custom %}
+{% endunless -%}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "columnIcon",
+    "name": "Icon + text",
+    "settings": [{
+            "type": "header",
+            "content": "Media"
+        },
+        {
+            "type": "text",
+            "label": "Icon name",
+            "id": "icon",
+            "info": "Icon name copied over from Unicons icon library. You can find the list over at [Unicons](https://iconscout.com/unicons/explore/line)."
+        },
+        {
+            "type": "range",
+            "label": "Icon size",
+            "min": 10,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 40,
+            "id": "iconSize"
+        },
+        {
+            "type": "color",
+            "label": "Icon color",
+            "id": "iconColor",
+            "default": "rgba(0,0,0,0)"
+        },
+        @settings(columns-block)
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

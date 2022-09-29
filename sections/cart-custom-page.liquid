@@ -1,0 +1,1620 @@
+<link rel="stylesheet" href="{{ 'tipr.css' | asset_url }}">
+<script src="{{ 'tipr.min.js' | asset_url }}"></script>
+<script src="https://kit.fontawesome.com/9f0f9dfbf7.js"></script> 
+
+{%- comment -%} NS END{%- endcomment -%}
+{% include "cart-custom-css" %}
+<style>
+  .cm-property-wrap:not(.contact-lens-properties)+.cart-hr {
+    display: none;;
+  }
+  div[data-section-type="cart"] .title-wrap .product-single__stock .ship-tooltip {
+     font-family: "Font Awesome 5 Free" !important;
+    letter-spacing: 0;
+    color: #242424; 
+      font-weight:normal;
+	}
+   div[data-section-type="cart"] .title-wrap span.inStockMsg{
+  	font: 700 14px/24px Montserrat!important;
+    color: #006eff;
+         text-transform: uppercase;
+  }
+  
+  .title_con_wrap .right{
+  	position:static;
+  }
+  .tipr_content{
+  	text-transform:initial;
+  }
+  .tipr_container_below{
+  	width:20%;
+  }
+  .cm-btn-wrap a.cm-add-to-cart {
+    font: 600 12px/18px Montserrat;
+    letter-spacing: 1px;
+    color: white;
+    background-color: #c63b3d;
+    transition: all .2s linear;
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    padding: 5px 12px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .cm-btn-wrap a.cm-add-to-cart:hover {
+    background: #a02e30;
+    color: white !important;
+  }
+  @media(max-width:1024px){
+  	.tipr_container_below {
+    	width: 60%;
+	}
+  }
+  @media screen and (max-width: 767px) {
+    .custom_prescription_mobile ul,
+    .custom_prescription_mobile > ul {
+      padding: 0px;
+    }
+    .cm-flex-wrap .title-wrap h2{
+    	margin-bottom:5px;
+    }
+    .tipr_container_below{
+  		width: 90%;
+    	margin-left: -8px !important;
+  	}
+    .tipr_point_below:after,
+    .tipr_point_below:before{
+    	left:10%;
+    }
+  }
+  
+</style>
+{% assign toalCartItem = 0 %}
+{% assign shippingIns = false %}
+{% assign shippingPrice = 0 %}
+{% assign startSlider = 0 %}
+<div data-section-id="{{ section.id }}" data-section-type="cart">
+  <div class="page-width cart-page-main">
+    {% if cart.item_count > 0 %}
+    {% for item in cart.items %}
+    {% if item.properties._options_hidden != blank %}
+    {% assign toalCartItem = toalCartItem | plus:1 %}
+    {% if forloop.index == 2 %}
+    {% assign startSlider = 3 %}
+    {% elsif forloop.index == 3 %}
+    {% assign startSlider = 5 %}
+    {% endif %}
+    {% endif %}
+    {% if item.product.id == 4038744080428 %}
+    {% assign shippingPrice = item.line_price %}
+    {% assign shippingIns = true %}
+    {% endif %}
+    {% endfor %}
+    <h1>{{ 'cart.page.title' | t }} <span class="cartTotalQty">{% if shippingIns %} ({{ cart.item_count | minus:toalCartItem | minus: 1 }}) {% else %}({{ cart.item_count | minus:toalCartItem  }}){% endif %}</span> <span class="close-cart-drawer" {% if template == 'cart' %}style="display: none;" {% else %} onclick="__hideSideCart();"{% endif %}>{% include 'icon-close-black' %}</span></h1>
+    <form id="cartForm" action="/cart" method="post" novalidate class="cart">
+      <div class="cm-flex-wrap">
+        <div class="responsive-table cart-table">
+          <div id="CartProducts">
+            {% for item in cart.items %}
+              {% if item.properties.ExtendVariantTitle %}
+                {% assign extendTitle = item.properties.ExtendVariantTitle %}
+              {% endif %}
+                    <div data-itemQty="{{ item.quantity }}" data-varid="{{item.variant.id}}" data-itemKey="{{ item.key }}" 
+                  {% if item.properties.extend_exist %}data-extendwarranty="{{extendTitle}}" {% endif %}
+                  {% if item.properties._options_group_id %}data-bundle="group-id-{{ item.properties._options_group_id }}"{% endif %} 
+                  class="cart__row responsive-table__row {% include 'w3-product-options', step:'item_row_class' %}
+                          {% if item.product.id == 4038744080428%} hide {% endif %}
+                          {% unless item.properties['Extend.LeadToken'] %}{% if item.product.title contains 'Extend Protection Plan' %} hide {% endif %} {% endunless %}">
+                <div class="title_con_wrap mobile">
+                  <div class="left">
+                    <div class="title-wrap">
+                      <h2><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
+                      {% unless item.product.type == "Gift Cards" %}
+                      <p>
+                        <span id="ProductStock-{{ section.id }}" class="product-single__stock">
+                        {% if item.variant.inventory_quantity > 5000 %}
+                          <span class="inStockMsg">IN STOCK <i class="ship-tooltip fas fa-question-circle" data-tip="Product will be shipped within one business day. For quick delivery choose an expedited shipping service at checkout."></i></span>
+                          {% elsif item.variant.inventory_quantity > 1000 %}
+                          <span class="inStockMsg">Ships within 7 to 10 Days <i class="ship-tooltip fas fa-question-circle" data-tip="Shipping information is provided by the manufacturer."></i></span>
+                          
+                          {% elsif item.variant.inventory_quantity > 0%}
+                            <span class="inStockMsg">back-ordered <i class="ship-tooltip fas fa-question-circle" data-tip="We don’t have a definitive shipping date from the manufacturer. Orders will be filled in the order they were placed. We’ll keep you updated via email once the order is placed."></i></span>
+                        {% elsif item.variant.inventory_quantity == 0 or item.variant.inventory_quantity < 0 %}
+                            <span class="inStockMsg">Discontinued<i class="ship-tooltip fas fa-question-circle" data-tip="This Product has been discontinued."></i></span>
+                        {% endif %}
+                      </span>
+                      </p>
+                      {% endunless %}
+                      {% unless item.variant.title contains 'Default' %}
+                      <p>{{ item.variant.title }}</p>
+                      {% endunless %}
+                      {% if item.selling_plan_allocation.selling_plan %}
+                        <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }} / {{ item.selling_plan_allocation.selling_plan.options[0].name }}&nbsp;{{ item.selling_plan_allocation.selling_plan.options[0].value }}</p>  
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="right">
+                    {% assign itemQty = item.quantity %}
+                    {{ item.line_price | divided_by: itemQty | money }}
+                  </div>
+                </div>
+                <div class="cm-content-wrapper">
+                  <div class="cm-left">
+                    <div class="cart__cell--image">
+                      <a href="{{ item.url | within: collections.all }}" class="cart__image">
+                        <img src="{{ item | img_url: '240x240' }}" alt="{{ item.title | escape }}">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="cm-right">
+                    <div class="title-wrap desktop">
+                      <h2><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
+                      {% unless item.product.type == "Gift Cards" %}
+                      <p>
+                        <span id="ProductStock-{{ section.id }}" class="product-single__stock">
+                        {% if item.variant.inventory_quantity > 5000 %}
+                          <span class="inStockMsg">IN STOCK <i class="ship-tooltip fas fa-question-circle" data-tip="Product will be shipped within one business day. For quick delivery choose an expedited shipping service at checkout."></i></span>
+                          
+                          {% elsif item.variant.inventory_quantity > 1000 %}
+                          <span class="inStockMsg">Ships within 7 to 10 Days <i class="ship-tooltip fas fa-question-circle" data-tip="Shipping information is provided by the manufacturer."></i></span>
+                          
+                          {% elsif item.variant.inventory_quantity > 0%}
+                            <span class="inStockMsg">back-ordered <i class="ship-tooltip fas fa-question-circle" data-tip="We don’t have a definitive shipping date from the manufacturer. Orders will be filled in the order they were placed. We’ll keep you updated via email once the order is placed."></i></span>
+                          
+                        {% elsif item.variant.inventory_quantity == 0 or item.variant.inventory_quantity < 0 %}
+                            <span class="inStockMsg">Discontinued<i class="ship-tooltip fas fa-question-circle" data-tip="This Product has been discontinued."></i></span>
+                          
+                        {% endif %}
+                      </span>
+                      </p>
+                      {% endunless %}
+                      {% unless item.variant.title contains 'Default' %}
+                      <p>{{ item.variant.title }}</p>
+                      {% endunless %}
+                      {% if item.selling_plan_allocation.selling_plan %} 
+                        <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }} / {{ item.selling_plan_allocation.selling_plan.options[0].name }}&nbsp;{{ item.selling_plan_allocation.selling_plan.options[0].value }}</p>  
+                      {% endif %}
+                    </div>
+                    <div class="cm-price desktop">
+                      {% assign itemQty = item.quantity %}
+                      {{ item.line_price | divided_by: itemQty | money }}
+                    </div>
+                        <div class="cart__cell--quantity" data-type="{{ item.product.type }}">
+                    <label for="Updates_{{ item.key }}" class="cart__quantity-label">Quantity</label>
+                    <select {% if item.properties['Extend.LeadToken'] %} disabled {% endif%}>
+                      <option value="1" {% if item.quantity == 1%}selected{% endif %}>1</option>
+                      <option value="2" {% if item.quantity == 2%}selected{% endif %}>2</option>
+                      <option value="3" {% if item.quantity == 3%}selected{% endif %}>3</option>
+                      <option value="4" {% if item.quantity == 4%}selected{% endif %}>4</option>
+                      <option value="5" {% if item.quantity == 5%}selected{% endif %}>5</option>
+                      <option value="6" {% if item.quantity == 6%}selected{% endif %}>6</option>
+                      <option value="7" {% if item.quantity == 7%}selected{% endif %}>7</option>
+                      <option value="8" {% if item.quantity == 8%}selected{% endif %}>8</option>
+                      <option value="9" {% if item.quantity == 9%}selected{% endif %}>9</option>
+                      <option value="10" {% if item.quantity == 10%}selected{% endif %}>10</option>
+                    </select>
+                    <div class="cart-edit-rm-wrap">
+                      {% assign customerId = '' %}
+                      {% if customer %} 
+                      {% if customer.id %} 
+                      {% assign customerId = customer.id %}
+                      {% endif %}
+                      {% endif %}
+                      
+                      {% unless item.properties['Extend.LeadToken'] %}
+                      <span class="cm-edit d-flex">
+                        {% assign profileId = item.properties["Profile Id"] %}
+                        {% assign profileCId = item.properties["Profile CId"] %}
+                        {% assign profileCLId = item.properties["Contact Lens"] %}
+                        {% if profileId and profileId != "" %}
+                        <a href="javascript:void(0);" onClick="editCartItem({{item.product_id}},{{item.variant_id}},'{{ item.key }}','{{profileId}}',false, {{customerId}});return false;">Edit</a>
+                        {% elsif profileCId %}
+                        <a href="javascript:void(0);" onClick="editCartItem({{item.product_id}},{{item.variant_id}},'{{ item.key }}',false, '{{profileCId}}');return false;">Edit</a>
+                        {% elsif profileCLId %}
+                        <a href="javascript:void(0)" data-itemkey="{{ item.key }}" data-itemid="{{ item.product_id }}" data-itemurl="{{item.url}}" data-id="editCartItemContactLens" 
+                           data-properties="{%- for p in item.properties -%}
+                                            {%- assign first_character_in_key = p.first | truncate: 1, '' -%}
+                                            {%- unless first_character_in_key == '_' -%}
+                                            {%- if p.last contains '/uploads/' -%}
+                                            <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                                            {%- else -%}  
+                                            {{- p.first -}}:{{- p.last -}}{%- unless forloop.last -%}{{','}}{%- endunless -%}
+                                            {%- endif -%}
+                                            {%- endunless -%}
+                                            {%- endfor -%}">Edit</a>
+                        {% else %}
+                        <a href="{{ item.url }}">Edit</a>
+                        {% endif %}
+                      </span>
+                      <span class="cm-remove d-flex" >
+                        <a href="javascript:void(0);"  
+                           onClick="removeID({{item.product_id}},'{{ item.key }}', undefined, {'extend': '{{extendTitle}}', 'isPrescription': '{{item.properties['Prescription Type']}}', 'optionGroupId': '{{item.properties['_options_group_id']}}' });return false;">
+                          Remove
+                        </a>
+                      </span>
+                      {% else %}
+                      <span class="cm-remove d-flex {% if item.properties['Extend.LeadToken'] %} no-before {% endif%} " >
+                        <a href="javascript:void(0);"  
+                           onClick="removeID({{item.product_id}},'{{ item.key }}');return false;">
+                          Remove
+                          </a>
+                        </span>
+                        {% endunless %}
+                      </div>
+                    </div>
+                    {% comment %}
+                    Lens Size is coming from Silhoute 
+                    {% endcomment %}
+                    {% if item.properties['Prescription Type'] or item.properties['Lens Size'] %}
+                    <hr class="cart-hr">
+                    {% else %}
+                    {% if item.properties.extend_exist %}
+                    <hr class="cart-hr {% if item.properties.extend_exist %} display-none {% endif %}">
+                    {% endif %}
+                    {% endif %}
+                    
+                  {% unless item.vendor == "Extend" %}
+
+                    <div style="margin:0; padding: 0;" 
+                        class="{% if item.properties.extend_exist %} extend_exist_to_update-{{item.key | remove:":"}} display-none {% endif %}">
+                      <button class="extend-protection-add-btn"
+                              data-quantity="{{item.quantity}}" 
+                              data-variant="{{item.variant_id}}" 
+                              data-key="{{item.key}}" 
+                              data-title="{{item.title}}"
+                              {% if item.properties['Prescription Type'] %} data-prescriptiontype="true" {% endif %}
+                              {% if item.properties.extend_exist %} data-extend="true"{% endif %}>
+                        ADD WARRANTY PROTECTION
+                      </button>
+                      <div id="extendProtection_{{item.key | remove:":"}}" class="extend__add-protection display-none warranty-container">
+                        <hr class="cart-hr" style="margin-bottom:0;">
+                        <div class="warranty_mesg">
+                          Add accident protection offered by <b>Extend</b> <a href="#">Learn more</a>
+                        </div>
+                      </div>
+                  </div>
+                  {% endunless %}
+                  
+
+                    {% assign profile_name = item.properties["Profile Name"]%}
+                    {% if profile_name and customerId != '' %}
+                    <div class="prescription-profile-name">
+                      {% assign profile_name = item.properties["Profile Name"]%}
+                      <span>Profile Name :</span>
+                      <span class="prescription-profile-name__title">{{profile_name}}</span>
+                    </div>
+                    {% endif %}
+                    {% unless item.properties['Extend.LeadToken'] %}
+                    <div class="cm-property-wrap">
+                      {% assign property_size = item.properties | size %}
+                      {% if property_size > 0 %}
+                      {% assign optionsTotal = 0 %}
+                      {% assign optionsTotal_cart = 0 %}
+                      {% if item.properties['Prescription Type'] or item.properties['Lens Size'] %}
+                      <div class="proper-title-wrap">
+                        <h3 class="property_title">
+                          Prescription Lens
+                        </h3>
+                        <div class="price_text">
+                          {% if "money_line" == 'item_row_class' %}
+                          {% if item.properties._options_group_id %}options-group group-id-{{ item.properties._options_group_id }}{% endif %}
+                          {% if item.properties._options_hidden %} options-hidden{% endif %}
+                          {% endif %}
+                          {% if "money_line" == 'money_line' %}
+                          {% if item.properties._options_group_id and item.properties._options_hidden == nil %}
+                            {% assign guid = item.properties["_options_group_id"] %}
+                            {% for item2 in cart.items %}
+                              {% if item2.properties._options_hidden and item2.properties["_options_group_id"] == guid %}
+                                {% assign optionsTotal = optionsTotal | plus: item2.line_price  %}
+                                {% assign optionsTotal_cart = optionsTotal_cart | plus: item2.price  %}
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                          {% endif %}
+                          {{optionsTotal_cart | money }}
+                        </div>
+                      </div>
+                      <div class="prescription another" style="display:none;">
+                        <ul class="parent">
+                          {% for p in item.properties %}
+                          {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                          {% unless p.last == blank or first_character_in_key == '_' %}
+                          {% if p.last contains '/uploads/' %}
+                          <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                          {% else %}
+                          {% unless p.last contains '{' %}
+                          {% unless p.first contains 'Profile Name' or p.first contains 'extend_remove' or p.first contains '6over6' or p.first contains 'Profile Id' or p.first contains 'LenseSettingId' or p.first contains 'Profile CId' or p.first contains 'extend_exist' or p.first contains 'ExtendVariantTitle' or p.first contains 'Extend Price' or p.first contains 'Term' or p.first contains "Extend Title" or p.first contains "Warranty added for" %}
+                          <li {% if p.first contains 'Amount' or p.last == 'None' or p.first contains '6over6' %} class="remove_row"{% endif %}>
+                            <ul class="children">
+                              <li class="first"><span>{{p.first}}</span></li>
+                              {% if p.first == "Customer Prescription File" %}
+                                <li class="last"><span><a href="{{p.last}}" target="_blank">Prescription File Link</a></span></li>
+                              {% else %}
+                                <li class="last"><span>{{p.last}}</span></li>    
+                              {% endif %}
+                              <li class="price">+ <span></span></li>
+                            </ul>
+                          </li>
+                          {% endunless %}
+                          {% endunless %}
+                          {% endif %}
+                          {% endunless %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                      <hr class="cart-hr">
+                      {% endif %}
+                      {% if item.properties['extend_exist'] %}
+                      <div class="proper-title-wrap warranty_title">
+                        <h3 class="property_title warranty">Warranty</h3>
+                        <div class="price_text" data-warrantyprice="{{item.properties['Extend Price']}}">                        
+                          {% assign optionsTotal_cartStr = item.properties['Extend Price'] %}
+                          {% assign optionsTotal_cartArr = optionsTotal_cartStr | split: "$"%}
+                          {% assign optionsTotal_cart = optionsTotal_cartArr[1] | times: 100 %}
+                          {% assign optionsTotalNew = optionsTotal_cart | times: item.properties['Warranty added for'] %}
+                          {% assign optionsTotal = optionsTotal | plus: optionsTotalNew  %}
+                          {% assign optionsTotal_cart = optionsTotalNew %}
+                          {{optionsTotal_cart | money }}
+                        </div>
+                      </div>
+                      <div class="prescription another prescription_warranty" style="display:none;">
+                        <ul class="parent">
+                          {% for p in item.properties %}
+                          {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                          {% unless p.last == blank or first_character_in_key == '_' %}
+                          {% if p.last contains '/uploads/' %}
+                          <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                          {% else %}
+                          {% unless p.last contains '{' %}
+                          {% if  p.first contains 'Extend Title' or p.first contains 'Extend Price' or p.first contains 'Term' or p.first contains 'Warranty added for' %}
+                          <li {% if p.first contains 'Amount' or p.last == 'None' or p.first contains '6over6' %} class="remove_row"{% endif %}>
+                            <ul class="children">
+                              <li class="first"><span>{{p.first}}</span></li>
+                              {% if p.first contains 'Warranty added for' %}
+                              <li class="last extend-quantity-container">
+                                <select class="extend-quantity">
+                                  {% for i in (1..item.quantity) %}
+                                  {% assign strI = i | string | strip %}
+                                  {% assign warrantySelected = item.properties['Warranty added for'] | strip %}
+                                  <option value="{{strI}}" {% if warrantySelected == strI %}selected{% endif %}>
+                                    {{i}} Product
+                                  </option>
+                                  {% endfor %}
+                                </select>
+                                <button class="info-btn" id="warrantySelectorInfo" onclick="return false">
+                                  <svg width="16" height="16" viewBox="0 0 19.5 19.5">
+                                    <g id="noun_Info_940946" transform="translate(-5.75 -5.75)">
+                                      <g id="Group_1" data-name="Group 1" transform="translate(6 6)">
+                                        <path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)"></path>
+                                      </g>
+                                    </g>
+                                  </svg>
+                                </button>
+                                <div class="cart-edit-rm-wrap">
+                                  <span class="cm-edit d-flex display-none cancel-warranty-{{item.key | remove:':'}}">
+                                    <a href="javascript:void(0);" onClick="cancelWarranty('{{ item.key }}');return false;">Cancel</a>
+                                  </span>
+                                  <span class="cm-edit d-flex edit-warranty-{{item.key | remove:':'}}">
+                                    <a href="javascript:void(0);" onClick="editWarranty('{{ item.key }}', {'extend': '{{extendTitle}}' });return false;">Edit</a>
+                                  </span>
+                                  <span class="cm-remove d-flex">
+                                    <a href="javascript:void(0);"  onClick="removeExtendProduct('{{ item.key }}', {'extend': '{{extendTitle}}' });return false;">Remove</a>
+                                  </span>
+                                </div>
+                              </li>
+                              {% else %}
+                              <li class="last"><span>{{p.last}}</span></li>
+                              {% endif %}
+                            </ul>
+                          </li>
+                          {% endif %}
+                          {% endunless %}
+                          {% endif %}
+                          {% endunless %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                      <hr class="cart-hr">
+                      {% endif %}
+                      {% endif %}
+                    </div>
+                    {% endunless %}
+                  
+                  {% if item.properties['Prescription Type'] or item.properties['Contact Lens'] %}
+                  {% if item.properties['Contact Lens'] %}
+                  {%- comment -%} Capture SPH {%- endcomment -%}
+                  {% capture sph %}
+                   {% if item.properties['r_sph'] != blank or item.properties['l_sph'] != blank %}
+                   
+                  <li class="details" data-r="{{ item.properties['r_boxes'].last }}" data-l="{{ item.properties['l_boxes'].last }}">
+                    <span>{{ 'SPH' }}</span>                                             
+                      {% for p in item.properties %}
+                      {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                      {% unless first_character_in_key == '_' %}
+                      {% if p.last contains '/uploads/' %}
+                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                      {% else %}  
+                      {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}{% if p.first contains 'r_sph' and p.last != blank %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}{% endif %}                 
+                      {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}{% if p.first contains 'l_sph' and p.last != blank %}<div><span class="Left">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}{% endif %}                 
+                      {% endif %}
+                      {% endunless %}
+                      {% endfor %}
+                  </li>
+              
+                  {% endif %}
+                  {% endcapture %}  
+                  
+                  {%- comment -%} Capture ADD {%- endcomment -%}
+                  {% capture add %}
+                    
+                  {% if item.properties['r_boxes'] != blank and  item.properties['r_boxes'] == '0' and item.properties['r_add'] != blank or item.properties['l_boxes'] != blank and item.properties['l_boxes'] == '0' and item.properties['l_add'] != blank %}
+               
+                 {% elsif item.properties['r_boxes'] != blank and  item.properties['r_boxes'] != 0 and item.properties['r_add'] != blank or item.properties['l_boxes'] != blank and item.properties['l_boxes'] != 0 and item.properties['l_add'] != blank %}
+              
+               <li class="details">
+                 <span>{{ 'ADD' }}</span>
+                                       
+                   {% for p in item.properties %}
+                   {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                   {% unless first_character_in_key == '_' %}
+                   {% if p.last contains '/uploads/' %}
+                   <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                   {% else %} 
+                   {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}{% if p.first contains 'r_add' and p.last != blank %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}{% endif %}                 
+                   {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}{% if p.first contains 'l_add' and p.last != blank %}<div><span class="Left">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}{% endif %}
+                  
+                   {% endif %}
+                   {% endunless %}
+                   {% endfor %}
+                 
+               </li>
+               {% endif %}
+               {% endcapture %} 
+                  
+                  {%- comment -%} Capture CYL {%- endcomment -%}
+                  {% capture cyl %}
+                  
+                  {% if item.properties['r_boxes'] != blank and  item.properties['r_boxes'] == '0' and item.properties['r_cyl'] != blank or item.properties['l_boxes'] != blank and item.properties['l_boxes'] == '0' and item.properties['l_cyl'] != blank %}
+                  
+                    {% elsif item.properties['r_boxes'] != blank and  item.properties['r_boxes'] != 0 and item.properties['r_cyl'] != blank or item.properties['l_boxes'] != blank and item.properties['l_boxes'] != 0 and item.properties['l_cyl'] != blank %}
+                   
+                  <li class="details" data-r="{{ item.properties['r_boxes'] }}" data-l="{{ item.properties['l_boxes'] }}">
+                   <span>{{ 'CYL' }}</span>
+                                             
+                      {% for p in item.properties %}
+                      {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                      {% unless first_character_in_key == '_' %}
+                      {% if p.last contains '/uploads/' %}
+                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                      {% else %}          
+                      {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}
+                        {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}
+                        {% if p.first contains 'r_cyl' %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                        {% else %}
+                        {% if p.first contains 'r_cyl' and p.last != blank %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                        {% endif %}
+                      {% endif %}               
+                      {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}
+                        {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}
+                          {% if p.first contains 'l_cyl' %}<div><span class="Left">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                        {% else %}
+                        {% if p.first contains 'l_cyl' and p.last != blank %}<div><span class="Left">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                        {% endif %}
+                      
+                      {% endif %}
+                      {% endif %}
+                      {% endunless %}
+                      {% endfor %}
+                   
+                  </li>
+                  {% endif %}
+                  {% endcapture %} 
+                  
+                  {%- comment -%} Capture AXS {%- endcomment -%}
+                  {% capture axs %}
+                    {% if item.properties['r_boxes'] != blank and  item.properties['r_boxes'] == '0' and item.properties['r_axs'] != blank or item.properties['l_boxes'] != blank and item.properties['l_boxes'] == '0' and item.properties['l_axs'] != blank %}
+                  
+                    {% elsif item.properties['r_boxes'] != blank and  item.properties['r_boxes'] != 0 and item.properties['r_axs'] != blank or item.properties['l_boxes'] != blank and item.properties['l_boxes'] != 0 and item.properties['l_axs'] != blank %}
+                     
+                 
+                  <li class="details" data-r="{{ item.properties['r_boxes'].last }}" data-l="{{ item.properties['l_boxes'].last }}">
+                    <span>{{ 'AXS' }}</span>                                              
+                      {% for p in item.properties %}
+                      {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                      {% unless first_character_in_key == '_' %}
+                      {% if p.last contains '/uploads/' %}
+                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                      {% else %}  
+                      {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}
+                        {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}
+                          {% if p.first contains 'r_axs' %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                          {% else %}
+                          {% if p.first contains 'r_axs' and p.last != blank %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                          {% endif %}       
+                        {% endif %}     
+                      {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}
+                        {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}
+                          {% if p.first contains 'l_axs' %}<div><span class="Left">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                        {% else %}
+                          {% if p.first contains 'l_axs' and p.last != blank %}<div><span class="Left">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                        {% endif %}
+                        {% endif %}
+                      {% endif %}
+                      {% endunless %}
+                      {% endfor %}
+                    
+                  </li>
+                  {% endif %}
+                  {% endcapture %} 
+                  
+                  {%- comment -%} Capture BC {%- endcomment -%}
+                  {% capture bc %}
+                     {% if item.properties['r_boxes'] != blank and  item.properties['r_boxes'] == '0' and item.properties['r_bc'] == blank or item.properties['l_boxes'] != blank and item.properties['l_boxes'] == '0' and item.properties['l_bc'] == blank %}
+                  
+                    {% elsif item.properties['r_boxes'] != blank and  item.properties['r_boxes'] != 0 and item.properties['r_bc'] != blank or item.properties['l_boxes'] != blank and item.properties['l_boxes'] != 0 and item.properties['l_bc'] != blank %}
+                    
+             
+                  <li class="details">
+                    <span>{{ 'BC' }}</span>
+                                            
+                      {% for p in item.properties %}
+                      
+                      {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                      {% unless first_character_in_key == '_' %}
+                      {% if p.last contains '/uploads/' %}
+                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                      {% else %}
+                      {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}
+                        {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}
+                          {% if p.first contains 'r_bc' %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                        {% else %}
+                          {% if p.first contains 'r_bc' and p.last != blank %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %}
+                        {% endif %}
+                      {% endif %}
+                      {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}
+                        {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}
+                          {% if p.first contains 'l_bc' %}<div><span class="Left">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %} 
+                        {% else %}
+                        {% if p.first contains 'l_bc' and p.last != blank %}<div><span class="Left">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %} 
+                        {% endif %}
+                      {% endif %}
+                      {% endif %}
+                      {% endunless %}
+                      {% endfor %}
+                    
+                  </li>
+                  {% endif %}
+                  {% endcapture %}
+                  
+                  {%- comment -%} Capture Boxes {%- endcomment -%}
+                  {% capture boxes %}
+                  {% if item.properties['r_boxes'] != blank or  item.properties['l_boxes'] != blank %}
+                  <li class="details">
+                    <span>{{ 'BOXES' }}</span>                                            
+                      {% for p in item.properties %}
+                      {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                      {% unless first_character_in_key == '_' %}
+                      {% if p.last contains '/uploads/' %}
+                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                      {% else %}
+                      {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}{% if p.first contains 'r_boxes' and p.last != blank %}<div><span class="Right">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %} {% endif %}                     
+                      {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}{% if p.first contains 'l_boxes' and p.last != blank %}<div><span class="Left sd">{% if p.last != blank %}{{ p.last }}{% else %}{% endif %}</span></div>{% endif %} {% endif %}
+                      {% endif %}
+                      {% endunless %}
+                      {% endfor %}                    
+                  </li>
+                  {% endif %}
+                  {% endcapture %}
+                  
+                  
+                  <div class="cm-property-wrap contact-lens-properties">
+                    {% assign property_size = item.properties | size %}
+                    {% assign prescription_type = item.properties["Contact Lens"]%}
+                    {% if property_size > 0 %}
+                    <div>
+                      <h3 class="property_title custom_pres">Contact Lens Prescription</h3>
+                    </div>
+                    <div class="position-relative">
+                      <h3 class="property_title cx-pres desktop">Contact Lens Prescription</h3>
+                    </div>
+                    
+                    <div class="custom_prescription contact-lens" style="display:none">
+                      <ul class="parent">
+                        <li class="details">
+                          <span>Details</span>
+                          
+                         {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %} <div><span class="Right">Right</span></div>{% endif %}
+                           {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %} <div><span class="Left">Left</span></div>{% endif %}
+                         
+                        </li>
+                        {{ sph }}
+                        {{ add }}
+                        {{ cyl }}
+                        {{ axs }}
+                        {{ bc }}
+                        {{ boxes }}
+                      </ul>
+                    </div>
+                    <div class="custom_prescription_mobile"  style="display:none">
+                      <ul class="parent">
+                        <li class="details">
+                          <span>Details</span>
+                          
+                         {% if item.properties['r_boxes'] != blank and item.properties['r_boxes'].last != '0' %}<div><span class="Right">Right</span></div>{% endif %}
+                          {% if item.properties['l_boxes'] != blank and item.properties['l_boxes'].last != '0' %}  <div><span class="Left">Left</span></div>{% endif %}
+                         
+                        </li>
+                        {{ sph }}
+                        {{ add }}
+                        {{ cyl }}
+                        {{ axs }}
+                        {{ bc }}
+                        {{ boxes }}
+                      </ul>
+                    </div>
+                    
+                    <div style="margin-left:10px;" class="contactLens_custom_prescription_hide" style="display:none">
+                    {% for p in item.properties %}
+                    {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                    {% unless p.last == blank or first_character_in_key == '_' %}
+                    {% if p.last contains '/uploads/' %}
+                    <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                    {% else %}                    
+                    
+                      <p data-first="{{ p.first }}" data-last="{{ p.last }}"></p>
+                   
+                    
+                    {% endif %}
+                    {% endunless %}
+                    {% endfor %}
+                       </div>
+                    {% endif %}
+                  </div>
+                  
+                  
+                  {% else %}
+                  <div class="cm-property-wrap">
+                    {% assign property_size = item.properties | size %}
+                    {% assign prescription_type = item.properties["Prescription Type"]%}
+                    {% if property_size > 0 %}
+                    <div>
+                      <h3 class="property_title custom_pres {% if prescription_type == 'READERS' %}readers{% endif %}">Customer Prescription</h3>
+                    </div>
+                    <div class="position-relative">
+                      <h3 class="property_title cx-pres desktop">Customer Prescription</h3>
+                    </div>
+                    {% for p in item.properties %}
+                    {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                    {% unless p.last == blank or first_character_in_key == '_' %}
+                    {% if p.last contains '/uploads/' %}
+                    <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                    {% else %}
+                    {% if p.last contains '{' %}
+                    {% unless prescription_type == 'READERS' %}
+                    <div class="custom_prescription" style="display:none">
+                      <ul class="parent">
+                        <li class="details">
+                          <span>Details</span>
+                          <ul class="children">
+                            <li><span class="Right">Right</span>
+                            <li><span class="Left">Left</span>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="custom_prescription_mobile"  style="display:none">
+                      <ul class="parent">
+                        <li class="details">
+                          <ul class="children"></ul>
+                        </li>
+                        <li class="right">
+                          <ul class="children"></ul>
+                        </li>
+                        <li class="left">
+                          <ul class="children"></ul>
+                        </li>
+                      </ul>
+                      </div>
+                      {% endunless %}
+                      {% assign props = p.last %}
+                      {% assign props = props | url_encode  %}
+                      {% assign props = props |  replace: '%3A+', ':'%}
+                      {% assign props = props |  replace: 'quot%3B', ''%}
+                      {% assign props = props |  replace: "%26", ''%}
+                      {% assign props = props |  replace: '%2C', ','%}
+                      {% assign props = props |  replace: '%7B', ''%}
+                      {% assign props = props |  replace: '%0A+', ''%}
+                      {% assign props = props |  replace: '%0A', ''%}
+                      {% assign props = props |  replace: '%7D', ''%}
+                      {% assign props = props |  replace: '%2B', ''%}
+                      {% assign json = props |  split: ','%}
+                      {% if prescription_type == 'READERS' %}
+                      <div class="custom_prescription readers" style="display:none">
+                        <ul class="parent">
+                          <li class="details">
+                            <span>Magnification</span>
+                            <ul class="children">
+                              <li>
+                                <span> {% for p in json %}
+                                  {{ p | replace:"Magnification:" }}
+                                  {% endfor %}
+                                </span>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      {% endif %}
+                      <div style="margin-left:10px;" class="custom_prescription_hide" style="display:none">
+                        {% for p in json %}
+                        {{ p  }}
+                        {% endfor %}
+                      </div>
+                      {% else %}
+                      {% comment %} {{ p.last }} {% endcomment %}
+                      {% endif %}
+                      {% endif %}
+                      {% endunless %}
+                      {% endfor %}
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                    <hr class="cart-hr">
+                    {% endif %}
+                    {% if item.properties['Extend.LeadToken'] %}
+                    <div class="extend-leadtoken">
+                      <div class="extend-leadtoken__detail">
+                        <div class="extend-leadtoken__title">Product</div>
+                        <div class="extend-leadtoken__value">{{item.properties['Product']}}</div>
+                      </div>
+                      <div class="extend-leadtoken__detail">
+                        <div class="extend-leadtoken__title">Term</div>
+                        <div class="extend-leadtoken__value">{{item.properties['Term']}}</div>
+                      </div>
+                    </div>
+                    <hr class="cart-hr">
+                    {% endif %}
+                    <div class="cart__cell--total">
+                      <div class="cm-flex-cd">
+                        <label>Item Total</label>
+                        <div class="left-cm">
+                          {% if item.original_line_price != item.line_price %}
+                          <small class="cart-item__original-price cart__item-total"><s>{{ item.original_line_price | money }}</s></small><br>
+                          {% endif %}
+                          <span class="cart__item-total">
+                            {% if property_size > 0 %}
+                            {% assign cartTV =  item.line_price | plus:optionsTotal %}
+                            <span class="cip" data-amt="{{ cartTV }}">{{ cartTV | money }}</span>
+                            {% else %}
+                            <span class="cip" data-amt="{{ item.line_price }}">{{ item.line_price | money }}</span>
+                            {% endif %}
+                          </span>
+                          {% for discount in item.discounts %}
+                          <p class="cart-item__discount cart__item-total">{{ discount.title }}</p>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {%- comment -%} NS - moved this section out of loop
+                {% if item.title contains "Shipping Insurance" or item.properties and item.properties['Extend.LeadToken'] %}
+                {% else %}
+                  {% assign porLists = '' %}
+                  {% assign porActive = false %}
+                  {% for tag in item.product.tags %}
+                    {% if tag contains 'ff-' %}
+                      {% assign handlem = tag | replace:'ff-','' %}
+                      {% assign porLists = porLists  | append:handlem | append:'+' %}
+                      {% assign porActive = true %}	
+                    {% endif %}
+                  {% endfor %}
+
+                  {% assign porListsItems = porLists|split:"+" %}
+                  {% if collections[section.settings.collection].products.size > 0 or porListsItems.size > 0 %}
+                    {% if collections[section.settings.collection].products.size > 0  %}
+                      <div class="cm-ff-wrap {% if collections[section.settings.collection].products.size > 2 %}yes{% else %}no{% endif %}" >
+                        <h3>Recommended Accessories</h3>
+                        <div class="cm-slick-in" id="cm-slick-in--{{ forloop.index }}" data-position="{% if forloop.index == 1 %} 1 {% else %} {{ forloop.index | plus: 3 }} {% endif %}">
+                          {% for myPro in collections[section.settings.collection].products %}
+                          {% if myPro.available  %}
+                          <div class="accessories-item">
+                            <div class="accessories-left thumb">
+                              <div class="accessories-img-wrapper">
+                                <img src="{{ myPro.featured_image.src | product_img_url: '120x110' }}" alt="{{ myPro.featured_image.alt | escape }}">
+                              </div>
+                              <div style="clear:both;"></div>
+                            </div>
+                            <div class="accessories-right">
+                              <div class="accessories-title-wrap">
+                                <a class="product-title" title="{{ myPro.title }}" href="{{ myPro.url | within: collection }}">
+                                  {% if settings.enable_multilang %}
+                                  <span class="lang1">{{ myPro.title | split: '|' | first | truncate: 60 }}</span>
+                                  <span class="lang2">{{ myPro.title | split: '|' | last | truncate: 60 }}</span>
+                                  {% else %}
+                                  {{ myPro.title | split: '|' | first | truncate: 60 }}
+                                  {% endif %}
+                                </a>
+                              </div>
+                              <div class="accessory-price">
+                                <div class="price-box">
+                                  {% if on_sale %}
+                                  <p class="sale">
+                                    <span class="special-price">{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
+                                    <span class="old-price">{{ myPro.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros }}</span>
+                                  </p>
+                                  {% else %}
+                                  <p class="regular-product">
+                                    <span>{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
+                                  </p>
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <div class="cm-btn-wrap">
+                                <a href="javascript:;" class="cm-add-to-cart" data-value="{{ myPro.selected_or_first_available_variant.id }}">Add To cart </a>
+                              </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                          </div>
+                          {% endif %}
+                          {% endfor %}
+                        </div>
+                        <script>
+                          $(document).ready(function(){
+
+                            var slider = $('#cm-slick-in--{{ forloop.index }}');
+                                          slider.slick({
+                                          autoplay: true,
+                                          autoplaySpeed: {% if forloop.index == 1 %} 4000 {% else %} {{ '4000' | plus: 500 }} {% endif %},
+                                          slidesToShow: 3,
+                                          slidesToScroll: 1,
+                                          initialSlide:{% if forloop.index == 1 %} 1 {% else %} {{ forloop.index | plus: 3 }} {% endif %},
+                                          responsive: [
+                                          {
+                                          breakpoint: 1024,
+                                          settings: {
+                                          slidesToShow: 3,
+                                          slidesToScroll: 1,
+                                          infinite: true,
+                                          }
+                                          },
+                                          {
+                                          breakpoint: 600,
+                                          settings: {
+                                          slidesToShow: 2,
+                                          slidesToScroll: 1
+                                          }
+                                          },
+                                          {
+                                          breakpoint: 480,
+                                          settings: {
+                                          slidesToShow: 1,
+                                          slidesToScroll: 1
+                                          }
+                                          }
+                                          ]
+                                          })
+                            });
+                        </script>
+                      </div>
+                    {% else %}
+                      {% if porActive == true %}
+                        <div class="cm-ff-wrap {% if porListsItems.size > 2 %}yes{% else %}no{% endif %}" >
+                          <h3>Recommended Accessories</h3>
+                          <div class="cm-slick-in">
+                            {% for proItem in porListsItems %}
+                            {% if forloop.index <= 20 %}
+                            {% assign myPro = all_products[proItem] %}
+                            {% if myPro.available  %}
+                            {% if myPro.title != blank %}
+                            <div class="accessories-item">
+                              <div class="accessories-left thumb">
+                                <div class="accessories-img-wrapper">
+                                  <img src="{{ myPro.featured_image.src | product_img_url: '120x110' }}" alt="{{ myPro.featured_image.alt | escape }}">
+                                </div>
+                                <div style="clear:both;"></div>
+                              </div>
+                              <div class="accessories-right">
+                                <div class="accessories-title-wrap">
+                                  <a class="product-title" title="{{ myPro.title }}" href="{{ myPro.url | within: collection }}">
+                                    {% if settings.enable_multilang %}
+                                    <span class="lang1">{{ myPro.title | split: '|' | first }}</span>
+                                    <span class="lang2">{{ myPro.title | split: '|' | last }}</span>
+                                    {% else %}
+                                    {{ myPro.title | split: '|' | first }}
+                                    {% endif %}
+                                  </a>
+                                </div>
+                                <div class="accessory-price">
+                                  <div class="price-box">
+                                    {% if on_sale %}
+                                    <p class="sale">
+                                      <span class="special-price">{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
+                                      <span class="old-price">{{ myPro.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros }}</span>
+                                    </p>
+                                    {% else %}
+                                    <p class="regular-product">
+                                      <span>{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
+                                    </p>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                                <div class="cm-btn-wrap">
+                                  <a href="javascript:;" class="cm-add-to-cart" data-value="{{ myPro.selected_or_first_available_variant.id }}">Add</a>
+                                </div>
+                              </div>
+                              <div style="clear:both;"></div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}	
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+              {%- endcomment -%}
+              </div>
+            {% endfor %}
+            {% if collections[section.settings.collection].products.size > 0  %}
+            <div style="margin-bottom: 25px;padding-bottom: 15px;" class="cm-ff-wrap {% if collections[section.settings.collection].products.size > 2 %}yes{% else %}no{% endif %}" >
+              <h3 style="padding-bottom: 0px;line-height: normal;font-weight: 500;">Recommended Accessories</h3>
+              <div class="cm-slick-in" id="cm-slick-in--accessories" data-position="{% if forloop.index == 1 %} 1 {% else %} {{ forloop.index | plus: 3 }} {% endif %}">
+                {% for myPro in collections[section.settings.collection].products %}
+                {% if myPro.available  %}
+                <div class="accessories-item">
+                  <div class="accessories-left thumb">
+                    <div class="accessories-img-wrapper">
+                        <img onclick="location.href='{{ myPro.url | within: collection }}';" style="cursor: pointer;" src="{{ myPro.featured_image.src | product_img_url: '120x110' }}" alt="{{ myPro.featured_image.alt | escape }}">
+                    </div>
+                    <div style="clear:both;"></div>
+                  </div>
+                  <div class="accessories-right">
+                    <div class="accessories-title-wrap">
+                      <a class="product-title" title="{{ myPro.title }}" href="{{ myPro.url | within: collection }}">
+                        {% if settings.enable_multilang %}
+                        <span class="lang1">{{ myPro.title | split: '|' | first | truncate: 60 }}</span>
+                        <span class="lang2">{{ myPro.title | split: '|' | last | truncate: 60 }}</span>
+                        {% else %}
+                        {{ myPro.title | split: '|' | first | truncate: 60 }}
+                        {% endif %}
+                      </a>
+                    </div>
+                    <div class="accessory-price">
+                      <div class="price-box">
+                        {% if on_sale %}
+                        <p class="sale">
+                          <span class="special-price">{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
+                          <span class="old-price">{{ myPro.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros }}</span>
+                        </p>
+                        {% else %}
+                        <p class="regular-product">
+                          <span>{{ myPro.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
+                        </p>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="cm-btn-wrap">
+                      <a href="javascript:;" class="cm-add-to-cart" data-value="{{ myPro.selected_or_first_available_variant.id }}">Add To Cart</a>
+                    </div>
+                  </div>
+                  <div style="clear:both;"></div>
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+              <script>
+                $(document).ready(function(){
+
+                  var slider = $('#cm-slick-in--accessories');
+                                slider.slick({
+                                autoplay: true,
+                                autoplaySpeed: 4000,
+                                slidesToShow: 3,
+                                slidesToScroll: 1,
+                                initialSlide:1,
+                                responsive: [
+                                {
+                                breakpoint: 1024,
+                                settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 1,
+                                infinite: true,
+                                }
+                                },
+                                {
+                                breakpoint: 600,
+                                settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1
+                                }
+                                },
+                                {
+                                breakpoint: 480,
+                                settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                                }
+                                }
+                                ]
+                                })
+                  });
+              </script>
+            </div>
+          {% endif %}
+          </div>
+          
+          <div class="cm-item-ct cm-ord-total"><span class="left-col"> Order Total </span><span class="right-col cip-amt">{{ cart.total_price | minus: shippingPrice | money }}</span></div>
+        </div>
+        <div class="grid cart__row">
+          <div class="grid__item cart__buttons {% if section.settings.cart_notes_enable %} medium-up--one-half{% endif %}">
+            <div class="coverSpinnerCartButtons"></div>
+            <h2 class="cm-sm">Summary</h2>
+            <!-- insurance snipppet -->
+            <!-- changed percentage 1% to 3 % -->
+            {%- comment -%} NS global shipping percentage change{%- endcomment -%}
+            {% assign insuranceCost = cart.total_price | times:global_shipping_percentage | divided_by:100 | ceil   %}
+            {% assign isApprox = true %}
+            {% assign isShippingNeeded = false %}
+            {% for item in cart.items %}
+              {% if item.product_id == 4038744080428 %}
+                {% assign insuranceCost = item.price %}
+                {% assign isApprox = false %}
+              {% endif %}
+              {% unless item.vendor == 'Extend' %}
+            	{% assign isShippingNeeded = true %}
+              {% endunless %}
+            {% endfor %}
+            {% if  cart.attributes['Shipping Insurance'] == "false" %}
+              {% assign checked = "" %}
+            {% else if %}
+              {% assign checked = "checked" %}
+            {% endif %}
+
+            <div class="cm-item-ct"><span class="left-col">Item: <span class="cartTotalQty">{% if shippingIns %} ({{ cart.item_count | minus:toalCartItem | minus: 1 }}) {% else %}({{ cart.item_count | minus:toalCartItem  }}){% endif %}</span></span><span class="right-col"></span></div>
+            <div class="cm-item-ct"><span class="left-col">Subtotal:</span><span class="right-col">{{cart.items_subtotal_price | minus: shippingPrice | money }}</span></div>
+            
+            <div class="cm-item-ct cm-ship-insu {% if checked == '' or isShippingNeeded == false %} hide {% endif %}"><span class="left-col">Shipping & Theft Insurance:</span><span class="right-col">{% if isApprox == true %}
+              approx. {{insuranceCost  | times:100 | money }}
+            {% else %}
+              {{insuranceCost  | money}}
+            {% endif %}</span></div>
+            
+            <div class="cm-item-ct cm-ord-total"><span class="left-col">Order Total </span><span class="right-col" id="CartSubtotal">{{ cart.total_price | money }}</span></div>
+            <p class="cart__taxes">Shipping & taxes calculated at checkout</p>
+
+            {% if isShippingNeeded == true %}
+            <div id="insurance-div" watch-add="btn add-to-cart" desktop-align="center" style="letter-spacing: -0.2px;">
+              <div class="insurance-right">
+                <label>
+                  <input type="checkbox" {{checked}} class="insurance-selector"  style="width:20px; height:20px;" />
+                  <span class="cm-insc-wrap"></span>
+                </label>
+              </div>
+              <div class="insurance-left" >
+                <div class="tp-txt">Shipping Protection</div>
+                <div class="btm-txt">
+                  from Damage, Loss & Theft for:
+                  <span style="font-weight:bold;" class="shipping-protection-cost">
+                    {% if isApprox == true %}
+                      approx. {{insuranceCost  | times:100 | money }}
+                    {% else %}
+                      {{insuranceCost  | money}}
+                    {% endif %}
+                  </span>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            
+            <div style="clear:both;"></div>
+            <p class="cart__term">By clicking Check out you agree to Designer Optics <a class="cart_term_link" href="/pages/legal-statement" target="_blank">Terms and Conditions</a></p>
+            <button type="submit" name="checkout" class="btn checkout_btn">Check Out</button>
+            {% if customer %} 
+              {% assign draftorder = false %}
+              {% for tag in customer.tags %}
+                {% if tag contains 'do-staff-user' %}
+                  {% assign draftorder = true %}
+                  {% break%}
+                {% endif %}
+              {% endfor %}
+            
+              {% if draftorder %}
+                <div class="draft-order">
+                  <button id="draftOrder" type="button" class="draft-order-btn">Create draft order</button>
+                </div>
+              {% endif %}
+            {% endif %}
+            
+            {% if additional_checkout_buttons %} 
+            <p>
+            {{ content_for_additional_checkout_buttons }}
+            </p>
+            {% endif %}
+            <div class="continue_shop"><a href="/collections/all">Continue Shopping</a></div>
+          </div>
+          <div class="cm-paymt-imgs-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/logo_1.png?v=1615365897">
+          <img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/logo_3.png?v=1615365897">
+          <img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/logo_4.png?v=1615365897">
+          <img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/logo_5.png?v=1615365897">
+          <img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/fsa1.png?v=1624025925">
+          </div>
+          <div class="cm-cont-top-wrap">
+          <div class="cm-cont-wrap">
+          <div class="cm-left-col">
+          <img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/Group_3.png?v=1615366077">
+          </div>
+          <div class="cm-right-col">
+          <p><strong>14-day free return</strong></p>
+          <p>Enjoy 14 days to try out our frames.<br>
+          Send back for a free exchange or return.<br>
+          <a style="text-decoration: underline;" href="/pages/returns" target="_blank">*Restrictions Apply</a>
+          </p>
+          </div>
+          </div>
+          </div>
+          
+          <!-------Changes regarding TW#33612394-------->
+          <div class="shipping-rates-calculator-desktop-container shipping-rates-calculator-mobile-container panel-open">
+<!--             <h3>Shipping Rates</h3> -->
+            
+          </div>
+          {% if section.settings.cart_notes_enable %}
+              <div class="grid__item medium-up--one-half cm-cart-note">
+              <label for="CartSpecialInstructions">Special instructions for seller</label>
+              <textarea name="note" id="CartSpecialInstructions" class="cart__note">{{ cart.note }}</textarea>
+              </div>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+    {% comment %}
+	{%include 'cross-sell'%}
+	{% endcomment %}
+    {% else %}
+    
+    <div class="page-empty text-center">
+      <h1>{{ 'cart.page.title' | t }}</h1>
+      <p class="cart--empty-message">Your cart is currently empty.</p>
+      <hr>
+      <p class="cart--continue-message">
+        <a href="/collections/all" class="btn">Continue browsing</a>
+      </p>
+      <p class="cart--cookie-message">Enable cookies to use the shopping cart</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+
+
+{% comment %}
+<script type="application/json" id="CartJson-{{ section.id }}">
+  {{ cart | json }}
+</script>
+{% endcomment %}
+{% schema %}
+{
+  "name": "Cart pages",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "cart_notes_enable",
+      "label": "Enable order notes",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Recommended Accessories"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "category": "custom-cart-sections",
+      "name": "Cart Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<!-- AE added  google remarketing on 4 24 2018 -->
+<!-- Google Code for Remarketing Tag -->
+<!--------------------------------------------------
+  Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+  --------------------------------------------------->
+{% comment %}
+<script type="text/javascript">
+  var google_tag_params = {
+    ecomm_prodid:[{% for item in cart.items %}'{{ item.sku }}',{% endfor %}],
+    ecomm_pagetype: 'cart',
+    ecomm_totalvalue: {{ cart.total_price | money_without_currency | remove:','  }},
+  };
+  /* <![CDATA[ */
+  var google_conversion_id = 995381954;
+  var google_custom_params = window.google_tag_params;
+  var google_remarketing_only = true;
+  /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+<noscript>
+  <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/995381954/?value={{ product.price_min | money_without_currency | remove:',' }}&amp;guid=ON&amp;script=0"/>
+  </div>
+</noscript>
+{% endcomment %}
+<script>
+  var updateFinalData = {};
+  var extendUpdate = {};
+  
+  function _initExtend() {
+    updateFinalData = {
+      data: {},
+      val: ''
+    };
+    extendUpdate = {
+      existingExtendQuantity: 0,
+      updatedExtendQuantity: 0,
+      attachedExtendWarrantyName:'',
+      extendItemUpdate: ''
+    };
+  }
+  
+  function _updateContactLensItem(){
+  let removeContactLensItem = localStorage.getItem('removeItemFromCart');
+    var data = {
+                'quantity': 0,
+                'id': removeContactLensItem
+              }
+    if(removeContactLensItem != null){
+      $.ajax({
+      type: 'POST',
+      url: '/cart/change.js',
+      dataType: 'json',
+      data: data,
+      success: function(res) {
+        console.log('removeContactLens', res);
+        $('#CartProducts .cart__row[data-itemkey="'+removeContactLensItem+'"]').remove();
+        $(document).find('.cartTotalQty').text('('+Number(res.item_count - 1)+')');
+        localStorage.removeItem('removeItemFromCart');
+        location.reload();
+      },
+      error: function(res){
+        console.log(res);
+      }
+    });
+    }
+  }
+  _updateContactLensItem();
+    
+  function _updateItems() {  
+    var finalData = updateFinalData.data;
+    var cartItems =  {{cart.items | json}};
+    var extendSelectedVal = updateFinalData.val;
+  
+    for(var i=0; i<cartItems.length; i++) {
+      var item = cartItems[i];
+      if(finalData.id.split(":")[0] == (item.properties || {}).Ref && item.variant_title == extendUpdate.attachedExtendWarrantyName)
+        extendUpdate.extendItemUpdate = { [item.key] : extendSelectedVal};
+      if(item.key != finalData.id) continue;
+      finalData.properties = cartItems[i].properties;
+      extendUpdate.existingExtendQuantity = finalData.properties["Warranty added for"];
+      finalData.properties["Warranty added for"] = extendSelectedVal;
+      extendUpdate.updatedExtendQuantity = extendSelectedVal;
+    }
+    
+    $.ajax({
+      type: 'POST',
+      url: '/cart/change.js',
+      dataType: 'json',
+      data: finalData,
+      success: function(res) {
+        if(extendUpdate.existingExtendQuantity != extendUpdate.updatedExtendQuantity) {
+          _updateCartItems(extendUpdate.extendItemUpdate);
+          return;
+        }
+//         location.reload();
+        checkInsurance(res, undefined, true);
+      },
+      error: function(res){
+        console.log(res);
+      }
+    });
+  }
+  
+  function _updateCartItems(finalData) {
+    $.ajax({
+      type: 'POST',
+      url: '/cart/update.js',
+      dataType: 'json',
+      data: {
+        updates: finalData  
+      },
+      success: function(res){
+        checkInsurance(res, undefined, true);
+//         location.reload();
+      },
+      error: function(res){
+        console.log(res);
+      }
+    });
+  }
+  
+  $(document).ready(function(){
+    
+    $('.ship-tooltip').tipr();
+    
+    $(document).on('click','.shipping-rates-calculator-desktop-container h3',function(){
+      $(this).closest('.shipping-rates-calculator-desktop-container').toggleClass('panel-open');
+      $('.shipping-rates-calculator-desktop-container').find('.cbb-shipping-rates-calculator').toggleClass('active');
+    });
+    __totalQty();
+    $(".cm-add-to-cart").click(function(){
+      $(".coverSpinner").show();
+      var cmVars = $(this).attr('data-value');
+      var data = 'id='+ cmVars + '&quantity=1';
+      $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        dataType: 'json',
+        data: data,
+        success: function(res){
+//           location.reload();
+          var paramsGet = {
+            type: 'GET',
+            url: '/cart.js',
+            dataType: 'json',
+            success: function (cartData) {
+              checkInsurance(cartData, undefined, true);
+            }
+          }
+          $.ajax(paramsGet);
+
+        },
+        error: function(res){
+          console.log(res);
+        }
+      });
+    }); 
+    var itemupdateArr = [];
+    var data=[]
+    var finalData = {};
+    $('.cart__cell--quantity select').on('change',function(){
+      $(".coverSpinner").show();
+      _initExtend();
+      var val = $(this).val();
+      var getbundleItem = $(this).closest('.cart__row.responsive-table__row').data('bundle');
+      if(getbundleItem != undefined) {
+        $('#CartProducts').find('.cart__row.responsive-table__row[data-bundle="'+getbundleItem+'"]').each(function(i){
+          itemupdateArr.push($(this).data('itemkey'));
+        });   
+      } else {
+        var varId = $(this).closest('.cart__row.responsive-table__row').data('itemkey');
+        itemupdateArr.push(varId);
+      }
+      
+      extendUpdate.attachedExtendWarrantyName = $(this).closest('.cart__row.responsive-table__row').data('extendwarranty') || '';
+      
+      if(extendUpdate.attachedExtendWarrantyName) {
+        itemupdateArr.forEach(el => {
+          finalData['id'] = '' + el;
+          finalData['quantity'] = parseInt(val);
+        });
+        updateFinalData = {
+          data: finalData,
+          val: val
+        }
+        _updateItems();
+      } else {
+        itemupdateArr.forEach(el => {
+          finalData[el] = parseInt(val);
+        }); 
+        _updateCartItems(finalData);
+      }
+    })
+    
+    $('select.extend-quantity').on('change',function(){
+      $(".coverSpinner").show();
+      _initExtend();
+      var val = $(this).val();
+      var varId = $(this).closest('.cart__row.responsive-table__row').data('itemkey');
+      
+      var extendWarrantyName = $(this).closest('.cart__row.responsive-table__row').data('extendwarranty') || '';
+      
+      if(!(extendWarrantyName)) return;
+      var cartItems =  {{cart.items | json}};
+      
+      var lineItemForPropertyUpdate = {"id": varId,"quantity": $(this).find('option').length};
+      for(var i=0; i<cartItems.length; i++) {
+        var item = cartItems[i];
+        if(cartItems[i].key != varId) continue;
+        
+        lineItemForPropertyUpdate.properties = cartItems[i].properties;
+        lineItemForPropertyUpdate.properties["Warranty added for"] = val;
+        updateProperties(lineItemForPropertyUpdate, {'extend' : extendWarrantyName}, val, cartItems);
+        break;
+      }
+    })
+    
+    $('.prescription.another > ul').each(function(){
+      let child = $(this).children().length;
+      if(!child){
+        $(this).parent().remove()
+      }
+    })
+    $('.prescription').each(function(){
+      let that = $(this);
+      that.find('ul.children > li.first').each(function(){
+        let $this = $(this);
+        let txt = $this.find('span').text();
+        $('.prescription ul.children > li.first').each(function(){
+          let $this = $(this);
+          let txt2 = $this.find('span').text();
+          if(txt2.includes('Amount')){
+            if(txt.includes(txt2)){
+              let price = formatMoney($this.closest('.children').find('.last span').text());
+              $this.closest('.remove_row').prev().find('.price span').html(price).parent().addClass('show_li');
+            }
+          }
+        })
+      })
+    })
+    $('.custom_prescription_hide').each(function(){
+      var pres = $(this).text().trim().split("\n");
+      var par = $(this).closest('.cart__row');
+      var filpres = pres.filter(function(item,index){
+        return item.trim()
+      })
+      var unipres = [];
+      filpres.forEach(t => {
+      let ele = t.slice(t.indexOf("+")+1,t.lastIndexOf(':')).replace('+',' ');
+      if(unipres.indexOf(ele.replace(' ','-')) == -1){
+        unipres.push(ele.replace(' ','-'))
+      }
+    });
+    
+      unipres.forEach(ele => {
+        if(ele == "PDs") return;
+        par.find('.custom_prescription > ul').append(`<li class="${ele}"><span>${ele.replace('-',' ')}</span>
+  <ul class="children">
+  <li><span class="Right">-</span>
+  <li><span class="Left">-</span>
+  </li></ul>
+  </li>`) 
+      });
+      
+      filpres.forEach(function(ele){
+        let val = ele.split(':');
+        let dir = val[0].split('+')[0];
+        let t = val[0];
+        let type = t.slice(t.indexOf('+')+1).replace('+','-');
+        par.find(`.custom_prescription > ul > li.${type.trim()} li span.${dir.trim()}`).text(val[1])
+
+      })
+      
+      par.find('.custom_prescription > ul > li > span').each(function(i,e){
+        let t = $(this).text();
+        par.find('.custom_prescription_mobile li.details > ul').append(`<li class="${t.replace(' ','-')}"><span>${t}</span></li>`)
+      })
+      par.find('.custom_prescription > ul > li > ul > li:first-child span').each(function(i,e){
+        let t = $(this).text();
+        par.find('.custom_prescription_mobile li.right > ul').append(`<li class="${t.replace(' ','-')}"><span>${t}</span></li>`)
+      })
+      par.find('.custom_prescription > ul > li > ul > li:last-child span').each(function(i,e){
+        let t = $(this).text();
+        par.find('.custom_prescription_mobile li.left > ul').append(`<li class="${t.replace(' ','-')}"><span>${t}</span></li>`)
+      })
+    })
+   
+    $('.proper-title-wrap').on('click',function(){
+      $(this).toggleClass('open');
+      $(this).next().slideToggle();
+    });
+    
+    $('.property_title.cx-pres').on('click',function(){
+      $(this).toggleClass('open');
+      $(this).parent().next().slideToggle();
+    });
+    
+    $('.property_title.custom_pres:not(.readers)').on('click',function(){
+      $(this).parent().next().next().next().slideToggle();
+    })
+    $('.custom_prescription ul.children > li > span').each(function(){
+      var t = $(this).text();
+
+      let parentHeaderNode = $(this).parents("ul.children").parents("li").find("span:first");
+      let header = parentHeaderNode?.text() || "";
+
+      if(t=='-' && header === "PD"){
+        $(this).closest('ul').addClass('remove_cell')
+        $(this).parent().remove()
+      }
+    })
+    $('.custom_prescription_mobile > ul > li+ li span').each(function(){
+      var $this = $(this);
+      var t = $this.text();
+      var ind = $this.parent().index();
+      var pos = $this.parents('.children').parent();
+      if(t=='-'){
+        if(pos.hasClass('right')){
+          $(this).css('opacity','0')
+          let ele = $this.closest('.custom_prescription_mobile').find('.left .children li').eq(ind)
+          ele.css({
+            'border-left':'0'
+          })
+          ele.find('span').css({
+            'position': 'relative',
+            'left': '-55%'
+          })
+        }else{
+          $(this).css('opacity','0')
+          let ele = $this.closest('.custom_prescription_mobile').find('.right .children li').eq(ind)
+          $(this).parent().css({
+            'border-left':'0'
+          })
+          ele.find('span').css({
+            'position': 'relative',
+            'right': '-55%'
+          })
+        }
+      }
+    });	
+    localStorage.removeItem('EditContactLensCartItem');	
+    $(document).on('click','a[data-id="editCartItemContactLens"]', function(){	
+      let itemUrl = $(this).attr('data-itemurl');	
+      let itemId = $(this).attr('data-itemid');	
+      let itemKey = $(this).attr('data-itemkey');	
+      let itemProperties = $(this).attr('data-properties');	
+      console.log(itemProperties);	
+ 	
+      localStorage.setItem('EditContactLensCartItem', itemProperties);	
+      	
+      window.location.href= itemUrl+'&itemid='+itemId+'&itemkey='+itemKey	
+      	
+    })
+  });
+   if($(window).width() < 992){
+    $('.property_title.custom_pres.readers').on('click',function(){
+      $(this).parent().next().next().slideToggle()
+    })
+  }
+  function __totalQty(){
+    var qty = 0;
+    $('#CartProducts').find('.cart__row.responsive-table__row').not('.options-hidden, .hide').each(function(i){
+    	qty = qty + parseInt($(this).data('itemqty'));  
+      $('.cartTotalQty').text('('+qty+')');
+      $('.site-header__cart-indicator').text(qty);
+      $('.site-header__cart-indicator ').text(qty);
+    })
+  }
+  function __updateTotal(){
+    var price = 0;
+    $('#CartProducts').find('.cart__row.responsive-table__row').not('.options-hidden, .hide').each(function(i){
+    	price = price + parseInt($(this).find('.cip').data('amt')); 
+      var priceData = formatMoney(price)
+      $('.cip-amt').html(priceData);
+    })
+  }
+  
+  function formatMoney(price) {
+    if(typeof price == 'string') {
+      price = parseInt(price.trim());
+    }
+    price = price/100;    
+  	return '<span class="money">$' + price.toFixed(2) + '</span>';
+  }
+  
+  
+  
+</script>
+<!-- Extend -- Load cart integration script -->
+{% render 'extend-cart-integration' %}
+<!-- Extend -- End Extend code -->

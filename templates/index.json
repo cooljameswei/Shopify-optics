@@ -1,0 +1,896 @@
+{
+  "sections": {
+    "1655987486925e648c": {
+      "type": "section__home_v2_slider--responsive",
+      "disabled": true,
+      "blocks": {
+        "1655987486f38531ca-0": {
+          "type": "imageSlideResponsive",
+          "settings": {
+            "horizontalAlignment": "start",
+            "verticalAlignment": "middle",
+            "padding": 10,
+            "contentSpacing": 20,
+            "backgroundColor": "rgba(0,0,0,0)",
+            "backgroundImage": "shopify:\/\/shop_images\/fix-shutterstock_1874606992_1_1.webp",
+            "backgroundImageMobile": "shopify:\/\/shop_images\/Mobile-fix-shutterstock_1874606992_1_1.webp",
+            "backgroundPosition": "middle",
+            "overlayOpacity": 0,
+            "overlayColor": "#000000",
+            "slideURL": "",
+            "heading": "Sunglasses from over 400 <br>Designer Brands For <br>Flawless Look Every Time!",
+            "headingColor": "#4c4d4f",
+            "content": "<p>Bold shapes, futuristic frames, and versatile colors to add <br\/>a touch of urban vibes to your look<\/p>",
+            "contentColor": "rgba(0,0,0,0)",
+            "button1Text": "Explore",
+            "button1Link": "shopify:\/\/collections\/sunglasses",
+            "button1Style": "primary",
+            "button1Type": "default",
+            "button2Text": "",
+            "button2Link": "",
+            "button2Style": "secondary",
+            "button2Type": "default"
+          }
+        },
+        "8ea8ea4a-86d8-4f12-99ff-020cec2bfbab": {
+          "type": "imageSlideResponsive",
+          "disabled": true,
+          "settings": {
+            "horizontalAlignment": "start",
+            "verticalAlignment": "middle",
+            "padding": 10,
+            "contentSpacing": 20,
+            "backgroundColor": "rgba(0,0,0,0)",
+            "backgroundImage": "shopify:\/\/shop_images\/fix-1146783344_1_1.webp",
+            "backgroundImageMobile": "shopify:\/\/shop_images\/fix-1146783344_1_1_59828cd0-cb1f-490e-a3d6-511c6aeeddf5.webp",
+            "backgroundPosition": "middle",
+            "overlayOpacity": 0,
+            "overlayColor": "#000000",
+            "slideURL": "",
+            "heading": "Eyeglasses That are More <br>Than Just Vision — They <br>are A Fashion Statement",
+            "headingColor": "#ffffff",
+            "content": "<p>Option to easily add Anti-Scratch, Anti-Reflective <br\/>& UV Protection Coating<\/p>",
+            "contentColor": "#ffffff",
+            "button1Text": "Explore",
+            "button1Link": "shopify:\/\/collections\/eyeglasses",
+            "button1Style": "primary",
+            "button1Type": "default",
+            "button2Text": "",
+            "button2Link": "",
+            "button2Style": "secondary",
+            "button2Type": "default"
+          }
+        },
+        "9644e43b-e270-427b-9dca-391a4d53a0ad": {
+          "type": "imageSlideResponsive",
+          "disabled": true,
+          "settings": {
+            "horizontalAlignment": "start",
+            "verticalAlignment": "middle",
+            "padding": 10,
+            "contentSpacing": 12,
+            "backgroundColor": "rgba(0,0,0,0)",
+            "backgroundImage": "shopify:\/\/shop_images\/fix-226192345_1_1.webp",
+            "backgroundImageMobile": "shopify:\/\/shop_images\/fix-226192345_1_1_2097ae34-be55-42ab-ab13-852b141b5de6.webp",
+            "backgroundPosition": "middle",
+            "overlayOpacity": 20,
+            "overlayColor": "#000000",
+            "slideURL": "",
+            "heading": "Contact Lenses for Long-<br>Lasting Comfort with <br>Exceptional Vision",
+            "headingColor": "#4c4d4f",
+            "content": "<p>Witness moments with clarity without making <br\/>any adjustments<\/p>",
+            "contentColor": "#4c4d4f",
+            "button1Text": "Explore",
+            "button1Link": "shopify:\/\/collections\/contact-lenses",
+            "button1Style": "primary",
+            "button1Type": "default",
+            "button2Text": "",
+            "button2Link": "",
+            "button2Style": "secondary",
+            "button2Type": "default"
+          }
+        }
+      },
+      "block_order": [
+        "1655987486f38531ca-0",
+        "8ea8ea4a-86d8-4f12-99ff-020cec2bfbab",
+        "9644e43b-e270-427b-9dca-391a4d53a0ad"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "default",
+        "nomargin": true,
+        "height": 570,
+        "contentColor": "rgba(0,0,0,0)",
+        "autoplay": true,
+        "animation": "scale",
+        "delayAnimation": false
+      }
+    },
+    "1657551999389e9943": {
+      "type": "section__home_v2_text-with-banner",
+      "settings": {
+        "background_img": "shopify:\/\/shop_images\/DO-main-banner_4ec93cad-4507-43e5-8bc1-cc103cca42fd.jpg",
+        "background_img_middle": "shopify:\/\/shop_images\/DO-main-banner-1024x333.jpg",
+        "mb_background_img": "shopify:\/\/shop_images\/Mobile-fix-shutterstock_1874606992_1_1_085b0593-3cc4-49d1-a26c-faf531cf4942.jpg",
+        "banner_title": "Sunglasses from over 400 <br>Designer Brands For <br>Flawless Look Every Time!",
+        "headingColor": "#4c4d4f",
+        "content": "<p>Bold shapes, futuristic frames, and versatile colors to add <br\/>a touch of urban vibes to your look<\/p>",
+        "contentColor": "#000000",
+        "btn_label": "Explore",
+        "btn_url": "shopify:\/\/collections",
+        "content_position": "left"
+      }
+    },
+    "1655991642fcac79e8": {
+      "type": "section__home_v2_image-text",
+      "blocks": {
+        "1655991641d7db7170-0": {
+          "type": "title",
+          "settings": {
+            "fullWidth": false,
+            "content": "Look Sharp and See Sharp with Our Multifocal Lenses!",
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "title",
+            "fontSize": "medium"
+          }
+        },
+        "1655991641d7db7170-1": {
+          "type": "richText",
+          "settings": {
+            "fullWidth": true,
+            "maxBWidth": 100,
+            "content": "<p>Are you tired of changing glasses based on what you’re doing? For correct age-related vision problems, check out our range of eyeglasses that are eligible to add progressive lenses. These lenses are perfect for getting freedom from switching between farsightedness and nearsightedness correction. Also, the Varilux lens option enables you to get sharp, effortless vision for near, far, and everywhere sights instantly with smooth transitions. Choose progressive lenses today for clear vision and continue pursuing personal and professional activities with confidence.<\/p>",
+            "detectLists": true,
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "base",
+            "fontSize": "base"
+          }
+        },
+        "1655991641d7db7170-2": {
+          "type": "button",
+          "settings": {
+            "fullWidth": true,
+            "text": "Explore",
+            "url": "shopify:\/\/pages\/progressive-lenses-vs-bifocal-lenses",
+            "icon": "",
+            "iconPosition": "icon--left",
+            "wideButton": false,
+            "buttonStyle": "primary",
+            "buttonType": "default",
+            "fontSize": "base",
+            "fontFamily": "base",
+            "animation": "none",
+            "animationDuration": 1000,
+            "animationInfinite": true
+          }
+        }
+      },
+      "block_order": [
+        "1655991641d7db7170-0",
+        "1655991641d7db7170-1",
+        "1655991641d7db7170-2"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "boxed",
+        "nomargin": true,
+        "scopedCSS": "##scoped { padding-top: 60px; }",
+        "height": 0,
+        "padding": 0,
+        "lineMargin": 30,
+        "backgroundColor": "#f4f4f4",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "titleAlignmentMobile": "above_img",
+        "imagePosition": "left",
+        "imageWidth": "6",
+        "image": "shopify:\/\/shop_images\/newman-checking-vision-with-new-glasses_1_1.webp",
+        "imageOverlayOpacity": 0,
+        "imageOverlayColor": "#000000"
+      }
+    },
+    "16559917102dbe2e8e": {
+      "type": "section__home_v2_image-text",
+      "blocks": {
+        "1655991709eff04e94-0": {
+          "type": "title",
+          "settings": {
+            "fullWidth": true,
+            "content": "Protect Your Eyes with Blue Light Filtering Glasses",
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "title",
+            "fontSize": "medium"
+          }
+        },
+        "1655991709eff04e94-1": {
+          "type": "richText",
+          "settings": {
+            "fullWidth": true,
+            "maxBWidth": 100,
+            "content": "<p>If you’ve ever worried about the effect of digital screens on your eyes, you may have heard about ‘blue light’ and perhaps even searched for ways to protect your eyes against it. Now face light with style! Our blue light glasses contain lenses specifically designed to reduce the amount of blue light that reaches the eye. These lenses filter blue light rays to help prevent them from entering your eye and causing potential damage. Check our collection today!<\/p>",
+            "detectLists": true,
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "base",
+            "fontSize": "base"
+          }
+        },
+        "1655991709eff04e94-2": {
+          "type": "button",
+          "settings": {
+            "fullWidth": true,
+            "text": "Explore",
+            "url": "shopify:\/\/collections\/blue-light-blocking-lenses",
+            "icon": "",
+            "iconPosition": "icon--left",
+            "wideButton": false,
+            "buttonStyle": "primary",
+            "buttonType": "default",
+            "fontSize": "base",
+            "fontFamily": "base",
+            "animation": "none",
+            "animationDuration": 1000,
+            "animationInfinite": true
+          }
+        }
+      },
+      "block_order": [
+        "1655991709eff04e94-0",
+        "1655991709eff04e94-1",
+        "1655991709eff04e94-2"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "boxed",
+        "nomargin": true,
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 0,
+        "lineMargin": 30,
+        "backgroundColor": "#f4f4f4",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "titleAlignmentMobile": "above_img",
+        "imagePosition": "right",
+        "imageWidth": "6",
+        "image": "shopify:\/\/shop_images\/newman-checking-vision-with-new-glasses_1_1_1_00be1bb9-3fd7-4dca-b7c2-651d302fe1ba.webp",
+        "badge": "shopify:\/\/shop_images\/Asset_1_2048x_1_fde15478-8675-4f87-a612-fbef0bb9ccab.webp",
+        "imageOverlayOpacity": 0,
+        "imageOverlayColor": "#000000"
+      }
+    },
+    "16559921672fb0f81b": {
+      "type": "section__home_v2_large-banner",
+      "settings": {
+        "background_img": "shopify:\/\/shop_images\/transition_1_1.webp",
+        "mb_background_img": "shopify:\/\/shop_images\/mobile-transition_1_1.webp",
+        "banner_title": "Adapt to All Light Situations with Transition Lenses",
+        "content": "<p>Take control of your light with transition lenses — available with a range of tint colors and designs to suit your vision needs and personal style. Transition glasses respond to the light around you. They intelligently change from clear to dark when you go outdoors and back to clear when you return. Get the perfect pair of transition eyeglasses from our collection. Explore now! <\/p>",
+        "btn_label": "Explore",
+        "btn_url": "shopify:\/\/collections\/all",
+        "content_position": "right"
+      }
+    },
+    "1655993809b3774b33": {
+      "type": "section__home_v2_featured-collection-tabs",
+      "blocks": {
+        "4ae653dd-317d-4cc9-a454-ed5f36f20903": {
+          "type": "fplistCollection",
+          "settings": {
+            "collection": [
+              "versace-2150q-sunglasses",
+              "michael-kors-chelsea-5004-sunglasses",
+              "gucci-urban-gg0010s-sunglasses",
+              "burberry-4160-sunglasses",
+              "blik-vision-201903-eyeglasses",
+              "blik-vision-201906-eyeglasses",
+              "blik-vision-201913-eyeglasses",
+              "blik-vision-201912-eyeglasses",
+              "blik-vision-201915-eyeglasses",
+              "blik-vision-201914-eyeglasses",
+              "acuvue-1-day-moist-daily-contact-lenses-30pk-90pk",
+              "acuvue-1-day-moist-multifocal-daily-contact-lenses-30pk-90pk",
+              "acuvue-oasys-1-day-daily-contact-lenses-90pk",
+              "acuvue-oasys-1-day-toric-daily-contact-lenses-for-astigmatism-90pk",
+              "air-optix-night-day-aqua-monthly-contact-lenses-6pk",
+              "air-optix-plus-hydraglyde-monthly-contact-lenses-6pk"
+            ],
+            "title": "All",
+            "btn_label": "Explore",
+            "btn_url": "shopify:\/\/collections",
+            "banner_1_image": "shopify:\/\/shop_images\/Mask_group.jpg",
+            "banner_1_title": "sunglasses <br>collection",
+            "banner_1_btn_label": "shop now",
+            "banner_1_btn_url": "shopify:\/\/collections\/sunglasses",
+            "banner_1_position": 4,
+            "banner_2_image": "shopify:\/\/shop_images\/travel-agent-hearing-customer-desires-portrait-good-looking-european-businesswoman-blue-blouse-glasses-holding-hands-pockets-smiling-being-friendly-polite-gray-wall_1.jpg",
+            "banner_2_title": "Eyeglasses <br>collection",
+            "banner_2_btn_label": "Shop Now",
+            "banner_2_btn_url": "https:\/\/designeroptics.com\/collections\/eyeglasses",
+            "banner_2_position": 12
+          }
+        },
+        "c442f0e5-2284-4f91-a01b-3f021d34755c": {
+          "type": "fplistCollection",
+          "settings": {
+            "collection": [
+              "versace-medusa-biggie-sunglasses-versace-4361",
+              "versace-medusa-charm-2199-sunglasses",
+              "burberry-4291-sunglasses",
+              "versace-4393-sunglasses",
+              "michael-kors-chelsea-5004-sunglasses",
+              "versace-2150q-sunglasses",
+              "prada-17ws-sunglasses",
+              "versace-4296-sunglasses",
+              "gucci-urban-gg0010s-sunglasses",
+              "carrera-1001-sunglasses"
+            ],
+            "title": "Sunglasses",
+            "btn_label": "Explore",
+            "btn_url": "shopify:\/\/collections\/sunglasses",
+            "banner_1_image": "shopify:\/\/shop_images\/Prescription-banner-620x300.jpg",
+            "banner_1_title": "Prescription Sunglasses",
+            "banner_1_btn_label": "Shop Now",
+            "banner_1_btn_url": "shopify:\/\/collections\/prescription-sunglasses",
+            "banner_1_position": 4,
+            "banner_2_title": "",
+            "banner_2_btn_label": "",
+            "banner_2_btn_url": "",
+            "banner_2_position": 4
+          }
+        },
+        "115d13ea-2fcb-41f9-b9f4-bdb7e48a3b32": {
+          "type": "fplistCollection",
+          "settings": {
+            "collection": [
+              "1-day-acuvue-define-vivid-daily-contact-lenses-30pk",
+              "acuvue-1-day-moist-daily-contact-lenses-30pk-90pk",
+              "acuvue-vita-toric-monthly-contact-lenses-for-astigmatism-6pk",
+              "air-optix-plus-hydraglyde-monthly-contact-lenses-6pk",
+              "avaira-vitality-bi-weekly-contact-lenses-6pk",
+              "biotrue-oneday-daily-contact-lenses-30pk-90pk",
+              "extreme-h20-weekly-8-2-14-2-contact-lenses-12pk",
+              "optima-38-spare-pair-yearly-contact-lenses-2pk",
+              "precision-1-toric-daily-contact-lenses-for-astigmatism-30pk-90pk",
+              "precision-1-daily-contact-lenses-30pk-90pk"
+            ],
+            "title": "Contact Lenses",
+            "btn_label": "Explore",
+            "btn_url": "shopify:\/\/collections\/contact-lenses",
+            "banner_1_image": "shopify:\/\/shop_images\/contact-lens-tab-banner-small.jpg",
+            "banner_1_title": "Contact Lenses",
+            "banner_1_btn_label": "Shop Now",
+            "banner_1_btn_url": "shopify:\/\/collections\/contact-lenses",
+            "banner_1_position": 6,
+            "banner_2_title": "",
+            "banner_2_btn_label": "",
+            "banner_2_btn_url": "",
+            "banner_2_position": 4
+          }
+        },
+        "a2dd21b3-211c-460f-8d8b-07050230b6a8": {
+          "type": "fplistCollection",
+          "settings": {
+            "collection": [
+              "blik-vision-201928-eyeglasses-1",
+              "blik-vision-201926-eyeglasses-1",
+              "blik-vision-201993-eyeglasses-1",
+              "blik-vision-201989-eyeglasses-1",
+              "blik-vision-201907-eyeglasses-1",
+              "blik-vision-201958-eyeglasses-1",
+              "blik-vision-201992-eyeglasses-1",
+              "blik-vision-201997-eyeglasses-1"
+            ],
+            "title": "Bluelight Blocking Glasses",
+            "btn_label": "Explore",
+            "btn_url": "shopify:\/\/collections\/blue-light-blocking-lenses",
+            "banner_1_title": "",
+            "banner_1_btn_label": "",
+            "banner_1_btn_url": "",
+            "banner_1_position": 4,
+            "banner_2_title": "",
+            "banner_2_btn_label": "",
+            "banner_2_btn_url": "",
+            "banner_2_position": 4
+          }
+        }
+      },
+      "block_order": [
+        "4ae653dd-317d-4cc9-a454-ed5f36f20903",
+        "c442f0e5-2284-4f91-a01b-3f021d34755c",
+        "115d13ea-2fcb-41f9-b9f4-bdb7e48a3b32",
+        "a2dd21b3-211c-460f-8d8b-07050230b6a8"
+      ],
+      "settings": {
+        "tags-enable": false,
+        "displayFor": "display--both",
+        "layout": "default",
+        "nomargin": false,
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 0,
+        "backgroundColor": "#f4f4f4",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "center",
+        "verticalAlignment": "middle",
+        "heading": "Trending Glasses",
+        "headingColor": "#4c4d4f",
+        "subheading": "",
+        "subheadingColor": "rgba(0,0,0,0)",
+        "subheadingPosition": "above",
+        "headingAlignment": "center",
+        "prdtCount": 12,
+        "showMore": true,
+        "showMoreAlignment": "center"
+      }
+    },
+    "165599595428ca6814": {
+      "type": "section__home_v2_image-text",
+      "blocks": {
+        "1655995953a914d0cb-0": {
+          "type": "title",
+          "settings": {
+            "fullWidth": true,
+            "content": "Contact Lenses for Freedom to Experience Life without Compromise",
+            "textColor": "#4c4d4f",
+            "fontFamily": "title",
+            "fontSize": "medium"
+          }
+        },
+        "1655995953a914d0cb-1": {
+          "type": "richText",
+          "settings": {
+            "fullWidth": true,
+            "maxBWidth": 100,
+            "content": "<p>Contact lenses can help you live life to the fullest, giving you the confidence to play your favorite sport, explore places on holiday, or enjoy a night out with friends. We bring you contact lenses that are expertly designed for long-lasting comfort, exceptional vision, high level of UV blocking, and are easy to handle.<\/p><p>Save more with our Subscription options for your favorite brand of Contact Lenses today!<\/p>",
+            "detectLists": true,
+            "textColor": "rgba(0,0,0,0)",
+            "fontFamily": "base",
+            "fontSize": "base"
+          }
+        },
+        "ea221bd6-c849-4fee-b9fe-7deb9b992225": {
+          "type": "icon-grid",
+          "settings": {
+            "icon_1": "shopify:\/\/shop_images\/Group_1.webp",
+            "icon_1_title": "Full vision",
+            "icon_2": "shopify:\/\/shop_images\/Group_1_1.webp",
+            "icon_2_title": "Active lifestyle & sports"
+          }
+        },
+        "1655995953a914d0cb-2": {
+          "type": "button",
+          "settings": {
+            "fullWidth": true,
+            "text": "Explore",
+            "url": "shopify:\/\/collections\/contact-lenses",
+            "icon": "",
+            "iconPosition": "icon--left",
+            "wideButton": false,
+            "buttonStyle": "primary",
+            "buttonType": "default",
+            "fontSize": "base",
+            "fontFamily": "base",
+            "animation": "none",
+            "animationDuration": 1000,
+            "animationInfinite": true
+          }
+        }
+      },
+      "block_order": [
+        "1655995953a914d0cb-0",
+        "1655995953a914d0cb-1",
+        "ea221bd6-c849-4fee-b9fe-7deb9b992225",
+        "1655995953a914d0cb-2"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "boxed",
+        "nomargin": true,
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 0,
+        "lineMargin": 30,
+        "backgroundColor": "#f4f4f4",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "contentColor": "rgba(0,0,0,0)",
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "titleAlignmentMobile": "above_img",
+        "imagePosition": "right",
+        "imageWidth": "6",
+        "image": "shopify:\/\/shop_images\/woman-rsquo-s-eye-with-smart-contact-lens_1_1.webp",
+        "imageOverlayOpacity": 0,
+        "imageOverlayColor": "#000000"
+      }
+    },
+    "165599335449df07a4": {
+      "type": "section__home_v2_logolist",
+      "blocks": {
+        "6b35c618-5ad3-4c98-a644-01b2a98e84f3": {
+          "type": "logoListLogo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/gucci_5aa1a755-86b5-4fe6-be49-7a7eb2d3e4c1.png",
+            "logoLink": "shopify:\/\/collections\/gucci"
+          }
+        },
+        "eeae6dfb-f66e-466b-8308-ad74e5d13706": {
+          "type": "logoListLogo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/ray.png",
+            "logoLink": "shopify:\/\/collections\/ray-ban"
+          }
+        },
+        "c12861a4-f296-4175-9fd5-c89ebc82011b": {
+          "type": "logoListLogo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/versace_0783103e-3f4c-4deb-8858-befd7c31bcf6.png",
+            "logoLink": "shopify:\/\/collections\/versace"
+          }
+        },
+        "a1a0da83-3c27-4334-a285-bcbbf4407f29": {
+          "type": "logoListLogo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/burberyy.png",
+            "logoLink": "shopify:\/\/collections\/burberry"
+          }
+        },
+        "c558331e-8a00-47bb-8948-351f0e3da266": {
+          "type": "logoListLogo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/michael.png",
+            "logoLink": "shopify:\/\/collections\/michael-kors-sunglasses-and-eyeglasses"
+          }
+        },
+        "860f1399-3743-4fdf-b8c5-529f3b95e706": {
+          "type": "logoListLogo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/kate.png",
+            "logoLink": "shopify:\/\/collections\/kate-spade"
+          }
+        },
+        "767fe180-3b6d-41e6-a0fd-f6ca51919772": {
+          "type": "logoListLogo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/nike_bb1772c3-4c39-4fc7-82e0-f58ef0a6b938.png",
+            "logoLink": "shopify:\/\/collections\/nike"
+          }
+        },
+        "af3c03fe-0b1a-46d2-a66b-8b1e9fa346f5": {
+          "type": "logoListLogo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/tory.png",
+            "logoLink": "shopify:\/\/collections\/tory-burch"
+          }
+        }
+      },
+      "block_order": [
+        "6b35c618-5ad3-4c98-a644-01b2a98e84f3",
+        "eeae6dfb-f66e-466b-8308-ad74e5d13706",
+        "c12861a4-f296-4175-9fd5-c89ebc82011b",
+        "a1a0da83-3c27-4334-a285-bcbbf4407f29",
+        "c558331e-8a00-47bb-8948-351f0e3da266",
+        "860f1399-3743-4fdf-b8c5-529f3b95e706",
+        "767fe180-3b6d-41e6-a0fd-f6ca51919772",
+        "af3c03fe-0b1a-46d2-a66b-8b1e9fa346f5"
+      ],
+      "settings": {
+        "displayFor": "display--both",
+        "layout": "default",
+        "nomargin": true,
+        "scopedCSS": "",
+        "height": 0,
+        "padding": 0,
+        "lineMargin": 12,
+        "backgroundColor": "#f4f4f4",
+        "backgroundPosition": "middle",
+        "backgroundFilter": "none",
+        "backdropIntensity": 50,
+        "parallax": false,
+        "backgroundPattern": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000",
+        "horizontalAlignment": "center",
+        "verticalAlignment": "middle",
+        "heading": "",
+        "headingColor": "rgba(0,0,0,0)",
+        "subheading": "",
+        "subheadingColor": "rgba(0,0,0,0)",
+        "subheadingPosition": "above",
+        "headingAlignment": "center",
+        "hover": "none"
+      }
+    },
+    "1637578304128679fb": {
+      "type": "home-large-banner",
+      "disabled": true,
+      "settings": {
+        "banner_title": "",
+        "best_seller_banner_enable": true,
+        "background_img": "shopify:\/\/shop_images\/1280x425.jpg",
+        "mbackground_img": "shopify:\/\/shop_images\/384x425.jpg",
+        "content": "<h2>Over 400<span>DESIGNER BRANDS<\/span>\n<\/h2>",
+        "heading-1": "All Types of Prescriptions",
+        "sub-heading-1": "Single Vision, Progressive, Bi-Focal, Reading Glasses",
+        "heading-2": "Highest Quality Lenses",
+        "sub-heading-2": "with add-ons such as Crizal, Transitions, & more...",
+        "background_link": "https:\/\/designeroptics.com\/collections\/all"
+      }
+    },
+    "1638687137b63ec835": {
+      "type": "home-brands",
+      "disabled": true,
+      "blocks": {
+        "06b35b3f-73b3-4164-806d-d613d59ac2b1": {
+          "type": "select",
+          "settings": {
+            "collection": "gucci"
+          }
+        },
+        "1f857d33-e6c0-40d2-b947-5932b717919a": {
+          "type": "select",
+          "settings": {
+            "collection": "ray-ban"
+          }
+        },
+        "bbaff31c-4f7d-42a1-bddd-85fa4f2e38b2": {
+          "type": "select",
+          "settings": {
+            "collection": "versace"
+          }
+        },
+        "6cdb9e6e-964d-4b3d-a8a3-c231897d158d": {
+          "type": "select",
+          "settings": {
+            "collection": "burberry"
+          }
+        },
+        "12594f58-15f0-49ba-9336-446d4b979d7a": {
+          "type": "select",
+          "settings": {
+            "collection": "tiffany-1"
+          }
+        },
+        "40a70e51-3bc9-46e1-b658-2e38d283626d": {
+          "type": "select",
+          "settings": {
+            "collection": "michael-kors-sunglasses-and-eyeglasses"
+          }
+        },
+        "23856e5d-1f64-479a-8b52-dde1ed91e270": {
+          "type": "select",
+          "settings": {
+            "collection": "kate-spade"
+          }
+        },
+        "b86b48d7-715e-4187-a1ec-5c4d561107dd": {
+          "type": "select",
+          "settings": {
+            "collection": "prada"
+          }
+        },
+        "e1509817-ad47-4e1e-aa3c-3a8ccf2174a7": {
+          "type": "select",
+          "settings": {
+            "collection": "tiffany-1"
+          }
+        },
+        "9748b015-e0e9-4500-bf77-03862970fd8e": {
+          "type": "select",
+          "settings": {
+            "collection": "nike"
+          }
+        },
+        "f08ff5ea-8b05-4e2b-9fed-06617dbc10fd": {
+          "type": "select",
+          "disabled": true,
+          "settings": {
+            "collection": "carrera"
+          }
+        },
+        "1a6bcb72-ebcf-49f6-8e1b-a94472830a77": {
+          "type": "select",
+          "settings": {
+            "collection": "tory-burch"
+          }
+        },
+        "62f4df07-edf8-4c0d-8d57-8caf7baf3716": {
+          "type": "select",
+          "disabled": true,
+          "settings": {
+            "collection": "tom-ford"
+          }
+        }
+      },
+      "block_order": [
+        "06b35b3f-73b3-4164-806d-d613d59ac2b1",
+        "1f857d33-e6c0-40d2-b947-5932b717919a",
+        "bbaff31c-4f7d-42a1-bddd-85fa4f2e38b2",
+        "6cdb9e6e-964d-4b3d-a8a3-c231897d158d",
+        "12594f58-15f0-49ba-9336-446d4b979d7a",
+        "40a70e51-3bc9-46e1-b658-2e38d283626d",
+        "23856e5d-1f64-479a-8b52-dde1ed91e270",
+        "b86b48d7-715e-4187-a1ec-5c4d561107dd",
+        "e1509817-ad47-4e1e-aa3c-3a8ccf2174a7",
+        "9748b015-e0e9-4500-bf77-03862970fd8e",
+        "f08ff5ea-8b05-4e2b-9fed-06617dbc10fd",
+        "1a6bcb72-ebcf-49f6-8e1b-a94472830a77",
+        "62f4df07-edf8-4c0d-8d57-8caf7baf3716"
+      ],
+      "settings": {
+        "heading": ""
+      }
+    },
+    "1639078357f47d3ad1": {
+      "type": "rb-banner-with-slider",
+      "disabled": true,
+      "settings": {
+        "image_2": "shopify:\/\/shop_images\/sunglasses_600x600_63bfaa8d-c473-455b-ae9d-09aaeb7b9266.jpg",
+        "image_2_title": "Sunglasses",
+        "image_2_link": "shopify:\/\/collections\/sunglasses",
+        "image_3": "shopify:\/\/shop_images\/eyeglasses_600x600_6ec02754-b4aa-4526-b77d-ce1d3da26818.jpg",
+        "image_3_title": "Eyeglasses",
+        "image_3_link": "shopify:\/\/collections\/eyeglasses"
+      }
+    },
+    "1632903382b829da73": {
+      "type": "rb-shop-by",
+      "disabled": true,
+      "settings": {
+        "shop_by_title": "",
+        "section_1": "shopify:\/\/shop_images\/men_800x800_0c4d29bb-5b22-40ad-82f9-75ed7cd67134.jpg",
+        "section_1_title": "MEN",
+        "section_1_link": "https:\/\/designeroptics.com\/collections\/all?pf_t_gender=Male",
+        "section_2": "shopify:\/\/shop_images\/women_800x800_71d2662e-105c-4ca9-915c-6e9e8226e033.jpg",
+        "section_2_title": "WOMEN",
+        "section_2_link": "https:\/\/designeroptics.com\/collections\/all?pf_t_gender=Female&pf_t_gender=Unisex",
+        "section_3": "shopify:\/\/shop_images\/latest_800x800_c487aac4-4521-4f58-b315-300fdcd2de2c.jpg",
+        "section_3_title": "LATEST",
+        "section_3_link": "shopify:\/\/collections\/newest-products"
+      }
+    },
+    "1632829073dccae4dd": {
+      "type": "rb-banner-3-images",
+      "disabled": true,
+      "settings": {
+        "image_1": "shopify:\/\/shop_images\/cyber-monday-sale-banner-template-for-business-promotion-vector-id1270628141.jpg",
+        "image_1_link": "shopify:\/\/collections\/march-madness",
+        "ray_ban_link": "",
+        "image_2": "shopify:\/\/shop_images\/sunglasses_600x600_63bfaa8d-c473-455b-ae9d-09aaeb7b9266.jpg",
+        "image_2_title": "Sunglasses",
+        "image_2_link": "shopify:\/\/collections\/sunglasses",
+        "image_3": "shopify:\/\/shop_images\/eyeglasses_600x600_6ec02754-b4aa-4526-b77d-ce1d3da26818.jpg",
+        "image_3_title": "Eyeglasses",
+        "image_3_link": "shopify:\/\/collections\/eyeglasses"
+      }
+    },
+    "16328393815e18f6d4": {
+      "type": "rb-best-sellers",
+      "disabled": true,
+      "settings": {
+        "shop_seller_banner_enable": true,
+        "background_img": "shopify:\/\/shop_images\/aviator_1250x1250_dbcd3393-45f5-4393-9c8e-449c5468047e.jpg",
+        "mbackground_img": "shopify:\/\/shop_images\/470425.jpg",
+        "background_link": "",
+        "header": "AVIATOR",
+        "content": "Worn with pride by the heroes of the past and the high-flyers of today, the Aviator is what made Ray-Ban the most known sunglasses brand in history and is today a never out-of-style choice.",
+        "shop_now_link": "shopify:\/\/collections\/aviator",
+        "icon_1": "shopify:\/\/shop_images\/aviator_189x166_189x166.progressive_c4b2277f-d3e3-4da2-977d-01e10cddb7cd.jpg",
+        "icon_1_title": "AVIATOR",
+        "icon_1_link": "shopify:\/\/collections\/aviator",
+        "icon_2": "shopify:\/\/shop_images\/clubmaster_189x166_322e9c29-ecd9-4c80-9775-34daef08b0a5.jpg",
+        "icon_2_title": "CLUBMASTER",
+        "icon_2_link": "shopify:\/\/collections\/clubmaster",
+        "icon_3": "shopify:\/\/shop_images\/round_189x166_f9fc928d-af85-4920-b8d3-56a71efb978b.jpg",
+        "icon_3_title": "ROUND",
+        "icon_3_link": "shopify:\/\/collections\/round",
+        "icon_4": "shopify:\/\/shop_images\/square_189x166_ae098927-8de7-4b74-a324-5c9023b678e9.jpg",
+        "icon_4_title": "SQUARE",
+        "icon_4_link": "shopify:\/\/collections\/square-1",
+        "icon_5": "shopify:\/\/shop_images\/wayfarer_189x166_e30d0991-5587-4ef3-907f-5a785cf6dc67.jpg",
+        "icon_5_title": "WAYFARER",
+        "icon_5_link": "shopify:\/\/collections\/square"
+      }
+    },
+    "16329045276841d054": {
+      "type": "rb-video",
+      "disabled": true,
+      "settings": {
+        "video_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0602\/7139\/5024\/files\/video.mp4?v=1632904710",
+        "video_preview": "shopify:\/\/shop_images\/video_preview_1400x1400_ea5d720f-ebb7-414e-9c9d-b77399684ddc.jpg",
+        "mvideo_preview": "shopify:\/\/shop_images\/390450.jpg"
+      }
+    },
+    "1637589827b6290d5c": {
+      "type": "text-columns-with-images",
+      "disabled": true,
+      "blocks": {
+        "16375898275b1aa607-0": {
+          "type": "text_block",
+          "settings": {
+            "title": "No Shipping Costs",
+            "text": "<p>Free delivery to anywhere in the US on all orders<\/p>",
+            "image": "shopify:\/\/shop_images\/shipping-materials-flatlay_1728x_4fea7e9f-ce61-4eef-88e6-06815b691805.jpg",
+            "image_align": "top center",
+            "link": ""
+          }
+        },
+        "16375898275b1aa607-1": {
+          "type": "text_block",
+          "settings": {
+            "title": "Authorized Retailer",
+            "text": "<p>We are an authorized dealer of the top designer brands<\/p>",
+            "image": "shopify:\/\/shop_images\/bigstock-Add-To-Cart-Online-Order-Stor-161053046_1728x_ab772510-0738-486b-8e00-e2e1aee5dc24.jpg",
+            "image_align": "top center",
+            "link": "shopify:\/\/pages\/about-us"
+          }
+        },
+        "16375898275b1aa607-2": {
+          "type": "text_block",
+          "settings": {
+            "title": "Lowest Prices",
+            "text": "<p>Our guarantee promises to beat the price of authorized competitor<\/p>",
+            "image": "shopify:\/\/shop_images\/bigstock-Portrait-Of-A-Fantastic-Africa-191451577_1728x_392a3bf0-530f-4821-8892-12a7a8728200.jpg",
+            "image_align": "top center",
+            "link": "shopify:\/\/pages\/price-match"
+          }
+        }
+      },
+      "block_order": [
+        "16375898275b1aa607-0",
+        "16375898275b1aa607-1",
+        "16375898275b1aa607-2"
+      ],
+      "settings": {
+        "title": "WHY DESIGNER OPTICS IS THE SMART CHOICE"
+      }
+    }
+  },
+  "order": [
+    "1655987486925e648c",
+    "1657551999389e9943",
+    "1655991642fcac79e8",
+    "16559917102dbe2e8e",
+    "16559921672fb0f81b",
+    "1655993809b3774b33",
+    "165599595428ca6814",
+    "165599335449df07a4",
+    "1637578304128679fb",
+    "1638687137b63ec835",
+    "1639078357f47d3ad1",
+    "1632903382b829da73",
+    "1632829073dccae4dd",
+    "16328393815e18f6d4",
+    "16329045276841d054",
+    "1637589827b6290d5c"
+  ]
+}

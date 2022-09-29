@@ -1,0 +1,65 @@
+<script defer>
+    window.ATC_GRID_TEMPLATE.addToCartCTA = (mode, variant = undefined, quantity = undefined, current_product_id = undefined) => {
+        let __this = event;
+        const toggleATCState = (disabled = false) => {
+            let buyButtons = document.querySelectorAll(
+                `[data-buy-button="${current_product_id}"]`);
+            if (buyButtons) {
+                buyButtons = Array.prototype.slice.call(buyButtons);
+                for (let index = 0; index < buyButtons.length; index++) {
+                    let _buyButton = buyButtons[index];
+                    _buyButton.disabled = disabled
+                }
+            }
+        }
+        switch (mode) {
+            case "variant_mode":
+                current_product_id && toggleATCState(true);
+                let _quantity2 = document.querySelector('[name="quantity"]') ? Number(document.querySelector(
+                    '[name="quantity"]').value) : quantity;
+                if (window.Extend && window.ExtendShopify) {
+                    Extend.modal.open({
+                        referenceId: variant,
+                        onClose: function (plan, product) {
+                            if (plan && product) {
+                                window.ExtendShopify.addPlanToCart({plan, product, quantity:_quantity2},
+                                function () {
+                                    BoosterTheme.cart.addToCartJSON(__this, {
+                                        items: [{
+                                            id: variant,
+                                            quantity: _quantity2,
+                                            properties: {
+                                                "Extend Title": plan.title,
+                                                "Extend Price": BoosterTheme.cfx.formatMoney(plan.price),
+                                                "Term": `${(Number(plan.term)/12) <= 1 ? `${Number(plan.term)/12} year - sold by Extend` : `${Number(plan.term)/12}  years - sold by Extend` }`,
+                                                "extend_exist": "true",
+                                                "ExtendVariantTitle": `${plan.planId}-${plan.price}`,
+                                                "Warranty added for": _quantity2
+                                            }
+                                        }]
+                                    });
+                                });
+                            } else {
+                                BoosterTheme.cart.addToCartJSON(__this, {
+                                    items: [{
+                                        id: variant,
+                                        quantity: _quantity2
+                                    }]
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    BoosterTheme.cart.addToCartJSON(__this, {
+                        items: [{
+                            id: variant,
+                            quantity: _quantity2
+                        }]
+                    });
+                }
+                break;
+            default:
+                break;
+        }
+    }
+</script>

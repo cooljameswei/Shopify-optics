@@ -1,0 +1,17 @@
+{% if step == 'item_row_class' %}
+	{% if item.properties._options_group_id %}options-group group-id-{{ item.properties._options_group_id }}{% endif %}
+	{% if item.properties._options_hidden %} options-hidden{% endif %}
+{% endif %}
+
+{% if step == 'money_line' %}
+  {% if item.properties._options_group_id and item.properties._options_hidden == nil %}
+    {% assign guid = item.properties["_options_group_id"] %}
+    {% for item2 in cart.items %}
+      {% if item2.properties._options_hidden and item2.properties["_options_group_id"] == guid %}
+        <div class="options-additional-item">
+          + {{ item2.line_price | money }}
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}

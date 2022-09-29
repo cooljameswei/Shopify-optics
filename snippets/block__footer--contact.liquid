@@ -1,0 +1,95 @@
+<div class="footer__contact {{block.settings.horizontalAlignment-}}">
+{%- if block.settings.heading != blank -%}<span class="footer__title">{{block.settings.heading}}</span>{%-endif-%}
+
+{% if block.settings.emailText != blank %}
+{% assign email = block.settings.emailText %}
+{% elsif settings.storeEmail != blank %}
+{% assign email = settings.storeEmail %}
+{% else %}
+{% assign email = false %}
+{% endif %}
+{%- if email -%}
+   <a href="mailto:{{email}}">{{email}}</a> 
+{%- endif -%}
+
+{% if block.settings.phoneText != blank %}
+{% assign phone = block.settings.phoneText %}
+{% elsif settings.storePhone != blank %}
+{% assign phone = settings.storestorePhoneEmail %}
+{% else %}
+{% assign phone = false %}
+{% endif %}
+{%- if phone -%}
+    <a href="tel:{{phone}}">tel. {{phone}}</a>
+{%- endif -%}
+
+
+{%- if settings.storeLocation != blank -%}
+   <a>Location: {{settings.storeLocation}}</a> 
+{%- endif -%}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+   "name": "Contact",
+   "type": "footerContact",
+   "settings": [
+         {
+            "id": "width",
+            "label": "Width",
+            "type": "select",
+            "options": [
+               {"value": "auto", "label": "Auto"},
+               {"value": "12", "label": "100%"},
+               {"value": "9", "label": "75%"},
+               {"value": "8", "label": "66%"},
+               {"value": "6", "label": "50%"},
+               {"value": "4", "label": "33%"},
+               {"value": "3", "label": "25%"},
+               {"value": "1-5", "label": "20%"}
+            ],
+            "default": "auto"
+         },
+         {
+            "type": "select",
+            "id": "horizontalAlignment",
+            "label": "Content alignment (left to right)",
+            "options": [
+               {"value": "start", "label": "Left"},
+               {"value": "center", "label": "Center"},
+               {"value": "end", "label": "Right"}
+            ],
+            "default": "center"
+         },
+         {
+            "type": "select",
+            "id": "verticalAlignment",
+            "label": "Content alignment (top to bottom)",
+            "options": [
+               {"value": "top", "label": "Top"},
+               {"value": "middle", "label": "Middle"},
+               {"value": "bottom", "label": "Bottom"}
+            ],
+            "default": "middle"
+         },
+         {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "default": "TITLE"
+         },
+         {
+            "type": "text",
+            "id": "phoneText",
+            "label": "Phone text"
+         },
+         {
+            "type": "text",
+            "id": "emailText",
+            "label": "Email text"
+         }
+   ]
+}
+{% endblockdef %}
+{% endcomment %}

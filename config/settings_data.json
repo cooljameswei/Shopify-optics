@@ -1,0 +1,915 @@
+{
+  "current": {
+    "defaultLogo": "shopify:\/\/shop_images\/new-logo-white_250x_1_24d8bbf2-06e8-4d79-8439-e727713ea262.png",
+    "transparentLogo": "shopify:\/\/shop_images\/logo_footer_1.png",
+    "mobileLogo": "shopify:\/\/shop_images\/new-logo-white_250x_1_24d8bbf2-06e8-4d79-8439-e727713ea262.png",
+    "sFacebook": "https:\/\/www.facebook.com\/DesignerOpticscom\/",
+    "sInstagram": "https:\/\/www.instagram.com\/designer_optics\/",
+    "sTruthsocial": "https:\/\/truthsocial.com\/@DesignerOptics",
+    "sTruthsocialIcon": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!-- Generator: Adobe Illustrator 26.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->\n<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 800 800\" style=\"enable-background:new 0 0 800 800;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.st0{fill:#9F9F9F;}\n\t.st1{display:none;}\n\t.st2{display:inline;}\n\t.st3{fill:#FDFDFD;}\n<\/style>\n<path class=\"st0\" d=\"M626.78,0.16H173.19C77.53,0.16-0.02,77.71-0.02,173.37v453.59c0,95.66,77.55,173.21,173.21,173.21h453.59\n\tc95.66,0,173.21-77.55,173.21-173.21V173.37C799.98,77.71,722.44,0.16,626.78,0.16z M277.89,136.36\n\tc-0.02,43.01-0.02,86.01-0.02,129.02c0,9.6-0.01,9.6-9.89,9.6c-49.81,0-99.62-0.01-149.43,0.03c-2.66,0-5.31,0.37-7.97,0.57\n\tc0-49.19,0-98.38,0-147.86c55.89,0,111.79,0,167.68,0C278.13,130.59,277.89,133.48,277.89,136.36z M689.24,671.67\n\tc-0.49-0.1-0.98-0.28-1.47-0.28c-43.22-0.02-86.44-0.1-129.66,0.11c-4.09,0.02-5.23-0.87-5.22-4.82c0.1-36.31,0.1-72.63-0.01-108.94\n\tc-0.01-3.3,1.02-4.42,4.21-4.23c2.99,0.17,6-0.04,9.01-0.04c41.05,0.05,82.1,0.11,123.15,0.17\n\tC689.24,592.98,689.24,632.32,689.24,671.67z M688.82,135.07c-0.03,44.1-0.13,88.19,0.1,132.29c0.03,5.93-1.59,7.77-7.65,7.75\n\tc-50.91-0.22-101.82-0.13-152.73-0.13c-8.6,0-8.62,0.01-8.62,8.88c0,126.29,0,252.58,0,378.86c0,9.89,0,9.89-10.18,9.89\n\tc-51.53,0-103.07,0-154.6,0c-9.22,0-9.22,0-9.22-9c0-175.77,0-351.54-0.02-527.3c0-2.87-0.37-5.74-0.56-8.61\n\tc114.69,0,229.37,0,344.06,0C689.19,130.16,688.82,132.61,688.82,135.07z\"><\/path>\n<g class=\"st1\">\n\t<g class=\"st2\">\n\t\t<path class=\"st0\" d=\"M599.93,262.04c0,92.3,0,184.6,0,276.9c-1.59,1.11-1.31,2.97-1.71,4.5c-7.57,29.49-26.2,47.73-55.7,55.02\n\t\t\tc-1.53,0.38-3.41-0.13-4.57,1.46c-92.3,0-184.6,0-276.9,0c-1.11-1.59-2.97-1.32-4.5-1.71c-29.07-7.45-47.31-25.69-54.76-54.76\n\t\t\tc-0.39-1.53-0.13-3.39-1.71-4.5c0-92.3,0-184.6,0-276.9c1.26-0.92,0.97-2.39,1.26-3.64c7.12-30.15,25.55-49.18,55.7-56.74\n\t\t\tc1.37-0.34,3.07-0.08,4.01-1.59c92.3,0,184.6,0,276.9,0c0.86,1.39,2.37,0.96,3.6,1.25c30.81,7.28,49.87,26.3,57.13,57.13\n\t\t\tC598.97,259.68,598.54,261.19,599.93,262.04z M360.87,399.48c0,47.64,0,95.28,0,142.92c0,7.23,0,7.23,6.98,7.23\n\t\t\tc27.49,0,54.97,0,82.46,0c6.77,0,6.77-0.01,6.77-6.86c0-68.46,0.04-136.93-0.1-205.39c-0.01-4.72,1.2-6.32,6.11-6.28\n\t\t\tc26.32,0.22,52.64,0.1,78.96,0.1c7.51,0,7.52,0,7.52-7.25c0.01-22.32,0.01-44.64,0-66.96c0-6.77-0.02-6.77-6.92-6.77\n\t\t\tc-58.3,0-116.6,0-174.91,0c-6.86,0-6.87,0.01-6.87,6.83C360.87,304.53,360.87,352.01,360.87,399.48z M278.55,331.22\n\t\t\tc13.65,0,27.3-0.09,40.95,0.06c3.75,0.04,5.36-0.98,5.33-5.04c-0.14-23.64-0.13-47.27-0.01-70.91c0.02-3.87-1.21-5.21-5.17-5.19\n\t\t\tc-27.46,0.14-54.93,0.16-82.39-0.02c-4.31-0.03-5.31,1.53-5.29,5.51c0.14,23.3,0.16,46.61-0.01,69.91\n\t\t\tc-0.03,4.31,1.19,5.84,5.65,5.76C251.25,331.07,264.9,331.22,278.55,331.22z M508.32,549.73c12.15,0,24.31-0.1,36.45,0.06\n\t\t\tc3.65,0.05,5.32-0.65,5.28-4.89c-0.21-20.97-0.17-41.95-0.03-62.92c0.02-3.59-0.86-5.01-4.7-4.99\n\t\t\tc-24.47,0.14-48.94,0.12-73.41,0.01c-3.66-0.02-4.93,1.19-4.9,4.9c0.13,20.97,0.15,41.95-0.02,62.92\n\t\t\tc-0.03,4.15,1.68,5.02,5.37,4.97C484.35,549.62,496.33,549.73,508.32,549.73z\"><\/path>\n\t\t<path class=\"st3\" d=\"M599.93,262.04c-1.39-0.86-0.96-2.37-1.25-3.6c-7.27-30.83-26.32-49.85-57.13-57.13\n\t\t\tc-1.23-0.29-2.74,0.14-3.6-1.25c19.66,0,39.32,0.05,58.98-0.07c2.5-0.02,3.08,0.56,3.07,3.07\n\t\t\tC599.88,222.72,599.93,242.38,599.93,262.04z\"><\/path>\n\t\t<path class=\"st3\" d=\"M261.06,200.07c-0.94,1.51-2.64,1.25-4.01,1.59c-30.15,7.56-48.58,26.59-55.7,56.74\n\t\t\tc-0.29,1.25,0,2.72-1.26,3.64c0-19.66,0.05-39.32-0.07-58.98c-0.02-2.5,0.56-3.08,3.07-3.07\n\t\t\tC222.41,200.12,241.73,200.07,261.06,200.07z\"><\/path>\n\t\t<path class=\"st3\" d=\"M537.96,599.92c1.16-1.59,3.04-1.08,4.57-1.46c29.5-7.29,48.13-25.52,55.7-55.02\n\t\t\tc0.39-1.53,0.12-3.39,1.71-4.5c0,19.33-0.05,38.65,0.07,57.98c0.02,2.5-0.56,3.08-3.07,3.07\n\t\t\tC577.28,599.87,557.62,599.92,537.96,599.92z\"><\/path>\n\t\t<path class=\"st3\" d=\"M200.08,538.94c1.58,1.11,1.32,2.97,1.71,4.5c7.45,29.07,25.69,47.31,54.76,54.76\n\t\t\tc1.53,0.39,3.39,0.12,4.5,1.71c-19.25,0-38.5-0.07-57.74,0.08c-2.76,0.02-3.34-0.55-3.32-3.32\n\t\t\tC200.15,577.44,200.08,558.19,200.08,538.94z\"><\/path>\n\t\t<path class=\"st3\" d=\"M360.87,399.48c0-47.47,0-94.95,0-142.42c0-6.82,0.01-6.83,6.87-6.83c58.3,0,116.6,0,174.91,0\n\t\t\tc6.9,0,6.92,0.01,6.92,6.77c0.01,22.32,0.01,44.64,0,66.96c0,7.25-0.01,7.25-7.52,7.25c-26.32,0-52.64,0.12-78.96-0.1\n\t\t\tc-4.91-0.04-6.12,1.56-6.11,6.28c0.14,68.46,0.1,136.93,0.1,205.39c0,6.85,0,6.86-6.77,6.86c-27.49,0-54.97,0-82.46,0\n\t\t\tc-6.98,0-6.98-0.01-6.98-7.23C360.87,494.76,360.87,447.12,360.87,399.48z\"><\/path>\n\t\t<path class=\"st3\" d=\"M278.55,331.22c-13.65,0-27.3-0.16-40.95,0.09c-4.46,0.08-5.68-1.45-5.65-5.76\n\t\t\tc0.17-23.3,0.15-46.61,0.01-69.91c-0.02-3.98,0.98-5.54,5.29-5.51c27.46,0.17,54.93,0.15,82.39,0.02\n\t\t\tc3.96-0.02,5.19,1.32,5.17,5.19c-0.12,23.64-0.13,47.27,0.01,70.91c0.02,4.06-1.58,5.08-5.33,5.04\n\t\t\tC305.85,331.13,292.2,331.22,278.55,331.22z\"><\/path>\n\t\t<path class=\"st3\" d=\"M508.32,549.73c-11.99,0-23.97-0.1-35.96,0.06c-3.69,0.05-5.41-0.81-5.37-4.97\n\t\t\tc0.17-20.97,0.15-41.95,0.02-62.92c-0.02-3.71,1.24-4.92,4.9-4.9c24.47,0.11,48.94,0.13,73.41-0.01c3.84-0.02,4.72,1.4,4.7,4.99\n\t\t\tc-0.14,20.97-0.19,41.95,0.03,62.92c0.04,4.24-1.63,4.94-5.28,4.89C532.62,549.62,520.47,549.73,508.32,549.73z\"><\/path>\n\t<\/g>\n<\/g>\n<\/svg>",
+    "sTwitter": "https:\/\/twitter.com\/DesignerOptics1",
+    "sYoutube": "https:\/\/www.youtube.com\/channel\/UCI8q_Pta7ISOSSuEudqq17A",
+    "sPinterest": "https:\/\/pinterest.com\/designeroptics\/",
+    "sLinkedin": "https:\/\/www.linkedin.com\/company\/designeroptics-com",
+    "pagination": "pages",
+    "enableCustomPrimaryFont": true,
+    "customPrimaryFont": "Karla, sans-serif",
+    "enableCustomSecondaryFont": true,
+    "customSecondaryFont": "Lato, sans-serif",
+    "type_base_family": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+    "addToCartColor": "primary",
+    "addToCartIcon": "none",
+    "headerType": "mega-menu",
+    "cardDesktop": "3",
+    "cardStyle": "noButton",
+    "cardShowGallery": false,
+    "cardShowBrand": false,
+    "cardShowRating": false,
+    "tagEnabled": true,
+    "tagSoldOut": false,
+    "variantShowImage": true,
+    "defaultSelector": "dropdown",
+    "cartStyle": "none",
+    "dynamicCheckout": true,
+    "jQuery": true,
+    "show_strike_and_text": "Prada, Contact Lenses,  ACUVUE OASYS CONTACT LENSES,Versace,",
+    "show_text_only": "Gucci,Alexander McQueen,Balenciaga,Bottega Veneta,Boucheron,Brioni,Chloe,Christopher Kane,Dunhill,McQueen,Montblanc,Pomellato,Puma,Saint Laurent,Stella McCartney,Tomas Maier,Tom Ford,",
+    "hide_strike_and_text": "",
+    "hide_strike_price_plp": "Alexander McQueen,Altuzarra,Azzedine Alaia,Balenciaga,Bottega Veneta,Boucheron,Brioni,Chloe,Christopher Kane,Courreges,Dunhill,Gucci,McQ,McQueen,Montblanc,Pomellato,Puma,Saint Laurent,Stella McCartney,Tomas Maier,Tom Ford,",
+    "backorder_brands": "Alexander McQueen,Altuzarra,Azzedine Alaia,Balenciaga,Bottega Veneta,Boucheron,Brioni,Chloe,Christopher Kane,Courreges,Dunhill,Gucci,McQ,McQueen,Montblanc,Pomellato,Puma,Saint Laurent,Stella McCartney,Tomas Maier",
+    "rx_cost_options": "rx-lenses",
+    "checkout_logo_image": "shopify:\/\/shop_images\/new-logo-white_250x_1_24d8bbf2-06e8-4d79-8439-e727713ea262.png",
+    "checkout_body_background_color": "#dad9d9",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_accent_color": "#006eff",
+    "checkout_button_color": "#006eff",
+    "sections": {
+      "top-info-bar": {
+        "type": "top-info-bar",
+        "blocks": {
+          "df96f44f-b579-4ba2-a13e-cd2b3d346d96": {
+            "type": "social",
+            "settings": {
+              "enabled": true,
+              "enabledMobile": true,
+              "align": "auto"
+            }
+          },
+          "a3752054-0035-4709-aa87-74ca74f4250b": {
+            "type": "barTextMarquee",
+            "settings": {
+              "enabled": true,
+              "enabledMobile": true,
+              "align": "auto",
+              "messages": "<p><strong>Some messages can appear in here<\/strong><\/p><p><strong>It's really cool<\/strong><\/p><p><strong>You can also have AS MANY as YOU want<\/strong><\/p>"
+            }
+          },
+          "ea7c1653-fbe0-4a55-904f-79a3118183d9": {
+            "type": "linkList",
+            "settings": {
+              "enabled": true,
+              "enabledMobile": true,
+              "align": "auto",
+              "links": ""
+            }
+          }
+        },
+        "block_order": [
+          "df96f44f-b579-4ba2-a13e-cd2b3d346d96",
+          "a3752054-0035-4709-aa87-74ca74f4250b",
+          "ea7c1653-fbe0-4a55-904f-79a3118183d9"
+        ],
+        "settings": {
+          "enabled": false,
+          "enabledMobile": false,
+          "layout": "default",
+          "height": 30,
+          "fontSize": "font__size--small",
+          "colorCombo": "customCombo",
+          "customFillColor": "#e8e8e8",
+          "customContentColor": "#3d3d3d"
+        }
+      },
+      "info-badges": {
+        "type": "info-badges",
+        "blocks": {
+          "fd5af8ef-fb9f-490a-b4da-4144a48a519d": {
+            "type": "infoBadge",
+            "disabled": true,
+            "settings": {
+              "icon": "shopping-bag",
+              "heading": "This is awesome!",
+              "subheading": "This is even more info about how awesome this is!"
+            }
+          },
+          "8f34a1fd-57f1-476d-b533-de18777ba59d": {
+            "type": "infoBadge",
+            "disabled": true,
+            "settings": {
+              "icon": "shopping-cart",
+              "heading": "This is awesome!",
+              "subheading": "This is even more info about how awesome this is!"
+            }
+          },
+          "8f34a1fd-b533-de18777ba59d": {
+            "type": "infoBadge",
+            "disabled": true,
+            "settings": {
+              "icon": "shopping-cart",
+              "heading": "This is awesome!",
+              "subheading": "There is no way it can get any more awesome?!"
+            }
+          }
+        },
+        "block_order": [
+          "fd5af8ef-fb9f-490a-b4da-4144a48a519d",
+          "8f34a1fd-57f1-476d-b533-de18777ba59d",
+          "8f34a1fd-b533-de18777ba59d"
+        ],
+        "settings": {
+          "enabled": true,
+          "displayFor": "display--both",
+          "layout": "default",
+          "nomargin": true,
+          "scopedCSS": "",
+          "height": 0,
+          "padding": 0,
+          "lineMargin": 12,
+          "backgroundColor": "rgba(0,0,0,0)",
+          "backgroundPosition": "middle",
+          "backgroundFilter": "none",
+          "backdropIntensity": 50,
+          "parallax": false,
+          "backgroundPattern": false,
+          "overlayOpacity": 0,
+          "overlayColor": "#000000",
+          "contentColor": "rgba(0,0,0,0)",
+          "horizontalAlignment": "end",
+          "verticalAlignment": "middle",
+          "iconPosition": "icon--left"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "f2b4edba-e501-42ff-b812-f54061def2f1": {
+            "type": "menu",
+            "settings": {
+              "link_list": "footer"
+            }
+          },
+          "77a3fb08-4bab-412d-b5d2-fdf1e69020bc": {
+            "type": "menu",
+            "settings": {
+              "link_list": "main-menu"
+            }
+          },
+          "eebd4594-84f7-45f3-943a-0310ea8ab7cc": {
+            "type": "menu",
+            "settings": {
+              "link_list": "shopping-services"
+            }
+          },
+          "22eac4e4-ed20-49a0-96e6-192bcb2b384a": {
+            "type": "menu",
+            "settings": {
+              "link_list": "education"
+            }
+          },
+          "d5a409b4-e29e-4208-ad60-6ed242ef98b4": {
+            "type": "menu",
+            "settings": {
+              "link_list": "footer-menu-1"
+            }
+          },
+          "b4657bc7-1307-423d-a1c6-89cf6f36fc22": {
+            "type": "Money_Icons",
+            "settings": {
+              "mimage1": "shopify:\/\/shop_images\/Group_434.png",
+              "mimage_alt1": "Money Icon 1",
+              "mimage2": "shopify:\/\/shop_images\/Group_435.png",
+              "mimage_alt2": "Money Icon 2",
+              "mimage3": "shopify:\/\/shop_images\/Group_436.png",
+              "mimage_alt3": "Money Icon 3",
+              "mimage4": "shopify:\/\/shop_images\/Group_437.png",
+              "mimage_alt4": "Money Icon 4",
+              "mimage5": "shopify:\/\/shop_images\/Group_438.png",
+              "mimage_alt5": "Money Icon 5",
+              "mimage6": "shopify:\/\/shop_images\/Group_433.png",
+              "mimage_alt6": "Money Icon 6"
+            }
+          },
+          "b0877971-a5e1-4f1e-bbb9-057525382dab": {
+            "type": "footerSocial",
+            "settings": {
+              "heading": "Stay connected"
+            }
+          },
+          "9d2d6a97-c827-48ac-9a58-fbbbc7bd78eb": {
+            "type": "Company_Information",
+            "settings": {
+              "curl": "\/",
+              "ctext": "DESIGNEROPTICS.COM",
+              "curl1": "shopify:\/\/blogs\/news",
+              "ctext1": "DESIGNEROPTICS BLOG",
+              "curl2": "https:\/\/blikvision.com\/",
+              "ctext2": "BLIKVISION.COM"
+            }
+          },
+          "91b12fc1-5e1a-417d-9d3b-d32c113311b5": {
+            "type": "text",
+            "settings": {
+              "title": "Text column",
+              "image": "shopify:\/\/shop_images\/logo_footer_1.png",
+              "text": "<p>At Designer Optics, we take pride in being one of the largest online marketplaces for prescription sunglasses and eyeglasses.<\/p>"
+            }
+          },
+          "ab598a47-d847-4e8a-9a1f-d738178426e7": {
+            "type": "text",
+            "settings": {
+              "title": "Text column",
+              "image": "shopify:\/\/shop_images\/call_bdc04f4f-a76c-4a58-b400-2df166b7e7df.png",
+              "text": "<p>Call Customer Service,<\/p><p>Mon–Thu: 10:00am–4:00pm<br\/>Fri: 10:00am–12:00pm<\/p><p><a href=\"tel:718-412-0407\"><strong>718-412-0407<\/strong><\/a><\/p>"
+            }
+          },
+          "9df2522b-b557-4047-8fde-a9fbf36e9d2d": {
+            "type": "text",
+            "settings": {
+              "title": "Text column",
+              "image": "shopify:\/\/shop_images\/address.png",
+              "text": "<p>Address:<\/p><p><strong>791 Kent Avenue,<br\/>Brooklyn, NY 11205<\/strong><\/p>"
+            }
+          },
+          "64a21232-1c96-427b-9ff3-954ea9b0270c": {
+            "type": "text",
+            "settings": {
+              "title": "Text column",
+              "image": "shopify:\/\/shop_images\/email.png",
+              "text": "<p>Email:<\/p><p><a href=\"mailto:support@DesignerOptics.com\"><strong>support@DesignerOptics.com<\/strong><\/a><\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "f2b4edba-e501-42ff-b812-f54061def2f1",
+          "77a3fb08-4bab-412d-b5d2-fdf1e69020bc",
+          "eebd4594-84f7-45f3-943a-0310ea8ab7cc",
+          "22eac4e4-ed20-49a0-96e6-192bcb2b384a",
+          "d5a409b4-e29e-4208-ad60-6ed242ef98b4",
+          "b4657bc7-1307-423d-a1c6-89cf6f36fc22",
+          "b0877971-a5e1-4f1e-bbb9-057525382dab",
+          "9d2d6a97-c827-48ac-9a58-fbbbc7bd78eb",
+          "91b12fc1-5e1a-417d-9d3b-d32c113311b5",
+          "ab598a47-d847-4e8a-9a1f-d738178426e7",
+          "9df2522b-b557-4047-8fde-a9fbf36e9d2d",
+          "64a21232-1c96-427b-9ff3-954ea9b0270c"
+        ],
+        "settings": {
+          "layout": "default",
+          "fillColor": "#f8f8f8",
+          "contentColor": "#373737",
+          "spacing": 16
+        }
+      },
+      "subfooter": {
+        "type": "subfooter",
+        "blocks": {
+          "text-01": {
+            "type": "footerText",
+            "disabled": true,
+            "settings": {
+              "width": "auto",
+              "horizontalAlignment": "center",
+              "verticalAlignment": "middle",
+              "heading": "",
+              "text": "<p>Designed and developed by <a href=\"https:\/\/boostertheme.com\/\" target=\"_blank\">BoosterTheme™<\/a><\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "text-01"
+        ],
+        "settings": {
+          "layout": "default",
+          "fillColor": "#000000",
+          "contentColor": "#ffffff",
+          "spacing": 0
+        }
+      },
+      "header--default": {
+        "type": "header--default",
+        "blocks": {
+          "0593c748-299b-4c13-9898-a8c778260546": {
+            "type": "top-list",
+            "settings": {
+              "list-item": "Orders placed before 12pm ET Friday June 3 will be processed prior to the holiday closing. Orders placed after this time will be processed when we reopen on Tuesday June 7th"
+            }
+          },
+          "aaa2fdc2-6b26-40ff-83b3-859caba77fd6": {
+            "type": "top-list",
+            "settings": {
+              "list-item": "Pickup Will be closed from Fri June 3 and will be opened on Tuesday June 7th"
+            }
+          },
+          "23e982f0-05e5-41b5-a588-ddba005859b2": {
+            "type": "top-list",
+            "settings": {
+              "list-item": "Prescription orders will be processed after the holiday"
+            }
+          },
+          "988ccf5b-d020-43ce-a14a-8418c6952bba": {
+            "type": "top-list",
+            "settings": {
+              "list-item": "Please check the stock status before placing your order, IN stock orders will be shipped if placed before the cut off time, all other orders including prescription will be shipped when we reopen"
+            }
+          }
+        },
+        "block_order": [
+          "0593c748-299b-4c13-9898-a8c778260546",
+          "aaa2fdc2-6b26-40ff-83b3-859caba77fd6",
+          "23e982f0-05e5-41b5-a588-ddba005859b2",
+          "988ccf5b-d020-43ce-a14a-8418c6952bba"
+        ],
+        "settings": {
+          "header-top": true,
+          "enable-gift-card": true,
+          "gift-card": "Gift Card",
+          "enable-wish-list": true,
+          "wish-lists": "Wish Lists",
+          "enable-blog": true,
+          "blog": "Blog",
+          "enable-other-status": true,
+          "other-status": "Order Status",
+          "sign-in": "Sign in or Create an account",
+          "sign-in-text-mobile": "Sign in\/Create account",
+          "layout": "default",
+          "minHeight": 75,
+          "borderRadius": 0,
+          "shadow": false,
+          "phone-no": "718-412-0407",
+          "call-tagline": "Order online or call us",
+          "menuLinks": "menu-navigation",
+          "megamenu": true,
+          "logoWidth": 180,
+          "logoHeight": 55,
+          "sticky": true,
+          "contentMargin": 0,
+          "desktopCart": true,
+          "headerBg": "rgba(0,0,0,0)",
+          "linkColor": "#727272",
+          "accentColor": "#000000",
+          "hoverStyle": "underline",
+          "tagBgColor": "#000000",
+          "tagTextColor": "#ffffff",
+          "transparent": false,
+          "linkColorT": "#ffffff",
+          "accentColorT": "#efefef",
+          "fontSize": "base",
+          "customFont": false,
+          "fontFamily": "karla_n4",
+          "cartIcon": "shopping-cart",
+          "mobileLogoPosition": "center",
+          "mobileCart": true,
+          "header_top_enable": true,
+          "shipping_notification_bar": "SHAVUOS HOLIDAY CLOSING – Designer Optics  will be closed Sun June 5 and Mon June 6.",
+          "month_schedule_bgcolor": "#7f8da7",
+          "month_schedule_color": "#ffffff",
+          "calender_month": "June 2022",
+          "holiday_schedule": true,
+          "holiday-schedule-heading": "Designer Optics  will be closed Sun June 5 and Mon June 6.",
+          "month-starting-date": "4",
+          "no-of-days-in-month": "30",
+          "cut-off-days": "3,",
+          "cut-off-bgcolor": "#c63b3d",
+          "cut-off-textcolor": "#ffffff",
+          "closed-days": "5,6,",
+          "closed-bgcolor": "#575656",
+          "closed-textcolor": "#ffffff",
+          "promo_bar_enable": false,
+          "promo_bar_background_color": "#3d3d3a",
+          "promo_bar_text": "Independence Day Sale Extra  5% OFF + Free Shipping use Coupon Code \"JULY4\"",
+          "promo_bar_text_color1": "#ffffff",
+          "promo_bar_text_size1": 20,
+          "promo_bar_text2": "",
+          "promo_bar_text_color2": "#ffffff",
+          "promo_bar_text_size2": 21,
+          "promo_bar_link": "",
+          "promo_bar2_enable": false,
+          "promo_bar2_background_color": "#686363",
+          "promo_bar2_text": "NEW YEAR SALE EXTRA 10% OFF + FREE SHIPPING USE COUPON NY2022",
+          "promo_bar2_text_color1": "#ffffff",
+          "promo_bar2_text_size1": 22,
+          "promo_bar2_text2": "",
+          "promo_bar2_text_color2": "#ffffff",
+          "promo_bar2_text_size2": 17,
+          "promo_bar2_link": "shopify:\/\/collections",
+          "special_event_bar_enable": false,
+          "special_event_mobile_disable": true,
+          "special_event_img": "shopify:\/\/shop_images\/New_Year_2022_Bannar.jpg",
+          "special_event_alt": "Spring sale at Designeroptics.com",
+          "nav-bottom-img": "shopify:\/\/shop_images\/sungla_cb129d60-5171-4c3a-88cc-486b2b7aedab.jpg"
+        }
+      },
+      "bottom-info-bar": {
+        "type": "bottom-info-bar",
+        "settings": {
+          "enabled": false,
+          "enabledMobile": false,
+          "layout": "default",
+          "height": 30,
+          "fontSize": "font__size--small",
+          "colorCombo": "primaryCombo",
+          "customFillColor": "rgba(0,0,0,0)",
+          "customContentColor": "rgba(0,0,0,0)"
+        }
+      },
+      "api__upsell": {
+        "type": "api__upsell",
+        "settings": {
+          "defaultCollection": ""
+        }
+      },
+      "banner--login": {
+        "type": "banner--login",
+        "settings": {
+          "layout": "default",
+          "height": 300,
+          "horizontalAlignment": "center",
+          "verticalAlignment": "middle",
+          "fontSize": "medium",
+          "contentColor": "rgba(0,0,0,0)",
+          "fillColor": "rgba(0,0,0,0)",
+          "overlayOpacity": 0,
+          "overlayColor": "#000000"
+        }
+      },
+      "banner--account": {
+        "type": "banner--account",
+        "settings": {
+          "layout": "boxed",
+          "height": 50,
+          "horizontalAlignment": "start",
+          "verticalAlignment": "middle",
+          "fontSize": "medium",
+          "contentColor": "rgba(0,0,0,0)",
+          "fillColor": "rgba(0,0,0,0)",
+          "overlayOpacity": 0,
+          "overlayColor": "#000000"
+        }
+      },
+      "account--register": {
+        "type": "account--register",
+        "blocks": {
+          "0c1d4787-bbda-4c3a-8355-8c2afcc0211c": {
+            "type": "register-section",
+            "settings": {
+              "reg-svg": "https:\/\/cdn.shopify.com\/s\/files\/1\/0602\/7139\/5024\/files\/Manage-Previous-order.svg?v=1632308936",
+              "reg_svg_alt": "Order Box with circular Arrows",
+              "reg-text": "View Order History"
+            }
+          },
+          "c2761868-ec31-45a1-b50b-aeba2dd5ba41": {
+            "type": "register-section",
+            "settings": {
+              "reg-svg": "https:\/\/cdn.shopify.com\/s\/files\/1\/0602\/7139\/5024\/files\/Manage-Warranty.svg?v=1632308936",
+              "reg_svg_alt": "Dollar above palm",
+              "reg-text": "Manage Warranties"
+            }
+          },
+          "a2a9e2af-9466-463c-a045-266bddc1350a": {
+            "type": "register-section",
+            "settings": {
+              "reg-svg": "https:\/\/cdn.shopify.com\/s\/files\/1\/0602\/7139\/5024\/files\/Manage-Prescription.svg?v=1632308936",
+              "reg_svg_alt": "Glasses",
+              "reg-text": "Manage Saved Prescriptions"
+            }
+          },
+          "d7bdbc5c-ee86-4f31-bd0c-944f8fb80331": {
+            "type": "register-section",
+            "settings": {
+              "reg-svg": "https:\/\/cdn.shopify.com\/s\/files\/1\/0602\/7139\/5024\/files\/View_Addresses_black.svg?v=1632308936",
+              "reg_svg_alt": "Location",
+              "reg-text": "Managed Saved Addresses"
+            }
+          }
+        },
+        "block_order": [
+          "0c1d4787-bbda-4c3a-8355-8c2afcc0211c",
+          "c2761868-ec31-45a1-b50b-aeba2dd5ba41",
+          "a2a9e2af-9466-463c-a045-266bddc1350a",
+          "d7bdbc5c-ee86-4f31-bd0c-944f8fb80331"
+        ],
+        "settings": {
+        }
+      },
+      "customer--login--form": {
+        "type": "customer--login--form",
+        "settings": {
+          "max_width": "1350px",
+          "section_above_margin": "68px",
+          "section_below_margin": "60px",
+          "section_above_margin_mob": "58px",
+          "section_below_margin_mob": "0px",
+          "error_color": "#ffffff",
+          "error_bg_color": "#ec523e",
+          "form_success_message_color": "#ffffff",
+          "form_success_message_bg_color": "#59ac6c",
+          "welcome_text": "<b>Welcome back!<\/b> Please enter details below to login to your account",
+          "welcome_margin_top": "10px",
+          "welcome_margin_bottom": "30px",
+          "welcome_margin_horizontal": "39px",
+          "welcome_margin_horizontal_mob": "20px"
+        }
+      },
+      "search-template-boost-pfs-filter": {
+        "type": "search-template-boost-pfs-filter",
+        "settings": {
+          "products_per_page": 24,
+          "products_per_row": 4,
+          "products_per_row_mobile": 2,
+          "text_alignment": "left",
+          "show_vendor": true,
+          "show_price": true,
+          "active_image_swap": true,
+          "show_sorting": true,
+          "show_product_review": false,
+          "show_sold_out_label": true,
+          "soldout_label": "Sold out",
+          "show_sale_label": true,
+          "sale_label": "Sale",
+          "from": "from",
+          "show_lable_by_tag": false,
+          "display_item_swatch": true,
+          "swatch_color_display_type": "swatch_color_display_type_image_product",
+          "swatch_color_event_change_image": "hover",
+          "swatches_color_shape": "circle",
+          "equal_height": "false",
+          "ratio_width_height_other": "",
+          "equal_height_crop_image_position": "center"
+        }
+      },
+      "faq-search": {
+        "type": "faq-search",
+        "settings": {
+        }
+      },
+      "faq-categories": {
+        "type": "faq-categories",
+        "blocks": {
+          "7f1f66a6-ec22-4655-8e37-848a053e8a4b": {
+            "type": "link_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/returns_300x300_639c9261-e139-485d-8a62-171619667d5b.png",
+              "link": "https:\/\/designeroptics.com\/pages\/faq\/#returns&cancellations",
+              "cta_label": "Returns & Cancellations",
+              "cta_description": ""
+            }
+          },
+          "395f1d76-85a1-4e26-bfa3-ce613b34f22f": {
+            "type": "link_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/shipping_300x300_d51a42a8-18bd-43cb-a32a-9fff43eb8cb3.png",
+              "link": "https:\/\/designeroptics.com\/pages\/faq\/#shipping",
+              "cta_label": "Shipping",
+              "cta_description": ""
+            }
+          },
+          "f5dd711e-f153-4d93-b873-9539e13dee6c": {
+            "type": "link_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/prescription_300x300_74e97fc8-a8ed-491a-84dd-b8608804e6e7.png",
+              "link": "https:\/\/designeroptics.com\/pages\/faq\/#prescriptiontypes",
+              "cta_label": "Prescription Types",
+              "cta_description": ""
+            }
+          },
+          "bf364d3a-a94a-4b2b-8344-2dfbd1604fec": {
+            "type": "link_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/inurance_300x300_c834eff7-238e-4543-be92-a51eec61f0a6.png",
+              "link": "https:\/\/designeroptics.com\/pages\/faq\/#visioninsurance",
+              "cta_label": "Vision Insurance",
+              "cta_description": ""
+            }
+          },
+          "b7f895b7-c2e8-497a-838f-42dbbe225570": {
+            "type": "link_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/glasses_300x300_a86899ef-7e7f-4c29-bccd-cdd1d176d73e.png",
+              "link": "https:\/\/designeroptics.com\/pages\/faq\/#progressiveandbifocalprescriptions",
+              "cta_label": "Progressive and Bifocal Prescriptions",
+              "cta_description": ""
+            }
+          },
+          "00e9d9a4-911f-47c5-af0c-3050224f8499": {
+            "type": "link_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/materials_300x300_85392b47-fbb1-4c76-a25d-ae1b04c3c4a6.png",
+              "link": "https:\/\/designeroptics.com\/pages\/faq\/#lensmaterials",
+              "cta_label": "Lens Materials",
+              "cta_description": ""
+            }
+          },
+          "9bae8763-269f-449e-91ae-c28e54296ab8": {
+            "type": "link_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/funds_300x300_ca3a1b3a-e113-499a-8a82-1d24a51b9eeb.png",
+              "link": "https:\/\/designeroptics.com\/pages\/faq\/#fsaandhsafunds",
+              "cta_label": "Using Your FSA and HSA Funds",
+              "cta_description": ""
+            }
+          },
+          "14eae3aa-cdff-4b55-8b8f-d7ada566ee10": {
+            "type": "link_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/contact_300x300_1d1529a5-d928-4df2-bfa5-a13db7c68d1a.png",
+              "link": "shopify:\/\/pages\/contact-us",
+              "cta_label": "Contact Us",
+              "cta_description": ""
+            }
+          }
+        },
+        "block_order": [
+          "7f1f66a6-ec22-4655-8e37-848a053e8a4b",
+          "395f1d76-85a1-4e26-bfa3-ce613b34f22f",
+          "f5dd711e-f153-4d93-b873-9539e13dee6c",
+          "bf364d3a-a94a-4b2b-8344-2dfbd1604fec",
+          "b7f895b7-c2e8-497a-838f-42dbbe225570",
+          "00e9d9a4-911f-47c5-af0c-3050224f8499",
+          "9bae8763-269f-449e-91ae-c28e54296ab8",
+          "14eae3aa-cdff-4b55-8b8f-d7ada566ee10"
+        ],
+        "settings": {
+        }
+      },
+      "article-faq-content": {
+        "type": "article-faq-content",
+        "settings": {
+        }
+      },
+      "header--mega-menu": {
+        "type": "header--mega-menu",
+        "blocks": {
+          "5013b956-20e3-4028-a8c0-de938f8e8666": {
+            "type": "mega-menu-nav",
+            "settings": {
+              "title": "BRANDS",
+              "title_link": "shopify:\/\/collections",
+              "menu_link_list": "",
+              "title_1": "",
+              "subtitle_1": "",
+              "link_1": "",
+              "title_2": "",
+              "subtitle_2": "",
+              "link_2": "",
+              "title_3": "",
+              "subtitle_3": "",
+              "link_3": ""
+            }
+          },
+          "58b890d6-1f8e-4af5-85ab-a8759a2cf404": {
+            "type": "mega-menu-nav",
+            "settings": {
+              "title": "SUNGLASSES",
+              "title_link": "shopify:\/\/collections\/sunglasses",
+              "menu_link_list": "test-mega-menu-sunglasses",
+              "title_1": "",
+              "subtitle_1": "",
+              "link_1": "",
+              "title_2": "",
+              "subtitle_2": "",
+              "link_2": "",
+              "title_3": "",
+              "subtitle_3": "",
+              "link_3": ""
+            }
+          },
+          "272cb158-e44a-4824-8750-fb26c16724ee": {
+            "type": "mega-menu-nav",
+            "settings": {
+              "title": "EYEGLASSES",
+              "title_link": "",
+              "menu_link_list": "mega-menu-eyeglasses",
+              "title_1": "",
+              "subtitle_1": "",
+              "link_1": "",
+              "title_2": "",
+              "subtitle_2": "",
+              "link_2": "",
+              "title_3": "",
+              "subtitle_3": "",
+              "link_3": ""
+            }
+          },
+          "bdfcfcec-33c6-40f0-8906-25e643160463": {
+            "type": "mega-menu-nav",
+            "settings": {
+              "title": "Activity",
+              "title_link": "",
+              "menu_link_list": "mega-menu-activity",
+              "title_1": "Fishing Sunglasses",
+              "subtitle_1": "",
+              "image_1": "shopify:\/\/shop_images\/rsz_guided_by_sight_socialfo3i4335_1920x1080_a0cea2b6-b1ac-4dce-a486-88a1fbd9ba0c.jpg",
+              "link_1": "shopify:\/\/collections\/fishing-sunglasses",
+              "title_2": "Shooting Glasses",
+              "subtitle_2": "",
+              "image_2": "shopify:\/\/shop_images\/rsz_img_0780.jpg",
+              "link_2": "shopify:\/\/collections\/best-shooting-sunglasses",
+              "title_3": "",
+              "subtitle_3": "",
+              "link_3": ""
+            }
+          },
+          "4704810b-1402-40ec-8820-250eba179bb4": {
+            "type": "mega-menu-nav",
+            "settings": {
+              "title": "CONTACT LENSES",
+              "title_link": "shopify:\/\/collections\/contact-lenses",
+              "menu_link_list": "mega-menu-lenses",
+              "title_1": "",
+              "subtitle_1": "",
+              "link_1": "",
+              "title_2": "",
+              "subtitle_2": "",
+              "link_2": "",
+              "title_3": "",
+              "subtitle_3": "",
+              "link_3": ""
+            }
+          },
+          "0a767d9e-c85e-4229-91cd-055ce9efd747": {
+            "type": "mega-menu-nav",
+            "disabled": true,
+            "settings": {
+              "title": "ACCESSORIES",
+              "title_link": "shopify:\/\/collections\/eyewear-accessories",
+              "menu_link_list": "",
+              "title_1": "",
+              "subtitle_1": "",
+              "link_1": "",
+              "title_2": "",
+              "subtitle_2": "",
+              "link_2": "",
+              "title_3": "",
+              "subtitle_3": "",
+              "link_3": ""
+            }
+          },
+          "72367bde-dc9a-4085-a811-7955eef01422": {
+            "type": "mega-menu-nav",
+            "disabled": true,
+            "settings": {
+              "title": "BLUE LIGHT",
+              "title_link": "shopify:\/\/collections\/blue-light-blocking-lenses",
+              "menu_link_list": "",
+              "title_1": "",
+              "subtitle_1": "",
+              "link_1": "",
+              "title_2": "",
+              "subtitle_2": "",
+              "link_2": "",
+              "title_3": "",
+              "subtitle_3": "",
+              "link_3": ""
+            }
+          },
+          "df114b5c-0b67-48f0-b38f-012c3277cf94": {
+            "type": "top-list",
+            "settings": {
+              "list-item": "Orders placed before 12pm ET Friday June 3 will be processed prior to the holiday closing. Orders placed after this time will be processed when we reopen on Tuesday June 7th"
+            }
+          },
+          "da7ab010-54ad-4922-97da-567c6993f996": {
+            "type": "top-list",
+            "settings": {
+              "list-item": "Pickup Will be closed from Fri June 3 and will be opened on Tuesday June 7th"
+            }
+          },
+          "b4e11ff3-82b0-4030-8bd6-3d4e61db5e6c": {
+            "type": "top-list",
+            "settings": {
+              "list-item": "Prescription orders will be processed after the holiday"
+            }
+          },
+          "71419ddc-0ffb-4f00-9a6a-b5ce7ba8d0b7": {
+            "type": "top-list",
+            "settings": {
+              "list-item": "Please check the stock status before placing your order, IN stock orders will be shipped if placed before the cut off time, all other orders including prescription will be shipped when we reopen"
+            }
+          }
+        },
+        "block_order": [
+          "5013b956-20e3-4028-a8c0-de938f8e8666",
+          "58b890d6-1f8e-4af5-85ab-a8759a2cf404",
+          "272cb158-e44a-4824-8750-fb26c16724ee",
+          "bdfcfcec-33c6-40f0-8906-25e643160463",
+          "4704810b-1402-40ec-8820-250eba179bb4",
+          "0a767d9e-c85e-4229-91cd-055ce9efd747",
+          "72367bde-dc9a-4085-a811-7955eef01422",
+          "df114b5c-0b67-48f0-b38f-012c3277cf94",
+          "da7ab010-54ad-4922-97da-567c6993f996",
+          "b4e11ff3-82b0-4030-8bd6-3d4e61db5e6c",
+          "71419ddc-0ffb-4f00-9a6a-b5ce7ba8d0b7"
+        ],
+        "settings": {
+          "header-top": true,
+          "enable-gift-card": true,
+          "gift-card": "Gift Card",
+          "enable-wish-list": true,
+          "wish-lists": "Wish Lists",
+          "enable-blog": true,
+          "blog": "Blog",
+          "enable-other-status": true,
+          "other-status": "Order Status",
+          "sign-in": "Sign in or Create an account",
+          "sign-in-text-mobile": "Sign in\/Create account",
+          "layout": "default",
+          "minHeight": 75,
+          "borderRadius": 0,
+          "shadow": false,
+          "phone-no": "718-412-0407",
+          "call-tagline": "Order online or call us",
+          "logoWidth": 240,
+          "logoHeight": 0,
+          "sticky": true,
+          "contentMargin": 0,
+          "desktopCart": true,
+          "headerBg": "rgba(0,0,0,0)",
+          "linkColor": "#727272",
+          "accentColor": "#000000",
+          "hoverStyle": "underline",
+          "tagBgColor": "#000000",
+          "tagTextColor": "#ffffff",
+          "transparent": false,
+          "linkColorT": "#ffffff",
+          "accentColorT": "#efefef",
+          "fontSize": "base",
+          "customFont": false,
+          "fontFamily": "work_sans_n6",
+          "cartIcon": "shopping-basket",
+          "mobileLogoPosition": "center",
+          "mobileCart": true,
+          "header_top_enable": false,
+          "shipping_notification_bar": "Holiday Shipping schedule for September! See Schedule Details Here",
+          "month_schedule_bgcolor": "#1e53b9",
+          "month_schedule_color": "#ffffff",
+          "calender_month": "APRIL 2022",
+          "holiday_schedule": true,
+          "holiday-schedule-heading": "Shipping will not be available after the cut off time of the day.",
+          "month-starting-date": "1",
+          "no-of-days-in-month": "31",
+          "cut-off-days": "",
+          "cut-off-bgcolor": "#c63b3d",
+          "cut-off-textcolor": "#ffffff",
+          "closed-days": "",
+          "closed-bgcolor": "#575656",
+          "closed-textcolor": "#ffffff",
+          "promo_bar_enable": false,
+          "promo_bar_background_color": "#c63b3d",
+          "promo_bar_text": "Patriot Week Sale Extra 5% OFF Use Coupon Code PATRIOTDAY",
+          "promo_bar_text_color1": "#ffffff",
+          "promo_bar_text_size1": 18,
+          "promo_bar_text2": "",
+          "promo_bar_text_color2": "#ffffff",
+          "promo_bar_text_size2": 18,
+          "promo_bar_link": "",
+          "promo_bar2_enable": false,
+          "promo_bar2_background_color": "#c63b3d",
+          "promo_bar2_text": "",
+          "promo_bar2_text_color1": "#ffffff",
+          "promo_bar2_text_size1": 18,
+          "promo_bar2_text2": "",
+          "promo_bar2_text_color2": "#ffffff",
+          "promo_bar2_text_size2": 18,
+          "promo_bar2_link": "",
+          "special_event_bar_enable": false,
+          "special_event_mobile_disable": true,
+          "special_event_alt": ""
+        }
+      }
+    },
+    "content_for_index": [
+
+    ],
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "319724205969189013": {
+        "type": "shopify:\/\/apps\/form-builder-with-file-upload\/blocks\/app-embed\/b6b8dd14-356b-4725-a4ed-77232212b3c3",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "15573056287721514228": {
+        "type": "shopify:\/\/apps\/json-ld-for-seo\/blocks\/app-embed\/3fcb4f45-bdde-43fd-84ae-8006cdcd1028",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    }
+  }
+}

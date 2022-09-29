@@ -1,0 +1,166 @@
+{% assign url = section.settings.defaultBackgroundImage %}
+
+{% capture layoutConfig %}{% render 'common-layout' with section as section %}{% endcapture %}
+
+{% assign default = false %}
+{% if url == nil and section.settings.fillColor contains 'rgba(0,0,0,0)' and section.settings.overlayOpacity == 0 %}
+{% assign default = true %}
+{% endif %}
+
+<style>
+#section-{{section.id}} {
+    position: relative;
+    {% if url != nil %}
+    background-image: url({{url | img_url: '10x' }});
+    background-size: cover;
+    background-position: center center;
+    {% endif %}
+    background-color: {{section.settings.fillColor}};
+    color: {% unless section.settings.contentColor contains 'rgba(0,0,0,0)' %}{{section.settings.contentColor}}{% else %}initial{% endunless %};
+    min-height: {{section.settings.height}}px;
+}
+
+#section-{{section.id}} .section__row {
+    z-index: 1;
+}
+
+{% if section.settings.overlayOpacity > 0 %}
+#section-{{section.id}} .overlay {
+    opacity: {{section.settings.overlayOpacity | times: 0.01}};
+    background: {{section.settings.overlayColor}};
+    z-index: 0;
+}
+{% endif %}
+</style>
+
+
+{% unless default %}
+  <div id="section-{{section.id}}" 
+  class="{% unless section.settings.contentColor contains 'rgba(0,0,0,0)' %}inherit{% endunless %} lazyload row banner layout__{{layoutConfig}} {{section.settings.verticalAlignment}}" 
+  {% if url != nil %}{% render 'background', image: url %}{% endif %}>
+  {% if section.settings.overlayOpacity > 0 %}<div class="overlay"></div>{%endif%}
+    <div class="col-12 unflex section__row layout__content {{section.settings.horizontalAlignment}}">
+      <div class="breadcrumbs">{% render 'breadcrumbs' %}</div>
+      <h1 class="font__size--{{section.settings.fontSize}}">{{ blog.title }}</h1>
+    </div>
+  </div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": {
+    "en": "Title banner"
+  },
+  "settings": [
+    {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458187317)"
+        },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Height",
+      "default": 300,
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "horizontalAlignment",
+      "label": "Content alignment (left to right)",
+      "options": [
+        {"value": "start", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "end", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "verticalAlignment",
+      "label": "Content alignment (top to bottom)",
+      "options": [
+        {"value": "top", "label": "Top"},
+        {"value": "middle", "label": "Middle"},
+        {"value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
+    },
+    {
+        "type": "header",
+        "content": "Style"
+    },
+    {
+      "type": "select",
+      "label": "Title size",
+      "options": [
+        {"value": "small", "label": "Small"},
+        {"value": "base", "label": "Base"},
+        {"value": "medium", "label": "Medium"},
+        {"value": "big", "label": "Big"}
+      ],
+      "default": "medium",
+      "id": "fontSize"
+    },
+    {
+      "type": "color",
+      "id": "contentColor",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "fillColor",
+      "label": "Background color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "image_picker",
+        "id": "defaultBackgroundImage",
+        "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlayOpacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Overlay opacity",
+      "default": 0,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "overlayColor",
+      "label": "Overlay color",
+      "default": "#000000"
+    }
+  ]
+}
+{% endschema %}

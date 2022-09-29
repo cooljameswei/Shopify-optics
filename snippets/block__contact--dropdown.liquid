@@ -1,0 +1,37 @@
+<label class="contact__dropdown" for="{{block.id}}">{{block.settings.name}} {% unless block.settings.required %}(optional){% endunless -%}</label>
+{% assign options = block.settings.options | split: ',' %}
+<select id="{{block.id}}" name="contact[{{i}}-{{block.settings.name | handleize}}]">
+    {% for option in options %}
+        <option value="{{option | handleize}}">{{option}}</option>
+    {% endfor %}
+</select>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "contactFormDropdown",
+    "name": "Dropdown field",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "required",
+            "label": "This field is required",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "name",
+            "label": "Field name",
+            "default": "Input title"
+        },
+        {
+            "type": "textarea",
+            "id": "options",
+            "label": "Options",
+            "default": "Option 1, Option 2, Option 3",
+            "info": "Comma separated options."
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

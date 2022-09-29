@@ -1,0 +1,31 @@
+{% comment %} default", "label": "Default"},
+          {"value": "textinside", "label": "Show text inside the card"},
+          {"value": "textinsidebg", "label": "Show text inside with background"},
+          {"value": "noButton {% endcomment %}
+
+<div class="collection__card collection__card--{{settings.collectionCardStyle}}">
+{% if settings.collectionCardStyle == 'default' %}
+<a class="card__img--container" href="{{ collection.url }}">
+<div class="card__img--ratio">
+  <div class="card__img">
+    {% render 'card-image', image: collection.image, alt: collection.image.alt, mobile: "12" %}
+  </div>
+</div>
+</a>
+<a class="collection__card--title font__family--{{settings.collectionCardTextFont}} font__size--{{settings.collectionCardTextSize}}">
+{{ collection.title | escape }}
+</a>
+{% else %}
+<a class="card__img--container" href="{{ collection.url }}">
+<div class="card__img--ratio">
+  <div class="card__img">
+    {% render 'card-image', image: collection.image, alt: collection.image.alt, mobile: "12" %}
+  </div>
+  <div class="overlay"></div>
+  {% unless settings.collectionCardStyle == 'noButton' %}
+  <span class="collection__card--title-inside font__family--{{settings.collectionCardTextFont}} font__size--{{settings.collectionCardTextSize}}">{{ collection.title | escape }}</span>
+  {% endunless %}
+</div>
+</a>
+{% endif %}
+</div>

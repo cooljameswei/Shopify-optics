@@ -1,0 +1,568 @@
+{% unless section.settings.only_content %}
+<div class="page-content-width {% if section.settings.enable-shipping-styles %} shipping-page {% endif %} {% if section.settings.enable-returns-styles %} returns-page {% endif %} {% if section.settings.enable-deafult-page %} default-page {% endif %}">
+  {% if section.settings.enable_title %}
+  <h1 class="page-title {% if section.settings.enable-prescription-styles %} page-prescription-title {% endif %}">
+    {{ page.title }}
+  </h1>
+  {% endif %}
+  <div {% if section.settings.content_padding %} class="content-block" {% endif %}>
+    <div class="{% if section.settings.para_bottom_margin == 'medium' %}rte{%endif%} rte--indented-images">
+      {{ page.content }}
+    </div>
+  </div>
+  
+  
+</div>
+{% if section.settings.enable_returns_form %}
+  	{% render 'returns-form', settings: section.settings, blocks: section.blocks %}
+{% endif %}
+
+
+{% else %}
+{{ page.content }}
+{% endunless %}
+
+
+
+{% schema %}
+  {
+    "name": "Page Content",
+	"class":"custom-page-content-section custom-shipping-section",
+    "settings": [
+      {
+      "type": "header",
+      "content": "Section Info"
+      },
+	  {
+        "type": "text",
+        "id": "max_width",
+        "default": "1350px",
+        "label": "Section Max width"
+      },
+      {
+        "type": "header",
+        "content": "Page Title"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_title",
+        "default": true,
+        "label": "Enable Page Title"
+      },
+      {
+        "type": "color",
+        "id": "pageTitleHeaderColor",
+        "label": "Title and Header color",
+        "default": "#030303"
+      },
+	  {
+        "type": "select",
+        "id": "title_align",
+        "label": "Title Alignment",
+        "options": [
+          {"value": "left", "label": "Left"},
+          {"value": "center", "label": "Center"},
+          {"value": "right", "label": "Right"}
+        ],
+        "default": "left"
+      },
+	  {
+        "type": "header",
+        "content": "Page Content"
+      },
+      {
+        "type": "color",
+        "id": "pageContentColor",
+        "label": "Content color",
+        "default": "#666666"
+      },
+	  {
+        "type": "select",
+        "id": "content_padding",
+        "label": "Section Space Around",
+        "options": [
+          {"value": "0px", "label": "none"},
+          {"value": "20px", "label": "small"},
+          {"value": "40px", "label": "medium"},
+		  {"value": "60px", "label": "large"}
+        ],
+        "default": "40px"
+      },
+	  {
+        "type": "select",
+        "id": "para_bottom_margin",
+        "label": "Paragrapgh bottom margin",
+        "options": [
+          {"value": "0px", "label": "None"},
+          {"value": "10px", "label": "Small"},
+          {"value": "20px", "label": "Medium"}
+        ],
+        "default": "20px"
+      },
+	  {
+        "type": "header",
+        "content": "Links"
+      },
+	  {
+		"type": "checkbox",
+		"id": "enable_link_colors",
+		"label": "Enable Link Colors",
+		"default": false
+	  },
+      {
+        "type": "color",
+        "id": "linksColor",
+        "label": "Links color",
+        "default": "#c63b3d"
+      },
+      {
+        "type": "color",
+        "id": "linksHoverColor",
+        "label": "Links hover color",
+        "default": "#8c292a"
+      },
+	  {
+		"type": "checkbox",
+		"id": "only_content",
+		"label": "Only Content",
+		"default": false
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable-shipping-styles",
+		"label": "Enable Shipping Styles",
+		"default": false
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable-returns-styles",
+		"label": "Enable Returns Styles",
+		"default": false
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable_returns_form",
+		"label": "Enable Returns Form",
+		"default": false
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable-deafult-page",
+		"label": "Enable Deafult Page Fix",
+		"default": false
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable-about-us-css",
+		"label": "Enable About Us Style",
+		"default": false
+	   },
+       {
+         "type": "text",
+         "id": "thank_you_message",
+         "label": "Thank you Message"
+       }
+	],
+  "blocks": [
+       {
+        "type": "form_field",
+        "name": "Form Field",
+        "settings": [
+          {
+            "type": "text",
+            "id": "field_name",
+            "label": "Field Name"
+          },
+          {
+            "type": "text",
+            "id": "field_handle",
+            "label": "Field Handle"
+          },
+          {
+            "type": "checkbox",
+            "id": "field_required",
+            "label": "Field Required?",
+            "default": true
+          }
+        ]
+       }
+  ],
+	"presets": [
+		{
+			"category": "custom-page-sections",
+			"name": "Page Content"
+		}
+	]
+  }
+{% endschema %}
+
+<style>
+  {% if section.settings.enable-shipping-styles %}
+  {% render 'shipping_css' %}
+  {% else %}
+   html {
+    font-size: 10px;
+  }
+  .page-content-width {
+    line-height: 1.375;
+  }
+
+  .main-content h1 span, .main-content h2 span, .main-content h3 span, .main-content h4 span, .main-content h5 span, .main-content h6 span, .main-content p span, .main-content div span {
+    color: inherit;
+  }
+
+  .page-content-width table tr:hover {
+    background-color: transparent;
+  }
+
+  body .main-content .page-content-width * {
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+
+  .main-content div:not(.booster--revert)>h4, .main-content div:not(.booster--revert)>h4, .main-content h4, .main-content .h4 {
+    margin-top: 40px;
+    font-size: 1.125em;
+    color: #030303;
+  }
+
+  .main-content ol li h1, .main-content ul li h1, .main-content ol li h2, .main-content ul li h2, .main-content ol li h3, .main-content ul li h3, .main-content ol li h4, .main-content ul li h4, .main-content ol li h5, .main-content ul li h5, .main-content ol li h6, .main-content ul li h6 {
+    margin: 0;
+  }
+
+  .main-content div:not(.booster--revert)>h5, .main-content div:not(.booster--revert)>h5, .main-content h5, .main-content .h5 {
+    font-size: 1.25em;
+  }
+
+  .main-content div:not(.booster--revert)>h1, .main-content div:not(.booster--revert)>h2, .main-content div:not(.booster--revert)>h3, .main-content div:not(.booster--revert)>h4, .main-content div:not(.booster--revert)>h5, .main-content div:not(.booster--revert)>h6 {
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    line-height: 1.1;
+    margin-bottom: 0.625em;
+    font-weight: bold;
+
+    {% if section.settings.pageTitleHeaderColor %}
+    color: {{section.settings.pageTitleHeaderColor}};
+    {% endif %}
+  }
+  .main-content div:not(.booster--revert)>h2, .main-content h2 {
+    font-size: 1.875em;
+  }
+
+ 
+  .page-content-width {
+    width: 100%;
+    margin: auto;
+    {% if section.settings.max_width %}
+    max-width: {{section.settings.max_width}};
+    {% endif %}
+
+    {% if section.settings.pageContentColor %}
+    color: {{section.settings.pageContentColor}};
+    {% endif %}
+
+    padding: 0 2rem;
+  }
+
+  .page-content-width:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  {% if section.settings.enable_title %}
+  .page-title, div:not(.booster--revert)>h1.page-title {
+    {% if section.settings.title_align %}
+    text-align: {{section.settings.title_align}};
+    {% endif %}
+
+    {% if section.settings.pageTitleHeaderColor %}
+    color: {{section.settings.pageTitleHeaderColor}};
+    {% endif %}
+  }
+  {% endif %}
+  
+  .main-content h1, .page-title, div:not(.booster--revert)>h1.page-title {
+    font-size: 2.25em;
+    font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+
+  {% if section.settings.content_padding %}
+  .content-block {
+    padding: {{section.settings.content_padding}};
+  }
+  {% endif %}
+
+  .page-content-width .rte p, .main-content div:not(.booster--revert)>p {
+    color: #666666;
+    line-height: 1.375;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+
+    margin-bottom: {{section.settings.para_bottom_margin}};
+    {% if section.settings.pageContentColor %}
+    color: {{section.settings.pageContentColor}};
+    {% endif %}
+  }
+
+  div .rte .h1:first-child, 
+  div .rte .h2:first-child,
+  div .rte .h3:first-child, 
+  div .rte .h4:first-child,
+  div .rte .h5:first-child,
+  div .rte .h6:first-child,
+  div .rte h1:first-child,
+  div .rte h2:first-child,
+  div .rte h3:first-child,
+  div .rte h4:first-child,
+  div .rte h5:first-child,
+  div.rte h6:first-child
+  .main-content div:not(.booster--revert)>h1:first-child,
+  .main-content div:not(.booster--revert)>h2:first-child,
+  .main-content div:not(.booster--revert)>h3:first-child,
+  .main-content div:not(.booster--revert)>h4:first-child,
+  .main-content div:not(.booster--revert)>h5:first-child,
+  .main-content div:not(.booster--revert)>h6:first-child {
+    margin-top: 0;
+  }
+
+  .page-content-width ul, ol {
+    margin: 0 0 10px 20px;
+    padding-left: 0;
+  }
+  .page-content-width li {
+    margin-bottom: 10px;
+  }
+
+  .main-content .page-content-width a, .main-content a {
+    {% unless section.settings.enable_link_colors %}
+    color: {{section.settings.linksColor}};
+    {% endunless %}
+    text-decoration: none;
+    background-color: transparent;
+    transition: color .1s ease-in,background-color .1s ease-in;
+  }
+  .main-content .page-content-width a:hover {
+    background-color: transparent;
+    {% unless section.settings.enable_link_colors %}
+    color: {{section.settings.linksHoverColor}};
+    {% endunless %}
+  }
+  
+  .interior-center-main {
+    text-align: center;
+    margin-bottom: 50px;
+    font-family: Lato,sans-serif;
+  }
+  
+  .page-content-width .interior-center-main p {
+    font-size: 18px;
+    font-family: Lato,sans-serif;
+  }
+  
+  .interior-block {
+    margin-bottom: 50px;
+    margin-top: 50px;
+  }
+  
+  .red {
+    background-color: #C03C43;
+  }
+  
+  .row {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  .shopify-section .red-section-bg {
+    background-image: url("https://cdn.shopify.com/s/files/1/0602/7139/5024/files/about-red-bg.png?v=1632940966");
+    background-position: left center;
+    background-size: cover;
+    padding: 50px 0;
+    color: #fff!important;
+  }
+  
+  .main-content .shopify-section .h2.about-h2,
+  .main-content div:not(.booster--revert)>h2.about-h2 {
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .main-content .shopify-section .red-section-bg h2,
+  .main-content .shopify-section .red-section-bg h2.about-h2 {
+	color: #fff;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .main-content .shopify-section .red-section-bg ul {
+    list-style-type: none;
+    margin-left: 20px;
+  }
+  
+  .main-content .shopify-section .page-width:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  
+  .main-content .shopify-section .red-section-bg li {
+    margin-bottom: 25px;
+    line-height: 18px;
+    position: relative;
+    color: #fff;
+  }
+  
+  .main-content .shopify-section .red-section-bg li:before {
+    content: "";
+    position: absolute;
+    left: -25px;
+    width: 20px;
+    height: 20px;
+    background-image: url("https://cdn.shopify.com/s/files/1/0602/7139/5024/files/red-section-check.png?v=1632941260");
+  }
+  
+  .main-content .shopify-section .text-center {
+    text-align: center!important;
+  }
+  
+  .shopify-section .img-1, .shopify-section .img-2, .shopify-section .img-3 {
+    float: right;
+    clear: both;
+    display: block;
+    position: relative;
+    padding-left: 15px;
+  }
+  
+  .shopify-section .img-1 {
+    padding-left: 100px;
+  }
+  
+  .shopify-section .img-2 {
+    margin-right: 200px;
+    margin-top: -50px;
+    padding-left: 25px;
+  }
+  
+  .shopify-section .img-3 {
+    margin-top: -100px;
+    margin-right: -20px;
+  }
+  
+  .shopify-section ol.spacing {
+    margin-left: 20px;
+    margin-top: 50px;
+  }
+  
+  .shopify-section ol.spacing li {
+    margin-bottom: 20px;
+    padding-left: 15px;
+    margin-left: 15px;
+  }
+  
+  .shopify-section .red-box {
+    padding: 5px 0;
+    padding-left: 30px;
+    background-color: #c63b3d;
+    color: #fff;
+    width: 80%;
+  }
+  
+  .shopify-section .red-box p:last-child {
+    margin-bottom: 0;
+  }
+  .main-content div:not(.booster--revert) .red-box > p {
+    color: #fff;
+  }
+  
+  .shopify-section .p-bottom-25 {
+    margin-bottom: 25px!important;
+  }
+  
+  .shopify-section .about-contact {
+    font-size: 20px;
+  }
+  
+  .shopify-section .about-contact .green-btn {
+    font-size: 26px;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 15px;
+    background-color: #99bc46;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+  }
+  
+  .shopify-section .about-contact .about-phone {
+    color: #c63b3d;
+    font-weight: 700;
+    font-size: 40px;
+  }
+  
+  .shopify-section .img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  div:not(.booster--revert) .interior-center-title {
+    font-weight: 700;
+    text-align: center!important;
+    font-family: Lato,sans-serif;
+  }
+  
+  div:not(.booster--revert) .center-line {
+    margin: 20px auto 0;
+  }
+  
+  
+  /*** New About Section ***/
+  .new-about-v2 {
+  	background-image: none !important;
+    background-color: #f7f7f7;
+  }
+  
+  .new-about-v2 h2.about-h2, .new-about-v2 li {
+  	color: inherit !important;
+  }
+  
+  .new-about-v2 li:before {
+  	background-image: url('https://cdn.shopify.com/s/files/1/2807/8986/files/red-right-icon.png?v=1654254049') !important;
+  }
+   
+  
+  @media only screen and (max-width: 991px) {
+    .shopify-section .img-mobile {
+      margin: 0 auto!important;
+      margin-bottom: 15px!important;
+    }
+    
+    .shopify-section .red-box {
+      width: 100%;
+    }
+  }
+  
+  @media only screen and (max-width:750px) {
+    .hide-mobile{display:none;}
+    .show-mobile{display:block!important;}
+    
+    .fsa-faq-bg h1 {
+        font-size: 1.875em;
+    }
+  }
+  
+  {% if section.settings.enable-deafult-page %}	 
+  	{% render 'page_default_css_fix' %}
+  {% endif %}
+  {% if section.settings.enable-about-us-css %}	 
+  	{% render 'page_about_us' %}
+  {% endif %}
+  
+  {% if section.settings.enable-returns-styles %}
+  {% render 'returns_css' %}
+  {% endif %}
+  
+  {% endif %}
+  
+</style>
+

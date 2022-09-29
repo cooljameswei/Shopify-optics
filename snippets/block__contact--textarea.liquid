@@ -1,0 +1,31 @@
+<label class="contact__textarea" for="{{block.id}}">{{block.settings.name}} {% unless block.settings.required %}(optional){% endunless -%}</label>
+<textarea {%if block.settings.required%}required{%endif%} id="{{block.id}}" name="contact[{{i}}-{{block.settings.name | handleize}}]" rows="5" placeholder="{{block.settings.placeholder}}"></textarea>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "contactFormTextarea",
+    "name": "Textarea field",
+    "settings": [
+        {
+            "type": "text",
+            "id": "name",
+            "label": "Field name",
+            "default": "Input title"
+        },
+        {
+            "type": "checkbox",
+            "id": "required",
+            "label": "This field is required",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder",
+            "default": "Example input"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

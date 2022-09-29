@@ -1,0 +1,53 @@
+<div class="card--default {% unless product.available %}card--soldout{% endunless %}">
+
+<a class="card__img--container" href="{{ product.url | within: collection }}">
+<div class="card__img--ratio">
+  <div class="card__img">
+    {% render 'card-image', image: product.featured_image, alt: product.featured_image.alt, desktop: dsize %}
+    {% unless product.images.size < 2 or settings.cardShowSecondary == false %}
+      {% assign secondaryImage = product.images[1] %}
+      {% render 'card-image', image: secondaryImage, alt: secondaryImage.alt, desktop: dsize, class: 'card__img--secondary' %}
+    {% endunless %}
+    {% if product.compare_at_price_min > 0 and settings.countdownCard and settings.countdown %}
+    <div data-countdown data-ct-key="{{product.id}}" class="countdown">
+      <span class="countdown__holder"><span class="days">00</span><br>DAYS</span>
+      <span class="countdown__holder"><span class="hours">00</span><br>HRS</span>
+      <span class="countdown__holder"><span class="minutes">00</span><br>MIN</span>
+      <span class="countdown__holder"><span class="seconds">00</span><br>SEC</span>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</a>
+
+{% unless settings.cardStyle == 'catalog' %}
+<div class="card__info">
+<a class="card__title" href="{{ product.url | within: collection }}">
+{% unless settings.cardNameLimit != "none" %}
+{{ product.title }}
+{% else %}
+{% if settings.cardNameLimit == "words" %}
+{{ product.title | truncatewords: settings.cardNameLimitAmount }}
+{% else %}
+{{ product.title | truncate: settings.cardNameLimitAmount }}
+{% endif %}
+{% endunless %}
+</a>
+{% if product.compare_at_price_min > 0 %}
+{% assign sale = true %}
+{% endif %}
+<span class="card__price {% if sale == true %}card__price--sale{% endif %}">
+{% if product.price_varies %}
+{{'product_page.card.from'|t}} <span class="jsPrice">{{ product.price_min | money | strip_html }}</span>
+{% else %}
+<span class="jsPrice">{{ product.price | money | strip_html }}</span>
+{% endif %}
+{% if sale == true %}
+<span class="card__price--old jsPrice">
+{{product.compare_at_price | money | strip_html}}
+</span>
+{% endif %}
+</span>
+</div>
+{% endunless %}
+</div>

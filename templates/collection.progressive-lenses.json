@@ -1,0 +1,345 @@
+{
+  "wrapper": "div.row.row--product-list",
+  "sections": {
+    "1661332492c69cd2eb": {
+      "type": "collection-content-with-image",
+      "blocks": {
+        "14e2630d-fdb3-44ef-8295-6d970aa15c5c": {
+          "type": "title",
+          "settings": {
+            "title": "What are Progressive Lense?",
+            "title_text_color": "#4c4d4f",
+            "heading-type": "h1"
+          }
+        },
+        "c926f57e-8b10-43c0-a7fd-c196efffc413": {
+          "type": "richText",
+          "settings": {
+            "content_text": "<p>Progressive lenses are the perfect choice for people that are both nearsighted and farsighted. Say goodbye to constantly switching between reading glasses and distance glasses! With progressive glasses, you can have the benefits of both at once. The best part? They don’t have that age-telling “glass line” that bifocal lenses are known for. You can customize your frames with them for as low as $49.<\/p>",
+            "content_text_color": "#4c4d4f",
+            "margin-bottom-content": 60
+          }
+        },
+        "d03af8b7-3d34-4711-8a39-f745f991116f": {
+          "type": "image",
+          "settings": {
+            "image1": "shopify:\/\/shop_images\/Mask_group.png",
+            "image1_mobile": "shopify:\/\/shop_images\/Group_215.png",
+            "image1_title": "",
+            "image1_link": "",
+            "link_to_image1": false,
+            "image2_title": "",
+            "image2_link": "",
+            "link_to_image2": false
+          }
+        }
+      },
+      "block_order": [
+        "14e2630d-fdb3-44ef-8295-6d970aa15c5c",
+        "c926f57e-8b10-43c0-a7fd-c196efffc413",
+        "d03af8b7-3d34-4711-8a39-f745f991116f"
+      ],
+      "settings": {
+        "content_bg_color": "",
+        "content_text_color": "#4c4d4f",
+        "displayFor": "display--both",
+        "margin-top": 100,
+        "margin-bottom": 90,
+        "margin-top-mob": 65,
+        "margin-bottom-mob": 20,
+        "half-circle": true,
+        "circleImgPos": "top",
+        "half-pattern": true
+      }
+    },
+    "1661332741bc0ea485": {
+      "type": "collection-content-with-image",
+      "blocks": {
+        "2e962121-bced-4816-a7dc-a8501e9fe521": {
+          "type": "title",
+          "settings": {
+            "title": "How do they work?",
+            "title_text_color": "#4c4d4f",
+            "heading-type": "h2"
+          }
+        },
+        "82c278b6-4e1b-40b1-8a50-db46daa35cd5": {
+          "type": "richText",
+          "settings": {
+            "content_text": "<p>Using high-tech craftsmanship, progressive glasses let you see clearly at three different distances. The middle, “intermediate” distance makes switching your focus between closer and farther objects feel more natural than ever. That means less squinting when you look up from your phone to the scenery around you.<\/p>",
+            "content_text_color": "#4c4d4f",
+            "margin-bottom-content": 0
+          }
+        }
+      },
+      "block_order": [
+        "2e962121-bced-4816-a7dc-a8501e9fe521",
+        "82c278b6-4e1b-40b1-8a50-db46daa35cd5"
+      ],
+      "settings": {
+        "content_bg_color": "",
+        "content_text_color": "#4c4d4f",
+        "displayFor": "display--both",
+        "margin-top": 0,
+        "margin-bottom": 60,
+        "margin-top-mob": 0,
+        "margin-bottom-mob": 50,
+        "half-circle": true,
+        "circleImgPos": "right",
+        "half-pattern": true
+      }
+    },
+    "16613328058644da36": {
+      "type": "collection-content-with-image",
+      "blocks": {
+        "c6ebf9e7-43ac-435e-8d9f-efb4703eaa78": {
+          "type": "ItemList",
+          "settings": {
+            "item_icon": "shopify:\/\/shop_images\/icon__light_bulb.png",
+            "item_text": "<p>Progressive glasses can take time to get used to — from three to almost a dozen days! Luckily, our 2-week return policy lets you adjust to them at your own pace, worry-free.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "c6ebf9e7-43ac-435e-8d9f-efb4703eaa78"
+      ],
+      "settings": {
+        "content_bg_color": "#e5e5e7",
+        "content_text_color": "#4c4d4f",
+        "displayFor": "hide-mobile",
+        "margin-top": 0,
+        "margin-bottom": 115,
+        "margin-top-mob": 100,
+        "margin-bottom-mob": 100,
+        "half-circle": false,
+        "circleImgPos": "top",
+        "half-pattern": true
+      }
+    },
+    "1661336058117b330a": {
+      "type": "collection-columns",
+      "blocks": {
+        "d7b25c4a-3b59-499d-bb7f-3c008a8c00bf": {
+          "type": "columnContent",
+          "settings": {
+            "title": "Premium Progressive",
+            "text": "<p>For extra comfort and an even larger field of vision, you can customize your frames with premium progressive lenses for as low as $89. They’re the perfect choice for both first time and experienced multi-focal users.<\/p>",
+            "column_position": "left",
+            "column_bg_color": "#000000",
+            "column_font_color": "#ffffff"
+          }
+        },
+        "32a89cb7-d085-434a-9354-8bf327e82e6e": {
+          "type": "columnImage",
+          "settings": {
+            "image_desktop": "shopify:\/\/shop_images\/newman-checking-vision-with-new-glasses_1_1_b7f1ead9-ddbc-4ccf-9b48-2627b8158ee5_1.png",
+            "image_mobile": "shopify:\/\/shop_images\/newman-checking-vision-with-new-glasses_1_1_b7f1ead9-ddbc-4ccf-9b48-2627b8158ee5_1.png",
+            "column_position": "left"
+          }
+        },
+        "fda43c1e-ae29-47cc-9d7b-fe411d0f3c31": {
+          "type": "columnContent",
+          "settings": {
+            "title": "What makes Premium Progressives worth it?",
+            "text": "<p>With improved peripheral vision and reading clarity, they let you enjoy a larger and sharper field of vision than with standard multifocals. Plus,thanks to newly designed vision corridors, first time users can adapt quicker than ever.<\/p>",
+            "column_position": "left",
+            "column_bg_color": "#000000",
+            "column_font_color": "#ffffff"
+          }
+        },
+        "55975d47-9569-415e-9b8b-6871636afd65": {
+          "type": "columnImage",
+          "settings": {
+            "image_desktop": "shopify:\/\/shop_images\/newman-checking-vision-with-new-glasses_1_1_b7f1ead9-ddbc-4ccf-9b48-2627b8158ee5_1.png",
+            "image_mobile": "shopify:\/\/shop_images\/newman-checking-vision-with-new-glasses_1_1_b7f1ead9-ddbc-4ccf-9b48-2627b8158ee5_1.png",
+            "column_position": "right"
+          }
+        }
+      },
+      "block_order": [
+        "d7b25c4a-3b59-499d-bb7f-3c008a8c00bf",
+        "32a89cb7-d085-434a-9354-8bf327e82e6e",
+        "fda43c1e-ae29-47cc-9d7b-fe411d0f3c31",
+        "55975d47-9569-415e-9b8b-6871636afd65"
+      ],
+      "settings": {
+        "title": "",
+        "section_bg_color": "#000000",
+        "section_font_color": "#ffffff",
+        "border-visible": false,
+        "itemPos": "center",
+        "section_layout": "full-width",
+        "pad-top": 0,
+        "pad-bottom": 0,
+        "pad-right": 0,
+        "pad-left": 100
+      }
+    },
+    "1661336637eb7ead3a": {
+      "type": "collection-columns",
+      "blocks": {
+        "a05299c6-0967-40e4-8e82-4066dc10c710": {
+          "type": "columnContent",
+          "settings": {
+            "title": "Custom Feature",
+            "text": "<p>With improved peripheral vision and reading clarity, they let you enjoy a larger and sharper field of vision than with standard multifocals. Plus,thanks to newly designed vision <\/p>",
+            "column_position": "left",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "7126ba82-ded8-43fe-870a-4710111ac947": {
+          "type": "columnIconList",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/icon__arrow_right_circle_icon__4.png",
+            "text": "<p>Clear<\/p>",
+            "column_position": "left",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "6ac2f34f-f83f-4ca2-9d70-49f77ae49ed4": {
+          "type": "columnIconList",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/icon__arrow_right_circle_icon__5.png",
+            "text": "<p>Light Adjusting<\/p>",
+            "column_position": "left",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "52a67a69-7c3f-45a0-afdc-faa27700dc9f": {
+          "type": "columnIconList",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/icon__arrow_right_circle_icon__6.png",
+            "text": "<p>Blue Light<br\/>Filtering<\/p>",
+            "column_position": "left",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "2119a5a5-413a-426a-bf47-20b95303d7c8": {
+          "type": "columnIconList",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/icon__arrow_right_circle_icon__7.png",
+            "text": "<p>Sun<\/p>",
+            "column_position": "left",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "d3124e63-26c1-4e3a-8ff9-a01ef7c677a9": {
+          "type": "columnContent",
+          "settings": {
+            "title": "How To Get Them?",
+            "text": "",
+            "column_position": "right",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "25843981-abc9-418f-9100-515dcdd97cbe": {
+          "type": "columnItemList",
+          "settings": {
+            "title": "STEP 1 :",
+            "text": "<p>Select any style option below<\/p>",
+            "column_position": "right",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "fcc756c0-e45d-42ef-b3cf-18b216af3e58": {
+          "type": "columnItemList",
+          "settings": {
+            "title": "STEP 2 :",
+            "text": "<p>Click “multifocal” at lens selection<\/p>",
+            "column_position": "right",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "cc67c571-f31e-46dc-a711-f9db45f33c04": {
+          "type": "columnItemList",
+          "settings": {
+            "title": "STEP 3 :",
+            "text": "<p>Select “premium progressive” or “progressive” lenses<\/p>",
+            "column_position": "right",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        },
+        "9e1f94eb-0f31-48fe-b314-cee047fd439d": {
+          "type": "columnItemList",
+          "settings": {
+            "title": "STEP 4 :",
+            "text": "<p>Finish your purchase and enjoy!<\/p>",
+            "column_position": "right",
+            "column_bg_color": "",
+            "column_font_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "a05299c6-0967-40e4-8e82-4066dc10c710",
+        "7126ba82-ded8-43fe-870a-4710111ac947",
+        "6ac2f34f-f83f-4ca2-9d70-49f77ae49ed4",
+        "52a67a69-7c3f-45a0-afdc-faa27700dc9f",
+        "2119a5a5-413a-426a-bf47-20b95303d7c8",
+        "d3124e63-26c1-4e3a-8ff9-a01ef7c677a9",
+        "25843981-abc9-418f-9100-515dcdd97cbe",
+        "fcc756c0-e45d-42ef-b3cf-18b216af3e58",
+        "cc67c571-f31e-46dc-a711-f9db45f33c04",
+        "9e1f94eb-0f31-48fe-b314-cee047fd439d"
+      ],
+      "settings": {
+        "title": "",
+        "section_bg_color": "#c63c3e",
+        "section_font_color": "#ffffff",
+        "border-visible": true,
+        "itemPos": "top",
+        "section_layout": "container-width",
+        "pad-top": 55,
+        "pad-bottom": 55,
+        "pad-right": 100,
+        "pad-left": 100
+      }
+    },
+    "page": {
+      "type": "collection-template-boost-pfs-filter",
+      "settings": {
+        "show_collection_banner_image": true,
+        "collection_image_text_color": "",
+        "products_per_page": 24,
+        "products_per_row": 3,
+        "products_per_row_mobile": 2,
+        "text_alignment": "left",
+        "show_vendor": true,
+        "show_price": true,
+        "active_image_swap": true,
+        "show_sorting": true,
+        "show_product_review": false,
+        "show_sold_out_label": true,
+        "soldout_label": "Sold out",
+        "show_sale_label": true,
+        "sale_label": "Sale",
+        "from": "from",
+        "show_lable_by_tag": false,
+        "display_item_swatch": true,
+        "swatch_color_display_type": "swatch_color_display_type_image_product",
+        "swatch_color_event_change_image": "hover",
+        "swatches_color_shape": "circle",
+        "equal_height": "false",
+        "ratio_width_height_other": "",
+        "equal_height_crop_image_position": "center"
+      }
+    }
+  },
+  "order": [
+    "1661332492c69cd2eb",
+    "1661332741bc0ea485",
+    "16613328058644da36",
+    "1661336058117b330a",
+    "1661336637eb7ead3a",
+    "page"
+  ]
+}

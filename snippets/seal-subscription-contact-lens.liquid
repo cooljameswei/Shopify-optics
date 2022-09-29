@@ -1,0 +1,90 @@
+<!-- The recommended HTML snippet, as it also includes the data-product attribute -->
+<div class="sealsubs-target-element" data-product="{{ product | json | escape }}" data-handle="{{ product.handle }}"></div>
+<script>
+    let _current_variant_sku = '{{ current_variant.sku | url_encode }}';
+    document.addEventListener('sealsubs:subscription_widget_created', function(e) {
+        let subscriptionPlansContainer = document.querySelector(".sealsubs-container") || undefined;    
+		if(subscriptionPlansContainer){
+            subscriptionPlansContainer.insertBefore((new PlanTabs),subscriptionPlansContainer.querySelector(".sls-more-info-container"));
+        }
+        typeof getPrescritionDetails =="function" && getPrescritionDetails(_current_variant_sku);
+        
+        let _planOptions =subscriptionPlansContainer.querySelector(".sls-selling-plan-group-options"); 
+        let _planContainer = document.createElement("div");
+        _planContainer.appendChild(_planOptions.cloneNode(true));
+        _planContainer.className = "contactLens-presc-plans";
+        if(subscriptionPlansContainer){
+            subscriptionPlansContainer.querySelector("plan-tabs").querySelector(".contactLens-presc-content").insertBefore(_planContainer,subscriptionPlansContainer.querySelector("plan-tabs").querySelector(".contact-lens-pres-layout"));
+        }
+	});
+    document.addEventListener('sealsubs:selling_plan_changed', function(e) {
+        let _planOpts = document.querySelector("plan-tabs").querySelector(".contactLens-presc-plans .sls-selling-plan-group-options");
+        if(e.detail.selling_plan_id){
+            _planOpts && (
+                _planOpts.style.display = "block"
+            )
+        }else{
+            _planOpts && (
+                _planOpts.style.display = "none"
+            )
+        }
+        
+	});
+    
+    let planTabsTemplate = document.createElement("template");
+    planTabsTemplate.innerHTML = `{{-contact_lens_html-}}`;
+
+    class PlanTabs extends HTMLElement {
+        constructor(){
+            super();
+            this.appendChild(planTabsTemplate.content.cloneNode(true));
+        }
+        connectedCallback(){
+        }
+    }
+    customElements.define("plan-tabs",PlanTabs);
+    
+</script>
+<style>
+    .selling-plan-group-options-name-select {display: none;}
+    .contactLens-presc-plans .sls-selling-plan-group-options {display: none;}
+    .contactLens-presc-plans .selling-plan-group-options-name-select {display: block;}
+    .contactLens-presc-plans .sls-selling-plan-group-first-option {display: none;}
+    .contactLens-presc-plans .sls-select {
+        text-transform: capitalize;
+    }
+
+    .sls-purchase-options-container {display: flex; }
+    .seal-col.seal-col-radio {display: none;}
+
+    .sls-total-price.sls-price-container {display: none;}
+
+    .sls-option-container.seal-table {
+        background: #c63b3d;
+        color: white;
+        
+    }
+    .sls-option-container.seal-table label{
+        color: white;
+        width: 100% !important;
+        font-size: 14px !important;
+        text-align: center;
+    }
+    .sls-option-container.seal-table.sls-active {
+        background: white;
+        color: #c63b3d;
+        
+    }
+
+    .sls-option-container.seal-table.sls-active label {
+        color: #c63b3d;
+        text-align: center;
+        width: 100% !important;
+        font-size: 14px !important;
+    }
+
+    .sealsubs-container > div:first-child {
+        display: none;
+    }
+    
+</style>

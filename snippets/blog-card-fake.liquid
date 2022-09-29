@@ -1,0 +1,16 @@
+{% assign i = i | default: 1 %}
+
+<a href="#" class="bcard--default bcard--{{settings.blogCardStyle}} border-radius">
+    <div class="bcard__img--container">
+        <div class="bcard__img--ratio">
+            <div class="bcard__img border-radius">
+            {{'collection-' | append: i | placeholder_svg_tag: 'svg__thumb'}}
+            </div>
+        </div>
+    </div>
+    <div class="bcard__info inherit">
+        <span class="bcard__title">This is your blogs title</span>
+        {% if settings.blogCardExcerpt %}<p class="bcard__excerpt">{{'You will find out more about this if you actually add some blogs and content!' | truncate: 140 | strip_html }}</p>{% endif %}
+        {% if settings.blogCardAuthor %}<span class="bcard__author">by BoosterTheme</span>{% endif %}
+    </div>
+</a>

@@ -1,0 +1,75 @@
+<!--
+  LOGO FOR PUBLISHER
+  IMAGE SRC ABSOLUTE URL
+  AUTHOR META
+
+-->
+
+{% assign number_of_comments = article.comments_count %}
+{% if comment and comment.created_at %}
+  {% assign number_of_comments = article.comments_count %}
+{% endif %}
+
+<div class="row article__row">
+  <div class="col-12 breadcrumbs--default">
+  {% render 'breadcrumbs' %}
+  </div>
+  <div class="col-12 article__max-width unflex">
+    <h1 class="article__title">{{ article.title }}</h1>
+    {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%m/%d/%Y' }}</time>{% endcapture %}
+    <div class="unflex article__meta">{{ article.author }} on {{ date }}</div>
+    {% unless article.excerpt == blank %}<div class="article__excerpt">{{article.excerpt}}</div>{% endunless %}
+  </div>
+  {% unless article.image == nil %}
+    <div class="col-12">
+      <div class="unflex article__max-width--image">
+        <img loading="lazy" data-src="{{article.image | img_url: '10x'}}" height="{{article.image.height}}" width="{{article.image.width}}" class="article__featured--shadow lazyload">
+        {% render 'ratio-image', ratioType: 'vw', image: article.image, alt: article.image.alt, class: 'article__featured', mratio: 100, dratio: 100 %}
+      </div>
+    </div>
+  {% endunless %}
+  <div class="col-12 unflex article__content">
+    <article class="article__max-width booster--revert">
+      {{article.content}}
+    </article>
+  </div>
+  <div class="col-12 article__max-width article__tags">
+  {% unless article.tags.size == 0 %}
+    <span>{{'general.tags.tags' | t}}: </span>
+    {% for tag in article.tags %}
+      <a href="{{blog.url}}/tagged/{{tag|handleize}}" class="article__tags--tag">{{tag}}</a>
+    {% endfor %}
+  {% endunless %}
+  </div>
+</div>
+
+{% comment %} {% if blog.comments_enabled? %}
+  <h2>{{ number_of_comments }} comments</h2>
+  {% paginate article.comments by 5 %}
+    {% for comment in article.comments %}
+      <div>
+        <div>{{ comment.content }}</div>
+        {{ comment.author }} @ {{ comment.created_at }}
+      </div>
+    {% endfor %}
+    {% if paginate.pages > 1 %}
+      {{ paginate | default_pagination }}
+    {% endif %}
+  {% endpaginate %}
+
+  <div>
+    {% form 'new_comment', article %}
+      {{ form.errors | default_errors }}
+      <label for="CommentAuthor">name</label>
+      <input type="text" name="comment[author]" id="CommentAuthor" placeholder="name" value="{{ form.author }}" autocapitalize="words">
+
+      <label for="CommentEmail">email</label>
+      <input type="email" name="comment[email]" id="CommentEmail" placeholder="email" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+
+      <label for="CommentBody">message</label>
+      <textarea name="comment[body]" id="CommentBody" placeholder="message">{{ form.body }}</textarea>
+
+      <input type="submit" value="post">
+    {% endform %}
+  </div>
+{% endif %} {% endcomment %}

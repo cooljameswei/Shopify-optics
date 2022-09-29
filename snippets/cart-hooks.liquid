@@ -1,0 +1,25 @@
+<script type="text/javascript" defer>
+    window.CART_HOOKS = window.CART_HOOKS || {};
+    window.CART_HOOKS.methods = window.CART_HOOKS.methods || {};
+    window.CART_HOOKS.methods.handleCartHasOnlyInsurance = async (reloadPage = true) => {
+        let cartData = await fetch("/cart.js").then(response => response.json());
+        if(!cartData.token){
+            return;
+        }
+        if(cartData.item_count === 0){
+            return;
+        }
+        let _insuranceItem = cartData.items.filter(item => {
+            return item.product_type === "Insurance";
+        });
+        
+        let clearCart = null;
+        if(cartData.item_count === 1 && _insuranceItem.length > 0){
+            clearCart = await fetch("/cart/clear.js",{method:"POST"}).then(response => response.json());
+        }
+        
+        if(reloadPage === true && clearCart !== null){
+            location.reload();
+        }
+    };
+</script>

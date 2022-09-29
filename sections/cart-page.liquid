@@ -1,0 +1,296 @@
+{% unless cart.items.size == 0 %}
+{% assign tran_checkout = 'general.buttons.checkout' | t %}
+{% assign tran_update = 'general.buttons.update_cart' | t %}
+
+<form class="col-12 cart__form" action="/cart" method="post" novalidate>
+    <div class="col-12 middle cart__header">
+        <h1 class="col-12 col-md middle">{{'cart.page.title' | t}}</h1>
+        {% if settings.cartTimer %}
+        <div style="margin-bottom: 0; padding: 0.5rem" class="minicart__timer unflex col-12 col-md" data-countdown data-ct-key="cart-ct-timer" data-duration="{{settings.cartTimerDuration}}" data-duration-format="minutes">
+            <span>{{'cart.page.expires'|t}}</span> <span class="minutes">00</span>:<span class="seconds">00</span>
+        </div>
+        {% endif %}
+        <div class="col-12 col-md start end-md checkout__button unflex">
+                {% if settings.ajaxType == "disabled" %}
+                    {% render 'button__submit', text: tran_update, name: 'update', type: 'secondary', class: 'button--cart__update' %}
+                {% endif %}
+            {% render 'button__submit', text: tran_checkout, name: 'checkout' %}
+        </div>
+    </div>
+
+    {% assign totalAmount = 0 %}
+    {% for item in cart.items %}
+    {% assign product = item.variant %}
+    <div class="col-12 cart__item">
+        <div class="col-11 col-md-4 cart__info">
+            <a class="card__img--container minicart__image" href="{{ item.url | within: collections.all }}">
+                <div class="card__img--ratio">
+                    <div class="card__img">
+                        {% render 'image', src: item, alt: item.title | escape , size: 'medium' %}
+                    </div>
+                </div>
+            </a>
+            <div class="cart__info--text">
+                <a href="{{ item.url }}">{{ item.product.title }}</a>
+                <span
+                    class="cart__info--variant">{% unless item.product.has_only_default_variant %}{{ item.variant.title }}{% endunless %}</span>
+
+                <!-- 
+
+
+                -->
+
+
+                <div class="col-12 no-gap hide-desktop cart__qtyTotal--holder">
+                    <div class="col-12 no-gap cart__quantity start">
+                        <div class="quantity--input">
+                            <button class="quantity--input__button quantity--input__incr"
+                                onclick="cartPage.quantityHandler(event, false)">-</button>
+                            <!--
+--><input class="quantity--input__input" value={{item.quantity}} data-qty-input data-qty-int-input data-variant-id={{item.key}}
+                                onchange="cartPage.updateQuantity(event)"
+                                type="number" min="0"
+                                {% if item.variant.inventory_management %}max="{{ item.variant.inventory_quantity}}"
+                                {% endif%}>
+                            <!--
+--><button class="quantity--input__button quantity--input__decr"
+                                onclick="cartPage.quantityHandler(event, true)">+</button>
+                        </div>
+                    </div>
+                    <div class="col-12 no-gap cart__ptotal start unflex">
+                        {%- if item.original_line_price != item.line_price -%}{{ item.original_line_price | money | strip_html }}{%- endif -%}
+                        <span class="jsPrice">{{- item.line_price | money | strip_html -}}</span>
+                        {% if product.compare_at_price > 0 %}
+                        <span
+                            class="cart__compare-price jsPrice">{{product.compare_at_price | times: item.quantity | money | strip_html}}</span>
+                        {% endif %}
+                        {%- for discount in item.discounts -%}{{- discount.title -}}{%- endfor -%}
+                    </div>
+                </div>
+
+
+                <!--
+
+
+                -->
+            </div>
+        </div>
+        <div onclick="cartPage.removeItem(this, '{{item.key}}')" class="col middle center cart__trash hide-desktop">
+            {% render 'get-icon', icon: 'trash' %}
+        </div>
+        <div class="col-md-2 cart__punit hide-mobile">
+            <span class="jsPrice">{{ item.price | money | strip_html }}</span>
+            {% if product.compare_at_price > 0 %}
+            <span class="cart__compare-price cart__compare-price--punit jsPrice">{{product.compare_at_price | money | strip_html}}</span>
+            {% endif %}
+        </div>
+        <div class="col-5 col-md-5 cart__qtyTotal--holder hide-mobile">
+            <div class="col-12 col-md-7 cart__quantity center">
+                <div class="quantity--input">
+                    <button class="quantity--input__button quantity--input__incr"
+                        onclick="cartPage.quantityHandler(event, false)">-</button>
+                    <!--
+--><input class="quantity--input__input" value={{item.quantity}} data-qty-input data-variant-id={{item.key}}
+                        name="updates[]" id="updates_{{item.key}}" data-qty-int-input onchange="cartPage.updateQuantity(event)" type="number"
+                        min="0" {% if item.variant.inventory_management %}max="{{ item.variant.inventory_quantity}}"
+                        {% endif%}>
+                    <!--
+--><button class="quantity--input__button quantity--input__decr"
+                        onclick="cartPage.quantityHandler(event, true)">+</button>
+                </div>
+            </div>
+            <div class="col-12 col-md-5 cart__ptotal center unflex">
+                {%- if item.original_line_price != item.line_price -%}<span class="jsPrice">{{ item.original_line_price | money| strip_html }}</span>{%- endif -%}
+                <span class="jsPrice">{{- item.line_price | money | strip_html -}}</span>
+                {% assign totalOriginal = 0 %}
+                {% if product.compare_at_price > 0 %}
+                {% assign totalOriginal = product.compare_at_price | times: item.quantity %}
+                <span class="cart__compare-price jsPrice">{{product.compare_at_price | times: item.quantity | money | strip_html }}</span>
+                {% assign totalAmount = totalAmount | plus: totalOriginal %}
+                {% else %}
+                {% assign totalAmount = totalAmount | plus: item.line_price %}
+                {% endif %}
+                {%- for discount in item.discounts -%}{{- discount.title -}}{%- endfor -%}
+            </div>
+        </div>
+        <div class="col-md-1 cart__trash hide-mobile">
+            <span onclick="cartPage.removeItem(this, '{{item.key}}')">{% render 'get-icon', icon: 'trash' %}</span>
+        </div>
+    </div>
+    {% endfor %}
+    {% if settings.shopCurrency == 'convert' %}
+        <div class="col-12 unflex cart__currency">
+        {{ 'cart.page.currency_notice' | t | replace: '%curr_symbol%', cart.currency.symbol | replace: '%curr_code%', cart.currency.iso_code }}
+    </div>
+    {% endif %}
+    <div class="row cart__additional">
+        <div class="col-12 col-md-4 cart__additional--left">
+            <a class="cart__continue"
+                href="{{routes.all_products_collection_url}}">{% render 'get-icon', icon: 'arrow-left' %}
+                <span>{{ 'general.buttons.continue' | t }}</span></a>
+        </div>
+        <div class="col-12 col-md end cart__additional--right">
+            <div class="cart__notes col">
+                <span>{{'cart.page.additional_notes' | t}}</span>
+                <textarea class="cart__notes--note" name="note" placeholder="{{'cart.page.additional_notes' | t}}" rows="6"></textarea>
+            </div>
+            <div class="cart__total">
+                {% if totalAmount > cart.total_price and section.settings.discount != 'none' %}
+                <span class="cart__total">{{'cart.page.total' | t}}: <span class="jsPrice">{{ totalAmount | money | strip_html }}</span></span>
+                <span class="cart__discount">{{'cart.page.discount' | t}}: <span class="cart__discount--amount {% if section.settings.discount == 'money' %}jsPrice{% endif %}">
+                        {% if section.settings.discount == 'money' %}
+                        -{{totalAmount | minus: cart.total_price | money | strip_html }}
+                        {% else %}
+                        {{ cart.total_price | minus: totalAmount | times: 100 | divided_by: totalAmount }}%
+                        {% endif %}
+                    </span>
+                </span>
+                {% endif %}
+                <span class="cart__grandtotal">{{'cart.page.grand_total' | t}}: <span class="jsPrice">{{ cart.total_price | money | strip_html }}</span></span>
+                {% render 'button__submit', text: tran_checkout, name: 'checkout', class: 'button--full-width' %}
+            </div>
+        </div>
+    </div>
+</form>
+
+{% else %}
+<div class="col-12 no-gap cart__header">
+    <h1 class="col middle center">{{'cart.page.empty_title'|t}}</h1>
+</div>
+
+<div class="row col-12">
+    <h3 class="col-12 center">{{'cart.page.empty_text'|t}}</h3>
+    {% if section.settings.featured != blank %}
+    <h3 class="col-12 center cart__suggestion">{{'cart.page.empty_suggestion'|t}}</h3>
+    <div class="col-12 cart__page--suggestions" style="overflow: auto;">
+        {% assign coll = collections[section.settings.featured] %}
+        {% for item in coll.products limit: 4 %}
+            <div class="col-12 col-md-3">
+            {% render 'product-card-default', product: item, dsize: '3' %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="col-12 center cart__suggestion--button">
+    {% assign btext = 'cart.page.empty_button' | t %}
+    {% render 'button', type: 'primary', text: btext, url: routes.all_products_collection_url %}
+    </div>
+</div>
+{% endunless %}
+
+
+  <script id="cartJavascript">
+  let cartPage = {};
+  cartPage.removeItem = async (t, id)=>{
+    let res = await BoosterTheme.cart.removeFromCart(false, id);
+  }
+
+  cartPage.updateCart = async ()=>{
+    let time = new Date().getTime();
+    let cartData = await fetch('/?section_id=cart-page', {headers: { 'Pragma': 'no-cache', 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Expires': 0 }}).then((data)=> data.text());
+    let div = document.createElement('div');
+    let currentCart = document.querySelector('.shopify-section.section--cart-page');
+    if(currentCart.dataset.lastUpdate > time){
+      return;
+    }
+    let p = document.createElement('div')
+    p.innerHTML = cartData
+    p.querySelector('[id="cartJavascript"]').remove()
+    currentCart.innerHTML = p.querySelector('.shopify-section.section--cart-page').innerHTML;
+    currentCart.dataset.lastUpdate = time;
+    BoosterTheme.events.trigger('booster:content:update', {trigger: 'cart-page'})
+  }
+
+{% unless settings.ajaxType == "disabled" %}
+  cartPage.quantityHandler = (event, req)=>{
+    let res = BoosterTheme.cart.quantityHandler(event, req);
+  }
+
+  cartPage.updateQuantity = async (event)=>{
+    await BoosterTheme.cart.updateQuantity(event);
+  }
+{% else %}
+  cartPage.quantityHandler = (event, req)=>{
+    event.preventDefault();
+    let {target} = event;
+    let input = target.closest('.quantity--input').querySelector('.quantity--input__input');
+    let value = parseInt(input.value);
+    if(!req && value){
+      input.value = --value;
+    } else {
+      input.value = ++value;
+    }
+    cartPage.updateQuantity({target: input});
+  }
+
+  cartPage.updateQuantity = async (event)=>{
+    let {target} = event;
+    let key = target.dataset.variantId;
+    let inputs = target.closest('form').querySelectorAll(`[data-variant-id="${key}"]`);
+    for(let input of inputs){
+      input.value = target.value;
+    }
+  }
+{% endunless %}
+document.addEventListener('booster:cart:update', (e)=>{
+    cartPage.updateCart()
+})
+  </script>
+
+{% schema %}
+{
+"name": "Cart page",
+"class": "col-12 row max-width section--cart-page",
+"settings": [
+    {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/58187608)"
+        },
+{
+"type": "radio",
+"label": "Show discount in",
+"options": [
+{"value": "money", "label": "Money amount ($)"},
+{"value": "percent", "label": "Percent (%)"},
+{"value": "none", "label": "Don't show saved amount"}
+],
+"default": "money",
+"id": "discount"
+},
+{
+    "type": "header",
+    "content": "Featured products"
+},
+{
+    "type": "collection",
+    "label": "Featured collection",
+    "info": "This collection will be shown if there are no products in the cart",
+    "id": "featured"
+}
+],
+"blocks": [
+{
+"type": "cartField",
+"name": "Text field",
+"settings": [
+{
+"id": "required",
+"label": "This field is required",
+"type": "checkbox",
+"default": false
+},
+{
+"id": "label",
+"label": "Label",
+"default": "Additional field",
+"type": "text"
+}
+]
+}
+]
+}
+{% endschema %}

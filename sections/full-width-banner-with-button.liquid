@@ -1,0 +1,465 @@
+
+<style>>
+.hide-desktop{
+display:none;
+}
+.hide-mobile{
+display:block;
+}
+#s--{{section.id}} .rb-container{
+  max-width:1350px;
+  margin:30px auto;
+  margin-bottom: {{section.settings.margin-bottom}}px;
+}
+#s--{{section.id}} .rb-container .cover-intro{
+  margin-bottom: 60px;
+}
+#s--{{section.id}} .rb-container p.sub-heading{
+  color: black;
+  width:75%;
+  margin:0px auto 20px;
+  text-align:center;
+}
+#s--{{section.id}} .rb-container .text-wrapper p{
+  line-height:23px;
+  font-weight:normal;
+  text-align:left;
+  color: white;
+  margin-bottom:15px;
+  font-size: 24px;
+}
+#s--{{section.id}} .rb-container .bottom-text-color p{
+  font-size:16px;
+  line-height:23px;
+  font-weight:normal;
+  text-align:center;
+  color: black;
+  max-width:75%;
+  margin: 0px auto 16px;
+}
+div.rb-container:not(.booster--revert)> h1{
+  font-size: 28px;
+  line-height:31px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:8px;
+  color:{{section.settings.heading-color}};
+}
+.full-width-banner .rb-container h3 {
+  margin-bottom: 0;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 0;
+  text-align: center;
+  padding: 15px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+}
+
+.full-width-banner .rb-container .cover-intro {
+padding-top: 0;
+position: relative;
+background-position: center center;
+background-size: cover;
+height: 464px;
+background-repeat: no-repeat; 
+}
+.full-width-banner .rb-container .cover-intro picture{
+padding: 15px 13px 15px 14px;
+padding-top: 0;
+position: relative;
+}
+
+#s--{{section.id}}.full-width-banner .rb-container .cover-intro .text-wrapper {
+  padding: 0 0 45px 30px;
+  color: white;
+  position: absolute;
+  max-width: 70%;
+  {% if section.settings.textAlignmentBanner == "center" %}
+    top: 50%;
+    bottom: auto;
+    transform: translate(0%, -36%);
+  {% elsif section.settings.textAlignmentBanner == "bottom" %}
+    bottom: -20px;
+    top:auto;
+    left:77px;
+    transform: translate(0%, 0%);
+  {% elsif section.settings.textAlignmentBanner == "top" %}
+    top: 60px;
+    bottom:auto;
+    transform: translate(0%, 0%);
+  {% endif %}
+}
+#s--template--15770019692693__165772004740d9824d.full-width-banner .rb-container .cover-intro .text-wrapper{
+  left:120px;
+}
+#s--{{section.id}}.full-width-banner .rb-container .cover-intro .text-wrapper h2 {
+  margin-bottom: 8px;
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: left;
+  font-weight: 600;
+  color:#fff;
+}
+
+.full-width-banner .rb-container .cover-intro .rb-col-md-7 {
+-webkit-box-flex: 0;
+flex: 0 0 58.33333%;
+max-width: 58.33333%;
+display: flex;
+flex-wrap: wrap;
+}
+
+.full-width-banner .rb-container .rb-btn-primary {
+font-weight: 600;
+font-size: 18px;
+letter-spacing: 0.6px;
+color: #1F1F24;
+background: white;
+width: 175px;
+padding-top: 5px;
+border: 1px solid #1F1F24;
+text-align: center;
+transition: all ease-in-out 0.4s;
+height: 50px;
+align-items: center;
+display: flex;
+justify-content: center; 
+border: none; 
+transition: all .2s;
+}
+
+.full-width-banner .rb-container .rb-btn-primary:hover {
+color: #fff;
+background: #1F1F24; 
+}
+
+.full-width-banner .rb-container .product-wrapper {
+display: flex;
+padding: 15px 0px 15px 0px;
+}
+
+.full-width-banner .rb-container  .product-wrapper .product-img img {
+transition: all ease-in-out 0.3s;
+}
+
+.full-width-banner .rb-container  .product-wrapper .product-img {
+position: relative;
+background-color: #F4F4F4;
+margin: 0 11px;
+padding: 25px;
+box-sizing: border-box;
+color:#000;
+}
+
+.full-width-banner .rb-container  .product-wrapper .product-img.first  {
+margin-left:0px;
+}
+
+.full-width-banner .rb-container  .product-wrapper .product-img.last {
+margin-right:0px;
+}
+
+
+.full-width-banner .rb-container  .product-wrapper .product-img:hover img {
+transform: scale(1.1);
+}
+
+.full-width-banner .rb-container .product-wrapper .product-img span {
+position: absolute;
+bottom: 8%;
+left: 0;
+text-align: center;
+width: 100%;
+font-size: 20px;
+letter-spacing: 1px;
+font-weight: 600;
+}
+@media (min-width:600px) and (max-width:767px){
+  #s--{{section.id}} .rb-container .cover-intro{
+    height:800px;
+  }
+}
+@media (min-width:768px) and (max-width:1199px){
+  #s--{{section.id}} .rb-container .cover-intro{
+    background-size:contain
+  }
+}
+@media (min-width:769px) and (max-width:949px){
+  #s--{{section.id}}.full-width-banner .rb-container .cover-intro .text-wrapper{
+    bottom:20%;
+    padding: 0px;
+  }
+}
+@media (min-width:950px) and (max-width:1199px){
+  #s--{{section.id}}.full-width-banner .rb-container .cover-intro .text-wrapper{
+    bottom:13%;
+    padding: 0px;
+  }
+}
+@media only screen and (max-width: 960px) {
+  .full-width-banner .rb-container  .product-wrapper .product-img.first {
+    margin: 0 11px;
+  }
+  .full-width-banner .rb-container  .product-wrapper .product-img.last {
+    margin: 0 11px;
+  }
+}
+@media only screen and (max-width: 800px) {
+.full-width-banner .rb-container .cover-intro .rb-col-md-7 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.full-width-banner .rb-container .cover-intro .text-wrapper {
+  padding: 45px;
+  text-align: center;
+}
+
+.full-width-banner .rb-container .cover-intro .text-wrapper h2{
+  width:100%;
+}
+}
+
+
+@media(max-width:768px){
+    .hide-desktop{
+    display:block;
+    }
+    .hide-mobile{
+    display:none;
+    }
+    .full-width-banner .rb-container .cover-intro {
+    background-image:url('{{ section.settings.background_img | img_url: '470x425' }}');
+    }
+}
+@media(max-width:767px){
+  div.rb-container:not(.booster--revert)> h1{
+    font-size: 18px;
+  }
+  #s--{{section.id}}.full-width-banner .rb-container .cover-intro .text-wrapper{
+    left:0;
+    max-width: 100%;
+    width:100%;
+  }
+  #s--{{section.id}}.full-width-banner .rb-container .cover-intro .text-wrapper h2{
+    font-size: 24px;
+  }
+  #s--{{section.id}}.full-width-banner .rb-container .cover-intro .text-wrapper{
+    padding:0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    {% if section.settings.textAlignmentBanner == "bottom" %}
+    bottom:20px;
+    {% endif %}
+  }
+  #s--{{section.id}} .rb-container .cover-intro{
+    background-position: 50%;
+    background-size: contain;
+    height:600px;
+    {% if section.settings.mobile-margin %}
+     margin: 0px 15px 60px;
+    {% endif %}
+  }
+}
+@media(min-width:451px) and (max-width:700px){
+  #s--{{section.id}}.full-width-banner .rb-container .cover-intro .text-wrapper{
+    bottom:15%;
+  }
+}
+@media(max-width:450px){
+  #s--{{section.id}} .rb-container .cover-intro{
+    height: 400px;
+  }
+}
+@media(max-width:350px){
+  #s--{{section.id}} .rb-container .cover-intro{
+    height: 300px;
+  }
+}
+</style>
+<div id="s--{{section.id}}" class="page-width full-width-banner padding-fix">
+<div class="rb-container">
+{% if section.settings.main-heading != blank %}
+    <h1 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.main-heading}}</h1>    
+{% endif %}
+{% if section.settings.main-sub-heading != blank %}
+    <p class="wow fadeInUp sub-heading" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.main-sub-heading}}</p>
+{% endif %}
+{% if section.settings.full-width-banner %}
+  <div class="cover-intro hide-mobile" style="background-image:url('{{ section.settings.background_img | img_url: '1250x1250' }}')">
+    {% if section.settings.background_link != blank %}
+      <a href="{{section.settings.background_link}}" style="display:block; width:100%; height:100%;"></a>
+    {% endif %}
+    <div class="text-wrapper">
+      {% if section.settings.header != blank %} 
+        <h2 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.header}}</h2>
+        {% endif %}
+      {% if section.settings.content != blank %}
+       <p class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.content}}</p>
+       {% endif %}
+      {% if section.settings.btn-txt != blank %}
+        <a href="{{section.settings.shop_now_link}}" class="rb-btn-primary wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.btn-txt}}</a>
+      {% endif %}  
+    </div>
+  </div>
+{% endif %}
+<div class="cover-intro hide-desktop" style="background-image:url('{{ section.settings.mbackground_img | img_url: '1250x1250' }}')">
+  {% if section.settings.header != blank %} 
+    <a href="{{section.settings.background_link}}" style="display:block; width:100%; height:100%;"></a>
+  {% endif %}
+  <div class="text-wrapper">
+    {% if section.settings.header != blank %} 
+        <h2 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.header}}</h2>
+    {% endif %}
+    {% if section.settings.content != blank %}
+        <p class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.content}}</p>
+    {% endif %}
+    {% if section.settings.btn-txt != blank %}
+        <a href="{{section.settings.shop_now_link}}" class="rb-btn-primary wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.btn-txt}}</a>
+    {% endif %}
+    </div>
+</div>
+{% if section.settings.bottom-txt != blank %}
+    <div class="bottom-text-color">    
+        <p>{{section.settings.bottom-txt}}</p>
+    </div>    
+{% endif %}
+</div>
+
+</div>
+
+{% schema %}
+{
+"name": "Full width Coll Banner",
+"settings": [
+{
+  "type":"checkbox",
+  "id":"full-width-banner",
+  "label":"Section Banner",
+  "default":true
+},
+{
+  "type":"checkbox",
+  "id":"mobile-margin",
+  "label":"Mobile Side Margin",
+  "default":true
+},
+{
+  "type": "text",
+  "id": "main-heading",
+  "label": "Main Heading"    
+},
+{
+    "type": "text",
+    "id": "main-sub-heading",
+    "label": "Main  Sub Heading"    
+},
+{
+  "type": "color",
+  "id": "sub-heading-color",
+  "label": "Sub Heading Color",
+  "default": "#000000"
+},
+{
+  "type": "image_picker",
+  "id": "background_img",
+  "label": "Background Image"
+},
+{
+  "type": "image_picker",
+  "id": "mbackground_img",
+  "label": "Mobile Background Image"
+},
+{
+  "id": "background_link",
+  "type": "url",
+  "label": "Backround Link"
+},
+{
+  "type": "text",
+  "id": "header",
+  "label": "Header"
+},
+{
+  "type": "color",
+  "id": "heading-color",
+  "label": "Heading Color",
+  "default": "#000000"
+},
+{
+  "type": "textarea",
+  "id": "content",
+  "label": "Content"
+},
+{
+  "type": "color",
+  "id": "content-color",
+  "label": "Content Color",
+  "default": "#000000"
+},
+{
+  "type": "select",
+  "id": "textAlignmentBanner",
+  "label": "Text alignment",
+  "options": [
+    {
+      "value": "top",
+      "label": "Top"
+    },
+    {
+      "value": "center",
+      "label": "Center"
+    },
+    {
+      "value": "bottom",
+      "label": "Bottom"
+    }
+  ],
+  "default": "bottom"
+},
+{
+    "type":"text",
+    "id":"btn-txt",
+    "label":"Button Text"
+},
+{
+  "id": "shop_now_link",
+  "type": "url",
+  "label": "Shop Now Link"
+},
+{
+    "type":"richtext",
+    "id":"bottom-txt",
+    "label":"Bottom Text"
+},
+{
+  "type": "color",
+  "id": "bottom-text-color",
+  "label": "Bottom Text Color",
+  "default": "#000000"
+},
+{
+  "type": "range",
+  "id": "margin-bottom",
+  "min": 0,
+  "max": 100,
+  "default": 30,
+  "unit": "px",
+  "label": "Margin-bottom"
+}
+],
+"presets": [
+{
+    "name": "Full width Coll Banner",
+    "category": "Image"
+}
+]
+}
+
+{% endschema %}

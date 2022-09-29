@@ -1,0 +1,6 @@
+{%- if section.settings.layout == 'default' -%}
+{%- assign layoutConfig = settings.baseLayout -%}
+{%- else -%}
+{%- assign layoutConfig = section.settings.layout -%}
+{%- endif -%}
+{%- unless inherit == false %}inherit{%endunless%} {% unless vAlign == false %}{{ section.settings.verticalAlignment }}{% else %}middle{%endunless%} layout__{{-layoutConfig}} {% if bg %}lazyload bg__{{-section.settings.backgroundPosition}}{% endif %} s__holder {{class}}

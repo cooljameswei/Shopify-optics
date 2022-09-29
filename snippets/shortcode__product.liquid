@@ -1,0 +1,152 @@
+<style type="text/css">
+{% render 'common-css' with section as section %}
+
+</style>
+
+{% assign product = blank %}
+{% assign showDescription = false %}
+
+{% for param in params %}
+    {% assign p = param | split: ':' %}
+    {% assign pname = p[0] | strip %}
+    {% assign value = p[1] | strip %}
+
+    {% case pname %}
+        {% when 'product-handle' %}
+            {% assign product = value %}
+        {% when 'show-description' %}
+            {% assign showDescription = value %}
+    {% endcase %}
+{% endfor %}
+
+{% unless product == blank %}
+
+{% assign product = all_products[product] %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = product.featured_image %}
+
+<div id="s--{{section.id}}" class="{% render 'common-class', section: section, class: 'row padding__vertical featured-product', vAlign: false %}">
+  <div class="row s_content layout__content">
+    {% render 'block__general--heading' with section as section %}
+    <div class="col-12 col-md-6 gallery__default">
+  <div data-gallery-type="thumbs" class="gallery" data-current-image="0">
+    <div class="col-min gallery__thumbnails--holder">
+      <div class="gallery__thumbnails">
+      {% for image in product.images %}
+        <span data-variants="{% for var in image.variants %}{{var.id}}|{% endfor %}" {% if forloop.first %}class="active"{%endif%} data-media-type="image" data-image-index="{{forloop.index0}}" data-high-res-image="{{ image.src | img_url: '1280x' }}" data-href="{{ image.src | img_url: '650x' }}" alt="{{image.alt | escape}}" onclick="boosterProductPage.galleryChangeImage(event, this)">
+          {% render 'image', size: '200x', src: image.src, alt: image.alt %}
+        </span>
+        {% assign currentIndex = forloop.index0 %}
+      {% endfor %}
+      {% for media in product.media %}
+        {% case media.media_type %}
+          {% when 'image' %}
+            {% continue %}
+          {% when 'external_video' %}
+            <span data-media-type="{{media.id}}" data-image-index="{{currentIndex}}" onclick="boosterProductPage.galleryChangeImage(event, this)">
+              {% render 'image', size: '200x', src: media, alt: media.alt %}
+            </span>
+            {% assign currentIndex = currentIndex | plus: 1 %}
+          {% when 'video' %}
+            <span data-media-type="{{media.id}}" data-image-index="{{currentIndex}}" onclick="boosterProductPage.galleryChangeImage(event, this)">
+              {% render 'image', size: '200x', src: media, alt: media.alt %}
+            </span>
+            {% assign currentIndex = currentIndex | plus: 1 %}
+        {% endcase %}
+      {% endfor %}
+      </div>
+      <div class="gallery__button--holder">
+        <button class="gallery__button gallery__button--up" disabled="true" data-direction="up" onclick="boosterProductPage.scrollThumbs(this)">{%- render 'get-icon', icon: 'arrowDown' -%}</button>
+      </div>
+      <div class="gallery__button--holder gallery__button--holder-down">
+        <button class="gallery__button" data-direction="down" onclick="boosterProductPage.scrollThumbs(this)">{%- render 'get-icon', icon: 'arrowDown' -%}</button>
+      </div>
+    </div>
+    <div class="col col-md gallery__image zoom">
+      <div data-new-image="reset" data-high-res-image="{{ featured_image | img_url: '1280x' }}" style="background-repeat: no-repeat;" class="gallery__image--zoom" onclick="boosterProductPage.toggleZoom(event)">
+        <img loading="lazy" height="{{featured_image.height}}" width="{{featured_image.width}}" src="{{ featured_image | img_url: '650x' }}" data-media-holder="image" alt="{{ featured_image.alt | escape }}" class="gallery__img active__holder lazyload">
+      </div>
+      {% comment %} <button class="zoom-btn" data-target="" value="+" onclick="boosterProductPage.zoomIn(this)">+ Zoom in</button> {% endcomment %}
+      {% for media in product.media %}
+        {% case media.media_type %}
+          {% when 'image' %}
+            {% continue %}
+          {% when 'external_video' %}
+          <div class="external__holder" data-media-holder="{{media.id}}" style="display: none;padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+            {% capture med %}{{ media | external_video_tag: class: 'gallery__external lazyload' }}{% endcapture %}
+            {{med | replace_first: 'src', 'data-src'}}
+          </div>
+          {% when 'video' %}
+          <div class="video__holder" data-media-holder="{{media.id}}" style="display: none;">
+            {% capture med %}{{ media | video_tag: class: 'gallery__video lazyload' }}{% endcapture %}
+            {{med | replace_first: 'src', 'data-src' | replace_first: 'poster=', 'controls=true poster='}}
+          </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+    <div class="col-12 col-md-6 product__page--info unflex">
+    {% form 'product', product %}
+      {% render 'block__product-page--title' with product as product %}
+      {% render 'block__product-page--price' with product as product %}
+      {% if showDescription %}{% render 'block__product-page--description' with product as product %}{% endif %}
+      {% render 'block__product-page--swatch' with product as product %}
+      {% render 'block__product-page--atc', product: product, form: form %}
+    {% endform %}
+    </div>
+
+  </div>
+</div>
+
+{% else %}
+
+<div id="s--{{section.id}}" class="{% render 'common-class', section: section, class: 'row padding__vertical featured-product', vAlign: false %}">
+  <div class="row s_content layout__content">
+    {% render 'block__general--heading' with section as section %}
+    <div class="col-12 col-md-6 gallery__default">
+      <div class="gallery">
+        <div class="col-min gallery__thumbnails--holder">
+          <div class="gallery__thumbnails">
+          {% for image in (1..6) %}
+            <a {% if forloop.first %}class="active"{%endif%}>
+              {{ 'product-' | append: image | placeholder_svg_tag}}
+            </a>
+          {% endfor %}
+          </div>
+        </div>
+        <div class="col col-md gallery__image zoom">
+          {{'product-1' | placeholder_svg_tag: 'lazyload gallery__img gallery__fake'}}
+          <button class="zoom-btn" data-target="" value="+" onclick="boosterProductPage.zoomIn(this)">+ Zoom in</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 product__page--info unflex">
+      <h1 
+        class="product__title">
+        Demo product
+      </h1>
+      <div 
+        class="product__price--holder">
+        <span class="product__price jsPrice">$179.00</span>
+      </div>
+      <div class="product__description {% if block.settings.noMargin %}margin__bottom--reduced{%endif-%}">
+        <span class="product__description--title">Product Description</span>
+        <p>This is an example product. Select a product inside this section's settings in order for it to be usable.</p>
+      </div>
+      <div class="product__atc {% if block.settings.noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+        <input style="display: none;">
+        <div class="quantity--input">
+            <button class="quantity--input__button quantity--input__incr">-</button><!--
+            --><input class="quantity--input__input" value="1" data-qty-input type="number" name="quantity" min="1"><!--
+            --><button class="quantity--input__button quantity--input__decr">+</button>
+        </div>
+        {% render 'add-to-cart-button--disabled', type: 'secondary' %}
+    </div>
+    </div>
+
+  </div>
+</div>
+{% endunless %}

@@ -1,0 +1,213 @@
+{% render 'blog-faq-style'%}
+{%- assign new_comment = false -%}
+{% if comment and comment.created_at %}
+{%- assign new_comment = true -%}
+{%- assign new_comment_id = comment.id -%}
+{% endif %}
+
+{% if new_comment %}
+{%- assign duplicate_comment = false %}
+{% for comment in article.comments %}
+{% if comment.id == new_comment_id %}
+{%- assign duplicate_comment = true %}
+{% break %}
+{% endif %}
+{% endfor %}
+
+{% if duplicate_comment %}
+{%- assign number_of_comments = article.comments_count -%}
+{% else %}
+{%- assign number_of_comments = article.comments_count | plus: 1 -%}
+{% endif %}
+{% else %}
+{%- assign number_of_comments = article.comments_count -%}
+{% endif %}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-3">
+      <p class="blog__meta">
+        {% if article.tags.size > 0 %}
+        <a href="/pages/faq/">
+          <strong>&#8249; Back to FAQs</strong>
+        </a>
+
+        <div>FAQ Categories</div>
+        <ul style="font-size:14px; padding-left:16px; margin-top:10px;">
+        {% for tag in article.tags %}
+        <li>
+          <a href="/pages/faq/#{{tag | handle | replace: '-', ''}}" class="link-body-color">
+            <strong>{{ tag }}</strong>
+          </a>
+        </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        
+      </p>
+      
+    </div>
+
+    <div class="col-sm-9 ">
+      <div class="faq-content">
+      {% if article.image %}
+      <div class="content-block__full-image content-block__full-image--large">
+        <noscript>
+          {{ article | img_url: '1024x1024' | img_tag: article.title | escape }}
+        </noscript>
+        <div class="article__photo-container">
+          <div class="article__photo-wrapper" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+            {% assign img_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+            <img class="lazyload"
+              src="{{ article.image | img_url: '300x300' }}"
+              data-src="{{ img_url }}"
+              data-widths="[360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+              data-aspectratio="{{ article.image.aspect_ratio }}"
+              data-sizes="auto"
+              alt="{{ article.title | escape }}">
+            </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <h1 class="h2">{{ article.title }}</h1>
+      <p>{{ article.published_at | time_tag: format: 'month_day_year' }}</p>
+      
+      <div class="rte rte--indented-images">
+        {{ article.content }}
+
+                
+      </div>
+      </div>
+    </div>
+
+  </div>
+ 
+</div>
+<!-- updated comment section  -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="comment--wrap">
+	<!-- new comment section	 -->
+        {% if number_of_comments > 0 %}
+          <div class="content-block updated-blog-section blog-comnt-sec">
+			<div id="comments">
+				<div class="comment--header">
+                  <div class="ch--left">
+                    <h2 class="h3"> Comments ({{ number_of_comments }})</h2>
+                  </div>
+                	<div class="ch--left hidden">
+                      <h1> Designer Optics </h1>
+                      <p> 791 Kent Avenue Brooklyn, NY 11205 </p>
+                  	</div>
+                  	<div class="ch--right btn">
+                      	<img src="{{ "edit-pen.png" | asset_url }}" />
+                      	<a id="writeReview"> Write a comment</a>                      
+                  	</div>
+              	</div>
+              {% if new_comment %}
+              <p class="form-success">
+                {% if blog.moderated? %}
+                {{ 'blogs.comments.success_moderated' | t }}
+                {% else %}
+                {{ 'blogs.comments.success' | t }}
+                {% endif %}
+              </p>
+              {% endif %}
+
+              {% if number_of_comments > 0 %}
+              		<ul class="comments list--no-bullets" id="commentUl">
+                        {% if new_comment %}
+                        	{% unless paginate.current_page > 1 %}
+                              <li id="{{ comment.id }}">
+                                <div class="comment">
+                                {% include 'comment' %}
+                                </div>
+                               </li>
+                        	{% endunless %}
+                        {% endif %}
+
+                        {% for comment in article.comments %}
+                            {% unless comment.id == new_comment_id %}
+                                <li id="{{ comment.id }}">
+                                  <div class="comment">
+                                    <div class="comment--img">
+                                        <img class="quote-img" src="{{ "user-icon-grey.svg" | asset_url }}" />
+                                    </div>
+                                    <div class="comment--details">
+                                        {% include 'comment' %}
+                                    </div>
+                                  </div>
+                                </li>
+                            {% endunless %}
+                        {% endfor %}
+                      </ul>
+                      {% if number_of_comments > 3 %}
+                        <div id="commentViewAll" class="view--all">
+                              <p id="commentVA">View All</p>
+                              <p id="commentVL">View Less</p>  	
+                        </div>
+                      {% endif %}
+              
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}	
+    <!-- new comment section ends  -->
+    
+      {% if blog.comments_enabled? %}
+		<div class="content-block" id="writeReviewTarget">
+            <div class="comment-form form-vertical comment-form-wrap" >
+              {% form 'new_comment', article %}
+
+              <h2 class="h3">Leave a comment</h2>
+
+              {{ form.errors | default_errors }}
+
+              <div>
+                <div>
+                  <label for="CommentAuthor" class="label--hidden">Name</label>
+                  <input type="text" name="comment[author]" id="CommentAuthor" class="{% if form.errors contains 'author' %} input--error{% endif %}" placeholder="Name" value="{{ form.author }}">
+            	</div>
+
+                <div>
+                  <label for="CommentEmail" class="label--hidden">Email</label>
+                  <input type="email" name="comment[email]" id="CommentEmail" class="{% if form.errors contains 'email' %} input--error{% endif %}" placeholder="Email" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+            	</div>
+              </div>
+			  <label for="CommentBody" class="label--hidden">Message</label>
+              <textarea name="comment[body]" id="CommentBody" class="{% if form.errors contains 'body' %} input--error{% endif %}" placeholder="Message">{{ form.body }}</textarea>
+
+              <input type="submit" class="btn" value="POST COMMENT">
+
+                {% if blog.moderated? %}
+                <p class="text-center">
+                  <small>Please note, comments must be approved before they are published</small>
+                </p>
+                {% endif %}
+                {% endform %}
+              </div>
+          </div>
+          {% endif %}
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#commentVL').addClass('d-none')
+    $(document).on('click','#commentViewAll', function(){
+      $('#commentUl').toggleClass('showUl');
+          $('#commentVL').toggleClass('d-none')
+		  $('#commentVA').toggleClass('d-none')
+	  })
+    
+    $('#writeReview').on('click', function(){
+          $('html, body').animate({
+            scrollTop: $("#writeReviewTarget").offset().top
+ 	       }, 1000);
+    })
+  })
+  
+</script>

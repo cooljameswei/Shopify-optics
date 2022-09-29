@@ -1,0 +1,111 @@
+<style>
+{% if block.settings.customFont %}
+{% render 'font', font: block.settings.customFontFamily %}
+{% endif %}
+
+#title--{{-block.id}}{
+    {% if block.settings.textColor != "rgba(0,0,0,0)" %}
+    color: {{block.settings.textColor}};
+    {% endif %}
+    {% if block.settings.fontSize == 'custom' %}
+    font-size: {{block.settings.customFontSize}}px;
+    {% endif %}
+    {% if block.settings.customFont %}
+    font-family: {{ block.settings.customFontFamily.family }}, {{ block.settings.customFontFamily.fallback_families }};
+    font-weight: {{block.settings.customFontFamily.weight}};
+    {% endif %}
+  
+    {% if block.settings.customStylesMK %}
+      {{ block.settings.customStylesMK }}
+    {% endif %}
+}
+
+{% if block.settings.customBreakpointOneMK and block.settings.customStylesBrOneMK %}
+{% assign brPt = block.settings.customBreakpointOneMK | plus:"px" %}
+@media (max-width:"{{brPt}}") {
+  #title--{{-block.id}}{
+    {{block.settings.customStylesBrOneMK}}
+  }
+}
+
+{% if block.settings.customBreakpointTwoMK and block.settings.customStylesBrTwoMK %}
+{% assign brPt = block.settings.customBreakpointTwoMK | plus:"px" %}
+@media (max-width:"{{brPt}}") {
+  #title--{{-block.id}}{
+    {{block.settings.customStylesBrTwoMK}}
+  }
+}
+{% endif %}
+
+
+{% endif %}
+
+</style>
+
+<h2 id="title--{{-block.id}}" class="font__family--title {% unless block.settings.fontSize == 'custom'%}font__size--{{-block.settings.fontSize}}{% endunless %}" 
+{{block.shopify_attributes}}>
+{{block.settings.content}}
+</h2>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "customTitle",
+    "name": "Custom Heading",
+    "settings": [
+        {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+        },
+        {
+        "id": "content",
+        "type": "text",
+        "label": "Header"
+        },
+        {
+        "type": "color",
+        "id": "textColor",
+        "default": "rgba(0,0,0,0)",
+        "label": "Text color"
+        },
+        {
+        "type": "select",
+        "label": "Font size",
+        "id": "fontSize",
+        "options": [
+            {"value": "small", "label": "Small"},
+            {"value": "base", "label": "Base"},
+            {"value": "medium", "label": "Medium"},
+            {"value": "big", "label": "Big"},
+            {"value": "custom", "label": "Custom"}
+        ],
+        "default": "custom"
+        },
+        {
+        "type": "range",
+        "id": "customFontSize",
+        "label": "Custom Font size",
+        "unit": "px",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "default": 36
+        },
+        {
+        "type": "checkbox",
+        "label": "Use custom font",
+        "default": true,
+        "id": "customFont"
+        },
+        {
+        "id": "customFontFamily",
+        "label": "Custom font",
+        "type": "font_picker",
+        "default": "work_sans_n6"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

@@ -1,0 +1,25 @@
+
+<img id="image--{{-block.id}}" height="{{block.settings.image.height}}"  width="{{block.settings.image.width}}" src="{{block.settings.image | img_url: '10x'}}" loading="lazy" class="lazyload"
+data-src="{{block.settings.image | img_url: '1280x'}}" {{block.shopify_attributes}}>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "image",
+    "name": "Image",
+    "settings": [
+        {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+        },
+        {
+            "id": "image",
+            "label": "Image",
+            "type": "image_picker"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

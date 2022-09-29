@@ -1,0 +1,58 @@
+<style>
+#highlighted-text--{{block.id}} {
+    background-color: {{block.settings.backgroundColor}};
+    color: {{block.settings.contentColor}};
+    display: inline-block;
+}
+
+.highlighted-text {
+    padding: 4px 8px;
+}
+</style>
+<div class="highlighted-text font__size--{{-block.settings.fontSize}}" id="highlighted-text--{{block.id}}" {{block.shopify_attributes}}>{{block.settings.content}}</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "highlightedText",
+    "name": "Highlighted text",
+    "settings": [
+        {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+        },
+        {
+        "id": "content",
+        "type": "text",
+        "label": "Text"
+        },
+        {
+        "type": "select",
+        "id": "fontSize",
+        "label": "Font size",
+        "options": [
+            {"value": "small", "label": "Small"},
+            {"value": "base", "label": "Base"},
+            {"value": "medium", "label": "Medium"},
+            {"value": "big", "label": "Big"}
+        ],
+        "default": "base"
+        },
+        {
+        "type": "color",
+        "id": "backgroundColor",
+        "label": "Highlight color",
+        "default": "#FFF"
+        },
+        {
+        "type": "color",
+        "id": "contentColor",
+        "label": "Text color",
+        "default": "#000"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

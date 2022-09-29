@@ -1,0 +1,3441 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Booster-6.0.3",
+    "theme_version": "6.0.3",
+    "theme_author": "Booster",
+    "theme_documentation_url": "https:\/\/help.boostertheme.com\/hc\/en-us",
+    "theme_support_url": "https:\/\/help.boostertheme.com\/hc\/en-us\/requests\/new"
+  },
+  {
+    "name": "Demo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Demo"
+      },
+      {
+        "type": "checkbox",
+        "default": false,
+        "label": "Enable demo store",
+        "info": "If enabled random images and menus will be used.",
+        "id": "demo"
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Branding"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179586)"
+      },
+      {
+        "type": "header",
+        "content": "Visual identity"
+      },
+      {
+        "type": "text",
+        "label": "Logo text replacement",
+        "id": "textLogo",
+        "placeholder": "Text of your logo",
+        "info": {
+          "en": "If you don't have a logo yet, this text will be used instead."
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "defaultLogo",
+        "label": "Default logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "darkLogo",
+        "label": "Dark mode logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "transparentLogo",
+        "label": "Transparent logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobileLogo",
+        "label": "Mobile logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "You can use your logo as your favicon, just make sure to select it here as well."
+      }
+    ]
+  },
+  {
+    "name": "Location, Contact & Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179587)"
+      },
+      {
+        "type": "header",
+        "content": "Store information",
+        "info": "You can set your contact information and your location here. These are not mandatory."
+      },
+      {
+        "type": "text",
+        "id": "storeLocation",
+        "label": "Location",
+        "placeholder": "982 Wall Ave. Revere, MA 02151"
+      },
+      {
+        "type": "text",
+        "id": "storeEmail",
+        "label": "E-mail",
+        "placeholder": "support@boostertheme.com"
+      },
+      {
+        "type": "text",
+        "id": "storePhone",
+        "label": "Phone number",
+        "placeholder": "+12025550132"
+      },
+      {
+        "type": "header",
+        "content": "Social media",
+        "info": "These links will be used throughout the theme for the purposes of sharing, liking and promoting your social media."
+      },
+      {
+        "type": "text",
+        "id": "sFacebook",
+        "label": "Facebook",
+        "placeholder": "https:\/\/www.facebook.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sFacebookIcon",
+        "label": "Facebook Icon"
+      },
+      {
+        "type": "text",
+        "id": "sInstagram",
+        "label": "Instagram",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sInstagramIcon",
+        "label": "Instagram Icon"
+      },
+      {
+        "type": "text",
+        "id": "sTruthsocial",
+        "label": "Truthsocial"
+      },
+      {
+        "type": "html",
+        "id": "sTruthsocialIcon",
+        "label": "Truthsocial Icon"
+      },
+      {
+        "type": "text",
+        "id": "sTwitter",
+        "label": "Twitter",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sTwitterIcon",
+        "label": "Twitter Icon"
+      },
+      {
+        "type": "text",
+        "id": "sWhatsapp",
+        "label": "WhatsApp",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sWhatsAppIcon",
+        "label": "WhatsApp Icon"
+      },
+      {
+        "type": "text",
+        "id": "sWe",
+        "label": "WeChat",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sWeIcon",
+        "label": "WeChat Icon"
+      },
+      {
+        "type": "text",
+        "id": "sYoutube",
+        "label": "Youtube",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sYoutubeIcon",
+        "label": "Youtube Icon"
+      },
+      {
+        "type": "text",
+        "id": "sSnapchat",
+        "label": "Snapchat",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sSnapchatIcon",
+        "label": "Snapchat Icon"
+      },
+      {
+        "type": "text",
+        "id": "sViber",
+        "label": "Viber",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sViberIcon",
+        "label": "Viber Icon"
+      },
+      {
+        "type": "text",
+        "id": "sPinterest",
+        "label": "Pinterest",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sPinterestIcon",
+        "label": "Pinterest Icon"
+      },
+      {
+        "type": "text",
+        "id": "sVK",
+        "label": "VK",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sVKIcon",
+        "label": "VK Icon"
+      },
+      {
+        "type": "text",
+        "id": "sDA",
+        "label": "DeviantArt",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sDAIcon",
+        "label": "DeviantArt Icon"
+      },
+      {
+        "type": "text",
+        "id": "sTikTok",
+        "label": "TikTok",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sTikTokIcon",
+        "label": "TikTok Icon"
+      },
+      {
+        "type": "text",
+        "id": "sTwitch",
+        "label": "Twitch",
+        "placeholder": "https:\/\/www.instagram.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sTwitchIcon",
+        "label": "Twitch Icon"
+      },
+      {
+        "type": "text",
+        "id": "sLinkedin",
+        "label": "LinkedIn",
+        "placeholder": "https:\/\/www.linkedin.com\/Boostertheme\/"
+      },
+      {
+        "type": "html",
+        "id": "sLinkedInIcon",
+        "label": "LinkedIn Icon"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179527)"
+      },
+      {
+        "type": "header",
+        "content": "Site layout"
+      },
+      {
+        "type": "select",
+        "id": "baseLayout",
+        "label": "Default site layout",
+        "options": [
+          {
+            "value": "boxed",
+            "label": "Boxed"
+          },
+          {
+            "value": "stretchBg",
+            "label": "Full width background"
+          },
+          {
+            "value": "stretchContent",
+            "label": "Full width"
+          }
+        ],
+        "default": "stretchBg"
+      },
+      {
+        "type": "text",
+        "id": "baseMaxWidth",
+        "label": "Maximum website width (px)",
+        "default": "1280",
+        "info": "This defines the maximum width the content of your site can stretch to."
+      },
+      {
+        "type": "range",
+        "id": "baseBorderRadius",
+        "label": "Default big element border radius",
+        "default": 0,
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "info": "Big elements include: minicart container, images, modals."
+      },
+      {
+        "type": "range",
+        "id": "baseBorderRadiusSmall",
+        "label": "Default small element border radius",
+        "default": 5,
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "info": "Small elements include: swatches, buttons, tags, labels."
+      },
+      {
+        "type": "paragraph",
+        "content": "The above settings define a global border radius of small and big elements on your website. Global radius is the curvature of borders. If your elements don't have custom border radius defined, they will fallback to this setting."
+      },
+      {
+        "type": "range",
+        "id": "baseBorderWidth",
+        "label": "Default border width",
+        "unit": "px",
+        "default": 2,
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "info": "This defines global border width of all elements of your website. If your elements don't have custom border width defined, they will fallback to this setting."
+      },
+      {
+        "type": "header",
+        "content": "Spacing",
+        "info": "Margins and paddings define the amount of empty space between the site's elements. This allows your elements to breathe and makes your page easy to navigate."
+      },
+      {
+        "type": "range",
+        "id": "baseSectionMargin",
+        "label": "Space between sections",
+        "default": 52,
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px"
+      },
+      {
+        "type": "paragraph",
+        "content": "These settings can be overriden on element-by-element\/section-by-section basis."
+      }
+    ]
+  },
+  {
+    "name": "Search & Navigation",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179473)"
+      },
+      {
+        "type": "header",
+        "content": "Pagination"
+      },
+      {
+        "type": "radio",
+        "label": "Pagination type",
+        "options": [
+          {
+            "value": "infinite",
+            "label": "Automatically load"
+          },
+          {
+            "value": "next",
+            "label": "Only show Previous and Next"
+          },
+          {
+            "value": "pages",
+            "label": "Show page numbers"
+          },
+          {
+            "value": "loadmore",
+            "label": "Show a load more button"
+          }
+        ],
+        "id": "pagination",
+        "default": "pages"
+      },
+      {
+        "type": "header",
+        "content": "Breadcrumbs"
+      },
+      {
+        "type": "checkbox",
+        "id": "breadcrumbs",
+        "default": true,
+        "label": "Show breadcrumbs"
+      },
+      {
+        "type": "header",
+        "content": "Search"
+      },
+      {
+        "type": "collection",
+        "id": "emptySearch",
+        "label": "Empty search collection",
+        "info": "This collection will be shown if user is yet to search for a product."
+      }
+    ]
+  },
+  {
+    "name": "Base colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179397)"
+      },
+      {
+        "type": "header",
+        "content": "Layout colors"
+      },
+      {
+        "type": "color",
+        "id": "baseBackground",
+        "label": "Site Background Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "baseText",
+        "label": "Text color",
+        "default": "#191d21",
+        "info": "Color used for content such as product names and descriptions."
+      },
+      {
+        "type": "color",
+        "id": "baseTitle",
+        "label": "Title text color",
+        "default": "#202626",
+        "info": "Color for titles and headings."
+      },
+      {
+        "type": "color",
+        "id": "baseSecondaryBackground",
+        "label": "Secondary Background Color",
+        "default": "#EFEFEF",
+        "info": "Color that's being used for neutral elements such as breadcrumbs."
+      },
+      {
+        "type": "color",
+        "id": "baseSecondaryText",
+        "label": "Secondary text color",
+        "default": "#686363",
+        "info": "This color will be used for subheadings, brand names and other secondary content."
+      },
+      {
+        "type": "color",
+        "id": "baseLink",
+        "label": "Link color",
+        "default": "#2B2F3D"
+      },
+      {
+        "type": "header",
+        "content": "Primary accent combination"
+      },
+      {
+        "type": "color",
+        "id": "primaryAccentBackground",
+        "label": "Primary accent color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "primaryAccentText",
+        "label": "Primary accent text color",
+        "default": "#FFFFFF",
+        "info": "This color should have good contrast ratio on top of primary accent color."
+      },
+      {
+        "type": "header",
+        "content": "Secondary accent combination"
+      },
+      {
+        "type": "color",
+        "id": "secondaryAccentBackground",
+        "label": "Secondary accent color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "secondaryAccentText",
+        "label": "Secondary accent text color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Alert color"
+      },
+      {
+        "type": "color",
+        "id": "baseAlert",
+        "label": "Alert color",
+        "default": "#EF0000",
+        "info": "This color will be used for urgency indicators such as stock left, cart expiry and alikes."
+      }
+    ]
+  },
+  {
+    "name": "Base Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179468)"
+      },
+      {
+        "type": "header",
+        "content": "Font family"
+      },
+      {
+        "type": "font_picker",
+        "id": "primaryFont",
+        "label": "Base font",
+        "info": "This font is, by default, being used for most of the text, including content (product name, product description), labels (SALE), navigation links, etc.",
+        "default": "open_sans_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "secondaryFont",
+        "label": "Title font",
+        "info": "This font is, by default, used for titles and headings.",
+        "default": "basic_commercial_n7"
+      },
+      {
+        "type": "checkbox",
+        "id": "enableCustomPrimaryFont",
+        "label": "Enable Custom Base font",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "customPrimaryFont",
+        "label": "Custom Base Font",
+        "info": "Use the custom font if enabled and value available",
+        "default": "Karla,HelveticaNeue,'Helvetica Neue',sans-serif"
+      },
+      {
+        "type": "checkbox",
+        "id": "enableCustomSecondaryFont",
+        "label": "Enable Custom Title font",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "customSecondaryFont",
+        "label": "Custom Title Font",
+        "info": "Use the custom font if enabled and value available",
+        "default": "Lato,HelveticaNeue,'Helvetica Neue',sans-serif"
+      },
+      {
+        "type": "header",
+        "content": "Font size"
+      },
+      {
+        "type": "select",
+        "id": "type_base_family",
+        "label": "Font",
+        "options": [
+          {
+            "value": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+            "label": "Arial",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif",
+            "label": "Avant Garde",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif",
+            "label": "Candara",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Geneva, Tahoma, Verdana, sans-serif",
+            "label": "Geneva",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+            "label": "Gill Sans",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Helvetica Neue",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Google_Droid+Sans_400_sans",
+            "label": "Droid Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Karla_400_sans",
+            "label": "Karla",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lato_400_sans",
+            "label": "Lato",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Montserrat_400_sans",
+            "label": "Montserrat",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Open+Sans_400_sans",
+            "label": "Open Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Sans_400_sans",
+            "label": "PT Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Roboto_400_sans",
+            "label": "Roboto",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Source+Sans+Pro_400_sans",
+            "label": "Source Sans Pro",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Ubuntu_400_sans",
+            "label": "Ubuntu",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "'Big Caslon', 'Book Antiqua', 'Palatino Linotype', Georgia, serif",
+            "label": "Big Caslon",
+            "group": "Serif"
+          },
+          {
+            "value": "'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif",
+            "label": "Calisto MT",
+            "group": "Serif"
+          },
+          {
+            "value": "Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, 'Times New Roman', serif",
+            "label": "Baskerville",
+            "group": "Serif"
+          },
+          {
+            "value": "Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif",
+            "label": "Garamond",
+            "group": "Serif"
+          },
+          {
+            "value": "Georgia, 'Hoefler Text', 'Times New Roman', serif",
+            "label": "Georgia",
+            "group": "Serif"
+          },
+          {
+            "value": "TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif",
+            "label": "Times New Roman",
+            "group": "Serif"
+          },
+          {
+            "value": "Google_Arapey_400_serif",
+            "label": "Arapey",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Arvo_400_serif",
+            "label": "Arvo",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Crimson+Text_400_serif",
+            "label": "Crimson Text",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Droid+Serif_400_serif",
+            "label": "Droid Serif",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lora_400_serif",
+            "label": "Lora",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Serif_400_serif",
+            "label": "PT Serif",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Vollkorn_400_serif",
+            "label": "Vollkorn",
+            "group": "Serif | Google Web Fonts"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "smallFontSize",
+        "min": 10,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Small font size",
+        "default": 14,
+        "info": "This is the font size for information such as the brand name on a product card, but can be used in other places in the theme."
+      },
+      {
+        "type": "range",
+        "id": "baseFontSize",
+        "min": 12,
+        "max": 48,
+        "step": 1,
+        "unit": "px",
+        "label": "Base font size",
+        "default": 16,
+        "info": "This is the font size for most of the site's content, including, but not limited to, product description, product name, navigation links."
+      },
+      {
+        "type": "range",
+        "id": "mediumFontSize",
+        "min": 14,
+        "max": 60,
+        "step": 1,
+        "unit": "px",
+        "label": "Medium font size",
+        "default": 34,
+        "info": "This font size is by default used for headings and titles."
+      },
+      {
+        "type": "range",
+        "id": "bigFontSize",
+        "min": 16,
+        "max": 72,
+        "step": 1,
+        "unit": "px",
+        "label": "Big font size",
+        "default": 48,
+        "info": "This font size is by default not being used in the theme."
+      },
+      {
+        "type": "header",
+        "content": "Heading & Subheading",
+        "info": "If set to 0, default values from above will be used."
+      },
+      {
+        "type": "range",
+        "id": "headingFontSize",
+        "min": 0,
+        "max": 72,
+        "step": 1,
+        "unit": "px",
+        "label": "Heading font size",
+        "default": 0,
+        "info": "This font size is used by section headings."
+      },
+      {
+        "type": "range",
+        "id": "subHeadingFontSize",
+        "min": 0,
+        "max": 72,
+        "step": 1,
+        "unit": "px",
+        "label": "Subheading font size",
+        "default": 18,
+        "info": "This font size is used by section subheadings."
+      }
+    ]
+  },
+  {
+    "name": "Buttons and inputs",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179407)"
+      },
+      {
+        "type": "header",
+        "content": "Button dimensions"
+      },
+      {
+        "type": "select",
+        "id": "buttonFontSize",
+        "label": "Font size",
+        "options": [
+          {
+            "value": "smallFontSize",
+            "label": "Small"
+          },
+          {
+            "value": "baseFontSize",
+            "label": "Base"
+          },
+          {
+            "value": "mediumFontSize",
+            "label": "Medium"
+          },
+          {
+            "value": "bigFontSize",
+            "label": "Big"
+          }
+        ],
+        "default": "baseFontSize"
+      },
+      {
+        "type": "range",
+        "label": "Additional width",
+        "id": "buttonPaddingHorizontal",
+        "min": 4,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 25
+      },
+      {
+        "type": "range",
+        "id": "buttonPaddingVertical",
+        "label": "Additional height",
+        "min": 0,
+        "max": 35,
+        "step": 1,
+        "unit": "px",
+        "default": 10
+      },
+      {
+        "type": "header",
+        "content": "Primary button",
+        "info": "This button style will be used for 'Add to cart', 'Checkout' and CTAs."
+      },
+      {
+        "type": "select",
+        "id": "primaryButtonStyle",
+        "label": "Primary button style",
+        "options": [
+          {
+            "value": "filled",
+            "label": "Filled"
+          },
+          {
+            "value": "ghost",
+            "label": "Ghost"
+          },
+          {
+            "value": "underlined",
+            "label": "Underlined"
+          },
+          {
+            "value": "text",
+            "label": "Text only"
+          }
+        ],
+        "default": "filled"
+      },
+      {
+        "type": "radio",
+        "id": "primaryButtonColorCombo",
+        "label": "Primary button color combination",
+        "options": [
+          {
+            "value": "primaryCombo",
+            "label": "Primary accent combination"
+          },
+          {
+            "value": "secondaryCombo",
+            "label": "Secondary accent combination"
+          },
+          {
+            "value": "customCombo",
+            "label": "Custom combination"
+          }
+        ],
+        "default": "primaryCombo"
+      },
+      {
+        "type": "color",
+        "id": "primaryButtonCustomFill",
+        "label": "Custom primary button fill color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "primaryButtonCustomContent",
+        "label": "Custom primary button text color",
+        "default": "#FFF"
+      },
+      {
+        "type": "radio",
+        "id": "primaryButtonHover",
+        "label": "Primary button hover effect",
+        "options": [
+          {
+            "value": "darken",
+            "label": "Darken"
+          },
+          {
+            "value": "lighten",
+            "label": "Lighten"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "reverse",
+            "label": "Reverse colors"
+          },
+          {
+            "value": "custom",
+            "label": "Custom combination"
+          }
+        ],
+        "default": "lighten"
+      },
+      {
+        "type": "color",
+        "id": "primaryButtonCustomHoverFill",
+        "label": "Custom primary button hover fill color",
+        "default": "#FFF"
+      },
+      {
+        "type": "color",
+        "id": "primaryButtonCustomHoverContent",
+        "label": "Custom primary button hover text color",
+        "default": "#000"
+      },
+      {
+        "type": "checkbox",
+        "default": false,
+        "id": "primaryButtonCustomBorder",
+        "label": "Enable custom border",
+        "info": "Enables global settings override for border width and radius."
+      },
+      {
+        "type": "range",
+        "id": "primaryButtonBorderRadius",
+        "label": "Custom border radius",
+        "default": 0,
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "primaryButtonBorderWidth",
+        "label": "Custom border width",
+        "unit": "px",
+        "default": 0,
+        "min": 0,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "header",
+        "content": "Secondary button",
+        "info": "This button style will be used for 'Add to cart', 'Checkout' and CTAs."
+      },
+      {
+        "type": "select",
+        "id": "secondaryButtonStyle",
+        "label": "Secondary button style",
+        "options": [
+          {
+            "value": "filled",
+            "label": "Filled"
+          },
+          {
+            "value": "ghost",
+            "label": "Ghost"
+          },
+          {
+            "value": "underlined",
+            "label": "Underlined"
+          },
+          {
+            "value": "text",
+            "label": "Text only"
+          }
+        ],
+        "default": "filled"
+      },
+      {
+        "type": "radio",
+        "id": "secondaryButtonColorCombo",
+        "label": "Secondary button color combination",
+        "options": [
+          {
+            "value": "primaryCombo",
+            "label": "Primary combination"
+          },
+          {
+            "value": "secondaryCombo",
+            "label": "Secondary combination"
+          },
+          {
+            "value": "customCombo",
+            "label": "Custom combination"
+          }
+        ],
+        "default": "secondaryCombo"
+      },
+      {
+        "type": "color",
+        "id": "secondaryButtonCustomFill",
+        "label": "Custom secondary button fill color",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "color",
+        "id": "secondaryButtonCustomContent",
+        "label": "Custom secondary button text color",
+        "default": "rgb(0,0,0)"
+      },
+      {
+        "type": "radio",
+        "id": "secondaryButtonHover",
+        "label": "Secondary button hover effect",
+        "options": [
+          {
+            "value": "darken",
+            "label": "Darken"
+          },
+          {
+            "value": "lighten",
+            "label": "Lighten"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "reverse",
+            "label": "Reverse colors"
+          },
+          {
+            "value": "custom",
+            "label": "Custom combination"
+          }
+        ],
+        "default": "darken"
+      },
+      {
+        "type": "color",
+        "id": "secondaryButtonCustomHoverFill",
+        "label": "Custom secondary button hover fill color",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "color",
+        "id": "secondaryButtonCustomHoverContent",
+        "label": "Custom secondary button hover text color",
+        "default": "rgb(0,0,0)"
+      },
+      {
+        "type": "checkbox",
+        "default": false,
+        "id": "secondaryButtonCustomBorder",
+        "label": "Enable custom border",
+        "info": "Enables global settings override for border width and radius."
+      },
+      {
+        "type": "range",
+        "id": "secondaryButtonBorderRadius",
+        "label": "Custom border radius",
+        "default": 0,
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "secondaryButtonBorderWidth",
+        "label": "Custom border width",
+        "unit": "px",
+        "default": 0,
+        "min": 0,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "header",
+        "content": "Input color combination"
+      },
+      {
+        "type": "paragraph",
+        "content": "This color will be used for quantity inputs as well as swatches and various dropdowns."
+      },
+      {
+        "type": "color",
+        "id": "inputFill",
+        "label": "Input fill color",
+        "default": "#EFEFEF"
+      },
+      {
+        "type": "color",
+        "id": "inputContent",
+        "label": "Input text color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "inputBorderColor",
+        "label": "Input border color",
+        "default": "#e2e2e2"
+      },
+      {
+        "type": "checkbox",
+        "default": false,
+        "id": "inputCustomBorder",
+        "label": "Enable custom border",
+        "info": "Enables global settings override for border width and radius."
+      },
+      {
+        "type": "range",
+        "id": "inputBorderRadius",
+        "label": "Custom border radius",
+        "default": 0,
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "inputBorderWidth",
+        "label": "Input border width",
+        "step": 1,
+        "min": 0,
+        "max": 10,
+        "default": 1,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Advanced Buttons (optional)",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179341)"
+      },
+      {
+        "type": "header",
+        "content": "Add to cart\/Quick buy button (Product card & page)"
+      },
+      {
+        "type": "checkbox",
+        "id": "freeShipping",
+        "label": "Enable 'Free + Shipping'",
+        "info": "Replaces the Add-to-cart text with the defined one, for products where price is set to free ($0)"
+      },
+      {
+        "type": "text",
+        "label": "Free + Shipping text",
+        "default": "Free",
+        "id": "freeShippingText"
+      },
+      {
+        "id": "addToCartColor",
+        "type": "select",
+        "label": "Button color",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Primary button combo"
+          },
+          {
+            "value": "secondary",
+            "label": "Secondary button combo"
+          }
+        ],
+        "default": "primary"
+      },
+      {
+        "id": "addToCartType",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "filled",
+            "label": "Filled"
+          },
+          {
+            "value": "ghost",
+            "label": "Ghost"
+          },
+          {
+            "value": "underlined",
+            "label": "Underlined"
+          },
+          {
+            "value": "text",
+            "label": "Text only"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "id": "addToCartIcon",
+        "type": "select",
+        "label": "Icon",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "shopping-bag",
+            "label": "Shopping bag"
+          },
+          {
+            "value": "shopping-cart",
+            "label": "Shopping cart"
+          },
+          {
+            "value": "shopping-basket",
+            "label": "Shopping basket"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "id": "addToCartFontSize",
+        "type": "select",
+        "label": "Text size",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "base",
+            "label": "Base"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "big",
+            "label": "Big"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "id": "addToCartTransform",
+        "type": "select",
+        "label": "Text transform",
+        "options": [
+          {
+            "value": "initial",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "initial"
+      },
+      {
+        "type": "header",
+        "content": "Buy now button (Product page)"
+      },
+      {
+        "id": "buyNowColor",
+        "type": "select",
+        "label": "Button color",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Primary button combo"
+          },
+          {
+            "value": "secondary",
+            "label": "Secondary button combo"
+          }
+        ],
+        "default": "primary"
+      },
+      {
+        "id": "buyNowType",
+        "type": "select",
+        "label": "Button type",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "filled",
+            "label": "Filled"
+          },
+          {
+            "value": "ghost",
+            "label": "Ghost"
+          },
+          {
+            "value": "underlined",
+            "label": "Underlined"
+          },
+          {
+            "value": "text",
+            "label": "Text only"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "id": "buyNowFontSize",
+        "type": "select",
+        "label": "Text size",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "base",
+            "label": "Base"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "big",
+            "label": "Big"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "id": "buyNowTransform",
+        "type": "select",
+        "label": "Text transform",
+        "options": [
+          {
+            "value": "initial",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "initial"
+      }
+    ]
+  },
+  {
+    "name": "Header Type",
+    "settings": [
+      {
+        "type": "header",
+        "content": "! NOTICE !"
+      },
+      {
+        "type": "paragraph",
+        "content": "Booster 6.0.0 marks a complete change in theme architecture and that includes headers. Current headers are somewhat limited in customization, but we are working hard to bring you more customizations and new header layouts."
+      },
+      {
+        "id": "headerType",
+        "label": "Header Type",
+        "options": [
+          {
+            "value": "default",
+            "label": "Inline links"
+          },
+          {
+            "value": "logo-top",
+            "label": "Logo top"
+          },
+          {
+            "value": "inline-search",
+            "label": "Inline Search"
+          },
+          {
+            "value": "mega-menu",
+            "label": "Mega menu"
+          }
+        ],
+        "default": "default",
+        "type": "select"
+      }
+    ]
+  },
+  {
+    "name": "Cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179271)"
+      },
+      {
+        "type": "header",
+        "content": "Layout settings"
+      },
+      {
+        "type": "select",
+        "id": "cardDesktop",
+        "label": "How many cards per row (Desktop)",
+        "options": [
+          {
+            "value": "1-5",
+            "label": "5"
+          },
+          {
+            "value": "3",
+            "label": "4"
+          },
+          {
+            "value": "4",
+            "label": "3"
+          }
+        ],
+        "default": "4"
+      },
+      {
+        "type": "select",
+        "id": "cardMobile",
+        "label": "How many cards per row (Mobile)",
+        "options": [
+          {
+            "value": "12",
+            "label": "1"
+          },
+          {
+            "value": "6",
+            "label": "2"
+          }
+        ],
+        "default": "6"
+      },
+      {
+        "type": "range",
+        "id": "baseCardPadding",
+        "label": "Space between cards",
+        "default": 12,
+        "unit": "px",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "info": "This represents the amount of space between product and collection cards."
+      },
+      {
+        "type": "header",
+        "content": "Card image fit"
+      },
+      {
+        "type": "select",
+        "label": "Image fit",
+        "id": "cardImageFit",
+        "options": [
+          {
+            "value": "contain",
+            "label": "Preserve ratio"
+          },
+          {
+            "value": "cover",
+            "label": "Adjust ratio to fill empty space - crop image"
+          }
+        ],
+        "default": "cover",
+        "info": "In case your card's image doesn't fit the image ratio you've selected below, the image can either: "
+      },
+      {
+        "type": "paragraph",
+        "content": "Preserve ratio - the whole image will be shown in its original dimensions, but may cause empty\/white space to appear"
+      },
+      {
+        "type": "paragraph",
+        "content": "Adjust the ratio to fill empty space - if the image doesn't fit the ratio, it will be cropped and adjusted to fill the card - no empty\/white space"
+      },
+      {
+        "type": "header",
+        "content": "Card image ratio"
+      },
+      {
+        "type": "select",
+        "id": "cardImageRatio",
+        "label": "Card image ratio",
+        "options": [
+          {
+            "value": "150",
+            "label": "2:3"
+          },
+          {
+            "value": "133.33",
+            "label": "3:4"
+          },
+          {
+            "value": "100",
+            "label": "1:1"
+          },
+          {
+            "value": "75",
+            "label": "4:3"
+          },
+          {
+            "value": "custom",
+            "label": "Custom ratio"
+          }
+        ],
+        "default": "133.33"
+      },
+      {
+        "type": "text",
+        "id": "cardImageRatioWidth",
+        "label": "Custom ratio width",
+        "default": "16"
+      },
+      {
+        "type": "text",
+        "id": "cardImageRatioHeight",
+        "label": "Custom ratio height",
+        "default": "9"
+      },
+      {
+        "type": "paragraph",
+        "content": "The above fields represent your card image's ratio in a (X:Y) [width:height] ratio. Default being 1:1 (square). Other popular ratios include: 16:9, 4:3 and 3:2."
+      }
+    ]
+  },
+  {
+    "name": "Product Cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179271)"
+      },
+      {
+        "type": "header",
+        "content": "Product card settings"
+      },
+      {
+        "type": "select",
+        "id": "cardStyle",
+        "label": "Product card type",
+        "options": [
+          {
+            "value": "none",
+            "label": "Default"
+          },
+          {
+            "value": "hover",
+            "label": "Show the button on hover"
+          },
+          {
+            "value": "slide",
+            "label": "Slide the button on hover"
+          },
+          {
+            "value": "noButton",
+            "label": "Hide buttons"
+          },
+          {
+            "value": "catalog",
+            "label": "Catalog"
+          }
+        ],
+        "default": "noButton"
+      },
+      {
+        "type": "checkbox",
+        "default": false,
+        "id": "cardFWButton",
+        "label": "Make the card button full width"
+      },
+      {
+        "type": "checkbox",
+        "label": "Show product gallery instead of a single image",
+        "info": "Replaces the product card image with a gallery of images.",
+        "id": "cardShowGallery",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "cardShowSecondary",
+        "label": "Show secondary product image on hover",
+        "default": true,
+        "info": "Doesn't work with Gallery cards (above setting)."
+      },
+      {
+        "type": "select",
+        "label": "Text align",
+        "id": "cardTextAlign",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "checkbox",
+        "id": "cardShowBrand",
+        "label": "Show product's brand name",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "cardShowRating",
+        "label": "Show review stars",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Product card typography (optional)"
+      },
+      {
+        "type": "paragraph",
+        "content": "If no colors are set, default ones will be used."
+      },
+      {
+        "type": "color",
+        "id": "cardBrandColor",
+        "label": "Product vendor color",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "select",
+        "id": "cardBrandWeight",
+        "label": "Product vendor weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Thin"
+          },
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "600",
+            "label": "Semi-Bold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "color",
+        "id": "cardNameColor",
+        "label": "Product name color",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "select",
+        "id": "cardNameWeight",
+        "label": "Product name weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Thin"
+          },
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "600",
+            "label": "Semi-Bold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "select",
+        "label": "Limit product name length",
+        "id": "cardNameLimit",
+        "options": [
+          {
+            "value": "none",
+            "label": "Don't limit"
+          },
+          {
+            "value": "words",
+            "label": "Limit by words"
+          },
+          {
+            "value": "chars",
+            "label": "Limit by characters"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "label": "Limit amount",
+        "default": 0,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "id": "cardNameLimitAmount",
+        "info": "Amount of units to limit after. Either words or characters. (eg. Setting it to 5 will show either 5 words or 5 characters depending on the above setting. If Don't limit is selected, this value is ignored."
+      },
+      {
+        "type": "color",
+        "id": "cardPriceColor",
+        "label": "Product price color",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "select",
+        "id": "cardPriceWeight",
+        "label": "Product price weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Thin"
+          },
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "600",
+            "label": "Semi-Bold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          }
+        ],
+        "default": "600"
+      },
+      {
+        "type": "color",
+        "id": "cardOldPriceColor",
+        "label": "Old Product price color",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "select",
+        "id": "cardOldPriceWeight",
+        "label": "Old Product price weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Thin"
+          },
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "600",
+            "label": "Semi-Bold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          }
+        ],
+        "default": "600"
+      },
+      {
+        "type": "color",
+        "id": "cardNewPriceColor",
+        "label": "New Product price color",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "select",
+        "id": "cardNewPriceWeight",
+        "label": "New Product price weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Thin"
+          },
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "600",
+            "label": "Semi-Bold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          }
+        ],
+        "default": "600"
+      }
+    ]
+  },
+  {
+    "name": "Product card tags",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179213)"
+      },
+      {
+        "type": "header",
+        "content": "Enable\/Disable tags"
+      },
+      {
+        "id": "tagEnabled",
+        "type": "checkbox",
+        "label": "Enable tags",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Position"
+      },
+      {
+        "type": "select",
+        "label": "Tag position",
+        "options": [
+          {
+            "value": "top-left",
+            "label": "Top left"
+          },
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom right"
+          }
+        ],
+        "default": "top-left",
+        "id": "tagPosition"
+      },
+      {
+        "type": "range",
+        "label": "Tags margin",
+        "info": "Amount of space between tags and the edges of a card.",
+        "min": 0,
+        "max": 15,
+        "unit": "px",
+        "step": 1,
+        "default": 5,
+        "id": "tagOffset"
+      },
+      {
+        "type": "header",
+        "content": "Sale tag"
+      },
+      {
+        "id": "tagSale",
+        "label": "Enable Sale tag",
+        "default": true,
+        "type": "checkbox"
+      },
+      {
+        "type": "color",
+        "id": "tagSaleColor",
+        "default": "#EF0000",
+        "label": "Sale tag color"
+      },
+      {
+        "type": "header",
+        "content": "Sold out tag"
+      },
+      {
+        "id": "tagSoldOut",
+        "label": "Enable Sold out tag",
+        "default": true,
+        "type": "checkbox"
+      },
+      {
+        "type": "color",
+        "id": "tagSoldOutColor",
+        "default": "#000",
+        "label": "Sold out tag color"
+      }
+    ]
+  },
+  {
+    "name": "Collection cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179271)"
+      },
+      {
+        "type": "header",
+        "content": "Collection card settings"
+      },
+      {
+        "type": "select",
+        "id": "collectionCardStyle",
+        "label": "Collection card type",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "textinside",
+            "label": "Show text inside the card"
+          },
+          {
+            "value": "buttoninside",
+            "label": "Show button inside on hover"
+          },
+          {
+            "value": "noButton",
+            "label": "Hide text"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "color",
+        "id": "collectionCardTextColor",
+        "label": "Text color",
+        "default": "rgb(0,0,0)"
+      },
+      {
+        "type": "select",
+        "label": "Text align (left - right)",
+        "id": "collectionCardTextAlign",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "label": "Text align (top - bottom)",
+        "id": "collectionCardTextAlignVertical",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "bottom"
+      },
+      {
+        "type": "radio",
+        "label": "Text size",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "base",
+            "label": "Base"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "big",
+            "label": "Big"
+          },
+          {
+            "value": "custom",
+            "label": "Custom"
+          }
+        ],
+        "default": "base",
+        "id": "collectionCardTextSize"
+      },
+      {
+        "type": "range",
+        "label": "Custom text size",
+        "id": "collectionCardCustomSize",
+        "min": 8,
+        "max": 100,
+        "step": 1,
+        "default": 24,
+        "unit": "px"
+      },
+      {
+        "type": "radio",
+        "label": "Text font",
+        "options": [
+          {
+            "value": "title",
+            "label": "Title"
+          },
+          {
+            "value": "base",
+            "label": "Base"
+          }
+        ],
+        "default": "title",
+        "id": "collectionCardTextFont"
+      },
+      {
+        "type": "color",
+        "id": "collectionCardTextBackground",
+        "label": "Text background",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "range",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "id": "collectionCardOverlayOpacity",
+        "label": "Overlay opacity",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "label": "Overlay color",
+        "id": "collectionCardOverlayColor",
+        "default": "rgba(0,0,0,0)"
+      }
+    ]
+  },
+  {
+    "name": "Blog cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179204)"
+      },
+      {
+        "type": "header",
+        "content": "Card style"
+      },
+      {
+        "type": "select",
+        "options": [
+          {
+            "value": "blur",
+            "label": "Blurred background"
+          },
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "inside",
+            "label": "Text inside image"
+          },
+          {
+            "value": "wrapped",
+            "label": "Wrapped background"
+          },
+          {
+            "value": "bottom",
+            "label": "Text background"
+          }
+        ],
+        "default": "blur",
+        "id": "blogCardStyle"
+      },
+      {
+        "type": "header",
+        "content": "Card content"
+      },
+      {
+        "type": "checkbox",
+        "label": "Show author",
+        "default": true,
+        "id": "blogCardAuthor"
+      },
+      {
+        "type": "checkbox",
+        "label": "Show excerpt",
+        "default": true,
+        "id": "blogCardExcerpt"
+      }
+    ]
+  },
+  {
+    "name": "Gallery & Swatches",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179150)"
+      },
+      {
+        "type": "header",
+        "content": "Gallery"
+      },
+      {
+        "type": "checkbox",
+        "label": "Show selected variant's image",
+        "info": "Selects\/Scrolls to the selected variant's featured image.",
+        "default": false,
+        "id": "variantShowImage"
+      },
+      {
+        "type": "header",
+        "content": "Swatches"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "id": "defaultSelector",
+        "label": "Default variant selector",
+        "options": [
+          {
+            "value": "dropdown",
+            "label": "Dropdown"
+          },
+          {
+            "value": "swatch",
+            "label": "Swatch"
+          }
+        ],
+        "default": "swatch"
+      },
+      {
+        "type": "textarea",
+        "label": "Alternative selector options",
+        "info": "List of comma (,) separated options to use an alternative selector for. (If above setting is \"Dropdown\" it will use \"Swatch\", and vice-versa)",
+        "id": "altSelectorList"
+      },
+      {
+        "type": "select",
+        "label": "Swatch logic",
+        "id": "swatchLogic",
+        "options": [
+          {
+            "value": "amazon",
+            "label": "Amazon"
+          },
+          {
+            "value": "aliexpress",
+            "label": "Aliexpress"
+          }
+        ],
+        "default": "aliexpress"
+      },
+      {
+        "type": "checkbox",
+        "label": "Disable Sold Out options",
+        "default": false,
+        "info": "If turned on, sold out options won't be clickable. Leave it turned off for use with Coming Soon\/Restock apps.",
+        "id": "disableSOSwatch"
+      },
+      {
+        "type": "select",
+        "id": "disabledSwatchStyle",
+        "label": "Disabled options style",
+        "options": [
+          {
+            "value": "hide",
+            "label": "Hide disabled options"
+          },
+          {
+            "value": "opacity",
+            "label": "Change disabled options opacity"
+          }
+        ],
+        "default": "opacity",
+        "info": "If the swatch logic is set to \"Amazon\", disabled options will be visible for the purpose of reselection!"
+      },
+      {
+        "type": "radio",
+        "label": "Preselect swatch",
+        "info": "Preselects a swatch in advance. You can either disable it (None), select the first option (First option) or preselect a variant based on query params\/first available.",
+        "options": [
+          {
+            "value": "false",
+            "label": "None"
+          },
+          {
+            "value": "firstOptionIndex",
+            "label": "First option"
+          },
+          {
+            "value": "variant",
+            "label": "First or selected variant"
+          }
+        ],
+        "default": "variant",
+        "id": "preselectSwatch"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "textarea",
+        "label": "Color only option names",
+        "id": "colorSwatches",
+        "default": "color,colour",
+        "info": "A comma-separated list of options you want to use COLOR SWATCHES for. Defaults to color,colour."
+      },
+      {
+        "type": "textarea",
+        "id": "swatchCustomColors",
+        "label": "Custom color codes",
+        "info": "Paste your custom colors separated by a comma (,).",
+        "default": "red: #EF0000, blue: #00e "
+      },
+      {
+        "type": "header",
+        "content": "Images"
+      },
+      {
+        "type": "textarea",
+        "label": "Image option names",
+        "id": "imageSwatches",
+        "default": "material",
+        "info": "A comma-separated list of options you want to use IMAGE SWATCHES for. It falls back to colors if an image is not available. Defaults to material."
+      },
+      {
+        "type": "select",
+        "id": "swatchFileExt",
+        "label": "Custom swatch image format",
+        "options": [
+          {
+            "value": "jpg",
+            "label": "JPG"
+          },
+          {
+            "value": "png",
+            "label": "PNG"
+          },
+          {
+            "value": "jpeg",
+            "label": "JPEG"
+          }
+        ],
+        "default": "jpg"
+      }
+    ]
+  },
+  {
+    "name": "Cart & Add to cart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179177)"
+      },
+      {
+        "type": "header",
+        "content": "Cart"
+      },
+      {
+        "type": "radio",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "sidebar",
+            "label": "Sidebar"
+          },
+          {
+            "value": "none",
+            "label": "Disable quick cart"
+          }
+        ],
+        "default": "sidebar",
+        "label": "Quick cart style",
+        "id": "cartStyle"
+      },
+      {
+        "type": "header",
+        "content": "Product card"
+      },
+      {
+        "type": "checkbox",
+        "default": false,
+        "id": "quickBuy",
+        "label": "Enable Quickbuy",
+        "info": "If turned on, products with multiple variants will be opened in a Quickbuy modal for customers to view and add to cart. If disabled, clicking on the button will redirect them to the product's page."
+      },
+      {
+        "type": "header",
+        "content": "Add to cart"
+      },
+      {
+        "id": "ajaxType",
+        "label": "AJAX Cart",
+        "type": "select",
+        "options": [
+          {
+            "value": "disabled",
+            "label": "Disable AJAX Cart"
+          },
+          {
+            "value": "form",
+            "label": "Send AJAX form"
+          },
+          {
+            "value": "api",
+            "label": "Send API request"
+          }
+        ],
+        "default": "form"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable dynamic checkout",
+        "default": true,
+        "id": "dynamicCheckout"
+      },
+      {
+        "type": "select",
+        "label": "After adding to cart",
+        "id": "cartAction",
+        "options": [
+          {
+            "value": "message",
+            "label": "Show a message"
+          },
+          {
+            "value": "added",
+            "label": "Show the added product"
+          },
+          {
+            "value": "upsell",
+            "label": "Upsell collection"
+          },
+          {
+            "value": "cart",
+            "label": "Go to cart"
+          },
+          {
+            "value": "minicart",
+            "label": "Open the minicart"
+          },
+          {
+            "value": "checkout",
+            "label": "Go to checkout"
+          }
+        ],
+        "default": "cart"
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Mailchimp"
+      },
+      {
+        "type": "textarea",
+        "label": "Mailchimp Action",
+        "id": "mcAction",
+        "info": "Instructions on how to find form action can be found [here](https:\/\/www.youtube.com\/watch?v=mQ6UFLP_iEI)"
+      },
+      {
+        "type": "text",
+        "id": "mcU",
+        "label": "Mailchimp U field (optional)"
+      },
+      {
+        "type": "text",
+        "id": "mcID",
+        "label": "Mailchimp ID field (optional)"
+      }
+    ]
+  },
+  {
+    "name": "Optimizations",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "This will be the home of all advanced optimization settings in one place."
+      },
+      {
+        "type": "checkbox",
+        "default": true,
+        "id": "lazyLoadSvg",
+        "label": "Use inline SVGs for lazyloading",
+        "info": "Turning this on will reduce the amount of requests necessary by inlining a placeholder (lightgrey) SVG until the original image is loaded."
+      },
+      {
+        "type": "checkbox",
+        "default": false,
+        "id": "nativeLazyLoad",
+        "label": "Enable native LazyLoading",
+        "info": "Take advantage of native Lazyloading [loading=\"lazy\"] in modern browsers. You lose the ability to have placeholders be shown, but you might gain performance points in modern browsers. Old browsers will use the built-in Booster LazyLoad script."
+      }
+    ]
+  },
+  {
+    "name": "Internationalization",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179144)"
+      },
+      {
+        "type": "header",
+        "content": "Geolocation"
+      },
+      {
+        "type": "checkbox",
+        "id": "geolocation",
+        "label": "Use geolocation to apply personalized i18n settings",
+        "info": "Based on user's IP, their native language and currency will be used - if available.",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Languages"
+      },
+      {
+        "type": "checkbox",
+        "id": "multilanguage",
+        "label": "Enable multi-language website",
+        "default": false,
+        "info": "This integrates natively with Shopify's multi-language website setup."
+      },
+      {
+        "type": "header",
+        "content": "Currency"
+      },
+      {
+        "type": "select",
+        "id": "shopCurrency",
+        "options": [
+          {
+            "value": "convert",
+            "label": "Use currency conversion"
+          },
+          {
+            "value": "multicurrency",
+            "label": "Enable multi-currency sales"
+          },
+          {
+            "value": "none",
+            "label": "Disable currency conversion"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "textarea",
+        "label": "Enabled currencies",
+        "id": "enabledCurrencies",
+        "default": "USD, HRK, GBP",
+        "info": "Comma (,) separated list of ISO currency codes. This only applies to currency conversion."
+      },
+      {
+        "type": "radio",
+        "label": "Currency format",
+        "options": [
+          {
+            "value": "money_format",
+            "label": "Money + symbol ($40.00)"
+          },
+          {
+            "value": "money_with_currency_format",
+            "label": "Money with currency ($40.00 USD)"
+          }
+        ],
+        "default": "money_format",
+        "id": "currencyFormat"
+      }
+    ]
+  },
+  {
+    "name": "Copycat Stopper [APP]",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Enable \/ Disable"
+      },
+      {
+        "type": "checkbox",
+        "id": "copycat",
+        "label": "Enable Copycat Stopper",
+        "info": "If enabled, theme will prevent copying and inspecting code.",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "label": "Prevent content copying",
+        "id": "copycatText",
+        "default": false,
+        "info": "If enabled, theme will prevent copying text (content) of the website. Copycat MUST be enabled in order for this setting to work."
+      }
+    ]
+  },
+  {
+    "name": "Dynamic Title [APP]",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "OPDynTitle",
+        "label": "On page titles",
+        "info": "Titles to rotate when customer is on the page. If left blank, it will not be used."
+      },
+      {
+        "type": "textarea",
+        "id": "BPDynTitle",
+        "label": "Left page titles",
+        "info": "Titles to rotate when customer is not actively on the page. If left blank, it will not be used."
+      },
+      {
+        "type": "range",
+        "id": "dynTitleIntr",
+        "label": "Rotation interval",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "unit": "s",
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "Cart Timer [APP]",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cartTimer",
+        "label": "Enable cart timer",
+        "default": false
+      },
+      {
+        "type": "range",
+        "unit": "min",
+        "label": "Cart timer duration",
+        "info": "The duration of a countdown timer, expressed in minutes.",
+        "id": "cartTimerDuration",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 15
+      }
+    ]
+  },
+  {
+    "name": "Countdown timer [APP]",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179091)"
+      },
+      {
+        "type": "header",
+        "content": "Enable\/Disable"
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown",
+        "label": "Enable offer countdown",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "countdownCard",
+        "label": "Show offer countdown on product cards",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Time settings"
+      },
+      {
+        "type": "text",
+        "default": "24",
+        "label": "Time",
+        "id": "countdownTime"
+      },
+      {
+        "type": "select",
+        "id": "countdownTimeFormat",
+        "options": [
+          {
+            "value": "days",
+            "label": "days"
+          },
+          {
+            "value": "hours",
+            "label": "hours"
+          },
+          {
+            "value": "minutes",
+            "label": "minutes"
+          },
+          {
+            "value": "seconds",
+            "label": "seconds"
+          }
+        ],
+        "default": "days"
+      },
+      {
+        "type": "paragraph",
+        "content": "Interval - enter a number and choose one of the values from a dropdown (days, hours..)."
+      },
+      {
+        "type": "paragraph",
+        "content": "Exact date - just enter the date in a YYYY\/MM\/DD format. For example using 2020\/08\/01 would make the countdown tick until August 1st 2020."
+      },
+      {
+        "type": "range",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "🕒",
+        "id": "countdownRandom",
+        "label": "Maximum randomization",
+        "info": "If you set this above 0, your timer will be randomized by +- the value you chose. (Days will be used if you entered a date)",
+        "default": 15
+      }
+    ]
+  },
+  {
+    "name": "Recently bought [APP]",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179066)"
+      },
+      {
+        "type": "header",
+        "content": "Enable\/Disable"
+      },
+      {
+        "type": "checkbox",
+        "default": false,
+        "label": "Enable 'Recently bought' app",
+        "id": "recentlyBought"
+      },
+      {
+        "type": "checkbox",
+        "id": "recentlyBoughtMobile",
+        "label": "Enable on mobile",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Collection"
+      },
+      {
+        "type": "collection",
+        "label": "Recently bought collection",
+        "id": "recentlyBoughtCollection",
+        "info": "If no collection is chosen, up to 15 best selling items will be used."
+      },
+      {
+        "type": "header",
+        "content": "Frequency"
+      },
+      {
+        "type": "range",
+        "min": 1,
+        "max": 30,
+        "step": 1,
+        "default": 5,
+        "label": "Show every",
+        "unit": "sec",
+        "id": "recentlyBoughtInterval"
+      },
+      {
+        "type": "range",
+        "min": 1,
+        "max": 30,
+        "step": 1,
+        "default": 10,
+        "label": "Display for",
+        "unit": "sec",
+        "id": "recentlyBoughtRemain"
+      },
+      {
+        "type": "header",
+        "content": "Style"
+      },
+      {
+        "type": "radio",
+        "label": "Position",
+        "options": [
+          {
+            "value": "left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "right",
+            "label": "Bottom right"
+          }
+        ],
+        "default": "left",
+        "id": "recentlyBoughtPosition"
+      },
+      {
+        "type": "color",
+        "label": "Background color",
+        "default": "#FFFFFF",
+        "id": "recentlyBoughtBackground"
+      },
+      {
+        "type": "color",
+        "label": "Text color",
+        "default": "#000",
+        "id": "recentlyBoughtColor"
+      },
+      {
+        "type": "range",
+        "id": "recentlyBoughtBorderRadius",
+        "label": "Border radius",
+        "min": 0,
+        "max": 100,
+        "default": 0,
+        "step": 5,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "recentlyBoughtImage",
+        "label": "Image type",
+        "options": [
+          {
+            "value": "full",
+            "label": "No border"
+          },
+          {
+            "value": "gap",
+            "label": "With border"
+          }
+        ],
+        "default": "full",
+        "info": "Determines whether or not will the image have surrounding space."
+      },
+      {
+        "type": "header",
+        "content": "Names"
+      },
+      {
+        "type": "checkbox",
+        "id": "recentlyBoughtNames",
+        "default": true,
+        "label": "Show names who recently bought an item",
+        "info": "If this is disabled 'Someone' will be used instead."
+      },
+      {
+        "type": "select",
+        "id": "recentlyBoughtNameFormat",
+        "default": "shorten",
+        "label": "Name format",
+        "options": [
+          {
+            "value": "full",
+            "label": "Full name (John Newman)"
+          },
+          {
+            "value": "shorten",
+            "label": "Shorten last name (John N.)"
+          },
+          {
+            "value": "initials",
+            "label": "Initials (J. N.)"
+          }
+        ]
+      },
+      {
+        "type": "textarea",
+        "label": "List of names (comma separated ',')",
+        "id": "recentlyBoughtNamesList",
+        "default": "Alissa Ashford, Carroll Calley, Augustina Angulo, Kenna Kuntz, Hailey Hinkle, Breann Beckham, Raquel Roles, Bernetta Beeks, Sol Silverio, Somer Sherrell, Yadira Yann, Belva Bumpus, Arlen Atherton, Huey Hanway, Suzette Stayton, Jeffry Jason, Libby Levasseur, Shaun Sparkman, Alison Almon, Rocco Rexroat",
+        "info": "A comma separated list of names to be used. Use full names. They will be formatted automatically according to your settings."
+      }
+    ]
+  },
+  {
+    "name": "Reviews [APP]",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458178996)"
+      },
+      {
+        "type": "select",
+        "id": "reviewApp",
+        "label": "What review app are you using",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "shopifyReviews",
+            "label": "Shopify reviews"
+          },
+          {
+            "value": "loox",
+            "label": "Loox"
+          },
+          {
+            "value": "alireviews",
+            "label": "AliReviews"
+          },
+          {
+            "value": "booster",
+            "label": "Booster tags"
+          }
+        ],
+        "default": "none"
+      }
+    ]
+  },
+  {
+    "name": "Free Shipping Bar [APP]",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Free shipping amount",
+        "info": "Free shipping amount without currency, formatted with a decimal point YY.XX (eg. for $120.95 you'd input 120.95, for $10 you'd input 10.00)",
+        "id": "freeShippingAmount",
+        "default": "99.95"
+      }
+    ]
+  },
+  {
+    "name": "Messenger chat [APP]",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179015)"
+      },
+      {
+        "type": "header",
+        "content": "Enable\/disable"
+      },
+      {
+        "type": "checkbox",
+        "id": "messenger",
+        "default": false,
+        "label": "Enable Messenger customer chat"
+      },
+      {
+        "type": "checkbox",
+        "id": "optimizedMessenger",
+        "default": true,
+        "label": "Simple button",
+        "info": "If enabled, direct link to a Messenger chat will be shown, instead of an interactive chat. Can be used for speed optimization"
+      },
+      {
+        "type": "header",
+        "content": "Instructions"
+      },
+      {
+        "type": "paragraph",
+        "content": "Make sure to whitelist your shop's domain in your Page settings. To do so go to your Facebook page, look for Page Settings, then click 'Advanced Messaging' on the left and find a section called 'Whitelisted Domains'. Add your domain and save the changes."
+      },
+      {
+        "type": "paragraph",
+        "content": "For more details check out [this page from Facebook](https:\/\/developers.facebook.com\/docs\/messenger-platform\/reference\/messenger-profile-api\/domain-whitelisting\/) or follow the 'Alternative way' on [this site](https:\/\/support.rocketspark.com\/hc\/en-us\/articles\/360001670547-How-to-add-Facebook-Customer-Chat-to-your-website)."
+      },
+      {
+        "type": "paragraph",
+        "content": "Your page ID can be found using [this unofficial site](https:\/\/findmyfbid.com\/) or you can follow [this tutorial from Facebook](https:\/\/www.facebook.com\/help\/1503421039731588)."
+      },
+      {
+        "type": "text",
+        "id": "messengerID",
+        "label": "Page ID",
+        "info": "Your Facebook page ID",
+        "default": "Your page ID here"
+      },
+      {
+        "type": "select",
+        "id": "messengerLang",
+        "label": "Language",
+        "options": [
+          {
+            "value": "cs_CZ",
+            "label": "Čeština"
+          },
+          {
+            "value": "da_DK",
+            "label": "Dansk"
+          },
+          {
+            "value": "de_DE",
+            "label": "Deutsch"
+          },
+          {
+            "value": "en_US",
+            "label": "English (US)"
+          },
+          {
+            "value": "en_GB",
+            "label": "English (UK)"
+          },
+          {
+            "value": "es_ES",
+            "label": "Español (España)"
+          },
+          {
+            "value": "es_LA",
+            "label": "Español (Spanish)"
+          },
+          {
+            "value": "tl_PH",
+            "label": "Filipino"
+          },
+          {
+            "value": "fr_FR",
+            "label": "Français (France)"
+          },
+          {
+            "value": "it_IT",
+            "label": "Italiano"
+          },
+          {
+            "value": "nl_NL",
+            "label": "Nederlands"
+          },
+          {
+            "value": "pl_PL",
+            "label": "Polski"
+          },
+          {
+            "value": "pt_BR",
+            "label": "Português (Brasil)"
+          },
+          {
+            "value": "pt_PT",
+            "label": "Português (Portugal)"
+          },
+          {
+            "value": "ro_RO",
+            "label": "Română"
+          },
+          {
+            "value": "ru_RU",
+            "label": "Русский"
+          },
+          {
+            "value": "sv_SE",
+            "label": "Svenska"
+          }
+        ],
+        "default": "en_US"
+      },
+      {
+        "type": "color",
+        "default": "#0084ff",
+        "label": "Button color",
+        "id": "messengerColor"
+      },
+      {
+        "type": "text",
+        "label": "Greeting",
+        "default": "What can we help you with?",
+        "info": "Message that will welcome your users.",
+        "id": "messengerGreeting"
+      }
+    ]
+  },
+  {
+    "name": "Basic GDPR notice [APP]",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179012)"
+      },
+      {
+        "type": "header",
+        "content": "Enable\/Disable"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable 'Basic GDPR notice'",
+        "default": true,
+        "id": "gdpr"
+      },
+      {
+        "type": "header",
+        "content": "Notice settings"
+      },
+      {
+        "type": "richtext",
+        "label": "Notice text",
+        "id": "gdprText",
+        "default": "<p>This site requires cookies in order to provide all of its functionality.<\/p>"
+      },
+      {
+        "type": "header",
+        "content": "Confirm button"
+      },
+      {
+        "type": "text",
+        "label": "Confirm button text",
+        "default": "Accept",
+        "id": "gdprAccept"
+      }
+    ]
+  },
+  {
+    "name": "Floating contact [APP]",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458179002)"
+      },
+      {
+        "type": "header",
+        "content": "Enable\/Disable"
+      },
+      {
+        "type": "checkbox",
+        "id": "floatingContact",
+        "label": "Enable 'Floating contact'",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "floatingContactMobile",
+        "label": "Enable 'Floating contact' on mobile",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "label": "Contact type",
+        "options": [
+          {
+            "value": "page",
+            "label": "Contact Page"
+          },
+          {
+            "value": "wapp",
+            "label": "WhatsApp"
+          },
+          {
+            "value": "mail",
+            "label": "Email"
+          },
+          {
+            "value": "sms",
+            "label": "SMS"
+          },
+          {
+            "value": "tel",
+            "label": "Phone"
+          }
+        ],
+        "id": "floatingContactType",
+        "info": "Phone number and E-mail will be taken from 'Location, Contact & Social Media' settings."
+      },
+      {
+        "type": "page",
+        "label": "Contact page",
+        "id": "floatingContactPage",
+        "info": "Used for 'Contact Page' button type."
+      },
+      {
+        "type": "radio",
+        "id": "floatingContactPosition",
+        "label": "Floating button position",
+        "options": [
+          {
+            "value": "left",
+            "label": "Bottom Left"
+          },
+          {
+            "value": "right",
+            "label": "Bottom right"
+          }
+        ],
+        "default": "right"
+      },
+      {
+        "id": "floatingContactSize",
+        "type": "range",
+        "min": 25,
+        "max": 100,
+        "unit": "px",
+        "default": 50,
+        "step": 5,
+        "label": "Floating button size"
+      },
+      {
+        "id": "floatingContactColor",
+        "type": "color",
+        "default": "#000",
+        "label": "Floating button background"
+      },
+      {
+        "id": "floatingContactIconColor",
+        "type": "color",
+        "default": "#FFF",
+        "label": "Floating button icon color"
+      }
+    ]
+  },
+  {
+    "name": "Advanced HTML & CSS",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https:\/\/vimeo.com\/458184998)"
+      },
+      {
+        "type": "header",
+        "content": "HTML"
+      },
+      {
+        "type": "textarea",
+        "label": "Head HTML",
+        "placeholder": "<script>...<\/script>",
+        "id": "headHTML",
+        "info": "Inserted before closing head tag (<\/head>). Often used to insert additional stylesheets or scripts."
+      },
+      {
+        "type": "textarea",
+        "label": "Body HTML",
+        "placeholder": "<script>...<\/script>",
+        "id": "bodyHTML",
+        "info": "Inserted before closing body tag. (<\/body>)"
+      },
+      {
+        "type": "header",
+        "content": "CSS"
+      },
+      {
+        "type": "textarea",
+        "label": "Custom CSS",
+        "placeholder": ".yourClass {background: red;}",
+        "id": "bodyCSS",
+        "info": "Inserted before closing body tag (<\/body>), wrapped with <style><\/style>. This will override theme's default CSS styles."
+      },
+      {
+        "type": "header",
+        "content": "Javascript"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable jQuery",
+        "info": "Adds the latest version of jQuery before the closing body tag",
+        "id": "jQuery",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "label": "Head Javascript",
+        "placeholder": "alert('This is awesone!')",
+        "id": "headJS",
+        "info": "Inserted before closing head tag (<\/head>), wrapped with <script><\/script>. Executed before the page is rendered."
+      },
+      {
+        "type": "textarea",
+        "label": "Body Javascript",
+        "placeholder": "alert('This is awesone!')",
+        "id": "bodyJS",
+        "info": "Inserted before closing body tag (<\/body>), wrapped with <script><\/script>. Executed after rest of the page is rendered."
+      }
+    ]
+  },
+  {
+    "name": "Show \/ Hide strike price",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "This setting allow you to show \/ hide strike price on product detail page for given brand names ( here brand names are consider as product \"vendor\" field value."
+      },
+      {
+        "id": "show_strike_and_text",
+        "label": "Show strike out price and You save text",
+        "type": "textarea",
+        "info": "A comma separated list of brands to be used. Use product vendor value(s). Strike price and \"You save {calculated percentage}\" text will be shown automatically according to your settings."
+      },
+      {
+        "id": "show_text_only",
+        "label": "Show You save text",
+        "type": "textarea",
+        "info": "A comma separated list of brands to be used. Use product vendor value(s). \"You save {calculated percentage}\" will be shown automatically according to your settings."
+      },
+      {
+        "id": "hide_strike_and_text",
+        "label": "Hide strike out price and You save text",
+        "type": "textarea",
+        "info": "A comma separated list of brands to be used. Use product vendor value(s).  Strike price or \"You save {calculated percentage}\" will be hide automatically according to your settings."
+      }
+    ]
+  },
+  {
+    "name": "Hide strike price for collections",
+    "settings": [
+      {
+        "id": "hide_strike_price_plp",
+        "label": "Hide strike out price",
+        "type": "textarea",
+        "info": "A comma separated list of brands to be used. Use product vendor value(s).  Strike price will be hide automatically according to your settings."
+      }
+    ]
+  },
+  {
+    "name": "Shipping insurance",
+    "settings": [
+      {
+        "type": "number",
+        "id": "shipping_insurance_percentage",
+        "label": "Adjust percentage",
+        "info": "Adjust shipping insurance percentage",
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "Backorder brand level",
+    "settings": [
+      {
+        "id": "backorder_brands",
+        "label": "Backorder brands",
+        "type": "textarea",
+        "info": "A comma separated list of brands to be used. Use product vendor value(s).  Add to cart button state will be change automatically according to your settings."
+      }
+    ]
+  },
+  {
+    "name": "Checkout GA events",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_checkout_ga_events",
+        "label": "Enables a checkout GA event(s) tracking",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "RX cost options",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "rx_cost_options",
+        "label": "Select RX option(s) collection"
+      }
+    ]
+  },
+  {
+    "name": "Create password",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_password_creation",
+        "label": "Enable password creation",
+        "info":"This will show password for sign up if customer has no account.",
+        "default":true
+      }
+    ]
+  }
+]

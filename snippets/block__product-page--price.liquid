@@ -1,0 +1,190 @@
+<style>
+{%- unless block.settings.color contains "rgba(0,0,0,0)" -%}
+.product__price--{{block.id}} .product__price {
+    color: {{block.settings.color}};
+}
+{%- endunless -%}
+
+{%- unless block.settings.newPriceColor contains "rgba(0,0,0,0)" -%}
+.product__price--{{block.id}} .product__price.product__price--sale {
+    color: {{block.settings.newPriceColor}};
+}
+{%- endunless -%}
+
+{%- unless block.settings.oldPriceColor contains "rgba(0,0,0,0)" -%}
+.product__price--{{block.id}} .product__price--old {
+    /*color: {{block.settings.oldPriceColor}};*/
+    color:#aaa;
+    text-decoration: line-through;
+    font: 400 30px/37px Montserrat;
+    letter-spacing: 1.5px;
+}
+{%- endunless -%}
+  .product__price--holder{
+  	margin-bottom:15px !important;
+  }
+  .product__price.product__price--sale.jsPrice{
+  	color: #000;
+    font: 600 28px/37px Montserrat;
+    letter-spacing: 1.5px;
+  }
+  .addtocart__button .pdp-btn-addcart-wishlist .button--primary__filled{
+    /* margin-right:24px; */
+  }
+  .addtocart__button.product__atc-container-item{
+  	display:flex;
+    align-items:center;
+    justify-content:end;
+    width:auto;
+    margin-bottom:15px;
+  }
+  .prescriptionCtrl.action_button.btn--full{
+  	width:auto;
+    margin-right:10px;
+    padding:15px 35px;
+  }
+  .pdp-btn-addcart-wishlist{
+    width:auto;
+  	display: flex;
+    align-items: flex-start;
+  }
+  .pdp-btn-addcart-wishlist .pdp-wishlist-icon{
+  	position:static;
+    padding:10px 0px;
+  }
+  .quantity--input__button{
+  	font-size: 26px;
+    font-weight: normal;
+    color: black;
+    border-radius: 5px;
+  }
+  .product__price--holder .strike__price-text p{
+    border:none;
+    padding:0px;
+  }
+  @media(max-width:767px){
+    .addtocart__button.product__atc-container-item{
+      justify-content: space-between;
+    }
+    .addtocart__button .pdp-btn-addcart-wishlist .button--primary__filled{
+      margin-right: 0px;
+      width:100%;
+    }
+    .product__price,
+    .strike__strike-price.product__price--old,
+    .product__price.product__price--sale.jsPrice{
+      font-size:20px;
+    }
+    
+    .addtocart__button.product__atc-container-item .prescriptionCtrl.action_button.btn--full,
+    .addtocart__button.product__atc-container-item .pdp-btn-addcart-wishlist{
+      width:100%;
+   }
+  }
+</style>
+
+{% comment %}NS - START{% endcomment %}
+{%liquid
+  assign show_strike_and_text = settings.show_strike_and_text | split:","
+  assign show_text_only = settings.show_text_only | split:","
+  assign hide_strike_and_text = settings.hide_strike_and_text | split:","
+  assign productVendor = product.vendor
+  assign isShowTextSave = false
+  assign isShowStrikePrice = false
+  
+  if show_strike_and_text contains productVendor
+    assign isShowTextSave = true
+     assign isShowStrikePrice = true
+  endif 
+  
+  if show_text_only contains productVendor
+    assign isShowTextSave = true
+     assign isShowStrikePrice = false
+  endif 
+  
+  if hide_strike_and_text contains productVendor
+    assign isShowTextSave = false
+     assign isShowStrikePrice = false
+  endif 
+  
+ %}
+ {% comment %}NS - END{% endcomment %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign s_type = block.settings.saleType | default: 'percent' %}
+
+<div class="ph-item" data-rx-placeholder>
+  <div class="ph-row">
+      <div class="ph-col-12">
+          <div class="ph-col-4"><div class="ph-picture"></div></div>
+          <div class="ph-col-4"><div class="ph-picture"></div></div>
+      </div>
+  </div>
+  <div class="ph-row">
+      <div class="ph-col-12">
+          <div class="ph-col-4"><div class="ph-picture"></div></div>
+          <div class="ph-col-4"><div class="ph-picture"></div></div>
+      </div>
+  </div>
+</div>
+<div data-rx-hidden-block class="dflex justify-content-between rx-new__hidden rx-new__price-qty-container">
+<div id="custom-offer-text" class="custom__offer-text {% if current_variant.metafields.my_fields.custom_offer != "MAP"  %}hide{% endif%}" style="background: #ebebeb;border-radius: 2px;text-align: center;padding: 10px 10px;margin-right:5px;">
+  <a onclick="window.NEW_RX_PDP_TEMPLATE.addToCartCTA('default');" href="javascript:void(0);"><span style="color: #191d21;font-weight: 600;line-height:1.5;" class="custom__price-text">Add To Cart For Lowest Price</span></a>
+</div>
+<div 
+class="product__price--holder product__price--{{block.id}}
+font__family--{{-block.settings.fontFamily}} font__size--{{-block.settings.fontSize}} 
+{% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}} style="display: flex;flex-wrap: wrap;align-items: center;">
+{% if product.compare_at_price_min > 0 %}
+{% assign sale = true %}
+{% if current_variant.compare_at_price > 0 %}
+{% assign currsale = true %}
+{% else %}
+{% assign currsale = false %}
+{% endif %}
+{% else %}
+{% assign sale = false %}
+{% assign currsale = false %}
+{% endif %}
+<span data-product-price="{{product.id}}" class="product__price {% if currsale %}product__price--sale{% endif %} jsPrice {% if current_variant.metafields.my_fields.custom_offer == "MAP"  %}hide{% endif%}">{{ current_variant.price | money | strip_html }}</span><br/>
+<span data-product-price-sale="{{product.id}}" class="strike__strike-price product__price--old strike__strike-price {% if current_variant.metafields.my_fields.custom_offer == "MAP"  %}hide{% endif%} {% if isShowStrikePrice == false%}hide{% endif%}">{% if currsale %}{{ current_variant.compare_at_price | money | strip_html }}{% endif %}</span>
+<div class="strike__price-text flex items-start justify-between align-center {% unless current_variant.compare_at_price > current_variant.price %}hide {% else %}mb-20{% endunless%} {% if isShowTextSave == false%}hide{% endif%}">
+  <p>You save {{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | money_without_currency | times: 100 | remove: '.0'}}%</p>
+</div>
+{%- comment -%}
+{% if sale %}
+{%- unless s_type == 'none' or sale == false %}
+<span data-tag-product="{{product.id}}" data-tag-type="{{s_type}}" class="tag tag--sale {% unless currsale %}hide{% endunless %} {% if s_type == 'amount' %}jsPrice{% endif %}">
+{% if currsale %}
+    {%- case s_type %}
+        {% when 'percent' %}
+            {{ current_variant.price | minus: current_variant.compare_at_price | times: 100 | divided_by: current_variant.compare_at_price }}% {{'general.tags.off'|t}}
+        {% when 'amount' %}
+            {{ current_variant.compare_at_price | minus: current_variant.price | money | strip_html }}
+        {% when 'text' %}
+            {{'general.tags.sale' | t}}
+    {%- endcase -%}
+{% endif %}
+</span>
+{%- endunless -%}
+{% endif %}
+{%- endcomment -%}
+</div>
+{% if showQuantityBox == true %}
+  <div class="product__atc-container">
+    <div class="quantity--input product__atc-container-item">
+        <label for="Quantity" class="label-txt">Quantity</label>
+        <div class="quantity--input__buttons">
+            <button class="quantity--input__button quantity--input__incr" onclick="BoosterTheme.cart.quantityHandler(event, false, false)">-</button>
+            <input class="quantity--input__input" value="1" data-qty-input type="number" name="quantity" min="1">
+            <button class="quantity--input__button quantity--input__decr" onclick="BoosterTheme.cart.quantityHandler(event, true, false)">+</button>
+        </div>
+    </div>
+  </div>        
+{% endif %}
+</div> 
+{% comment %}
+{% blockdef %}
+
+{% endblockdef %}
+{% endcomment %}

@@ -1,0 +1,275 @@
+{% if section.blocks.size > 0 %}
+
+<style>
+    {% render 'common-css' with section as section %}
+    .press-article-slider {
+        padding: 40px 0;
+    }
+    .page-width {
+        max-width: 1350px;
+        margin:  0 auto;
+    }
+    .press-article-slider .article-slide-wrapper {
+        margin: 0 30px;
+    }
+    .press-article-slider .article-slide-wrapper .article--img img {
+        width: 200px;
+        max-height:200px;
+    }
+    .article-slide-wrapper .article--heading{
+        height: 110px;
+    }
+    .press-article-slider .article-slide-wrapper .article--heading h4 {
+        color: #000000;
+        font-size: 18px;
+        margin-bottom:10px;
+    }
+    .press-article-slider .article-slide-wrapper .article--heading h4:hover {
+        color: #c63b3d;
+    }
+    .press-article-slider .article-slide-wrapper .article--date {
+        font-size: 14px;
+        color: #a9a9a9;
+    }
+    .press-article-slider .slick-arrow {
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 9;
+        position: absolute;
+        background: transparent;
+        border: none;
+    }
+
+    .press-article-slider .slick-prev {
+        left: -30px;
+    }
+
+    .press-article-slider .slick-next {
+        right: -30px;
+    }
+
+    .press-article-slider .slick-next img {
+        transform: rotate(180deg);
+    }
+    @media(max-width:767px){
+        .press-article-slider .article-slide-wrapper{
+            max-width:90%;
+            margin:0 0px 0px 24px;
+        }
+        .press-article-slider .article-slide-wrapper .article--img img{
+            margin:auto;
+        }
+        .section__heading--heading h2{
+            font-size: 30px;
+        }
+        .press-article-slider .article-slide-wrapper .article--heading h4,
+        .press-article-slider .article-slide-wrapper .article--date{
+            text-align: left;
+        }
+        .press-article-slider .article-slide-wrapper .article--date p{
+            color: #a9a9a9;    
+        }
+    }
+</style>
+
+<div class="press-article-slider" id="s--{{section.id}}">
+    <div class="page-width">
+        {% render 'block__general--heading' with section as section %}
+        <div class="slider article-slider" id="article-slider">
+            {%- for block in section.blocks %}            
+            <div class="sllide">
+                <div class="article-slide-wrapper">
+                    {% if block.settings.article__img != blank %}
+                    <div class="article--img">
+                        <img src="{{ block.settings.article__img | img_url : "master" }}" alt="{{ block.settings.article__heading }}">
+                    </div>
+                    {% endif %}
+                    {% if block.settings.article__heading != blank %}
+                    <div class="article--heading">
+                        {% if block.settings.article__link != blank %}
+                            <a href="{{ block.settings.article__link }}" target="_blank"><h4>{{ block.settings.article__heading }}</h4></a>
+                        {% else %}
+                        <h4>{{ block.settings.article__heading }}</h4>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% if block.settings.article__date != blank %}
+                    <div class="article--date">
+                        <p>{{ block.settings.article__date }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {%- endfor -%}
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+<script>
+    if($(window).width()>=1025){
+        $('#article-slider').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        arrows: true,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+      });
+    }
+    if($(window).width()<=1024 &&  $(window).width()>=769){
+        $('#article-slider').slick({
+        slidesToShow: 4.1,
+        slidesToScroll: 1,
+        arrows: false,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+      });
+    }
+    if($(window).width()==768){
+        $('#article-slider').slick({
+        slidesToShow: 3.1,
+        slidesToScroll: 1,
+        arrows: false,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+    });
+    }
+    if($(window).width()<=767 && $(window).width()>=350){
+        $('#article-slider').slick({
+        slidesToShow: 2.1,
+        slidesToScroll: 1,
+        arrows: false,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+    });
+    }
+    if($(window).width()<=349){
+        $('#article-slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+    });
+    }
+</script>
+
+{% schema %}
+{
+    "name": {
+        "en": "Press Article Slider"
+    },
+    "settings": [
+        {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+            "type": "paragraph",
+            "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458157772)"
+        },
+        {
+            "type": "text",
+            "label": "Heading",
+            "id": "heading"
+        },
+        {
+            "type": "color",
+            "id": "headingColor",
+            "default": "rgba(0,0,0,0)",
+            "label": "Heading Color"
+        },
+        {
+            "type": "select",
+            "id": "headingAlignment",
+            "label": "Heading alignment (left to right)",
+            "options": [
+                {
+                    "value": "start",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ],
+            "default": "center"
+        },
+        {
+            "type": "header",
+            "content": "Section layout"
+        },
+        {
+            "type": "radio",
+            "id": "displayFor",
+            "label": "Show this section on",
+            "options": [
+                {
+                    "value": "display--both",
+                    "label": "All devices"
+                },
+                {
+                    "value": "hide-desktop",
+                    "label": "Mobile only"
+                },
+                {
+                    "value": "hide-mobile",
+                    "label": "Desktop only"
+                }
+            ],
+            "default": "display--both"
+        },
+        {
+            "type": "checkbox",
+            "id": "nomargin",
+            "default": false,
+            "label": "Remove section's bottom margin"
+        },
+        {
+            "type": "textarea",
+            "id": "scopedCSS",
+            "label": "Section-scoped CSS",
+            "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "article",
+            "name": "Article",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "article__img",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "label": "Heading",
+                    "id": "article__heading"
+                },
+                {
+                    "type": "text",
+                    "label": "Date",
+                    "id": "article__date"
+                },
+                {
+                    "type": "url",
+                    "label": "Article link",
+                    "id": "article__link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "category": "slideshow",
+            "name": "Press Article Slider"
+        }
+    ]
+}
+{% endschema %}

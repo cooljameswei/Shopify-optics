@@ -1,0 +1,60 @@
+{% comment %} Please don’t update this content {% endcomment %}
+
+{% layout none %}
+{
+  "product":
+    {
+      "id":{{ product.id }},
+      "metafields":[
+        
+              {% comment %}
+                Single Metafield
+              {% endcomment %}
+              {% assign v_badge = product.metafields.judgeme["badge"] %}
+              {% if v_badge != blank %}
+                {
+                  "namespace": "judgeme",
+                  "key": "badge",
+                  "value": {{ v_badge | json }}
+                },
+              {% endif %}
+        
+              {% comment %}
+                Variant Metafield
+              {% endcomment %}
+              {% assign l_variants = product.variants %}
+              {% for v_variant in l_variants %}
+                {
+                  "namespace": {{ v_variant.id }},
+                  "key": "Frame Color",
+                  "value": {{ v_variant.metafields.VariantData["Frame Color"] | json }}
+                },
+              {% endfor %}
+        
+              {% comment %}
+                Single Metafield
+              {% endcomment %}
+              {% assign v_contact_lens_modality = product.metafields.my_fields["contact_lens_modality"] %}
+              {% if v_contact_lens_modality != blank %}
+                {
+                  "namespace": "my_fields",
+                  "key": "contact_lens_modality",
+                  "value": {{ v_contact_lens_modality | json }}
+                },
+              {% endif %}
+        
+              {% comment %}
+                Single Metafield
+              {% endcomment %}
+              {% assign v_contact_lens_package_details_ = product.metafields.my_fields["contact_lens_package_details_"] %}
+              {% if v_contact_lens_package_details_ != blank %}
+                {
+                  "namespace": "my_fields",
+                  "key": "contact_lens_package_details_",
+                  "value": {{ v_contact_lens_package_details_ | json }}
+                },
+              {% endif %}
+        
+      ]
+    }
+}

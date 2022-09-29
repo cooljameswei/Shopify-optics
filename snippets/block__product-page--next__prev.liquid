@@ -1,0 +1,13 @@
+{% if collection.previous_product != nil %}
+<a class="product__page--nav product__page--prev" href="{{collection.previous_product.url}}">
+{% render 'image', src: collection.previous_product.featured_image.src %}
+<span>{{'general.buttons.product_page_previous' | t}}</span>
+</a>
+{% endif %}
+
+{% if collection.next_product != nil %}
+<a class="product__page--nav product__page--next" href="{{collection.next_product.url}}">
+{% render 'image', src: collection.next_product.featured_image.src %}
+<span>{{'general.buttons.product_page_next' | t}}</span>
+</a>
+{% endif %}

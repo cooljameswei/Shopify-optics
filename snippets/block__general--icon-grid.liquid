@@ -1,0 +1,46 @@
+<style>
+    .icon--grid .icon-wrapper .icon-img {
+        max-width: 86px;
+        height: 86px;
+        object-fit: contain;
+    }
+    .icon--grid .icon-wrapper {
+        display: flex;
+        align-items: center;
+    }
+    .icon--grid .icon-wrapper .icon-title {
+        margin-left: 20px;
+    }
+</style>
+
+
+{% if block.settings.icon_1 != blank or block.settings.icon_2 != blank %}    
+<div class="icon--grid">
+    <div class="row">
+        {% if block.settings.icon_1 != blank %}
+        <div class="icon-wrapper col-12 col-lg-6">
+            <div class="icon-main">
+                <img src="{{ block.settings.icon_1 | img_url : 'master' }}" loading="lazy" alt="icon" class="icon-img">
+            </div>
+            {% if block.settings.icon_1_title != blank %}
+            <div class="icon-title">
+                <span>{{ block.settings.icon_1_title }}</span>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if block.settings.icon_2 != blank %}
+        <div class="icon-wrapper col-12 col-lg-6">
+            <div class="icon-main">
+                <img src="{{ block.settings.icon_2 | img_url : 'master' }}" loading="lazy" alt="icon" class="icon-img">
+            </div>
+            {% if block.settings.icon_2_title != blank %}
+            <div class="icon-title">
+                <span>{{ block.settings.icon_2_title }}</span>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,25 @@
+#s--{{section.id}} { min-height: {{section.settings.height}}px; background-color: {{section.settings.backgroundColor}}; {% unless section.settings.backgroundPattern %} background-size: cover; {% endunless %} {% if section.settings.parallax -%} background-attachment: fixed; {%- endif -%} {% unless section.settings.contentColor contains 'rgba(0,0,0,0)' %}color: {{section.settings.contentColor}}{% endunless %}; }
+{% if section.settings.backgroundFilter != 'none' %}
+#s--{{section.id}}::before { position: absolute; height: 100%; width: 100%; content: ''; backdrop-filter: {{section.settings.backgroundFilter}}({{section.settings.backdropIntensity}}{% unless section.settings.backgroundFilter == 'blur'%}%{% else %}px{%endunless%}); }
+{% endif %}
+#s--{{-section.id}} .s__content { padding: {{section.settings.padding}}px; {% if margin %} padding-bottom: {{section.settings.padding | minus: margin | at_least: 0}}px; {% elsif section.settings.lineMargin %} padding-bottom: {{section.settings.padding | minus: section.settings.lineMargin | at_least: 0}}px; {% endif %} {% if section.settings.max_width %} max-width: {{section.settings.max_width}}; {% endif %} }
+#s--{{-section.id}} .s__block { margin-bottom: {{section.settings.lineMargin}}px; display: block; }
+{% if section.settings.nomargin %}
+#shopify-section-{{section.id}}{ margin-bottom: 0px !important; }
+{% else %}
+#shopify-section-{{section.id}}{ margin-bottom: {{settings.baseSectionMargin}}px; }
+{% endif %}
+{% case section.settings.displayFor %}
+{% when 'hide-desktop' %}
+@media screen and (min-width: 768px){
+  #shopify-section-{{section.id}}{ display: none !important; }
+}
+{% when 'hide-mobile' %}
+@media screen and (max-width: 767px){
+  #shopify-section-{{section.id}}{ display: none !important; }
+}
+{% endcase %}
+{% if section.settings.scopedCSS != blank %}
+{% assign sid = '#shopify-section-' | append: section.id %}
+{{section.settings.scopedCSS | replace: '##scoped', sid}}
+{% endif %}

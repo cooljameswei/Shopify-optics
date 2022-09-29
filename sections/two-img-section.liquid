@@ -1,0 +1,239 @@
+<div class="page-width banner-2-img padding-fix">
+
+    <div class="rb-container">
+      <div class="rb-row">
+          <div class="">
+            {% if section.settings.heading != blank%}
+                <h2>{{section.settings.heading}}</h2>
+            {% endif %}
+            {% if section.settings.content != blank%}
+                <p>{{section.settings.content}}</p>
+            {% endif %}        
+          </div>
+        <div class="rb-col-md-6">
+            <div class="item-slide sunglasses-bg wow animated" style="visibility: visible;">
+                <div style="width:100%">
+                    <img src="{{ section.settings.image_1 | img_url: '600x600' }}" alt="Image-1" />
+                </div>
+                {% if section.settings.image_1_title%}
+                    <a href="{{ section.settings.image_1_link }}">
+                        <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{ section.settings.image_1_title }}</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="rb-col-md-6">
+          <div class="item-slide eyeglasses-bg">
+            <div style="width:100%">
+                <img src="{{ section.settings.image_2 | img_url: '600x600' }}" alt="Image-1" />
+            </div>
+            {% if section.settings.image_2_title%}
+                <a href="{{ section.settings.image_2_link }}">
+                <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{ section.settings.image_2_title }}</span>
+                </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  {% schema %}
+  {
+  "name": "Two Image Section",
+  "settings": [
+  {
+    "type": "text",
+    "id": "heading",
+    "label": "Heading"
+    },
+    {
+        "type": "text",
+        "id": "content",
+        "label": "Content"
+    },
+  {
+  "type": "image_picker",
+  "id": "image_1",
+  "label": "Image 1"
+  },
+  {
+  "type": "text",
+  "id": "image_1_title",
+  "label": "Image 1 Title"
+  },
+  {
+  "id": "image_1_link",
+  "type": "url",
+  "label": "Image 1 Link"
+  },
+  {
+  "type": "image_picker",
+  "id": "image_2",
+  "label": "Image 2"
+  },
+  {
+  "type": "text",
+  "id": "image_2_title",
+  "label": "Image 2 Title"
+  },
+  {
+  "id": "image_2_link",
+  "type": "url",
+  "label": "Image 2 Link"
+  },
+  {
+    "type": "range",
+    "id": "margin-bottom",
+    "min": 0,
+    "max": 100,
+    "default": 30,
+    "unit": "px",
+    "label": "Margin-bottom"
+  }
+  ],
+  
+  "presets": [
+  {
+  "name": "Two Image Section",
+  "category": "Image"
+  }
+  ]
+  }
+  
+  
+  {% endschema %}
+  
+  <style>
+.rb-container{
+  max-width:1350px;
+  margin:30px auto;
+  margin-bottom: {{section.settings.margin-bottom}}px;
+}
+  .banner-2-img .rb-row{
+  display:flex;
+  flex-wrap: wrap;
+  /*padding-right: 13px;*/
+   justify-content: center;
+    column-gap: 25px;
+  }
+  div.banner-2-img:not(.booster--revert) h2{
+      font-size:30px;
+      font-weight:700;
+      line-height: 32px;
+      margin-bottom:8px;
+      text-align: center;
+      width: 100%;
+  }
+  div.banner-2-img:not(.booster--revert) p{
+    font-size:16px;
+    font-weight:normal;
+    line-height: 24px;
+    margin: 0px auto 56px;
+    text-align: center;
+    width: 100%;
+    max-width:75%;
+  }
+  .banner-2-img .rb-row .banner-wrapper{
+  height: 527px;
+  margin: 0 14.8px 0 14px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  box-sizing: border-box;
+  background-position: center center;
+  }
+  
+  .banner-2-img .rb-row .banner-wrapper  a:hover{
+  background-color:rgba(0,0,0,.3);
+  }
+  
+  .banner-wrapper .label-logo {
+  position: absolute;
+  height: auto;
+  width: 210px;
+  top: 0;
+  left: calc(50% - 105px);
+  }
+ .item-slide img{
+ width: 100%;
+    text-align: right;
+ }
+  
+  .banner-2-img .banner-wrapper .label-logo svg{
+  width: 45%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  }
+  
+  .banner-2-img .rb-col-md-6{
+  -webkit-box-flex: 0;
+  flex: 0 0 50%;
+  max-width: 49%;
+  }
+  
+  .banner-2-img .rb-row .item-slide{
+    padding: 0px;
+    margin-bottom: 17px;
+    position: relative;
+  }
+  
+  .banner-2-img .rb-row .item-slide span{
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 30px;
+  position: absolute;
+  bottom: 6%;
+  left: 0;
+  color: #fff;
+  }
+  
+  .banner-2-img .rb-row .item-slide  a{
+  width: 100%;
+  height: 100%;
+  display: block;
+  }
+  
+  .banner-2-img .rb-row .item-slide  a:hover{
+  background-color:rgba(0,0,0,.3);
+  }
+  
+  @media only screen and (max-width: 800px) {
+  .banner-2-img .rb-row{
+  flex-direction:column;
+  padding:0px;
+  }
+  
+  .banner-2-img .rb-col-md-6 {
+  width:100%;
+  max-width:100%;
+  }
+  
+  .banner-2-img .rb-row .banner-wrapper {
+  margin:0px;
+  }
+  
+  .banner-2-img .rb-row .item-slide{
+  padding: 0px;
+  margin: 20px;
+  }
+  }
+  @media only screen and (max-width: 768px) {
+  .banner-2-img .rb-row .banner-wrapper{
+  background-image:url('{{ section.settings.image_1 | img_url: '470x527' }}');
+  height:415px;
+  }
+  }
+  @media(max-width:767px){
+    div.banner-2-img:not(.booster--revert) h2{
+        font-size:18px;
+    }
+  }
+  </style>
+  
+  {% javascript %}
+  {% endjavascript %}
+  

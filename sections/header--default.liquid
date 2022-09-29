@@ -1,0 +1,1704 @@
+{%- if section.settings.layout == 'default' -%}
+{%- assign layout = settings.baseLayout -%}
+{%- else -%}
+{%- assign layout = section.settings.layout -%}
+{%- endif -%}
+
+<style>
+  {% render 'header__common-css', section: section, layout: layout %}
+
+  .page__header {
+    font-family:'Karla' !important;  
+  }
+  .page__header .header__utility {
+    color: #333;
+  }
+  .page__header--width {
+    justify-content:space-between;
+    padding:27px 0px 15px;
+    /*max-width: 1079px;*/
+    /*------As per the new requiremnet TW#33265426-----*/
+    max-width: 1350px;
+  }
+  .header__element--width {
+    width: 60%;
+  }
+  .main__navigation {
+    /* background-color:#000; */
+    padding:0px;
+  }
+  .main__navigation .nav__link__holder {
+    display: flex;
+    padding: 15px 0px 15px 15px;
+    align-items: center;
+  }
+  .nav-wrapper {
+    /*max-width: 1152px;*/
+    /*------As per the new requiremnet TW#33265426-----*/
+    max-width: 1350px;
+    margin: 0px auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content:center;
+  }
+  .main__navigation .nav__link__holder .nav__link {
+    font-family:"Hurme-Geometric-bold" !important; 
+    position: relative;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    padding-right: 15px;
+    color: #4C4D4F;
+    font-weight:700;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .main__navigation .nav__link__holder .nav__link:hover {
+    background-color: #FFF;
+  }
+  .main__navigation .nav__link__holder .nav__link:before {
+    content: '';
+    height: 14px;
+    background-color: red !important;
+    width: 1px;
+    position: absolute;
+    right: 0;
+    top: opx;
+  }
+  .main__navigation div.nav-wrapper span.nav__link__holder:nth-child(7) a:before{
+  	background-color: transparent !important;
+  }
+  .header-right {
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    width:100%;
+  }
+  .header-phone {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-right:17px;
+  }
+  .header-phone-icon {
+    padding-right: 10px;
+    padding-top: 4px;
+  }
+  .header-phone-info p {
+    margin: 0px !important;
+    font-family:"Hurme-Geometric" !important; 
+    font-size: 11px;
+    letter-spacing: 0.55px;
+    color: #444C4D;
+    line-height:15.125px;
+  }
+  .header-phone-number a {
+    font-family:"Hurme-Geometric-bold" !important; 
+    color: #C53A3C;
+    font-weight: bold;
+    text-decoration:none;
+    font-size: 16px;
+    letter-spacing: 2.8px;
+    margin-bottom:2px;
+    line-height:22px;
+  }
+  .minicart__button{
+    margin-left: 0.55rem !important;	
+  }
+  .minicart__label{
+    background-color: #C03C43;
+    border-radius: 4px;
+    width: 42px;
+    height: 42px;
+    padding: 7px;
+    margin-left: 40px;
+    margin-right: 15px;
+    margin-top:0px;
+  }
+  .minicart__label img{
+    width: 28px;
+  }
+  .minicart__label .item__count{
+    height: 26px;
+    width: 24px;
+    font-size: 12px;
+    padding: 3px 0px;
+    border-radius: 50%;
+    bottom: 19px;
+    top: -10px;
+    left: 30px;
+    right: 0;
+    border: 2px solid #FFFFFF;
+  }
+  .holiday-shipping-schedule {
+    padding: 0;
+    cursor: pointer;
+    /*----Changes regarding TW#33612402----*/
+    background-color: {{section.settings.month_schedule_bgcolor}}
+  }
+  .holiday-shipping-schedule p {
+    text-align: center;
+    font-size: 20px;
+    padding: 5px;
+    width: 100%;
+    display: inline-block;
+    color: {{section.settings.month_schedule_color}};
+    font-weight: bold;
+    text-decoration: none;
+    font-family:'karla';
+  }
+  .holiday-shipping-schedule span {
+    text-decoration: underline;
+  }
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+  }
+  svg.icon path{
+    fill:white;
+  }
+  .drawer__search{
+    position:relative;
+  }
+  .drawer__search-input{
+    border: 1px solid #9f9f9f;
+    width: 280px;
+    background-color: #fff;
+    height: 42px;
+    padding-top: 3px;
+    color: #333;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: "Hurme-Geometric-bold";
+    opacity: 1;
+    padding-left: 10px;
+    padding-right: 34px;
+    border-radius:0px;  
+    margin-top:-1px;
+  }
+  .drawer__search-input:focus{
+    box-shadow:0 0 1px rgb(0 0 0 / 10%), inset 0 1px 5px rgb(0 0 0 / 10%);
+  }
+  .search__icon-web {
+    position:absolute;
+    top:9px;
+    right:12px;
+    font-size:20px;
+    color:#000;
+  }
+  .minicart__label .item__count{
+    height: 24px;
+  }
+  .header__utility .minicart__button{
+  	margin-left:8px !important;
+  }
+  .header__utility .uil-search:before{
+  	font-weight:bold;
+  }
+  .notification__message {
+    display: block;
+    padding: 4px 60px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #ffffff;
+    font-size: 20px;
+    font-family:'Karla';
+  }
+  .notification__inner {
+    position: relative;
+    overflow: visible;
+    padding: 0;
+  }
+  .notification__link {
+    display: block;
+    padding: 14px 0;
+  }
+  .notification__close {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 20px;
+    padding: 0 10px;
+    color: inherit;
+    background-color: transparent;
+    border: 0px;
+  }
+  .notification__close .icon {
+    fill: currentColor;
+  }
+  .icon__fallback-text{
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+  }
+  .special-event img {
+    width: 100%;
+  }
+  .special_mobile_img,
+  .specialevent_mobiletab_img,
+  .nav-bottom-mob{
+    display: none;
+  }
+  #calenderArea{
+    background-color:white;
+  }
+  nav.main__navigation.page__header--sticky{
+    min-height: 50px;
+    left: 0;
+    top: -25px;
+    transform: translate(0px, 50%);
+    transition: all .35s cubic-bezier(.33, .59, .14, 1);
+  }
+  nav.main__navigation.page__header--sticky .nav__link__holder .nav__link{
+    padding:19px 16.49px 14px 16.49px;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  nav.main__navigation.page__header--sticky .nav__link__holder .nav__link:hover{
+    padding:17px 16.49px 17px 16.49px;
+  }
+  nav.main__navigation .header__element--width.header__utility{
+    display:none;
+  }
+  nav.main__navigation.page__header--sticky .header__element--width.header__utility{
+    display:flex;
+  }
+  nav.main__navigation.page__header--sticky .nav-wrapper{
+    max-width:1115px;
+    align-items: center;
+  }
+  nav.main__navigation.page__header--sticky,
+  .main__navigation.page__header--sticky .nav__link__holder{
+    min-height: 51px;
+    height:51px;
+  }
+  nav.main__navigation.page__header--sticky .header__element--width{
+    width:30%;
+  }
+  nav.main__navigation.page__header--sticky .minicart__label{
+    width:30px;
+    height:30px;
+    padding:5px;
+  }
+  nav.main__navigation.page__header--sticky .minicart__label img {
+    width: 28px;
+  }
+  nav.main__navigation.page__header--sticky .minicart__label .item__count{
+    top: -7px;
+    left: 28px;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #FFFFFF;
+    padding: 2px 0px;
+  }
+  nav.main__navigation.page__header--sticky .drawer__search-input{
+    width:206px;
+    background-color:black;
+    color:white;
+    border-color:white;
+    border-style:solid;
+    border-width:2px 1px;
+    height:32px;
+    padding-top: 1px;
+  }
+  nav.page__header--sticky .header__utility .uil-search:before{
+  	font-weight:normal;
+  }
+  nav.main__navigation.page__header--sticky .nav__link__holder .nav__link:before{
+    top:21px;
+  }
+  nav.main__navigation.page__header--sticky input.drawer__search-input::placeholder{
+    color: white;
+    opacity:1;
+  }
+  nav.main__navigation.page__header--sticky .drawer__search{
+    margin-left:17px;
+  }
+  nav.main__navigation.page__header--sticky .search__icon-web{
+    top:5px;
+    font-size: 20px
+  }
+  nav.main__navigation.page__header--sticky  .nav__link__holder.nav__link--active a:after{
+  	bottom:-1px;
+  }
+  nav.main__navigation.page__header--sticky span:nth-child(6) .nav__link:before{
+    background-color: red !important;
+  }
+  nav.main__navigation.page__header--sticky .search__icon-web{
+    color:white;
+  }
+  nav.main__navigation.page__header--sticky .minicart__label{
+    margin-left:5px;
+  }
+  nav.main__navigation.page__header--sticky .header__utility .uil:hover{
+    color:white;
+  }
+  .main__navigation  .nav-wrapper .nav__link__holder.nav__link--active a{
+    color:#c63b3d;
+  } 
+  /*.main__navigation .nav__link__holder.nav__link--active a:after{
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0px;
+    right: 20px;
+    height: 3px;
+    background-color: #c63b3d;
+  }*/
+  
+  .page__header .header__utility input.drawer__search-input::-webkit-input-placeholder,
+  .page__header .header__utility input.drawer__search-input::-moz-placeholder,
+  .page__header .header__utility input.drawer__search-input:-ms-input-placeholder,
+  .page__header .header__utility input.drawer__search-input:-moz-placeholder,
+  .page__header .header__utility input.drawer__search-input::placeholder{
+    color: #888;
+  }
+  
+  #calenderArea, #calenderAreaMobile {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    width: 100%;
+  }
+  /*----Mouse selection----*/
+  ::-moz-selection { /* Code for Firefox */
+  	 color: white;
+      background: #3297FD;
+  }
+  ::selection {
+  	  color: white;
+      background: #3297FD;
+   }
+  /*---wishlist app----*/
+  #swym-anchor a.swym-background-color:hover{
+  	color:white !important;
+  }
+  .swym-user-login-status span.swym-user-text,
+  .swym-close-btn .swym-icon{
+  	color:white;
+  }
+  /*---wishlist app Ended Here----*/
+  #NotificationPromo2{
+    	display:none;
+  }
+  @media (max-width: 1265px){
+    .page__header--desktop .main__navigation .nav__link__holder .nav__link{
+      position: relative;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      padding:17px 15px 10px 0px;
+    }
+    .page__header--desktop .page__header--width {
+    	padding: 29px 20px 28px;
+	}
+    .header-top {
+    	padding: 0px 20px;
+	}
+    .main__navigation{
+      min-height: 45px;
+    }
+    .nav-wrapper{
+      max-width: 1079px;
+      margin: 0px auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      height: 45px;
+    }
+    .main__navigation .nav__link__holder{
+      height: 45px;
+    }
+    .main__navigation .nav__link__holder .nav__link:before{
+      top:20px;
+      height:11px;
+    }
+    nav.main__navigation.page__header--sticky .nav__link__holder .nav__link{
+      font-size: 12px;
+      letter-spacing: 0.5px;	
+      padding:18px 12px 12px;
+    }
+    .page__header--desktop .main__navigation .nav__link__holder .nav__link:hover{
+    	padding:17px 15px 10px 0px;
+    }
+    nav.main__navigation.page__header--sticky, .main__navigation.page__header--sticky .nav__link__holder {
+      min-height: 45px;
+      height: 45px;
+    }
+    nav.main__navigation.page__header--sticky .header__element--width {
+      width: 23%;
+    }
+    nav.main__navigation.page__header--sticky .drawer__search-input {
+      width: 160px;
+      font-size:9px;
+    }
+    nav.main__navigation.page__header--sticky .minicart__label .item__count{
+      top: -3px;
+      height: 18px;
+      width: 18px;
+      font-size: 10px;
+    }
+	nav.main__navigation.page__header--sticky .header__element--width {
+    	width: auto;
+	}
+
+  }
+  @media(max-width:1024px){
+    .header-top{
+      padding:0px 20px;
+    }
+    .page__header--desktop .page__header--width{
+      padding:29px 20px 28px;
+    }
+    .page__header--desktop .main__navigation .nav__link__holder .nav__link:hover{
+    	padding:21px 6px 14px;
+    }
+    .main__navigation .nav__link__holder{
+      padding: 15px 0px;
+    }  
+    .page__header--desktop .header__logo.header__element--width{
+      width:40%;
+    }
+    .page__header--desktop .header__element--width.header__utility{
+      width:60%;
+    }
+     nav.main__navigation.page__header--sticky .nav__link__holder .nav__link:before {
+    	top: 19px;
+	}
+  }
+  @media screen and (min-width: 768px){
+    .main__navigation > .nav__link__holder > .nav__link {
+      align-items: center;
+    }
+  }
+  @media(max-width:1024px){
+    .page__header--desktop .main__navigation .nav__link__holder .nav__link{
+    	padding: 21px 6px 14px;
+      font-size:12px;
+    }
+  }
+  @media(max-width:1023px){
+  	nav.main__navigation.page__header--sticky .nav__link__holder .nav__link {
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      padding: 18px 6px 12px;
+    }
+    .page__header--desktop .main__navigation .nav__link__holder .nav__link{
+    	padding: 21px 6px 14px;
+      font-size:12px;
+    }
+    .main__navigation .nav__link__holder.nav__link--active a:after{
+      bottom:0px;
+    }
+    .main__navigation.page__header--sticky .nav__link__holder.nav__link--active a:after{
+      bottom:-3px;
+    }
+    nav.main__navigation.page__header--sticky .nav__link__holder .nav__link:before {
+    	top: 18px;
+	}
+    .page__header--desktop .header__element--width.header__utility {
+    	width: auto;
+	}
+    .page__header--desktop .header__element--width.header__utility .drawer__search-input{
+    	width:100%;
+    }
+  }
+  @media(max-width:768px){
+    .page__header--desktop .main__navigation .nav__link__holder .nav__link {
+      padding: 19px 6px 11px;
+      font-size: 12px;
+    }
+    .page__header--desktop .main__navigation .nav__link__holder .nav__link:hover{
+    	padding:14px 6px 12px;
+    }
+    .page__header--desktop .header__logo.header__element--width{
+      width:35%;
+    }
+    .page__header--desktop .header__element--width.header__utility{
+      width:64%;
+    }
+    .page__header--desktop .drawer__search-input{
+      width:230px;
+    }
+    .specialevent_desktop_img {
+      display: none;
+    }
+    .specialevent_mobiletab_img {
+      display: block;
+      width:100%;
+    }
+    .todonow-test {
+      color: red;
+    }
+  }
+  @media(max-width:767px){
+    #js-header-top-bar,
+    .search-block,
+    .special_desktop_img{
+      display:none;
+    }
+    .page__header--width{
+      padding:10px;
+      height: auto;
+    }
+    .holiday-shipping-schedule p {
+      font-size: 15px;
+    }
+    .logo-img img {
+      max-width: 104px;
+      height: auto;
+      margin:auto;
+    }
+    .wishlist {
+      display: block;
+      margin-right:0px;
+    }
+    .wishlist svg {
+      vertical-align: middle;
+    }
+    .header__logo {
+      padding: 0;
+      text-align: left;
+      width:auto;
+      margin:initial;
+      width:50%;
+      text-align: center;
+    }
+    .minicart__label{
+      width: 35px;
+      height: 30px;
+      padding: 5px 6px 3px 2px;
+      margin:0px 15px 0px 0px;
+    }
+    .minicart__label .item__count{
+      left: 21px;
+    }
+    .nav__link{
+      padding-left: 10px;
+      padding-right: 0;
+      border-bottom: 1px solid #CECECE;
+      font-size: 16px;
+      font-weight: 700;
+      color:#262626;
+      text-decoration:none;
+      font-family:Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+      width:100%;
+      padding: 13.33333px 20px;
+    line-height: 1.375;
+    }
+    .page__header--mobile .mobile__navigation .drawer__search-input{
+      padding: 10px 35px 10px 20px;
+      height: 44px;
+      margin-top: 10px;
+      border-radius: 25px;
+      border: 1px solid rgba(34,34,34,.2);
+      width:100%;
+      font-size:16px;
+      font-weight:400;
+      letter-spacing:normal;
+      font-family:Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    }
+    .page__header--mobile .mobile__navigation .drawer__search-input::placeholder{
+    	color:#ccc;
+      font-weight:normal;
+    }
+    .search__icon-mobile{
+      position:absolute;
+      top:20px;
+      right:11px;
+      font-size:20px;
+      color: rgba(34,34,34,.5);
+    }
+    .mobile-sign{
+      padding-bottom: 10px;
+      padding-top: 9px;
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .mobile-sign-logo, .mobile-sign-out-logo {
+      padding-right: 10px;
+    }
+    .mobile-sign-logo img {
+      max-width: 30px;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .mobile-sign-in{
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .mobile-sign-in a{
+      color: #c63b3d;
+      text-decoration: none;
+      transition: color .1s ease-in,background-color .1s ease-in;
+    }
+    .special_mobile_img {
+      display: block;
+      width:100%;
+    }
+    .nav-bottom-mob{
+      display:block;
+      padding-top: 30px;
+    }
+    .nav-bottom-mob-sign {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 38px;
+    }
+    .nav-bottom-mob-sign a {
+      color: #2B2E34;
+      text-transform: uppercase;
+      font-size: 16px;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    nav.mobile__navigation input.drawer__search-input::placeholder{
+      color: rgba(34,34,34,.5);
+      opacity:1;
+    }
+    .mobile__navigation{
+      z-index: 999;
+      padding:10px 20px;
+    }
+    nav.mobile__navigation .nav__link:hover{
+      color:red !important;
+    }
+    .mobile__navigation__footer{
+    	display:none;
+    }
+    .header__utility{
+      display: block;
+    }
+    label.mobile-submenu-label{
+    	margin-bottom:0px;
+      font-size: 24px;
+      min-width: auto;
+      margin-right: 0px;
+      color:#4c4d4f;
+      border-radius:50%;
+    }
+    .mobile-search {
+      width: 70px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .mobile-search form * {
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .mobile-search input {
+      border: 0;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+    .overlay.overlay--nav {
+      position: fixed;
+      background: black;
+      opacity: 0.2;
+      display: none;
+      z-index: 9;
+      height: 100vh;
+      }
+    .notification__link span.notification__message:first-child{
+      padding: 4px 40px;
+      font-size: 15px !important;
+    }
+    .notification__link span.notification__message:nth-child(2){
+     	font-size: 12px !important;
+    }
+    #NotificationPromo2{
+    	display:block;
+    }
+    .page__header--mobile .cart-menu{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .header__utility .minicart__button{
+  	  margin-left:0px !important;
+    }
+    .header-top {
+      padding: 0px 10px;
+    }
+    .header-phone-icon{
+      padding: 0px;
+      margin-right: 7px;
+    }
+    .header-top a{
+      line-height: normal;
+    }
+    .page__header--mobile .header-top-left{
+      min-width: auto;
+      justify-content: flex-start;
+      margin-top: 6px;
+    }
+    .header-top-sign{
+      margin-left:0px;
+    }
+   
+    .header-phone-number a{
+      font-size: 11px;
+    }
+    .header-top{
+      align-items: center;
+    }
+    .header-top-sign{
+      margin-left: 0px;
+    }
+    {% if customer %}
+    .nav-bottom-mob-sign {
+      display:none;
+    }
+    {% else %}
+    .nav-bottom-mob-sign {
+      display:flex;
+    }
+    {% endif %}
+    .notification__message{
+      font-size: 12px;
+      padding: 4px 40px 4px 10px;
+    }
+    .mobile__navigation .mobile-sign{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .mobile__navigation .sign-in-info{
+      display: flex;
+      align-items: center;
+    }
+  }
+  @media(max-width:400px){
+    .page__header--mobile .mobile__navigation .drawer__search-input{
+      width:100%;
+    }
+  }  
+</style>
+<style>
+  .header-top-bar {
+    display: block;
+    min-height: 154px;
+}
+    /*----commenting because of non sticky header TW#33513957----*/
+.header-top-bar {
+    /*position: fixed;*/
+    left: 0;
+    top: 0;
+    width: 100%;
+    -webkit-transition: .3s;
+    transition: .3s;
+    z-index: 300;
+    box-shadow: 1px 0 10px 0 rgb(89 98 115 / 20%);
+}
+.hdr_nav__menu{
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-height: 50px;
+    z-index: 300;
+    transition: .3s;
+}
+  @media(max-width:767px){
+    .header-top-bar{
+      min-height: auto;
+    }
+    .mobile-search{
+      width: auto;
+    }
+    .page__header.page__header--mobile .mobile-search input{
+      max-width: 20px;
+    }
+    .minicart__label{
+      margin:0px;
+    }
+    .header-top-container.page__header--mobile{
+      display: none;
+    }
+  }
+  
+</style>
+<div id="js-header-top-bar" class="header-top-bar" data-head="/">  
+  {% if section.settings.header-top %}
+  {% render 'header-top' %}
+  {% endif %}
+
+	<header class="page__header page__header--desktop {% if template == "index" and section.settings.transparent %}page__header--transparent{% endif %}">
+    <div class="page__header--width">
+        <div class="header__logo header__element--width">
+            {% render 'logo' with section as section %}
+        </div>
+      	<div class="header-right">
+          <div class="header-phone">
+            <div class="header-phone-icon">
+              <a href="tel:718-412-0407">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28.938" height="28.418" viewBox="0 0 28.938 28.418">
+                  <g id="Group_414" data-name="Group 414" transform="translate(8.419 20.255)">
+                    <path id="Path_312" data-name="Path 312" d="M0,0S11.822,10.939,18.485,7.49c0,0,1.842-1.529,2.02-3.031s-1.351-2.51-1.943-2.852C17.147.783,15.691.016,14.247-.765a2.087,2.087,0,0,0-1.491-.39,5.1,5.1,0,0,0-.918.306C10.821-.365,9.987.092,8.886.546c0,0-1.125-.333-5.319-4.2C-.889-7.772-.286-9.3-.286-9.3A16.7,16.7,0,0,0,1.26-11.664a5.948,5.948,0,0,0,.558-1.088c.112-.39-.117-.669-.31-1.011-.427-.766-.884-1.517-1.357-2.26a27.282,27.282,0,0,0-2.692-3.768c-.11-.119-.367-.478-.576-.464-2.317.143-4.6,2.255-4.6,2.255C-11.3-12.023,0,0,0,0" fill="#c53a3c"/>
+                  </g>
+                </svg>
+              </a>
+            </div>
+              <div class="header-phone-info">
+                  <p class="header-phone-number"><a href="tel:{{section.settings.phone-no}}">{{section.settings.phone-no}}</a></p>
+                  <p class="header-phone-text">{{section.settings.call-tagline}}</p>
+              </div>
+           </div>
+          <div class="header__element--width header__utility">
+              {% render 'header__general--utility', showCart: section.settings.desktopCart %}
+          </div>
+      	</div>  
+  	</div>
+      <nav class="main__navigation main__navigation--center main__navigation--{{section.settings.hoverStyle}} font__size--{{section.settings.fontSize}}">
+    	<div class="nav-wrapper">
+          {% for link in linklists[section.settings.menuLinks].links %}
+    		{% if link.links.size > 0 %}{% capture submenu %}{% render 'header--link-submenu' with link as link %}{% endcapture %}{% else %}{% assign submenu = '' %}{% endif %}
+                <span class="nav__link__holder {% if link.active or link.child_active %}nav__link--active{% endif %} {% if submenu contains 'nav__submenu--regular' %}nav__link__holder--regular{% endif %}">
+                    <a class="nav__link nav__link--{{section.settings.hoverStyle}}" href="{{link.url}}">{% render 'header--link-tag' with link.title as text %}</a>
+                    {{submenu}}
+                </span>
+         {% endfor %}
+         <div class="header__element--width header__utility">
+              {% render 'header__general--utility', showCart: section.settings.desktopCart %}
+          </div>                                                                                              
+		</div>                                                                                                 
+     </nav>       
+</header>
+</div>
+<!-- Nav Menu START -->
+<!-----Nav part shify and commented rest part due to non-sticky header TW#33513957----->
+<!--<header style="top: 154px;" id="hdr_nav__menu" class="hdr_nav__menu page__header page__header--desktop {% if template == "index" and section.settings.transparent %}page__header--transparent{% endif %}">
+                                           
+</header>-->
+<!-- Nav Menu END -->
+<header class="page__header page__header--mobile hide-desktop {% if template == "index" and section.settings.transparent %}page__header--transparent{% endif %}">
+  {% if section.settings.header-top %}
+  {% render 'header-top' %}
+  {% endif %}
+    <div class="page__header--width">
+      <label class="mobile-submenu-label" for="open-mobile-nav">
+        <i class="uil uil-bars"></i>
+      </label> 
+      {% if hideSearch != true %}
+        <div data-search-container class="mobile-search">
+          <div class="search__overlay" onclick="BoosterTheme.ELEMENTS.closeSearch(this)"></div>
+          <div class="search__container--wrapper">
+            <form method="get" action="/search">
+              <input autocomplete="off" placeholder="{{'general.search.placeholder' | t }}" name="q" onfocus="BoosterTheme.ELEMENTS.openSearch(this)" type="search" data-search>
+              <button type="submit" class="text-link site-header__link site-header__search-submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18.692" height="17.706" viewBox="0 0 18.692 17.706">
+                  <g id="Group_229" data-name="Group 229" transform="translate(18 16.984)">
+                    <path id="Path_218" data-name="Path 218" d="M0,0-4.71-4.51m1.668-4.515A6.92,6.92,0,0,1-4.71-4.51a6.972,6.972,0,0,1-5.311,2.445A6.969,6.969,0,0,1-17-9.025a6.969,6.969,0,0,1,6.979-6.959A6.969,6.969,0,0,1-3.042-9.025Z" fill="none" stroke-width="2" style="stroke: #C03C45;"></path>
+                  </g>
+                </svg>
+                <span class="icon__fallback-text">Search</span>
+              </button>
+            </form>
+          </div>
+          <div class="search__results search__results--abs" data-search-suggest>
+          </div>
+        </div>
+		    {% endif %}    
+                 
+        <div class="header__logo header__element--width">
+            {% render 'logo' with section as section %}
+        </div>
+        <input id="open-mobile-nav" type="checkbox" style="display: none">
+        <label for="open-mobile-nav" class="overlay overlay--nav"></label>
+        <nav class="mobile__navigation">
+          <div class="mobile-sign">
+            <div class="sign-in-info">
+              <span class="mobile-sign-logo"><img src="https://cdn.shopify.com/s/files/1/2807/8986/files/user-icon.svg?v=1630566464" alt="mobile logo"/></span>
+              <span class="mobile-sign-in"><a href="/account/">Hello {% if customer %} {{ customer.first_name }}! {% else %}Sign In!{% endif %}</a></span>
+            </div>
+            <div class="close-btn"><img src="{{'close.png' | asset_img_url: 'medium'}}"></div>
+          </div>
+          <form action="/search" method="get" class="drawer__search" role="search">
+            <input type="search" name="q" placeholder="Search" aria-label="Search" class="drawer__search-input">
+            <span class="search__icon search__icon-mobile" onclick="BoosterTheme.ELEMENTS.openSearch(this)">{% render 'get-icon', icon: 'search' %}</span>
+          </form>
+          {% for link in linklists[section.settings.menuLinks].links %}
+                <span class="nav__link__holder">
+                    <a class="nav__link {% if link.active or link.child_active %}nav__link--active{% endif %}" href="{{link.url}}">{% render 'header--link-tag' with link.title as text %}</a><!--
+                    {% if link.links.size > 0 %}
+                        --><input type="checkbox" style="display: none" id="mobile-submenu-{{forloop.index}}"><!--
+                        --><label class="mobile__submenu__toggle" for="mobile-submenu-{{forloop.index}}"><i class="uil uil-plus"></i><i class="uil uil-minus"></i></label>
+                        {% render 'header--link-submenu--mobile', link: link, ix: forloop.index %}
+                    {% else %}
+                    -->
+                    {% endif %}
+                </span>
+            {% endfor %}
+          		<span><a class="nav__link" href="/blogs/news">Blog</a></span>
+          		<span><a class="nav__link" href="/account">My Account</a></span>
+            {% if customer %}
+              <span><a class="nav__link" href="/account/logout">Log Out</a></span>
+            {% endif %}  
+            <div class="nav-bottom-mob">
+            {% comment %}  <div class="nav-bottom-mob-img">
+                <a href="https://designeroptics.com"><img loading="lazy" class="lazyload" width="{{section.settings.nav-bottom-img.width}}" height="{{section.settings.nav-bottom-img.height}}" alt="Mobile Bottom Image" data-src="{{section.settings.nav-bottom-img | img_url:'master'}}"/></a>
+              </div>{% endcomment %}
+              <div class="nav-bottom-mob-sign">
+                <p class="nav-bottom-mob-sign-in"><a href="{{ routes.account_url }}">SIGN IN</a></p>
+                <p class="nav-bottom-mob-sign-up"><a href="/account/register">SIGN UP</a></p>
+              </div>
+            </div>
+            <div class="mobile__navigation__footer">
+                {% render 'header__mobile--footer' %}
+            </div>
+        </nav>
+       {%- comment -%}
+        <div class="wishlist">
+          <a href="#swym-wishlist">
+            <svg width="20.439" height="18.049" viewBox="0 0 20.439 18.049">
+              <g id="Group_237" data-name="Group 237" transform="translate(16.721 1.453)">
+                <path id="Path_223" data-name="Path 223" d="M0,0A5.015,5.015,0,0,0-6.5,2.278,5.016,5.016,0,0,0-13,0c-2.5,1.159-3.695,4.121-1.721,7.614,1.4,2.486,3.886,4.359,8.223,7.717C-2.167,11.973.319,10.1,1.72,7.614,3.694,4.121,2.5,1.159,0,0Z" fill="none" stroke="#c03c45" stroke-width="2"/>
+              </g>
+            </svg>
+          </a>
+      	</div>   
+       {%- endcomment -%}
+        <div class="cart-menu">                          	
+          <div class="header__utility">
+          {% render 'header__general--utility', mobile: true, showCart: section.settings.mobileCart  %}
+          </div>
+        </div>
+    </div>                                            
+</header>
+
+
+{% if section.settings.holiday_schedule == blank %}
+  <div class="holiday-shipping-schedule" onclick="calenderAreaToggle()">
+    <p id="calenderBtn">{{section.settings.shipping_notification_bar}}
+      <span id="calender-down-arrow">{% render 'icon-arrow-down' %}</span>
+      <span id="calender-up-arrow" style="display: none">{% render 'icon-arrow-up' %}</span>
+    </p>
+  </div>
+
+  <div id="calenderArea" style="display:none;">
+    {% render 'calender' %}
+  </div>
+{% endif %}
+
+{% if section.settings.promo_bar_enable %}
+  <div id="NotificationPromo" class="notification notification--promo" style="background-color:{{ section.settings.promo_bar_background_color }}; margin-bottom:10px;" data-text="{{ section.settings.promo_bar_text | strip_html | handle }}{% if section.settings.promo_bar_text2 != blank %}-{{ section.settings.promo_bar_text2 | escape | handle }}{% endif %}">
+    <div class="page-width notification__inner {% if section.settings.promo_bar_link != blank %} notification__inner--has-link{% endif %}">
+      {% if section.settings.promo_bar_link != blank %}
+      <a href="{{ section.settings.promo_bar_link }}" class="notification__link">
+        <span class="notification__message" style="color:{{ section.settings.promo_bar_text_color1 }}; font-size:{{ section.settings.promo_bar_text_size1 }}px">{{ section.settings.promo_bar_text | escape }}</span>
+        {% if section.settings.promo_bar_text2 != blank %}
+        <span class="notification__message" style="color:{{ section.settings.promo_bar_text_color2 }}; font-size:{{ section.settings.promo_bar_text_size2 }}px">{{ section.settings.promo_bar_text2 | escape }}</span>
+        {% endif %}
+      </a>
+      {% else %}
+      <span class="notification__message" style="color: {{ section.settings.promo_bar_text_color1 }}; font-size:{{ section.settings.promo_bar_text_size1 }}px">{{ section.settings.promo_bar_text | escape }}</span>
+      {% if section.settings.promo_bar_text2 != blank %}
+      <span class="notification__message" style="color:{{ section.settings.promo_bar_text_color2 }}; font-size:{{ section.settings.promo_bar_text_size2 }}px">{{ section.settings.promo_bar_text2 | escape }}</span>
+      {% endif %}
+      {% endif %}
+      <button type="button" class="text-link notification__close" id="NotificationPromoClose" onclick="NotificationPromoClose()">
+        {% include 'icon-close' %}
+        <span class="icon__fallback-text">Close</span>
+      </button>
+    </div>
+  </div>
+  {% endif %}
+  {% if section.settings.promo_bar2_enable %}
+	<div id="NotificationPromo2" class="notification notification--promo" style="background-color:{{ section.settings.promo_bar2_background_color }}" data-text="{{ section.settings.promo_bar2_text | strip_html | handle }}{% if section.settings.promo_bar2_text2 != blank %}-{{ section.settings.promo_bar2_text2 | escape | handle }}{% endif %}">
+      <div class="page-width notification__inner {% if section.settings.promo_bar2_link != blank %} notification__inner--has-link{% endif %}">
+        {% if section.settings.promo_bar2_link != blank %}
+          <a href="{{ section.settings.promo_bar2_link }}" class="notification__link">
+            <span class="notification__message" style="color:{{ section.settings.promo_bar2_text_color1 }}; font-size:{{ section.settings.promo_bar2_text_size1 }}px">{{ section.settings.promo_bar2_text | escape }}</span>
+            {% if section.settings.promo_bar_text2 != blank %}
+            <span class="notification__message" style="color:{{ section.settings.promo_bar2_text_color2 }}; font-size:{{ section.settings.promo_bar2_text_size2 }}px">{{ section.settings.promo_bar2_text2 | escape }}</span>
+            {% endif %}
+          </a>
+          {% else %}
+          <span class="notification__message" style="color: {{ section.settings.promo_bar2_text_color1 }}; font-size:{{ section.settings.promo_bar2_text_size1 }}px">{{ section.settings.promo_bar2_text | escape }}</span>
+          {% if section.settings.promo_bar2_text2 != blank %}
+              <span class="notification__message" style="color:{{ section.settings.promo_bar2_text_color2 }}; font-size:{{ section.settings.promo_bar2_text_size2 }}px">{{ section.settings.promo_bar2_text2 | escape }}</span>
+          {% endif %}
+        {% endif %}
+        <button type="button" class="text-link notification__close" id="NotificationPromoClose2" onclick="NotificationPromoClose2()">
+          {% include 'icon-close' %}
+          <span class="icon__fallback-text">Close</span>
+        </button>
+      </div>
+  	</div>
+  {% endif %}	
+  {% if section.settings.special_event_bar_enable %}
+  <div class="special-event">
+    <img class='specialevent_desktop_img' src="{{ section.settings.special_event_img | img_url: '1500x500' }}" alt="{{ section.settings.special_event_alt }}" />
+    
+    {% unless section.settings.special_event_mobile_disable %}
+    <img class='specialevent_mobiletab_img' src="{{ section.settings.special_mobile_img | img_url: '1500x500' }}" alt="{{ section.settings.special_event_alt }}"/>
+    {% endunless %}
+	</div>
+{% endif %}
+
+{% render 'header__common-js' with section as section %}
+
+<script type="lazyload2">
+  function calenderAreaToggle() {
+    var calArea = document.getElementById("calenderArea");
+    var arrowUp = document.getElementById("calender-up-arrow");
+    var arrowDown = document.getElementById("calender-down-arrow");
+
+    if (calArea.style.display === "none") {
+      calArea.style.display = "block";
+      arrowUp.style.display = "inline-block";
+      arrowDown.style.display = "none";
+    } else {
+      calArea.style.display = "none";
+      arrowUp.style.display = "none";
+      arrowDown.style.display = "inline-block";
+    }
+  };
+
+  function NotificationPromoClose(){
+    var np = document.getElementById("NotificationPromo");
+    if (np.style.display != "none") {
+      np.style.display = "none";
+    }
+  }
+  function NotificationPromoClose2(){
+    var np = document.getElementById("NotificationPromo2");
+    if (np.style.display != "none") {
+      np.style.display = "none";
+    }
+  }
+</script>
+<script>
+  $(document).ready(function(){
+    $('.mobile-submenu-label').click(function(){
+      $('.mobile__navigation').css('transform','translateX(0%)');
+      $('.page__header--width').find('.overlay.overlay--nav').css('display','block');
+    });
+    $('.close-btn').click(function(){
+      $('.mobile__navigation').css('transform','translateX(-100%)');
+      $('.page__header--width').find('.overlay.overlay--nav').css('display','none');
+    });
+  })
+</script>                            
+{% schema %}
+{
+  "name": {
+    "en": "Header - Default"
+  },
+  "settings": [
+    {
+        "type": "checkbox",
+        "id": "header-top",
+        "label": "Header Top",
+        "default": true
+    },
+    {
+        "type": "checkbox",
+        "id": "enable-gift-card",
+        "label": "Enable Gift Card",
+        "default": true
+    },             
+    {
+		"type": "text",
+		"id": "gift-card",
+		"label" : "Gift Card",
+		"default": "Gift Card"
+	},
+    {
+        "type": "checkbox",
+        "id": "enable-wish-list",
+        "label": "Enable Wish Lists",
+        "default": true
+    },                           
+    {
+		"type": "text",
+		"id": "wish-lists",
+		"label" : "Wish Lists",
+		"default": "Wish Lists"
+	},
+    {
+        "type": "checkbox",
+        "id": "enable-blog",
+        "label": "Enable Blog",
+        "default": true
+    },                           
+    {
+		"type": "text",
+		"id": "blog",
+		"label" : "Blog",
+		"default": "Blog"
+	},
+    {
+        "type": "checkbox",
+        "id": "enable-other-status",
+        "label": "Enable Order Status",
+        "default": true
+    },                     
+    {
+		"type": "text",
+		"id": "other-status",
+		"label" : "Other Status",
+		"default": "Other Status"
+	},
+    {
+		"type": "text",
+		"id": "sign-in",
+		"label" : "Sign in",
+		"default": "Sign in or Create an account"
+	},
+  {
+		"type": "text",
+		"id": "sign-in-text-mobile",
+		"label" : "Sign in",
+		"default": "Sign in/Create account"
+	},
+    {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458159291)"
+    },
+    {
+        "type": "header",
+        "content": "Global header settings"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+        "type": "range",
+        "label": "Height",
+        "id": "minHeight",
+        "min": 75,
+        "max": 150,
+        "step": 5,
+        "unit": "px",
+        "default": 75
+    },
+    {
+        "type": "range",
+        "label": "Border radius",
+        "id": "borderRadius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+    },
+    {
+        "type": "checkbox",
+        "id": "shadow",
+        "label": "Enable shadow",
+        "default": false
+    },
+    {
+		"type": "text",
+		"id": "phone-no",
+		"label" : "Phone No",
+		"default": "718-412-0407"
+	},
+    {
+		"type": "text",
+		"id": "call-tagline",
+		"label" : "call-tagline",
+		"default": "Order online or call us"
+	},             	
+    {
+        "type": "link_list",
+        "id": "menuLinks",
+        "label": "Menu links"
+    },
+    {
+        "type": "checkbox",
+        "id": "megamenu",
+        "label": "Enable megamenu",
+        "default": true
+    },
+    {
+        "type": "range",
+        "label": "Logo width",
+        "id": "logoWidth",
+        "min": 50,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "default": 240
+    },
+    {
+        "type": "range",
+        "label": "Logo height",
+        "id": "logoHeight",
+        "min": 0,
+        "max": 500,
+        "step": 5,
+        "unit": "px",
+        "default": 0,
+        "info": "Maximum logo height. If set to 0 (zero) it will take up as much space as needed."
+    },
+    {
+        "type": "checkbox",
+        "id": "sticky",
+        "label": "Make the header stick to top",
+        "default": true
+    },
+    {
+        "type": "range",
+        "label": "Content margin",
+        "id": "contentMargin",
+        "min": 0,
+        "max": 200,
+        "step": 5,
+        "unit": "px",
+        "default": 0
+    },
+    {
+        "type": "header",
+        "content": "Header buttons"
+    },
+    {
+        "type": "checkbox",
+        "id": "desktopCart",
+        "label": "Show Cart (desktop)",
+        "default": true
+    },
+    {
+        "type": "color",
+        "label": "Background color",
+        "default": "rgba(0,0,0,0)",
+        "id": "headerBg"
+    },
+    {
+        "type": "header",
+        "content": "Link style"
+    },
+    {
+        "type": "color",
+        "id": "linkColor",
+        "label": "Text color",
+        "default": "#727272"
+    },
+    {
+        "type": "color",
+        "id": "accentColor",
+        "label": "Active accent color",
+        "default": "#000000"
+    },
+    {
+        "type": "select",
+        "id": "hoverStyle",
+        "label": "Hover style",
+        "options": [
+            {"value": "fill", "label": "Fill"},
+            {"value": "underline", "label": "Underline"},
+            {"value": "opacity", "label": "Opacity"},
+            {"value": "strikethrough", "label": "Line through text"},
+            {"value": "dotBelow", "label": "Dot below"},
+            {"value": "dotAbove", "label": "Dot above"}
+        ],
+        "default": "underline"
+    },
+    {
+        "type": "color",
+        "id": "tagBgColor",
+        "label": "Tag color",
+        "default": "#000"
+    },
+    {
+        "type": "color",
+        "id": "tagTextColor",
+        "label": "Tag text color",
+        "default": "#FFF"
+    },
+    {
+        "id": "transparent",
+        "label": "Make the header transparent",
+        "type": "checkbox",
+        "default": false
+    },
+    {
+        "type": "color",
+        "id": "linkColorT",
+        "label": "Text color (transparent)",
+        "default": "#FFF"
+    },
+    {
+        "type": "color",
+        "id": "accentColorT",
+        "label": "Active accent color (transparent)",
+        "default": "#EFEFEF"
+    },
+    {
+        "id": "fontSize",
+        "type": "select",
+        "label": "Font size",
+        "options": [
+            {"value": "small", "label": "Small"},
+            {"value": "base", "label": "Base"},
+            {"value": "medium", "label": "Medium"},
+            {"value": "big", "label": "Big"}
+        ],
+        "default": "base"
+    },
+    {
+        "type": "checkbox",
+        "label": "Use a custom font family",
+        "id": "customFont",
+        "default": false
+    },
+    {
+        "id": "fontFamily",
+        "label": "Font Family",
+        "type": "font_picker",
+        "default": "work_sans_n6"
+    },
+    {
+        "type": "header",
+        "content": "Cart"
+    },
+    {
+        "type": "select",
+        "label": "Cart icon",
+        "id": "cartIcon",
+        "options": [
+            {"value": "shopping-bag", "label": "Bag"},
+            {"value": "shopping-cart", "label": "Cart"},
+            {"value": "shopping-basket", "label": "Basket"}
+        ],
+        "default": "shopping-basket"
+    },
+    {
+        "type": "header",
+        "content": "Mobile menu"
+    },
+    {
+        "type": "select",
+        "label": "Logo position (mobile)",
+        "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "right", "label": "Right"}
+        ],
+        "default": "center",
+        "id": "mobileLogoPosition"
+    },
+    {
+        "type": "checkbox",
+        "label": "Show cart icon (mobile)",
+        "id": "mobileCart",
+        "default": true
+    },
+    { 
+		"type": "checkbox",
+		"id": "header_top_enable",
+		"label": "Enable Header Top Bar",
+		"default": false
+	},
+    {
+        "type": "image_picker",
+        "id": "defaultLogo",
+        "label": "Logo image"
+    },
+	{
+      	"type": "header",
+		"content": "Calender"
+	},
+	{
+		"type": "text",
+		"id": "shipping_notification_bar",
+		"label" : "Shipping Bar Title",
+		"default": "Holiday Shipping schedule for September! See Schedule Details Here "
+	},
+	{	
+		"type": "color",
+		"id": "month_schedule_bgcolor",
+		"label": "Month Schedule Background Color",
+		"default": "#1e53b9"
+	},
+	{	
+		"type": "color",
+		"id": "month_schedule_color",
+		"label": "Month Schedule Text Color",
+		"default": "#fff"
+	},
+	{	
+		"type": "text",
+		"id": "calender_month",
+		"label" : "Calender Month",
+		"default" : "APRIL 2022"
+	},
+	{
+        "type": "checkbox",
+        "id": "holiday_schedule",
+        "label": "Hide holiday schedule"
+    },
+    {
+        "type": "text",
+        "id": "holiday-schedule-heading",
+        "label": "Holiday Schedule Heading",
+        "default": "Shipping will not be available after the cut off time of the day."
+    },
+    {
+        "type": "select",
+        "id": "month-starting-date",
+        "label": "Month Starts Weekday",
+        "options": [
+            {"value": "1", "label": "Sunday"},
+            {"value": "2", "label": "Monday"},
+            {"value": "3", "label": "Tuesday"},
+            {"value": "4", "label": "Wednesday"},
+            {"value": "5", "label": "Thursday"},
+            {"value": "6", "label": "Friday"},
+            {"value": "7", "label": "Saturday"}
+        ]
+    },
+    {
+		"type": "select",
+        "id": "no-of-days-in-month",
+        "label": "No. of days in month",
+        "options": [
+            {"value": "28", "label": "28"},
+			{"value": "29", "label": "29"},
+            {"value": "30", "label": "30"},
+            {"value": "31", "label": "31"}
+        ],
+        "default": "31"          
+	},
+	{
+		"type": "text",
+		"id": "cut-off-days",
+		"label" : "Cut Off Days",
+        "info": "Seperated by Commas",
+		"placeholder": "5,7,20"
+                                                                  	
+	},
+	{
+        "type": "color",
+        "id": "cut-off-bgcolor",
+        "label": "Cut Off Background Color",
+        "default": "#c63b3d"
+    },
+	{
+        "type": "color",
+        "id": "cut-off-textcolor",
+        "label": "Cut Off Text Color",
+        "default": "#ffffff"
+    },
+	{
+		"type": "text",
+		"id": "closed-days",
+		"label" : "Closed Days",
+        "info": "Seperated by Commas",
+		"placeholder": "6,17,21"
+                                                                  	
+	},
+	{
+        "type": "color",
+        "id": "closed-bgcolor",
+        "label": "Closed Days Background Color",
+        "default": "#575656"
+    },
+	{
+        "type": "color",
+        "id": "closed-textcolor",
+        "label": "Closed Days Text Color",
+        "default": "#ffffff"
+    },
+    {
+        "type": "header",
+        "content": "Announcement bar"
+    },
+	{
+        "type": "checkbox",
+        "id": "promo_bar_enable",
+        "label": "Show announcement"
+    },
+    {
+	      "type": "color",
+		  "id": "promo_bar_background_color",
+		  "label": "Announcement Background Color",
+		  "default": "#c63b3d"
+	},
+    {
+        "type": "text",
+        "id": "promo_bar_text",
+        "label": "Announcement text Line 1"
+    }, 
+	{
+	      "type": "color",
+		  "id": "promo_bar_text_color1",
+		  "label": "Line 1 Font Color",
+		  "default": "#ffffff"
+	},
+    {
+          "type":   "range",
+          "id":     "promo_bar_text_size1",
+          "min":       12,
+          "max":       24,
+          "step":      1,
+          "unit":      "px",
+          "label":     "Line 1 Font Size",
+          "default":   18
+    },
+	{
+        "type": "text",
+        "id": "promo_bar_text2",
+        "label": "Announcement text Line 2"
+    }, 
+	{
+	      "type": "color",
+		  "id": "promo_bar_text_color2",
+		  "label": "Line 2 Font Color",
+		  "default": "#ffffff"
+	},
+    {
+          "type":   "range",
+          "id":     "promo_bar_text_size2",
+          "min":       12,
+          "max":       24,
+          "step":      1,
+          "unit":      "px",
+          "label":     "Line 2 Font Size",
+          "default":   18
+    },
+    {
+        "type": "url",
+        "id": "promo_bar_link",
+        "label": "Announcement link",
+        "info": "Optional"
+    },
+	{
+        "type": "checkbox",
+        "id": "promo_bar2_enable",
+        "label": "Show Announcement Bar 2",
+		"default":false
+    },
+	{
+	      "type": "color",
+		  "id": "promo_bar2_background_color",
+		  "label": "Announcement 2 Background Color",
+		  "default": "#c63b3d"
+	},
+	{
+        "type": "text",
+        "id": "promo_bar2_text",
+        "label": "Announcement 2 text Line 1"
+    },
+	{
+	      "type": "color",
+		  "id": "promo_bar2_text_color1",
+		  "label": "Line 1 Font Color",
+		  "default": "#ffffff"
+	},
+	{
+          "type":   "range",
+          "id":     "promo_bar2_text_size1",
+          "min":       12,
+          "max":       24,
+          "step":      1,
+          "unit":      "px",
+          "label":     "Line 1 Font Size",
+          "default":   18
+    },
+	{
+        "type": "text",
+        "id": "promo_bar2_text2",
+        "label": "Announcement 2 text Line 2"
+    },
+	{
+	      "type": "color",
+		  "id": "promo_bar2_text_color2",
+		  "label": "Line 2 Font Color",
+		  "default": "#ffffff"
+	},
+	{
+          "type":   "range",
+          "id":     "promo_bar2_text_size2",
+          "min":       12,
+          "max":       24,
+          "step":      1,
+          "unit":      "px",
+          "label":     "Line 2 Font Size",
+          "default":   18
+    },
+	{
+        "type": "url",
+        "id": "promo_bar2_link",
+        "label": "Announcement 2 link",
+        "info": "Optional"
+    },
+	{
+        "type": "checkbox",
+        "id": "special_event_bar_enable",
+        "label": "Special Event"
+    },
+	{
+        "type": "checkbox",
+        "id": "special_event_mobile_disable",
+        "label": "Special Hide Event Mobile",
+		"default":true
+    },
+	{
+        "type": "image_picker",
+        "id": "special_event_img",
+        "label": "Special Event Image"
+    },
+    {
+        "type": "text",
+        "id": "special_event_alt",
+        "label": "Special Event Image Alt"
+    },
+	{
+        "type": "image_picker",
+        "id": "special_mobile_img",
+        "label": "Special Event Mobile Image"
+    },
+	{
+        "type": "image_picker",
+        "id": "nav-bottom-img",
+        "label": "Mobile Nav bottom Image"
+    }
+ 	
+                              
+  ],
+  "blocks": [
+      {
+        "type": "top-list",
+        "name": "Holiday Schedule Details",
+        "settings": [
+          {
+             "type": "text",
+             "id": "list-item",
+             "label": "Enter Details"
+          }
+        ]
+      }
+	]                                                                                    
+}
+{% endschema %}

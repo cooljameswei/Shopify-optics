@@ -1,0 +1,5 @@
+{%- if section.settings.layout == 'default' -%}
+{{-settings.baseLayout-}}
+{%- else -%}
+{{-section.settings.layout-}}
+{% endif %}

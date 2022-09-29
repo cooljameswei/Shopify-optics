@@ -1,0 +1,633 @@
+<script>
+
+  var savedPrescriptions = [];
+  var selectedPrescription = {};
+  var selectedPrescriptionItem = {};
+  var prescriptionTypesData = [];
+  var prescriptionFileUploadLink = '';
+  var prescription = {};
+  var customerId = "{{customerId}}";
+  
+  $(document).ready(function() {
+    var url = "https://app1.prescriptionserver.com/api/options/getPrescriptionLenseSettingsByEmail?email=" + customerId;
+    $.post(url).done(function( data ) {
+      for(var i=0; i< data.length; i++) {
+        data[i].PrescriptionLenseSettingJson = JSON.parse(JSON.parse(data[i].PrescriptionLenseSettingJson));
+        if(((data[i].PrescriptionLenseSettingJson || {}).skipProfile)) continue;
+        var lensSettingId = data[i].LenseSettingId;
+        savedPrescriptions.push(data[i]);
+        var li = '<div class="prescription-item open-prescription" data-lensid="'+ lensSettingId + '"><span>';
+            li += ( data[i].PrescriptionLenseSettingJson.profileName + '</span><button>' );
+        li += '<svg xmlns="http://www.w3.org/2000/svg" width="17.691" height="11.77" viewBox="0 0 17.691 11.77"><g id="noun_Eye_59444" transform="translate(-21.025 -29)"><path id="Path_924" data-name="Path 924" d="M38.135,33.427C36.622,31.767,33.523,29,29.871,29s-6.752,2.767-8.264,4.427a2.118,2.118,0,0,0,0,2.915c1.513,1.66,4.612,4.427,8.264,4.427S36.622,38,38.135,36.342A2.118,2.118,0,0,0,38.135,33.427Zm-1.07,1.955c-1.365,1.476-4.1,3.948-7.195,3.948s-5.829-2.472-7.195-3.948a.646.646,0,0,1,0-.922c1.365-1.513,4.1-3.985,7.195-3.985s5.829,2.472,7.195,3.948A.691.691,0,0,1,37.065,35.383Z"/><circle id="Ellipse_62" data-name="Ellipse 62" cx="2.214" cy="2.214" r="2.214" transform="translate(27.657 32.69)"/></g></svg>';
+        li +=' <span>View or Edit Details</span></button></div>' ;
+        $("#savedPrescriptionsList").append(li);
+      }
+      if(savedPrescriptions.length <= 0) {
+        $("#unavailablePrescriptionMesg").show();
+      }
+      $('#displaySavedPrescriptions').html($('#displaySavedPrescriptions').html() + "("+ savedPrescriptions.length +")");
+    });
+    
+  });
+  
+  function prescriptionsListElement(savedPrescriptions) {
+    $("#savedPrescriptionsList ul").append('<li><a href=""><span class="tab">Message Center</span></a></li>');
+  }
+  
+  function selectedNavItem(displaySectionId, selectedNavItemId) {
+  	$(".steps").hide();
+    $(displaySectionId).show();
+    if(!(selectedNavItemId)) return;
+    
+    $("#displayOrderHistory, #displayAddresses, #displaySavedPrescriptions").removeClass('active-nav');
+    $(selectedNavItemId).addClass('active-nav');
+  }
+  
+  
+/***************************
+For Prescription Single Item
+***************************/
+  
+  var productSearch = {prescription: {}, productTags: "Prescription Ready, Rx", shop: "designeroptics-com"};
+  var url = "https://app1.prescriptionserver.com/api/options/getPrescriptionSettings";
+  var pTypesUrl = "https://app1.prescriptionserver.com/api/options/getPrescriptionTypes";
+  var prescriptionSettings = {
+    sphOptions: [], 
+    cylOptions: [],
+    axisOptions: [],
+    addOptions: [],
+    pdOptions: [],
+    twoPdOptions: [],
+    segOptions: [],
+    magOptions: []
+  };
+  var infoModalContent = {};
+  var showFields = {};
+  
+  function rangeCreation(minValue, maxValue, incrementValue, arr, isDefaultSelect, selectOptionSelector1, selectOptionSelector2, decimalpointsUpto2=false) {
+    var selectFieldSelector1 = $(selectOptionSelector1) ? $(selectOptionSelector1)[0] : '';
+    var selectFieldSelector2 = $(selectOptionSelector2) ? $(selectOptionSelector2)[0] : '';
+    for (i = minValue; i <= maxValue; i += incrementValue) {
+      if (isDefaultSelect && (i == 0 || (i==minValue && minValue > 0))) {
+        arr.push('');
+        if(selectFieldSelector1) selectFieldSelector1.add(new Option('Select','', true, true));
+        if(selectFieldSelector2) selectFieldSelector2.add(new Option('Select', '', true, true));
+      }
+      if(selectFieldSelector1) selectFieldSelector1.add(new Option(parseFloat(i).toFixed(2), i));
+      if(selectFieldSelector2) selectFieldSelector2.add(new Option(parseFloat(i).toFixed(2), i));
+      arr.push(i);
+    }
+  }
+  
+  function setPrescriptionRange (data) {
+    var i;
+    rangeCreation(data.SphereMin, data.SphereMax, data.SphereIncrement, prescriptionSettings.sphOptions, true, "#sphRt select" , "#sphLt select");
+    rangeCreation(data.SphereMin, data.SphereMax, data.SphereIncrement, prescriptionSettings.sphOptions, true, "#sphRtMob select" , "#sphLtMob select");
+    rangeCreation(data.CylinderMin, data.CylinderMax, data.CylinderIncrement, prescriptionSettings.cylOptions, true, "#cylRt select", "#cylLt select");
+    rangeCreation(data.CylinderMin, data.CylinderMax, data.CylinderIncrement, prescriptionSettings.cylOptions, true, "#cylRtMob select", "#cylLtMob select");
+    rangeCreation(data.AxisMin, data.AxisMax, data.AxisIncrement, prescriptionSettings.axisOptions, true, "#axisRt select", "#axisLt select");
+    rangeCreation(data.AxisMin, data.AxisMax, data.AxisIncrement, prescriptionSettings.axisOptions, true, "#axisRtMob select", "#axisLtMob select");
+    rangeCreation(data.AddMin, data.AddMax, data.AddIncrement, prescriptionSettings.addOptions, true, "#addRt select", "#addLt select");
+    rangeCreation(data.AddMin, data.AddMax, data.AddIncrement, prescriptionSettings.addOptions, true, "#addRtMob select", "#addLtMob select");
+    rangeCreation(data.PupilDistanceMin, data.PupilDistanceMax, data.PupilDistanceIncrement, prescriptionSettings.pdOptions, true, "#pd select", undefined);
+    rangeCreation(data.PupilDistanceMin, data.PupilDistanceMax, data.PupilDistanceIncrement, prescriptionSettings.pdOptions, true, "#pdMob select", undefined);
+    // Left field means- two PD fields
+    rangeCreation(data.PupilDistanceMinLeft, data.PupilDistanceMaxLeft, data.PupilDistanceIncrementLeft, prescriptionSettings.twoPdOptions, true, "#pdLt select", "#pdRt select");
+    rangeCreation(data.PupilDistanceMinLeft, data.PupilDistanceMaxLeft, data.PupilDistanceIncrementLeft, prescriptionSettings.twoPdOptions, true, "#pdLtMob select", "#pdRtMob select");
+    rangeCreation(data.SegHeightMin, data.SegHeightMax, data.SegHeightIncrement, prescriptionSettings.segOptions, true, "#sghtRt select", "#sghtLt select");
+    rangeCreation(data.SegHeightMin, data.SegHeightMax, data.SegHeightIncrement, prescriptionSettings.segOptions, true, "#sghtRtMob select", "#sghtLtMob select");
+    rangeCreation(data.MagMin, data.MagMax, data.MagIncrement, prescriptionSettings.magOptions, false, "#magnification select", undefined, true);
+  }
+  
+  function updateDefaultSelectedValue(lensId) {
+    for(var i=0; i< savedPrescriptions.length; i++) {
+      if(savedPrescriptions[i].LenseSettingId != lensId) continue;
+      selectedPrescription = savedPrescriptions[i].PrescriptionLenseSettingJson;
+      selectedPrescription.LenseSettingId = lensId;
+      selectedPrescriptionItem = savedPrescriptions[i];
+      return;
+    }
+  }
+  
+  function setFieldsValue(selectField, value) {
+    if (!(selectField && value)) return;
+    selectField.value = value;
+  }
+  
+  function updateFieldsValue() {
+    setFieldsValue(($('#sphRt select'))[0], selectedPrescription.prescription.rtSph);
+    setFieldsValue(($('#sphLt select'))[0], selectedPrescription.prescription.ltSph);
+    setFieldsValue(($('#cylRt select'))[0], selectedPrescription.prescription.rtCyl);
+    setFieldsValue(($('#cylLt select'))[0], selectedPrescription.prescription.ltCyl);
+    setFieldsValue(($('#addRt select'))[0], selectedPrescription.prescription.rtAdd);
+    setFieldsValue(($('#addLt select'))[0], selectedPrescription.prescription.ltAdd);
+    setFieldsValue(($('#axisRt select'))[0], selectedPrescription.prescription.rtAxis);
+    setFieldsValue(($('#axisLt select'))[0], selectedPrescription.prescription.ltAxis);
+    setFieldsValue(($('#sghtRt select'))[0], selectedPrescription.prescription.rtSegHeight);
+    setFieldsValue(($('#sghtLt select'))[0], selectedPrescription.prescription.ltSegHeight);
+    setFieldsValue(($('#pd select'))[0], selectedPrescription.prescription.pd);
+    setFieldsValue(($('#pdLt select'))[0], selectedPrescription.prescription.osPd);
+
+    setFieldsValue(($('#sphRtMob select'))[0], selectedPrescription.prescription.rtSph);
+    setFieldsValue(($('#sphLtMob select'))[0], selectedPrescription.prescription.ltSph);
+    setFieldsValue(($('#cylRtMob select'))[0], selectedPrescription.prescription.rtCyl);
+    setFieldsValue(($('#cylLtMob select'))[0], selectedPrescription.prescription.ltCyl);
+    setFieldsValue(($('#addRtMob select'))[0], selectedPrescription.prescription.rtAdd);
+    setFieldsValue(($('#addLtMob select'))[0], selectedPrescription.prescription.ltAdd);
+    setFieldsValue(($('#axisRtMob select'))[0], selectedPrescription.prescription.rtAxis);
+    setFieldsValue(($('#axisLtMob select'))[0], selectedPrescription.prescription.ltAxis);
+    setFieldsValue(($('#sghtRtMob select'))[0], selectedPrescription.prescription.rtSegHeight);
+    setFieldsValue(($('#sghtLtMob select'))[0], selectedPrescription.prescription.ltSegHeight);
+    setFieldsValue(($('#pdMob select'))[0], selectedPrescription.prescription.pd);
+    setFieldsValue(($('#pdLtMob select'))[0], selectedPrescription.prescription.osPd);
+    
+    if(selectedPrescription.prescription.twoPds) {
+      $('#pd, #showWhenOnePd, #pdMob').hide();
+      setFieldsValue(($('#pdRt select'))[0], selectedPrescription.prescription.pd);
+      setFieldsValue(($('#pdRtMob select'))[0], selectedPrescription.prescription.pd);
+      $('#pdRt, #pdLt, #pdRtMob, #pdLtMob').show();
+      $('#isTwoPd').prop('checked', true);
+    }
+    else{
+      $('#pdRt, #pdLt, #pdRtMob, #pdLtMob').hide();
+      setFieldsValue(($('#pd select'))[0], selectedPrescription.prescription.pd);
+      setFieldsValue(($('#pdMob select'))[0], selectedPrescription.prescription.pd);
+      $('#pd, #pdMob, #showWhenOnePd').show();
+      $('#isTwoPd').prop('checked', false);
+    }
+    
+    $("#profilePrescriptionName").html('<span>'+selectedPrescription.profileName+'</span>');
+    var editIcon = ' <sup> <svg class="icon-size" style="cursor:pointer;" onclick="showEditPrescriptionTitlePopup('+ "'"+selectedPrescription.profileName +"'" +')" enable-background="new 0 0 45 45" height="20px" id="Layer_1" version="1.1" viewBox="0 0 45 45" width="20px" xml:space="preserve"><g><rect fill="#CE3330" height="23" transform="matrix(-0.7071 -0.7072 0.7072 -0.7071 38.2666 48.6029)" width="11" x="23.7" y="4.875"></rect><path d="M44.087,3.686l-2.494-2.494c-1.377-1.377-3.61-1.377-4.987,0L34.856,2.94l7.778,7.778l1.749-1.749   C45.761,7.593,45.465,5.063,44.087,3.686z" fill="#CE3330"></path><polygon fill="#CE3330" points="16,22.229 16,30 23.246,30  "></polygon><path d="M29,40H5V16h12.555l5-5H3.5C1.843,11,0,11.843,0,13.5v28C0,43.156,1.843,45,3.5,45h28   c1.656,0,2.5-1.844,2.5-3.5V23.596l-5,5V40z" fill="#CE3330"></path></g></svg></sup>';
+    $( "#profilePrescriptionName" ).append( editIcon );
+    $("#profilePrescriptionType").text('Prescription Type - ' +selectedPrescription.prescriptionType);
+    
+    if(selectedPrescription.prescriptionFile) {
+      prescriptionFileUploadLink = selectedPrescription.prescriptionFile
+      $('.file-uploaded a.btn-primary-file').attr("href", prescriptionFileUploadLink); 
+      $('.file-uploaded').show();
+    }
+  }
+  
+  function showEditPrescriptionTitlePopup() {
+    var name = selectedPrescription.profileName;
+    var templateStr = '<button class="btn-close btn-close-confirm-pres customCloseModal" type="button"><i class="custom-close-icon">&#215;</i></button>';
+    templateStr += '<div class="modal-header font-black" style="text-align:center;padding-left:0;margin-bottom:1.5rem;">Edit Profile Name</div>';
+    templateStr += '<div class="modal-body p-0 confirm-modal">';
+    templateStr += '<div class="input-profile"> <label for="editProfileName">Profile  Name</label><input id="editProfileName" value="'+name+'"><div class="error-message"></div></div>';
+    templateStr += '<div class="confirm-btn-container"><div class="p-0"><button class="prescription-button cancel customCloseModal" type="button">Cancel</button></div>';
+    templateStr += '<div class="p-0"><button class="prescription-button" onclick="updateProfileName();">Update</button></div></div>';
+    templateStr += '</div>';
+    
+    $("#modalToDisplay").text("");
+    $("#modalToDisplay").attr('class', 'modal').addClass("editProfileModal");
+    $("#modalToDisplay").append('<div class="modal-content"></div>').ready(function(){
+      $("#modalToDisplay .modal-content").html(templateStr);
+      $('#modalToDisplay').show();
+      $('.overlay-popups').show();
+    })
+  }
+  
+  function prescriptionTypeBasedFieldsVisibility() {
+    $('.prescription-sub-div-heading, .prescription-sub-div-content').removeClass('more-fields');
+    $('#prescriptionReaders').hide();
+    $('.hide-single-vision, #prescriptionDetails').show();
+    $('.col-3-only').removeClass('flex-3-column');
+    
+    if(selectedPrescription.prescriptionType.toLowerCase() == "single vision") {
+      $('.hide-single-vision').hide();
+      $('.col-3-only').addClass('flex-3-column');
+      $('#axisHeader .col-custom, #axisRt .col-custom, #axisLt .col-custom').css('margin-left', 'auto');
+      $('#cylHeader .col-custom, #cylRt .col-custom, #cylLt .col-custom, #pdLt .col-custom').css('margin', 'auto');
+      
+      return;
+    } else if(selectedPrescription.prescriptionType.toLowerCase() == "readers") {
+      $('#prescriptionDetails').hide();
+      $('#prescriptionReaders').show();
+      return;
+    } else if(selectedPrescription.prescriptionType.toLowerCase() == "non-prescription") {
+      $('#prescriptionDetails').hide();
+      return;
+    } else {
+      $('.prescription-sub-div-heading, .prescription-sub-div-content').addClass('more-fields');
+    }
+  }
+  
+  function updatePrescriptionItem(lensId) {
+    updateDefaultSelectedValue(lensId);
+    $(".confirm-prescription button").prop("disabled", true);
+    updateFieldsValue();
+    prescriptionTypeBasedFieldsVisibility();
+  	selectedNavItem("#prescriptionData");
+  }
+  
+  function setInfoBtnObj(data){
+    
+    infoModalContent = {
+      sph: {
+        header: 'Sphere (SPH)',
+        content: data.SphereDescription
+      },
+      cyl: {
+        header: 'Cylinder (CYL)',
+        content: data.CylinderDescription
+      },
+      axis: {
+        header: 'Axis',
+        content: data.AxisDescription
+      },
+      add: {
+        header: 'ADD',
+        content: data.AddDescription
+      },
+      sght: {
+        header: 'SEG Height',
+        content: data.SegHeightDescription
+      },
+      mag: {
+        header: 'Magnification',
+        content: data.MagDescription
+      }
+      
+    }
+  }
+  
+  function openPrescriptionItem(lensId) {
+    prescriptionFileUploadLink = "";
+    prescription = {};
+    if(prescriptionSettings.sphOptions.length != 0) {
+      updatePrescriptionItem(lensId);
+      return;
+    }
+    $.post( pTypesUrl, productSearch).done(function(data){
+      prescriptionTypesData = data;
+    });
+    $.post( url, productSearch)
+    .done(function( data ) {
+      setPrescriptionRange(data);
+      setInfoBtnObj(data);
+      updatePrescriptionItem(lensId);
+    });
+  }
+  
+  function getDataFromFields() {
+    if(window.innerWidth > 900) {
+      prescription = {
+        rtSph: $('#sphRt select') && $('#sphRt select').val() ? $('#sphRt select').val() : '',
+        ltSph: $('#sphLt select') && $('#sphLt select').val() ? $('#sphLt select').val() : '',
+        rtCyl: $('#cylRt select') && $('#cylRt select').val() ? $('#cylRt select').val() : '',
+        ltCyl: $('#cylLt select') && $('#cylLt select').val() ? $('#cylLt select').val() : '',
+        rtAxis: $('#axisRt select') && $('#axisRt select').val() ? $('#axisRt select').val() : '',
+        ltAxis: $('#axisLt select') && $('#axisLt select').val() ? $('#axisLt select').val() : '',
+        rtAdd: $('#addRt select') && $('#addRt select').val() ? $('#addRt select').val() : '',
+        ltAdd: $('#addLt select') && $('#addLt select').val() ? $('#addLt select').val() : '',
+        osPd: $('#pdLt select') && $('#pdLt select').val() ? $('#pdLt select').val() : '',
+        rtSegHeight: $('#sghtRt select') && $('#sghtRt select').val() ? $('#sghtRt select').val() : '',
+        ltSegHeight: $('#sghtLt select') && $('#sghtLt select').val() ? $('#sghtLt select').val() : '',
+        twoPds: $('#isTwoPd:checked') && $('#isTwoPd:checked').length > 0 ? true : false,
+      }
+      if(prescription.twoPds){
+        prescription.pd =  $('#pdRt select') && $('#pdRt select').val() ? $('#pdRt select').val() : '';
+      } else {
+        prescription.pd =  $('#pd select') && $('#pd select').val() ? $('#pd select').val() : '';
+      }
+      return;
+    }
+    prescription = {
+        rtSph: $('#sphRtMob select') && $('#sphRtMob select').val() ? $('#sphRtMob select').val() : '',
+        ltSph: $('#sphLtMob select') && $('#sphLtMob select').val() ? $('#sphLtMob select').val() : '',
+        rtCyl: $('#cylRtMob select') && $('#cylRtMob select').val() ? $('#cylRtMob select').val() : '',
+        ltCyl: $('#cylLtMob select') && $('#cylLtMob select').val() ? $('#cylLtMob select').val() : '',
+        rtAxis: $('#axisRtMob select') && $('#axisRtMob select').val() ? $('#axisRtMob select').val() : '',
+        ltAxis: $('#axisLtMob select') && $('#axisLtMob select').val() ? $('#axisLtMob select').val() : '',
+        rtAdd: $('#addRtMob select') && $('#addRtMob select').val() ? $('#addRtMob select').val() : '',
+        ltAdd: $('#addLtMob select') && $('#addLtMob select').val() ? $('#addLtMob select').val() : '',
+        osPd: $('#pdLtMob select') && $('#pdLtMob select').val() ? $('#pdLtMob select').val() : '',
+        rtSegHeight: $('#sghtRtMob select') && $('#sghtRtMob select').val() ? $('#sghtRtMob select').val() : '',
+        ltSegHeight: $('#sghtLtMob select') && $('#sghtLtMob select').val() ? $('#sghtLtMob select').val() : '',
+        twoPds: $('#isTwoPd:checked') && $('#isTwoPd:checked').length > 0 ? true : false,
+      }
+      if(prescription.twoPds){
+        prescription.pd =  $('#pdRtMob select') && $('#pdRtMob select').val() ? $('#pdRtMob select').val() : '';
+      } else {
+        prescription.pd =  $('#pdMod select') && $('#pdMob select').val() ? $('#pdMob select').val() : '';
+      }
+    
+  }
+  
+  function updateShowFields() {
+    for(var i=0; i < prescriptionTypesData.length; i++) {
+      var typeData = prescriptionTypesData[i];
+      if(typeData.Name != selectedPrescription.prescriptionType) continue;
+      showFields.ShowADD = typeData.ShowADD;
+      showFields.ShowMagOnly = typeData.ShowMagOnly;
+      showFields.ShowSegHeight = typeData.ShowSegHeight;
+      return;
+    }
+  }
+  
+  function floatFixed2(input) {
+      if (input === '') return input;
+      input = parseFloat(input);
+      input = input ? input.toFixed(2) : 0.00;
+      return input > 0 ? "+" + input : input;
+  }
+  
+  function prescriptionSuccessTemplate(msg, templateStr="") {
+    $("#modalToDisplay").text("");
+    $("#modalToDisplay").attr('class', 'modal').addClass("confirmPrescriptionModal");
+    if(!(templateStr)){
+      templateStr = '<div class="prescription-success-message">'+msg+'</div><div class="text-center"><button class="prescription-success-ok customCloseModal" type="button">OK</button></div>';
+    }
+    $("#modalToDisplay").append('<div class="modal-content" class="modal"></div>').ready(function(){
+      $("#modalToDisplay .modal-content").html(templateStr);
+      $('#modalToDisplay').show();
+      $('.overlay-popups').show();
+    });
+  }
+  
+  function confirmPrescription() {
+    customCloseModal();
+    
+    selectedPrescription.prescription = Object.keys(prescription).length ? prescription : selectedPrescription.prescription;
+    selectedPrescription.prescriptionFile = prescriptionFileUploadLink ? prescriptionFileUploadLink : null;
+    var finalObj = {lenseSettingId: selectedPrescription.LenseSettingId, 
+                    skipProfile: selectedPrescription.skipProfile,
+                    email: customerId,
+                    lenseSettingJson: JSON.stringify(selectedPrescription)
+                   };
+    var url = "https://app1.prescriptionserver.com/api/options/savePrescriptionLenseSettings";
+    $.post( url , finalObj).done(function(data) {
+      if(Object.keys(prescription).length) prescriptionSuccessTemplate('Prescription has been updated.');
+      else {
+        prescriptionSuccessTemplate('Profile name is updated.');
+        $('#profilePrescriptionName span').text(selectedPrescription.profileName);
+        var elem = '.prescription-item[data-lensid="'+ selectedPrescription.LenseSettingId +'"] > span';
+        $(elem).text(selectedPrescription.profileName);
+      }
+    });
+  }
+  
+  function checkEmptyField() {
+    var val = $('#editProfileName') && $('#editProfileName').val() ? $('#editProfileName').val() : '';
+    if(!(val.length)) {
+      $('#editProfileName').addClass('.error-border');
+      $('.error-message').text('Profile Name is a required field.');
+      $('.error-message').show();
+      return false;
+    }
+    $('#editProfileName').removeClass('.error-border');
+    $('.error-message').hide();
+    return true;
+  }
+  
+  function validProfileName(val) {
+    //  TODO-NOW:     Test if the same name exist or not
+    // display proper error message
+    for(var i=0; i< savedPrescriptions.length; i++) {
+      existingName = (savedPrescriptions[i].PrescriptionLenseSettingJson || {}).profileName.toLowerCase();
+      if(selectedPrescription.LenseSettingId == savedPrescriptions[i].LenseSettingId) continue;
+      if(existingName == val.toLowerCase()) {
+        $('#editProfileName').addClass('.error-border');
+        $('.error-message').text('Profile name is already present.');
+        $('.error-message').show();
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  function updateProfileName() {
+    var val = $('#editProfileName') && $('#editProfileName').val() ? $('#editProfileName').val() : '';
+    if(!(checkEmptyField())) return;
+    if(!(validProfileName(val))) return;
+    selectedPrescription.profileName = val;
+    confirmPrescription();
+    customCloseModal();
+  }
+  
+  function confirmPrescriptionPopup() {
+    var templateStr = '<button class="btn-close btn-close-confirm-pres customCloseModal"><i class="custom-close-icon">&#215;</i></button>';
+    templateStr += '<div class="modal-header font-black font-center">Confirm Prescription!</div>';
+    templateStr += '<div class="modal-body p-0 confirm-modal"><table class="desktop-visible-table"><tbody>';
+
+    templateStr += '<tr class="font-black"><th>Details</th>';
+    if(prescription.ltSph !== "" || prescription.rtSph !== "") templateStr += '<th>Sphere</th>';
+    if(prescription.ltCyl !== "" || prescription.rtCyl !== "") templateStr += '<th>Cylinder</th>';
+    if(prescription.ltAxis !== "" || prescription.rtAxis !== "") templateStr += '<th>Axis</th>';
+    if(prescription.ltAdd !== "" || prescription.rtAdd !== "") templateStr += '<th>Add</th>';
+    if(prescription.pd) templateStr += '<th>PD</th>';
+    if(prescription.ltSegHeight !== "" || prescription.rtSegHeight !== "") templateStr += '<th>Seg Height</th>';
+    templateStr += '</tr>';
+
+    templateStr += '<tr><td class="font-black"><b>Right</b></td>';
+    if(prescription.rtSph !== "" || prescription.ltSph !== "") templateStr += '<td>' + floatFixed2(prescription.rtSph) + '</td>';
+    if(prescription.rtCyl !== "" || prescription.ltCyl !== "") templateStr += '<td>'+ floatFixed2(prescription.rtCyl) + '</td>';
+    if(prescription.rtAxis !== "" || prescription.ltAxis !== "") templateStr += '<td>'+ prescription.rtAxis +'</td>';
+    if(prescription.rtAdd !== "" || prescription.ltAdd !== "") templateStr += '<td>'+ floatFixed2(prescription.rtAdd) +'</td>';
+    if(prescription.twoPds) templateStr += '<td>'+ prescription.pd +'</td>';
+    else templateStr += '<td rowspan="2">'+ prescription.pd +'</td>';
+    if(prescription.rtSegHeight !== "") templateStr += '<td>'+ floatFixed2(prescription.rtSegHeight) +'</td>';
+    templateStr += '</tr>';
+
+    templateStr += '<tr><td class="font-black"><b>Left</b></td>';
+    if(prescription.rtSph !== "" || prescription.ltSph !== "") templateStr += '<td>' + floatFixed2(prescription.ltSph) + '</td>';
+    if(prescription.rtCyl !== "" || prescription.ltCyl !== "") templateStr += '<td>'+ floatFixed2(prescription.ltCyl) + '</td>';
+    if(prescription.rtAxis !== "" || prescription.ltAxis !== "") templateStr += '<td>'+ prescription.ltAxis +'</td>';
+    if(prescription.rtAdd !== "" || prescription.ltAdd !== "")  templateStr += '<td>'+ floatFixed2(prescription.ltAdd) +'</td>';
+    if(prescription.twoPds) templateStr += '<td>'+ prescription.osPd +'</td>';
+    if(prescription.ltSegHeight !== "") templateStr += '<td>'+ floatFixed2(prescription.ltSegHeight) +'</td>';
+    templateStr += '</tr>';
+
+    templateStr += '</tbody></table>';
+
+    templateStr += '<table class="mobile-visible-table"><thead class="font-black"><tr><th>Details</th><th>Right</th><th>Left&nbsp;&nbsp;</th></tr></thead><tbody>';
+    if(prescription.ltSph !== "" || prescription.rtSph !== "") 
+      templateStr += '<tr><td class="font-black"><b>Sphere</b></td><td>' + floatFixed2(prescription.rtSph) + '</td><td>' + floatFixed2(prescription.ltSph) + '</td></tr>';
+    if(prescription.ltCyl !== "" || prescription.rtCyl !== "") 
+      templateStr += '<tr><td class="font-black"><b>Cylinder</b></td><td>' + floatFixed2(prescription.rtCyl) + '</td><td>' + floatFixed2(prescription.ltCyl) + '</td></tr>';
+    if(prescription.ltAxis !== "" || prescription.rtAxis !== "")
+      templateStr += '<tr><td class="font-black"><b>Axis</b></td><td>' + prescription.rtAxis + '</td><td>' + prescription.ltAxis + '</td></tr>';
+    if(prescription.ltAdd !== "" || prescription.rtAdd !== "")
+      templateStr += '<tr><td class="font-black"><b>Add</b></td><td>' + floatFixed2(prescription.rtAdd) + '</td><td>' + floatFixed2(prescription.ltAdd) + '</td></tr>';
+    if(prescription.pd) {
+      if(prescription.twoPds) templateStr += '<tr><td class="font-black"><b>PD</b></td><td>' + prescription.pd + '</td><td>' + prescription.osPd + '</td></tr>';
+      else templateStr += '<tr><td class="font-black"><b>PD</b></td><td colspan="2">' + prescription.pd + '</td></tr>';
+    }
+    if(prescription.ltSegHeight !== "" || prescription.rtSegHeight !== "") 
+      templateStr += '<tr><td class="font-black"><b>Seg Height</b></td><td>' + floatFixed2(prescription.rtSegHeight) + '</td><td>' + floatFixed2(prescription.ltSegHeight) + '</td></tr>';
+    templateStr += '</table>';
+
+    templateStr += '<div class="confirm-btn-container"><div class="p-0"><button class="prescription-button cancel customCloseModal">Cancel</button></div>';
+    templateStr += '<div class="p-0"><button class="prescription-button" onclick="confirmPrescription();">Confirm</button></div></div>';
+    templateStr += '</div>';
+      
+    prescriptionSuccessTemplate(undefined, templateStr);
+  }
+  
+  function checkValidation() {
+    var isConfirmed = true;
+    var msg = '<span style="color: red; border-bottom: 1px solid; line-height: 40px;">Correct the following errors:</span>';
+    if(showFields.ShowADD) {
+      if (prescription.rtAdd == '') {
+        isConfirmed = false;
+        msg = msg + "<br>Right Eye Add is required.";
+      }
+
+      if (prescription.ltAdd == '') {
+        isConfirmed = false;
+        msg = msg + "<br>Left Eye Add is required.";
+      }
+    }
+
+    if (prescription.rtSph == '') {
+      isConfirmed = false;
+      msg = msg + "<br>Right Eye Sphere (SPH) is required.";
+    }
+
+    if (prescription.ltSph == '') {
+      isConfirmed = false;
+      msg = msg + "<br>Left Eye Sphere (SPH) is required.";
+    }
+
+    if (prescription.pd == '') {
+      isConfirmed = false;
+      msg = msg + "<br>Pupil Distance (PD) is required.";
+    }
+
+    if ((prescription.rtCyl != '') && (prescription.rtAxis == '')) {
+      isConfirmed = false;
+      msg = msg + "<br>Right Eye Axis is required.";
+    }
+
+    if ((prescription.rtAxis != '') && (prescription.rtCyl == '')) {
+      isConfirmed = false;
+      msg = msg + "<br>Right Eye Cylinder (CYL) is required.";
+    }
+
+    if ((prescription.ltCyl != '') && (prescription.ltAxis == '')) {
+      isConfirmed = false;
+      msg = msg + "<br>Left Eye Axis is required.";
+    }
+
+    if ((prescription.ltAxis != '') && (prescription.ltCyl == '')) {
+      isConfirmed = false;
+      msg = msg + "<br>Left Eye Cylinder (CYL) is required.";
+    }
+
+    if (prescription.twoPds == true) {
+      if (prescription.pd == '') {
+        isConfirmed = false;
+        msg = msg + "<br>Right Eye PD is required.";
+      }
+
+      if (prescription.osPd == '') {
+        isConfirmed = false;
+        msg = msg + "<br>Left Eye PD is required.";
+      }
+    }
+    
+    if (isConfirmed == false) {
+      showModal("Prescription Error", msg);
+    } else {
+    	confirmPrescriptionPopup();
+    }
+  }
+  
+  function updatePrescription() {
+//   update API
+    getDataFromFields();
+    updateShowFields();
+    checkValidation();
+  }
+  
+  function isTwoPdUpdate() {
+    $(".confirm-prescription button").removeAttr('disabled');
+    if($('#isTwoPd').prop('checked')) {
+      $('#pd, #pdMob, #showWhenOnePd').hide();
+      $('#pdRt, #pdLt, #pdRtMob, #pdLtMob').show();
+    } else {
+      $('#pd, #pdMob, #showWhenOnePd').show();
+      $('#pdRt, #pdLt, #pdRtMob, #pdLtMob').hide();
+    }
+  }
+  
+  function showModal(header, content) {
+    var infoModalContentParent = '';
+    $("#modalToDisplay").attr('class', 'modal').addClass("infoModal");
+    $("#modalToDisplay").text("");
+    var infoModalContentParent = '<div class="modal-content"><button class="btn-close customCloseModal"><i class="custom-close-icon">&#215;</i></button><div class="modal-header"></div><div class="modal-body"></div></div>';
+    $("#modalToDisplay").append(infoModalContentParent).ready(function(){
+      $("#modalToDisplay .modal-header").html(header);
+      $("#modalToDisplay .modal-body").html(content);
+      $('#modalToDisplay').show();
+      $('.overlay-popups').show();
+    });
+  }
+  
+  function customCloseModal() {
+    $('.modal').hide();
+    $('.overlay-popups').hide();
+  }
+  
+  function removeFile() {
+    $(".confirm-prescription button").removeAttr('disabled');
+    $("#file").val("");
+    prescriptionFileUploadLink = "";
+    $('.file-uploaded a.btn-primary-file').attr("href", prescriptionFileUploadLink); 
+    $('.file-uploaded').hide();
+  }
+  
+  $(document).on("click", ".customCloseModal", function(){
+    customCloseModal();
+  })
+  
+  $(document).on("click", ".open-prescription", function(){
+    openPrescriptionItem($(this).data('lensid'));
+  }); 
+  
+  $(document).on('keyup', '#editProfileName', checkEmptyField);
+  
+  //   For change event of Select Box
+  $(document).on("change","select",function(){
+    $("option[value='" + this.value + "']", this)
+    .attr("selected", true).siblings()
+    .removeAttr("selected")
+  });
+  
+  $(document).on('click', '.info-btn', function(e){
+    var elemId = $(this).attr('id');
+    var elem = elemId.split("Info")[0];
+    showModal(infoModalContent[elem].header, infoModalContent[elem].content);
+  });
+  
+  $(document).on('change', '#file', function(e){
+    var formData = new FormData();
+    formData.append('file',  $('#file')[0].files[0]);
+    $(".confirm-prescription button").removeAttr('disabled');
+
+    $.ajax({
+      url : 'https://app1.prescriptionserver.com/api/options/uploadpdf',
+      type : 'POST',
+      data : formData,
+      processData: false,  // tell jQuery not to process the data
+      contentType: false,  // tell jQuery not to set contentType
+      success : function(data) {
+        prescriptionFileUploadLink = "https://app1.prescriptionserver.com" + data;
+        $('.file-uploaded a.btn-primary-file').attr("href", prescriptionFileUploadLink); 
+        $('.file-uploaded').show();
+      }
+    });
+    
+  });
+  
+  $('#prescriptionDetails .custom-select').on('change', function() {
+    $(".confirm-prescription button").removeAttr('disabled');
+  });
+   
+  $(document).keydown(function(event) { 
+    if (event.keyCode == 27) { 
+      customCloseModal();
+    }
+  });
+  
+</script>

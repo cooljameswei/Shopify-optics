@@ -1,0 +1,292 @@
+  
+  [data-ng-app="prescriptionClient"] .hidden {
+    display: none!important;
+    visibility: hidden!important;
+  }
+  
+  
+  div[data-ui-view] .prescription-top-btns-container button,
+  div[data-ui-view] .confirm-btn button,
+  div[data-ui-view] .check-container__profile button {
+    border-radius: 0;
+  }
+  div[data-ui-view] .prescription-summary {
+    display: block;
+  }
+  div[data-ui-view] .check-container .checkmark:after {
+    left: 0.6rem;
+    top: 0rem;
+  }
+  
+  div[data-ui-view] .file-uploaded .btn-primary, 
+  div[data-ui-view] .file-uploaded .btn-secondary {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  
+  [data-ng-app="prescriptionClient"] .desktop-visible-table,
+  [data-ng-app="prescriptionClient"] .mobile-visible-table{
+    width: 100%;
+  }
+  
+  [data-ng-app="prescriptionClient"] tr:nth-child(even) {
+    background-color: #fff;
+    color: #322f2f;
+  }
+  
+  [data-ng-app="prescriptionClient"] .confirm-btn-container button {
+    border-radius: 0;
+    padding: 0;
+  }
+  
+  [data-ng-app="prescriptionClient"] .btn-picker i {
+    padding-left: 0.1rem;
+    color: #fff;
+  }
+  
+  [data-ng-app="prescriptionClient"] .modal {
+    color: #666;
+  }
+  
+  [data-ng-app="prescriptionClient"] .modal-content {
+    margin: auto;
+    padding: 20px;
+  }
+  
+  [data-ng-app="prescriptionClient"] .modal-content>button {
+    position: inherit;
+  }
+  
+  [data-ng-app="prescriptionClient"] .bottom-btn button {
+    padding: 0;
+    border-radius: 0;
+  }
+  
+  [data-ng-app="prescriptionClient"] select {
+    background-image: url(//cdn.shopify.com/s/files/1/2807/8986/t/45/assets/ico-select.svg?v=8607407538428769532);
+    background-repeat: no-repeat;
+    text-indent: 0.01;
+    font-family: Montserrat,sans-serif;
+  }
+  
+  .measure-pd-container:nth-of-type(2n-1) {
+    display: none !important;
+  }
+  .measure-pd-container:nth-of-type(2n) {
+    display: block !important;
+  }
+ 
+ 
+ *{
+    backface-visibility: visible;
+}
+
+  #glasseson .svg-icon {
+    height: inherit;
+    width: initial;
+  }
+  #glasseson .go-container .go-page.go-video-page .go-page-content + .svg-icon{
+    height: 160px;
+      width: 160px;  
+  }  
+
+ 
+  
+  .select-profile-modal-window .modal-content .extend__add-protection-app {
+  margin: 2rem 2rem 0;
+}
+
+.select-profile-modal-window .modal-content .extend__add-protection-app .warranty-label {
+  display: block;
+  line-height: 2.2rem;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #656565;
+  padding: 7px;
+  color: #0F0038;
+  background-color: #fff;
+  margin-bottom: 13px;
+  font-size: .75em;
+  font-weight: 700;
+}
+  
+.select-profile-modal-window .modal-content .extend__add-protection-app .warranty-label.extend-selected {
+  color: var(--white);
+  background-color: #27AEE4;
+  border-color: #00AFE7;
+}
+
+.select-profile-modal-window .modal-content .extend__add-protection-app .warranty-label.extend-selected span {
+  color: var(--white);
+}
+
+.select-profile-modal-window .modal-content .extend__add-protection-app .warranty-label input:checked~span,
+.select-profile-modal-window .modal-content .extend__add-protection-app .warranty-label input:checked~b {
+  color: #fff;
+  background-color: #27AEE4;
+  border-color: #00AFE7;
+}
+
+.select-profile-modal-window.select-extend-modal-app .modal-content {
+  padding-bottom: 1rem;
+}
+
+.select-profile-modal-window .modal-content .extend-btn-container-app>div{
+  width: 75%;
+  min-width: 200px;
+  margin: auto;
+}
+
+.select-profile-modal-window .modal-content .extend-logo-container-app {
+  display: flex;
+  align-items: center;
+  height: 6rem;
+}
+
+.select-profile-modal-window .modal-content .extend-logo-container-app .extend-logo {
+  height: 6rem;
+}
+
+.select-profile-modal-window .modal-content .extend-logo-container-app .extend-plus {
+  height: 1.7rem;
+  margin: 0 1.3rem;
+}
+
+.select-profile-modal-window .modal-content .extend-logo-container-app .do-logo {
+  max-height: 6rem;
+  max-width: 17.5rem;
+}
+
+.select-profile-modal-window .modal-content .extend-subheading-app {
+  text-align: left;
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin: 3.2rem 0 2.6rem 0;
+  line-height: 3.5rem;
+  font-family: "Nunito Sans", Helvetica, sans-serif;
+}
+
+.select-profile-modal-window .modal-content .extend-subheading-app span {
+  color: #090637;
+}
+
+.select-profile-modal-window .modal-content .mobile-extend-text {
+  display: block;
+}
+
+.select-profile-modal-window .modal-content .desktop-extend-text {
+  display: none;
+}
+
+.select-profile-modal-window .modal-content .extend-btn-container-app button {
+  background: transparent;
+  border: 1px solid #b2bcc3;
+  border-radius: 4px;
+  color: black;
+  cursor: pointer;
+  font-family: 'Nunito Sans', Helvetica, sans-serif;
+  transition: border 200ms, box-shadow 200ms;
+  width: 100%;
+  height: 42px;
+}
+
+.select-profile-modal-window .modal-content .extend-btn-container-app .extend-add-app-btn {
+  background: #27aee4;
+  border-color: #27aee4;
+  color: white;
+  display: block;
+  font-size: 1.7rem;
+  line-height: 4rem;
+  margin-bottom: 0.5rem;
+  margin: 0 auto;
+  transition: 250ms opacity;
+  width: 100%;
+  height: 42px;
+  line-height: 100%;
+  font-weight: bold;
+}
+
+.select-profile-modal-window .modal-content .extend-btn-container-app .extend-add-app-btn:hover {
+  border-color: #27aee4;
+  box-shadow: 0 0 0 1px inset #27aee4;
+  background-color: #27aee4;
+  color: #fff;
+}
+
+.select-profile-modal-window .modal-content .extend-btn-container-app button.extend-skip-app-btn {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #C63B3D;
+  border-color: #C63B3D;
+  border: none;
+  cursor: pointer;
+  font-size: 1.7rem;
+  line-height: 2.4rem;
+  margin-top: 0.8rem;
+  background-color: transparent;
+  color: #6d7278;
+}
+
+.select-profile-modal-window .modal-content .extend-btn-container-app button.extend-skip-app-btn:hover {
+  text-decoration: underline;
+  color: #000000;
+  border:0;
+  outline:0;
+}
+
+.select-profile-modal-window .modal-content .extend-app-bottom-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.select-profile-modal-window .modal-content .extend-app-bottom-container .link {
+  background-color: transparent;
+  color: #6d7278;
+  display: inline-block;
+  font-family: inherit;
+  text-decoration: underline;
+  font-size: 15px;
+}
+
+.select-profile-modal-window .modal-content .extend-app-bottom-container .link:hover {
+  color: #000;
+}
+
+.select-profile-modal-window .modal-content .extend-app-bottom-container .offered-by {
+  color: #152935;
+  font-size: 15px;
+}
+
+.select-profile-modal-window .modal-content .extend-app-bottom-container .link svg {
+  margin-left: 0.4rem;
+}
+    
+  /*  Temporary data  */
+
+  @media(max-width:991px) {
+    div[data-ui-view] .file-uploaded .btn-primary {
+      margin-bottom: 10px;
+    }
+  }
+
+  @media(max-width: 768px) {
+    .select-profile-modal-window.select-extend-modal-app .modal-dialog .modal-content {
+      padding: 30px;
+    }  
+
+    .select-profile-modal-window .modal-content .mobile-extend-text {
+      display: none;
+    }
+
+    .select-profile-modal-window .modal-content .desktop-extend-text {
+      display: block;
+    }  
+  }
+
+  @media(min-width:769px) {
+    .select-profile-modal-window.select-extend-modal-app .modal-content {
+      padding: 4rem 2rem 1rem;
+      border-radius: 5px;
+    }
+  }

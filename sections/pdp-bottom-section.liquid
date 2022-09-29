@@ -1,0 +1,121 @@
+{% if section.settings.show == true %}
+<div class="pdp-pane">
+  <div class="inner-container page-width">
+    <div class="back_image">
+      <div class="pdp-pane-title">Questions about {{ product.title }}?</div>
+      {% comment %}
+      {% if section.settings.heading != blank %}
+      <div class="pdp-pane-title">{{section.settings.heading}}</div>
+      {% endif %}
+      {% endcomment %}
+      {% if section.settings.subtitle != blank %}
+      <div class="pdp-pane-subtitle">{{ section.settings.subtitle }}</div>
+      {% endif %}
+      <div class="pdp-pane-content">
+        <a href="tel:{{ section.settings.phone }}">
+        <div class="pdp-pane-left">
+          {% if section.settings.phone != blank or  section.settings.phone_subheading != blank %}
+          <div class="icon-right">
+            <div class="call">{{ section.settings.phone | replace:"+91","" }}</div>
+            <div class="call-text">{{ section.settings.phone_subheading }}</div>
+          </div>
+          {% endif %}
+        </div>
+        </a>
+        {% if section.settings.email_title != blank %}
+        <div class="pdp-pane-right">
+          <div class="email_text"><a href="mailto:support@DesignerOptics.com" style="color: inherit;">{{ section.settings.email_title }}</a></div>
+        </div>
+        {% endif %}
+      </div>
+      {% if section.settings.button_text != blank %}
+      <div class="pdp-pane-button-con">
+        <a href="{{ section.settings.button_link }}" class="pdp-pane-button">{{ section.settings.button_text }}</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<style>
+  @media (min-width:768px){
+    .pdp-pane .back_image{
+		background-image:url({{ section.settings.image | img_url:"master" }})
+    }
+  }
+  @media (max-width:767px){
+    .pdp-pane .back_image{
+		background-image:url({{ section.settings.mimage | img_url:"master" }})
+    }
+  }
+</style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Bottom Pane",
+    "settings": [
+     {
+        "type": "checkbox",
+        "id": "show",
+        "label": "Show",
+        "default": true
+     },
+	  {
+        "id": "image",
+        "type": "image_picker",
+        "label": "Background Image"
+      },
+      {
+        "id": "mimage",
+        "type": "image_picker",
+        "label": "Background Mobile Image"
+      },
+      {
+        "id": "heading",
+        "type": "text",
+        "label": "Heading",
+        "default": "Questions about Versace 4361 Sunglasses?"
+      },
+      {
+        "id": "subtitle",
+        "type": "text",
+        "label": "SubHeading",
+        "default": "Contact us for advice or more details."
+      },
+	  {
+        "id": "phone",
+        "type": "text",
+        "label": "Phone",
+        "default": "321-450-1000"
+      },
+	  {
+        "id": "phone_subheading",
+        "type": "text",
+        "label": "Phone subtitle",
+        "default": "Call Us or order online"
+      },
+	  {
+        "id": "email_title",
+        "type": "text",
+        "label": "Title",
+        "default": "Email an expert"
+      },
+	  {
+        "id": "button_text",
+        "type": "text",
+        "label": "Button Text",
+        "default": "GET IN TOUCH"
+      },
+	  {
+        "id": "button_link",
+        "type": "url",
+        "label": "Button Link"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,157 @@
+<div class="vertical-img-gallery" id="rx-new__thumb-img-container">
+  <div class="arrow-up" style="cursor: pointer;" onclick="window.NEW_RX_PDP_TEMPLATE.handlePrevSlide();">
+    <img class="img_nav_disabled" data-rx-thumb-prev src="{{'arrow-up.svg' | asset_url }}">
+  </div>
+  <div class="gallery__thumbnails hidden-scroll">
+    {% assign imageAltList = null | sort %}
+    {% for image in product.images %}
+        {%- assign imageAlt = image.alt | escape -%}
+        {% if imageAltList.size == 0 %}
+            {% assign imageAltList = imageAlt | sort %}
+        {% else %}
+        {%- assign _imageAlt = imageAlt | sort -%}
+            {% assign imageAltList = imageAltList | concat: _imageAlt %}    
+        {% endif %}
+        <span data-variants="|{% for var in image.variants %}{{var.options| join: '#' | escape}}|{% endfor %}" data-img-alt="{{image.alt | escape}}" class="gallery__thumbnail {% if current_variant.title != imageAlt %}hide{%endif%} {% if forloop.first %}bstrSlider__thumb--active{%endif%}" data-media-type="image" data-bstr-slider-for="{{section.id}}" data-bstr-slider-thumb="{{forloop.index0}}"
+        {% if section.settings.autoChange %}data-bstr-slider-thumb-hover{% endif %}
+            >
+            <img data-zoom="{{ image.src | img_url: '1024x1024', scale: 2 }}" style="object-fit:contain;" height="{{image.height}}" width="{{image.width}}" src="{{image.src|img_url: '200x'}}" alt="{{image.alt}}">
+        </span>
+        {% assign currentIndex = forloop.index0 | plus: 1 %}
+    {% endfor %}
+    {% for media in product.media %}
+        {% case media.media_type %}
+            {% when 'image' %}
+                {% continue %}
+            {% when 'external_video' %}
+                <span data-media-type="{{media.id}}" class="gallery__thumbnail" data-bstr-slider-for="{{section.id}}" data-bstr-slider-thumb="{{currentIndex}}"
+                {% if section.settings.autoChange %}data-bstr-slider-thumb-hover{% endif %}>
+                    {% render 'image', size: '200x', src: media, alt: media.alt %}
+                </span>
+                {% assign currentIndex = currentIndex | plus: 1 %}
+            {% when 'video' %}
+                 <span data-media-type="{{media.id}}" class="gallery__thumbnail" data-bstr-slider-for="{{section.id}}" data-bstr-slider-thumb="{{currentIndex}}"
+                {% if section.settings.autoChange %}data-bstr-slider-thumb-hover{% endif %}>
+                    {% render 'image', size: '200x', src: media, alt: media.alt %}
+                </span>
+                {% assign currentIndex = currentIndex | plus: 1 %}
+    {% endcase %}
+    {% endfor %}
+  </div>
+  <div class="arrow-down" style="cursor: pointer;" onclick="window.NEW_RX_PDP_TEMPLATE.handleNextSlide();" ><img data-rx-thumb-next src="{{'arrow-down.svg' | asset_url }}"></div>
+</div>
+<div class="slider--product__holder" data-bstr-ppslider="{{section.id}}" id="rx-new__main-img-container">
+    {% if section.settings.enable_brand_logo %}
+        <div class="brand-logo">
+            {% assign brandImage = product.vendor | append: '.png' %}
+            <img class="rx-new__brand-img" src="{{ brandImage | file_url }}" onerror="this.style.display='none';"/>
+        </div>
+    {% endif %}
+    <div class="slider--product" data-bstr-slider-height="auto" data-bstr-slider-orientation="horizontal" data-bstr-slide-holder="1" data-bstr-slider-current="0" data-rx-main-img-slider>
+        {% for image in product.images %}
+            {%- assign imageAlt = image.alt | escape -%}
+            <div data-variants="|{% for var in image.variants %}{{var.options| join: '#' | escape}}|{% endfor %}" class="rx__main-img slide--product {% if current_variant.title != imageAlt %}hide{%endif%}" data-bstr-slide data-img-alt="{{image.alt | escape}}">
+                <a href="javascript:void(0);" class="js-modal-open-product-modal">
+                    <img data-zoom="{{ image.src | img_url: '1024x1024', scale: 2 }}" {% unless forloop.first %}loading="lazy"  class="image-zoom lazyload"{% else%}class="image-zoom"{% endunless %} alt="{{image.alt | escape}}" src="{{ image.src | img_url: '1280x' }}">
+                </a>
+            </div>
+        {% endfor %}
+        {% for media in product.media %}
+            {% case media.media_type %}
+                {% when 'image' %}
+                    {% continue %}
+                {% when 'external_video' %}
+                    <div class="external__holder slide--product" data-bstr-slide data-media-holder="{{media.id}}" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+                        {% capture med %}{{ media | external_video_tag: class: 'gallery__external lazyload' }}{% endcapture %}
+                        {{med | replace_first: 'src', 'data-src'}}
+                    </div>
+                {% when 'video' %}
+                    <div class="video__holder slide--product" data-bstr-slide data-media-holder="{{media.id}}">
+                        {% capture med %}{{ media | video_tag: class: 'gallery__video lazyload' }}{% endcapture %}
+                        {{med | replace_first: 'src', 'data-src' | replace_first: 'poster=', 'controls=true poster='}}
+                    </div>
+            {% endcase %}
+        {% endfor %}
+    </div>
+    {%- assign imageAltList = imageAltList | uniq -%}
+    <div class="magic360-logo"> 
+        <a class="rx-new__magic-360" href="javascript:void(0)" data-id="{{current_variant.title}}" ><img data-id="{{current_variant.option1}}" src="https://magictoolbox.sirv.com/images/misc/360icon.png" width="46px"/></a>
+    </div>
+    {% for image_alt in imageAltList %}
+        {% if image_alt != '' and image_alt contains "-"%}
+            {% assign imgStr = '' %}
+            {% assign imgStrLg = '' %}
+            {%- assign prod_images = product.images | where:"alt",image_alt -%}
+            {% if prod_images.size > 0 %}
+                {%- assign default_img_src = null | sort -%}
+                {%- assign large_img_src = null | sort -%}
+                {% for prod_image in prod_images %}
+                    {% assign imgSrc = prod_image.src | img_url: '480x480' | sort%}
+                    {% assign imgSrcLg = prod_image.src | img_url: '800x800'  | sort%}
+                    {% if default_img_src.size == 0 %}
+                        {%- assign default_img_src = imgSrc -%}
+                    {% else %}
+                        {%- assign default_img_src = default_img_src | concat: imgSrc -%}
+                    {% endif %}
+                    {% if large_img_src.size == 0 %}
+                        {%- assign large_img_src = imgSrcLg -%}
+                    {% else %}
+                        {%- assign large_img_src = default_img_src | concat: imgSrcLg -%}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if default_img_src.size > 0 and  large_img_src.size > 0%}
+                <a class="Magic360 hide" id="{{image_alt}}" data-options="smoothing:true; autospin:infinite; hint:true; magnify: false; images: {{default_img_src | join: ' '}}; large-images: {{large_img_src | join: ' '}}; columns: {{prod_images.size}}" ><img src="{{default_img_src[0]}}" /></a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% if product.images.size <= 1%}
+    <style>
+        a.show360 {
+        display: none !important;
+        }
+    </style>
+{% endif %}
+<style>
+    .zoomImg {
+        cursor: zoom-in !important;
+    }
+    .zoom-btn-click{
+        color: grey;
+        cursor: pointer;
+        padding: 20px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    .Magic360-container {
+        max-width: 100% !important;
+        background: #fff;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.show360', function (e) {
+            e.preventDefault();
+            var selID = $(this).attr('data-id');
+            $('.js-modal-open-product-modal').addClass('hide');
+            $('a.show360').addClass('hide');
+
+            $('.Magic360').each(function () {
+            var id = $(this).attr('id');
+            if (selID == id) {
+                $(this).removeClass('hide');
+                $(this).parent('.Magic360-container').removeClass('hide');
+
+            } else {
+                $(this).addClass('hide');
+                $(this).parent('.Magic360-container').addClass('hide');
+            }
+            });
+
+        });
+    });
+</script>

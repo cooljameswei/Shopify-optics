@@ -1,0 +1,37 @@
+{
+  "wrapper": "div.row.row--product-list",
+  "sections": {
+    "page": {
+      "type": "collection-template-boost-pfs-filter",
+      "settings": {
+        "show_collection_banner_image": true,
+        "collection_image_text_color": "",
+        "products_per_page": 24,
+        "products_per_row": 3,
+        "products_per_row_mobile": 2,
+        "text_alignment": "center",
+        "show_vendor": true,
+        "show_price": true,
+        "active_image_swap": true,
+        "show_sorting": true,
+        "show_product_review": true,
+        "show_sold_out_label": true,
+        "soldout_label": "Sold out",
+        "show_sale_label": false,
+        "sale_label": "Sale",
+        "from": "from",
+        "show_lable_by_tag": true,
+        "display_item_swatch": true,
+        "swatch_color_display_type": "swatch_color_display_type_image_product",
+        "swatch_color_event_change_image": "hover",
+        "swatches_color_shape": "circle",
+        "equal_height": "2:3",
+        "ratio_width_height_other": "",
+        "equal_height_crop_image_position": "center"
+      }
+    }
+  },
+  "order": [
+    "page"
+  ]
+}

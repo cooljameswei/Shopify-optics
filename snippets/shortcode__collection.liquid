@@ -1,0 +1,46 @@
+{% assign mobile = settings.cardMobile %}
+{% assign desktop = settings.cardDesktop %}
+
+{% assign collection = "" %}
+{% assign count = "4" %}
+{% assign showMore = "false" %}
+{% assign showMoreAlignment = "center" %}
+
+{% for param in params %}
+    {% assign p = param | split: ':' %}
+    {% assign pname = p[0] | strip %}
+    {% assign value = p[1] | strip %}
+
+    {% case pname %}
+        {% when 'collection-name' %}
+            {% assign collection = value %}
+        {% when 'limit' %}
+            {% assign count = value %}
+        {% when 'show-more' %}
+            {% assign showMore = value %}
+        {% when 'show-more-alignment' %}
+            {% assign showMoreAlignment = value %}
+    {% endcase %}
+{% endfor %}
+
+<div id="s--{{section.id}}" class="{% render 'common-class', section: section, class: 'row', vAlign: false %}">
+<div class="row layout__content s__content">
+{% render 'block__general--heading' with section as section %}
+<div class="row">
+{% for product in collections[collection].products limit: count %}
+<div class="col-{{mobile}} col-md-{{-desktop}} card--holder">
+{% render 'product-card-default', product: product, dsize: '3' %}
+</div>
+{% else %}
+<h2>Error when rendering "Products"</h2><br>
+Found no products in a collection called: "{{collection}}". Make sure you typed the name correctly or check our tutorials.
+{%endfor%}
+</div>
+{% if showMore %}
+<div class="col-12 no-gap showMore {{showMoreAlignment}}">
+{% assign smt = 'general.buttons.show_more' | t %}
+{% render 'button', type: 'primary', text: smt, url: collections[collection].url %}
+</div>
+{% endif %}
+</div>
+</div>

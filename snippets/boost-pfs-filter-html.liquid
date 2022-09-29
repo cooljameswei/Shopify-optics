@@ -1,0 +1,114 @@
+{%- capture bc_layout -%}
+{%- case layout -%}
+{%- when 'productGridItemHtml' -%}
+<div data-id=[[itemId]] class="boost-pfs-filter-product-item boost-pfs-filter-product-item-grid [[gridWidthClass]][[soldOutClass]][[saleClass]] [[itemActiveSwapClass]]">
+    <div class="boost-pfs-filter-product-item-inner">
+        <div class="boost-pfs-filter-product-item-image">
+            [[itemImages]]
+        </div>
+        <div class="boost-pfs-filter-product-item-label">[[itemLabels]][[itemTagLabels]]</div>
+        <div class="boost-pfs-filter-product-bottom">
+          <a href="[[itemUrl]]" onClick="[[gaEventClick]]" class="boost-pfs-filter-product-item-title">[[itemTitle]]</a>
+            [[itemVendor]]
+            [[itemPrice]]
+            [[itemReviewHtml]]
+            [[itemColorSwatches]]            
+        </div>
+    </div>
+</div>
+{%- when 'productListItemHtml' -%}
+<div class="boost-pfs-filter-product-item boost-pfs-filter-product-item-list [[soldOutClass]][[saleClass]] [[itemActiveSwapClass]]">
+    <div class="boost-pfs-filter-product-item-list-col-1">
+        <div class="boost-pfs-filter-product-item-image">
+            <div class="boost-pfs-filter-product-item-label">[[itemLabels]][[itemTagLabels]]</div>
+            [[itemImages]]
+        </div>
+    </div>
+    <div class="boost-pfs-filter-product-bottom">
+      <a href="[[itemUrl]]" onClick="[[gaEventClick]]" class="boost-pfs-filter-product-item-title">[[itemTitle]]</a>
+        [[itemVendor]]        
+        [[itemPrice]]
+        [[itemReviewHtml]]
+        <p class="boost-pfs-filter-des">[[itemDescription]]</p>
+        [[itemColorSwatches]]
+    </div>
+</div>
+{%- when 'productListPlaceholderHtml' -%}
+<div class="boost-pfs-filter-product-item boost-pfs-filter-product-item-list [[class.filterProductSkeleton]]">
+  <div class="boost-pfs-filter-product-item-list-col-1">
+    <div class="boost-pfs-filter-product-item-image">
+      <div class="[[class.filterProductSkeleton]]-image" style="padding-top: [[paddingTop]]%"></div>
+    </div>
+  </div>
+  <div class="boost-pfs-filter-product-bottom">
+    <a href="#" class="boost-pfs-filter-product-item-title"><span class="boost-pfs-filter-skeleton-text boost-pfs-filter-skeleton-width4"></span></a>
+    <p class="boost-pfs-filter-product-item-vendor"><span class="boost-pfs-filter-skeleton-text boost-pfs-filter-skeleton-width1"></span></p>
+    <p class="boost-pfs-filter-product-item-price"><span class="boost-pfs-filter-skeleton-text boost-pfs-filter-skeleton-width2"></span></p>
+    <p class="boost-pfs-filter-des">
+      <span class="boost-pfs-filter-skeleton-text" style="width: 100%"></span><br />
+      <span class="boost-pfs-filter-skeleton-text" style="width: 100%"></span><br />
+      <span class="boost-pfs-filter-skeleton-text" style="width: 100%"></span><br />
+      <span class="boost-pfs-filter-skeleton-text" style="width: 30%"></span>
+    </p>
+  </div>
+</div>
+
+{%- when 'soldOutLabelHtml' -%}
+<span class="soldout boost-pfs-filter-label"> {{ section.settings.soldout_label }} </span>
+
+{%- when 'saleLabelHtml' -%}
+<span class="sale boost-pfs-filter-label"> {{ section.settings.sale_label }} </span>
+
+{%- when 'tagLabelHtml' -%}
+<span class="tag boost-pfs-filter-label [[labelTag]]" >[[labelTag]]</span>
+
+{%- when 'vendorHtml' -%}
+<p class="boost-pfs-filter-product-item-vendor">[[itemVendorLabel]]</p>
+
+{%- when 'previousActiveHtml' -%}
+<li><a href="[[itemUrl]]">&larr;</a></li>
+
+{%- when 'previousDisabledHtml' -%}
+<li class="boost-pfs-filter-pagination-disabled"><span>&larr;</span></li>
+
+{%- when 'nextActiveHtml' -%}
+<li><a href="[[itemUrl]]">&rarr;</a></li>
+
+{%- when 'nextDisabledHtml' -%}
+<li class="boost-pfs-filter-pagination-disabled"><span>&rarr;</span></li>
+
+{%- when 'pageItemHtml' -%}
+<li><a href="[[itemUrl]]">[[itemTitle]]</a></li>
+
+{%- when 'pageItemSelectedHtml' -%}
+<li><span class="boost-pfs-filter-pagination-active">[[itemTitle]]</span></li>
+
+{% when 'pageItemRemainHtml' %}
+<li><span>[[itemTitle]]</span></li>
+
+{%- when 'paginateHtml' -%}
+<ul>[[previous]][[pageItems]][[next]]</ul>
+
+{%- when 'sortingHtml' -%}
+<button class="boost-pfs-filter-top-sorting-wrapper"><span><span> {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} {{ temp }} {% else %} Sorting {% endunless %}, </span></span></button><ul class="boost-pfs-filter-filter-dropdown">[[sortingItems]]</ul>
+
+{%- when 'showLimitHtml' -%}
+<label> Show </label><select class="boost-pfs-filter-filter-dropdown">[[showLimitItems]]</select>
+
+{%- when 'breadcrumbHtml' -%}
+<a href="/"> Home </a> [[breadcrumbDivider]] [[breadcrumbItems]]
+
+{%- when 'breadcrumbDivider' -%}
+<span class="divider">/</span>
+
+{%- when 'breadcrumbItemLink' -%}
+<a href="[[itemLink]]">[[itemTitle]]</a>
+
+{%- when 'breadcrumbItemSelected' -%}
+<span>[[itemTitle]]</span>
+
+{%- endcase -%}
+{%- endcapture -%}
+
+{%- assign str = '}}' -%}
+{{- bc_layout | json | replace: '[[', '{{' | replace: ']]', str -}}

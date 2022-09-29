@@ -1,0 +1,78 @@
+{% if section.settings.enabled %}
+<div class="row {{section.settings.layout-}}" id="bstr-recommendations">
+{% render 'block__general--heading' with section as section %}
+{%- for product in recommendations.products limit: 5 -%}
+<div class="col-12 col-md-1-5 card--holder">
+{% render 'product-card-default', product: product, dsize: '1-5' %}
+</div>
+{%- endfor -%}
+</div>
+{% endif %}
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Recently viewed"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Enable/Disable"
+    },
+    {
+        "type": "checkbox",
+        "id": "enabled",
+        "label": "Enable recently viewed",
+        "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout and content"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Page width",
+      "options": [
+        {"value": "max-width", "label": "Boxed"},
+        {"value": "full-width", "label": "Full width"}
+      ],
+      "default": "max-width"
+    },
+    {
+        "type": "text",
+        "id": "heading",
+        "label": "Section heading",
+        "default": "Recommended for you"
+    },
+    {
+        "type": "text",
+        "id": "subheading",
+        "label": "Section subheading",
+        "default": "CHERRY PICKED PRODUCTS"
+    },
+    {
+      "type": "select",
+      "id": "subheadingPosition",
+      "label": "Subheading position",
+      "options": [
+        {"value": "above", "label": "Above heading"},
+        {"value": "below", "label": "Below heading"}
+      ],
+      "default": "above"
+    },
+    {
+      "type": "select",
+      "id": "textAlignment",
+      "label": "Text alignment (left to right)",
+      "options": [
+        {"value": "start", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "end", "label": "Right"}
+      ],
+      "default": "start"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,707 @@
+.shopify-section {
+  width: 100%;
+}
+#shopify-section-customer--login--form{
+padding-bottom:60px;
+}
+#CustomerLoginForm .errors, #shopify-section-account--register .errors, #shopify-section-customer--login--form .errors, #shopify-section-reset--account .errors, #shopify-section-customers_activate_account .errors {
+  background-color: #ce3330!important;
+  color: #fff;
+  padding: 15px 0 14px 0;
+  margin: 0 0 10px;
+}
+#CustomerLoginForm .errors ul, #shopify-section-account--register .errors ul, #shopify-section-customer--login--form  .errors ul, #shopify-section-reset--account .errors ul, #shopify-section-customers_activate_account .errors ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#CustomerLoginForm .errors ul li, #shopify-section-account--register .errors ul li, #shopify-section-customer--login--form  .errors ul li, #shopify-section-reset--account .errors ul li, #shopify-section-customers_activate_account .errors ul li {
+  font-size: 14px;
+  /* font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif; */
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.375;
+  letter-spacing: 1.1px;
+  font-family: Montserrat,sans-serif;
+}
+#shopify-section-reset--account .page-width, .page-width, #shopify-section-customers_activate_account .page-width {
+  /*------As per the new requiremnet TW#33265426-----*/
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+#shopify-section-reset--account .grid__item{
+  padding-left:0;
+}
+#shopify-section-reset--account input {
+  background-color: #f4f4f4;
+  color: #333;
+  border: 0;
+  max-width: 100%;
+  padding: 13px 15px;
+}
+#shopify-section-reset--account button, #shopify-section-reset--account input[type=submit] {
+  cursor: pointer;
+  color: #fff!important;
+  font-size: 12px;
+  font-weight:600;
+}
+.customer-login-register .grid, #shopify-section-reset--account .grid, #shopify-section-customers_activate_account .grid {
+  max-width: 1063px!important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 28px;
+  margin: auto!important;
+  padding-bottom: 28px;
+}
+.forgot_page_active .recover__password {
+  display: block;
+}
+
+.forgot_page_active div#CustomerLoginForm {
+  display: none;
+}
+.grid, #shopify-section-customers_activate_account .grid {
+  list-style: none;
+  padding: 0;
+}
+.grid__item.medium-up--one-half{
+  left: 0;
+  margin: 0 auto;
+  float: none;
+}
+.customer-login-register .grid .grid__item-two {
+  width: 59.642521167%!important;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  padding: 56px 113px 144px 114px!important;
+}
+.grid__item[class*="--push"] {
+  position: relative;
+}
+.grid:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.content-block:last-child {
+  margin-bottom: 0;
+}
+.content-block {
+  padding: 0;
+  background-color: #FFFFFF;
+}
+.text-center {
+  text-align: center!important;
+}
+.form-success {
+  color: #fff;
+}
+.errors, .form-success, .note {
+  padding: 13px;
+  margin: 0 0 10px;
+}
+.hide {
+  display: none!important;
+}
+form {
+  display: block;
+  margin-top: 0em;
+}
+#CustomerLoginForm input, #shopify-section-customers_activate_account input {
+  margin-bottom: 20px;
+  background-color: #fff!important;
+  padding: 20px;
+  border-bottom: 1px solid #e6e6e6;
+}
+#shopify-section-customers_activate_account .form-vertical input, .customer-login-register .form-vertical input, .form-vertical select, .form-vertical textarea {
+  font-size: 13px;
+  letter-spacing: .65px;
+  padding: 13px 25px;
+}
+.form-vertical input, .form-vertical select, .form-vertical textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #fff !important;
+  border-bottom: 1px solid #e6e6e6 !important;
+}
+input, select, textarea {
+  color: #333;
+  border: 0;
+  max-width: 100%;
+  line-height: 1.375;
+  border-radius: 0;
+}
+#CustomerLoginForm h4, .customers-register h4 {
+  letter-spacing: 2px;
+  color: #000;
+  text-transform: uppercase;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  margin-bottom: 19px !important;
+  font-family: Montserrat,sans-serif !important;
+  margin-bottom:10px !important;
+}
+.customers-register h4 {
+  font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif !important;
+  font-weight:400 !important;
+}
+.h1, .h1--mini, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 .625em;
+  line-height: 1.1;
+  font-size: 2.25em;
+  font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif !important;
+  font-weight: 700 !important;
+}
+.customer-login-desc {
+  text-align: center;
+  letter-spacing: .7px;
+  color: #000;
+  padding: 0 38px 0 40px;
+  margin-bottom: 30px !important;
+  font-family: Montserrat,sans-serif;
+  font-size: 13px;
+}
+.customer-login-desc b{
+  font-weight: 700;    
+}
+label[for] {
+  cursor: pointer;
+}
+.label--hidden {
+  position: absolute;
+  height: 0;
+  width: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+  clip: rect(1px,1px,1px,1px);
+}
+label {
+  font-size: .75em;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 13px;
+  display: inline-block;
+  max-width: 100%;
+}
+#RecoverPassword {
+  letter-spacing: 1.2px;
+  color: #000;
+  font-size: 12px;
+  text-align: right;
+  float: right;
+  text-decoration: underline;
+  font-family: Montserrat,sans-serif;
+}
+.link-accent-color, a {
+  transition: color .1s ease-in,background-color .1s ease-in;
+  background-color: transparent;
+}
+#CustomerLoginForm input.btn {
+  margin-bottom: 10px;
+  background-color: #ce3330!important;
+  padding: 15px 0 14px 0;
+  border-bottom: 1px solid #e6e6e6;
+  margin-top: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: Montserrat,sans-serif;
+  font-weight:600;
+}
+#create_customer .btn {
+  margin-top: 30px;
+  margin-top: 30px;
+  background-color: #ce3330;
+  padding: 15px 0 14px 0;
+  letter-spacing: 1.4px;
+  color: #fff;
+  text-transform: uppercase;
+  opacity: 1;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: Montserrat,sans-serif;
+  font-weight:600;
+}
+.form-vertical .btn, .form-vertical .btn--secondary, .form-vertical input[type=submit] {
+  display: inline-block;
+}
+button, input[type=submit] {
+  cursor: pointer;
+}
+#customer_register_link {
+  letter-spacing: 1.2px;
+  color: #000 !important;
+  text-align: center;
+  font-size: 14px;
+}
+.customer-login-register .grid .grid__items-one {
+  width: 40.357478833%;
+  padding: 56px 69px 0 48px;
+  background-color: #f2f2f0;
+}
+#shopify-section-customers_activate_account .h1{
+  margin: 0 0 .625em;
+}
+#shopify-section-customers_activate_account  p{
+  font-size: 16px;
+  font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  color: #666;
+  line-height: 1.375;
+  margin-bottom:10px;
+}
+.grid__items-one h5 {
+  letter-spacing: 0;
+  color: #2b2e34;
+  font-size: 21px;
+  text-align: left;
+  font-weight: 600 !important;
+  padding-bottom: 34px;
+  font-family: Montserrat,sans-serif;
+  margin-bottom: 0;
+  line-height:1.1;
+}
+.heading-red {
+  letter-spacing: 0;
+  font-size: 30px;
+  color: #ce3330;
+  font-weight: 600;
+  display: block;
+  font-family: Montserrat,sans-serif;
+  line-height:1.1;
+}
+.grid__item-one-pro {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 309.5px;
+  list-style-type: none;
+  padding:0;
+  margin-top:0;
+}
+.manage-menu {
+  padding: 26px 0;
+  border-bottom: 1px solid #707070;
+}
+.manage-menu:nth-child(4) {
+  border-bottom: none;
+}
+.manage-menu-img {
+  display: inline-block;
+  width: 44.29px;
+  text-align: center;
+}
+.manage-menu-desc {
+  display: inline-block;
+  margin-left: 26.71px;
+  letter-spacing: 0;
+  color: #000;
+  font-size: 16px;
+  font-family: Montserrat,sans-serif;
+}
+.register-names {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.register-bottom-text {
+  letter-spacing: 1.2px;
+  color: #000;
+  font-size:14px;
+}
+.grid__item {
+  float: left;
+  padding-left: 20px;
+  width: 100%;
+  -ms-flex-preferred-size: auto!important;
+  -webkit-flex-basis: auto!important;
+  -moz-flex-basis: auto!important;
+  flex-basis: auto!important;
+}
+#customer_login input::-webkit-input-placeholder, #create_customer input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  letter-spacing: 0.65px;
+  color: #000000;
+  text-transform: uppercase;
+  opacity:1;
+  font-size:13px !important;
+  font-family: 'Montserrat', sans-serif;
+}
+#customer_login input::-moz-placeholder, #create_customer input::-moz-placeholder { /* Firefox 19+ */
+  letter-spacing: 0.65px;
+  color: #000000;
+  opacity:1;
+  text-transform: uppercase;
+  font-size:13px !important;
+  font-family: 'Montserrat', sans-serif;
+}
+#customer_login input:-ms-input-placeholder, #create_customer input:-ms-input-placeholder { /* IE 10+ */
+  letter-spacing: 0.65px;
+  color: #000000;
+  opacity:1;
+  text-transform: uppercase;
+  font-size:13px !important;
+  font-family: 'Montserrat', sans-serif;
+}
+#customer_login input:-moz-placeholder, #create_customer input:-moz-placeholder { /* Firefox 18- */
+  letter-spacing: 0.65px;
+  color: #000000;
+  opacity:1;
+  text-transform: uppercase;
+  font-size:13px !important;
+  font-family: 'Montserrat', sans-serif;
+}
+.customer-login-register input, #shopify-section-customers_activate_account input {
+  border:2px solid transparent;
+}
+#shopify-section-customers_activate_account input:focus, .customer-login-register input:focus, #shopify-section-reset--account input:focus{
+  border-color:#000000;
+  border-bottom:2px solid #000000 !important;
+  border-radius:4px;
+}
+.template-customers-reset_password .page-width {
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+.template-customers-reset_password .grid__item[class*="--push"] {
+  position: inherit;
+}
+.form-vertical .btn, .form-vertical .btn--secondary, .form-vertical input[type=submit]{
+  margin-top: 30px;
+  background-color: #c63b3d !important;
+  padding: 15px 0 14px 0;
+  letter-spacing: 1.4px;
+  color: #fff;
+  text-transform: uppercase;
+  opacity: 1;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: Montserrat,sans-serif;
+  border-radius: 0;
+}
+#shopify-section-customers_activate_account input[type=submit]{
+  margin-top: 30px;
+  background-color: #ce3330 !important;
+  padding: 15px 0 14px 0;
+  letter-spacing: 1.4px;
+  color: #fff;
+  text-transform: uppercase;
+  opacity: 1;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: Montserrat,sans-serif;
+  border-radius: 0;
+}
+#shopify-section-customers_activate_account input.link-accent-color{
+  background-color: #FFFFFF !important;
+  color: #ce3330;
+  border:none;
+  border-bottom: none !important;
+  margin-top:0;
+}
+#shopify-section-customers_activate_account input.link-accent-color:hover{
+  color: #8c292a;
+  background-color: #FFFFFF !important;
+}
+
+p.forgot-text{
+  margin-top: 0!important;
+  margin-bottom: 0 !important;
+}
+.forgot-text{
+  cursor:pointer;
+  letter-spacing: 1.2px;
+  color: #000;
+  font-size: 12px;
+  text-align: right;
+  text-decoration: underline;
+  font-family: Montserrat,sans-serif;
+}
+#RecoverPasswordForm .h1{
+  color: #030303;
+  margin: 0 0 .625em;
+  font-family: Lato, "HelveticaNeue","Helvetica Neue",sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.875em !important;
+}
+#RecoverPasswordForm .recover-title-text{
+  font-size: 16px;
+  font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  color: #666;
+  line-height: 1.375;
+  margin-top:0;
+  font-weight:normal;
+}
+#CustomerLoginForm p {
+  margin-top:0;
+}
+p.recover-title-text{
+  margin-bottom:10px !important;
+}
+#CustomerLoginForm a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: underline;
+}
+#customer_register_link u a{
+color:#000 !important;
+}
+#RecoverPasswordForm .form-vertical input[type=submit]{
+  margin-top:0;
+}
+#RecoverPasswordForm input {
+  font-size: 13px;
+  letter-spacing: .65px;
+  padding: 13px 25px;
+  font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+}
+.forgot-cencel{
+  cursor:pointer;
+  letter-spacing: 1.2px;
+  color: #c63b3d;;
+  font-size: 13px;
+  display:inline;
+  text-align: center;
+  font-family: Montserrat,sans-serif;
+  font-weight:600;
+}
+.forgot-cencel:hover{
+  color: #8c292a;
+}
+#RecoverPasswordForm .link-accent-color:focus, #RecoverPasswordForm .link-accent-color:hover, #RecoverPasswordForm a:focus, #RecoverPasswordForm a:hover, #shopify-section-reset--account input:focus {
+  color: #8c292a !important;
+}
+.forgot-cencel:hover{
+  color: #8c292a !important;
+}
+.recover__password input[type=submit]{
+  margin-bottom:38px;
+}
+#shopify-section-reset--account input:focus {
+  border: 2px solid #000!important;
+}
+.form-success{
+  padding: 13px;
+  margin: 0 0 10px;
+  background-color: #59ac6c;
+}
+.form-success span {
+  padding: 13px;
+  color:#FFF;
+}
+#shopify-section-customers_activate_account .grid{
+  display:block !important;
+}
+#shopify-section-customers_activate_account input[type=submit]:hover, .btn--secondary:hover, .btn:hover, .rte .btn--secondary:hover, .rte .btn:hover {
+  background-color: #a02e30 !important;
+  color: #fff !important;
+}
+#shopify-section-customers_activate_account input.link-accent-color:hover{
+  color: #8c292a!important;
+  background-color: #FFF !important;
+}
+.manage-menu:nth-child(4) .manage-menu-img img{
+  width: 22px !important;
+}
+.form-success-link {
+  background-color: #59ac6c;
+  padding: 13px !important;
+  position: absolute;
+  top: 0;
+}
+#shopify-section-customers_activate_account input, #shopify-section-customers_activate_account input[type=submit], #shopify-section-reset--account input {
+  padding: 15px 14px;
+  font-size: 14px;
+  font-weight:400;
+  letter-spacing:1.2px;
+}
+ #CustomerLoginForm .link-accent-color, #CustomerLoginForm a {
+  color: #c63b3d !important;
+  text-decoration: none;
+  transition: color .1s ease-in,background-color .1s ease-in;
+}
+.link-accent-color:hover, a:hover, .link-accent-color:focus, .link-accent-color:hover, a:focus, a:hover {
+  color: #8c292a !important;
+}
+@media only screen and (max-width: 1024px){
+  .customer-login-register .grid .grid__item-two {
+    width: 59.642521167%!important;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    padding: 56px 50px 144px 50px!important;
+  }
+  .customer-login-desc {
+    padding: 0 20px 0 20px;
+    font-size: 14px;
+  }
+  .CustomerLoginForm h4, .customers-register h4 {
+    letter-spacing: 2px;
+    color: #000;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 400 !important;
+    margin-bottom:10px !important;
+  }
+  .customer-login-register .grid .grid__items-one {
+    padding: 56px 50px 0 39px;
+  }
+  .grid__items-one h5 {
+    font-size: 18px;
+  }
+  .heading-red {
+    letter-spacing: 0;
+    font-size: 21px!important;
+  }
+  .manage-menu-img {
+    width: 30.29px;
+  }
+  .manage-menu-img p:last-child {
+    margin-bottom: 0;
+  }
+  .manage-menu-desc {
+    margin-left: 14.71px;
+    font-size: 11px;
+  }
+  .customer-login-register .grid .grid__item-two {
+    padding: 56px 50px 144px 50px!important;
+  }
+  .register-names {
+    display: flex;
+    gap: 10px;
+  }
+  .register-bottom-text {
+    font-size: 12px;
+  }
+}
+@media (max-width: 767px){
+  .main-content .page-width {
+    padding: 0 15px;
+  }
+  #CustomerLoginForm input {
+    padding: 10px;
+  }
+  .customer-login-desc {
+    font-size: 14px;
+  }
+  #CustomerLoginForm input.btn, #shopify-section-account--register .form-vertical input[type=submit] {
+    padding: 8px 0 8px 0;
+    font-size: 13px;
+  }
+  .customer-login-register .grid {
+    flex-direction: column-reverse;
+    padding-bottom:0;
+  }
+  .customer-login-register .grid .grid__items-one {
+    display: none;
+  }
+  .grid__items-one h5 {
+    padding-top: 20px;
+  }
+  .grid__item-one-pro {
+    width: 100%;
+    max-width: 100%;
+  }
+  .manage-menu {
+    max-width: 76%;
+    margin: auto;
+    width: 100%;
+  }
+  .manage-menu-img {
+    margin-left: 15px;
+  }
+  .manage-menu-desc {
+    margin-left: 15.71px;
+    font-size: 14px;
+  }
+  .customer-login-register .grid .grid__item-two, .customer-login-register .grid .grid__items-one {
+    border: none;
+    padding:0 !important;
+    width: 100% !important;
+
+  }
+  .register-names {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .register-fname, .register-lname {
+    width: 50%;
+  }
+  #CustomerLoginForm input.btn, #create_customer .btn {
+    padding: 8px 0 8px 0;
+    font-size: 13px;
+  }
+  .register-bottom-text {
+    font-size: 14px;
+  }
+  #customer_login input::-webkit-input-placeholder, #create_customer input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size:9px;
+  }
+  #customer_login input::-moz-placeholder, #create_customer input::-moz-placeholder { /* Firefox 19+ */
+    font-size:9px;
+  }
+  #customer_login input:-ms-input-placeholder, #create_customer input:-ms-input-placeholder { /* IE 10+ */
+    font-size:9px;
+  }
+  #customer_login input:-moz-placeholder, #create_customer input:-moz-placeholder { /* Firefox 18- */
+    font-size:9px;
+  }
+  .shopify-section{
+    padding-bottom:0;
+  }
+  .page-width {
+    padding: 0 15px;
+  }
+  .customer-login-register input:focus{
+    border-color:#e59837;
+    border-bottom:2px solid #e59837 !important;
+    border-radius:4px;
+  }
+  #shopify-section-reset--account .medium-up--one-half{
+    width:100%;
+  }
+  #CustomerLoginForm .errors, #shopify-section-account--register .errors, #shopify-section-customer--login--form  .errors {
+    padding: 8px 20px;
+  }
+  #RecoverPasswordForm input {
+    padding: 8px 20px;
+  }
+  .h1, .h1--mini, h1 {
+    font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+    font-weight: 700;
+    font-size: 1.875em !important;
+  }
+  #shopify-section-reset--account input, #shopify-section-customers_activate_account input[type=submit], #shopify-section-customers_activate_account input{
+    padding: 8px 20px;
+  }
+  #shopify-section-customers_activate_account .medium-up--one-half{
+    width:100%;
+  }
+  .customer-login-register .form-vertical input, .form-vertical select, .form-vertical textarea {
+    padding: 8px;
+  }
+  #shopify-section-customers_activate_account input, #shopify-section-customers_activate_account input[type=submit], #shopify-section-reset--account input {
+    padding: 8px 20px;
+  }
+  #customer_login input::-webkit-input-placeholder, #create_customer input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size:10px !important;
+  }
+  #customer_login input::-moz-placeholder, #create_customer input::-moz-placeholder { /* Firefox 19+ */
+    font-size:10px !important;
+  }
+  #customer_login input:-ms-input-placeholder, #create_customer input:-ms-input-placeholder { /* IE 10+ */
+    font-size:10px !important;
+  }
+  #customer_login input:-moz-placeholder, #create_customer input:-moz-placeholder { /* Firefox 18- */
+    font-size:10px !important;
+  }
+  #customer_register_link {
+    margin-bottom: 0;
+  }
+  .forgot-text {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,880 @@
+<div class="page-width" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" data-ajax="{{ section.settings.enable_ajax }}" data-stock="{{ section.settings.stock_enable }}">
+  {% assign product_image_size = '480x480' %}
+  {% for collection in product.collections %}
+      {% for keys in collection.metafields.product %}
+          {% if keys.first == 'show_logo' %}
+              {% if keys.last == 1 %}
+  				{% assign showLogo = 'True' %}
+  			  {% else %}
+  	            {% assign showLogo = 'False' %}
+  			  {% endif %}
+              {% break %}
+  		  {% else %}
+  			{% assign showLogo = 'False' %}
+          {% endif %}
+      {% endfor %}
+  {% endfor %}
+  {% comment %}
+    Check suppliers for emergency message
+  {% endcomment %}
+  {% if shop.metafields.emergency.suppliers != blank %}
+  	{% assign emergencyEnabled = 'true' %}
+  	{% assign emergencySuppliers = shop.metafields.emergency.suppliers | split: ',' %}
+    {% if product.metafields.ProductData.Supplier != blank %}
+      {% for supplier in emergencySuppliers %}
+        {% if supplier contains product.metafields.ProductData.Supplier %}
+        	{% assign showEmergencyMessage = 'true' %}
+  			{% assign emergencyMessage = shop.metafields.emergency.message %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% else %}
+  	{% assign emergencyEnabled = 'false' %}
+  {% endif %}
+  {% comment %}
+    Get first variant, or deep linked one
+  {% endcomment %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  {% include 'breadcrumbs' %}
+  <hr>
+  <div class="grid product-single product-single-container">
+
+    <div class="grid__item {% if product.images.size > 1 %}medium-up--three-fifths{% else %}medium-up--one-half{% endif %}">
+      <div class="product-single__info-wrapper">
+		{% if showLogo == 'True' %}
+			<img src="{{ product.vendor | handleize | append: '.png' | asset_url }}&width=350" class="brand-logo  medium-up--hide" onError="style.display = 'none';">
+		{% endif %}
+		{% if product.vendor contains 'Ray Ban' %}
+			<div class="medium-up--hide" style="padding-bottom:10px; text-align:center;"><small>Authorized Retailer <a href="https://www.ray-ban.com/usa/store-locator?reseller=www.designeroptics.com" target="_blank">click to verify</a></small></div>
+        {% endif %}
+        <h1 class="product-single__title small--text-center medium-up--hide">{{ product.title }}</h1>
+        <div class="photos">
+          {% include 'magic360' %}
+        </div>
+         <!-- Contact box -->
+        <div class="chatbox chatbox-first small--hide">
+          <p>Questions about <span>{{product.title}}?</span></p>
+          <span>Contact us for advice or more details.</span>
+          <ul>
+            <li>
+              <img src="" data-src="//cdn.shopify.com/s/files/1/2807/8986/files/call-icon.jpg"> 1.877.303.0735 </li>
+            <li>
+              <img src="" data-src="//cdn.shopify.com/s/files/1/2807/8986/files/msg-icon.jpg"><a href="#" class="email-support">Email an Expert</a></li>
+          </ul>
+        </div> 
+      </div>
+    </div>
+
+    <div class="grid__item {% if product.images.size > 1 %}medium-up--two-fifths{% else %}medium-up--one-half{% endif %}">
+      <div class="product-single__info-wrapper">
+
+        <div class="product-single__meta small--text-center">
+		{% if showLogo == 'True' %}
+			<img src="{{ product.vendor | handleize | append: '.png' | asset_url }}&width=350" class="brand-logo small--hide" onError="style.display = 'none';">
+		{% endif %}
+		  {% if product.vendor contains 'Ray Ban' %}
+          <div style="padding-bottom:10px;"><small>Authorized Retailer <a href="https://www.ray-ban.com/usa/store-locator?reseller=www.designeroptics.com" target="_blank">click to verify</a></small></div>
+          {% endif %}
+          {% if settings.product_vendor_enable %}
+            <p class="product-single__vendor">{{ product.vendor }}</p>
+          {% endif %}
+
+          <h1 class="product-single__title small--hide">{{ product.title }}</h1>
+          {% include 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false %}                
+          <ul class="product-single__meta-list list--no-bullets list--inline">
+
+            {% if settings.sale_tag_enable %}
+            <li id="ProductSaleTag-{{ section.id }}" class="{% unless product.compare_at_price > product.price %}hide{% endunless %}">
+              <div class="product-tag">
+                {{ 'products.product.on_sale' | t }} 
+              </div>
+            </li>
+            {% endif %}
+            <li>
+              {% unless product.compare_at_price_max > product.price %}
+                <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+              {% endunless %}
+              <span id="ProductPrice-{{ section.id }}" class="product-single__price" content="{{ current_variant.price | divided_by: 100.00 }}">
+                {{ current_variant.price | money }}
+              </span>
+            </li>
+            {% if product.compare_at_price_max > product.price %}
+              <li>
+                <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                <s id="ComparePrice-{{ section.id }}" class="product-single__price product-single__price--compare">
+                  {{ current_variant.compare_at_price | money }}
+                </s>
+              </li>
+            {% endif %}
+            {% if section.settings.stock_enable %}
+              <li>
+                <span id="ProductStock-{{ section.id }}" class="product-single__stock">
+                  {% if current_variant.inventory_management %}
+                    {% if current_variant.inventory_quantity > 0 %}
+                      {% assign qty = current_variant.inventory_quantity %}
+                      {{ 'products.product.stock_available' | t: count: qty }}
+                    {% elsif current_variant.inventory_quantity == 0 or current_variant.inventory_quantity < 0 and current_variant.incoming %}
+                      {% if current_variant.available %}
+                        {% assign date = current_variant.next_incoming_date | date: "%B %-d, %Y" %}
+                        {{ 'products.product.will_not_ship_until' | t: date: date  }}
+                      {% else %}
+                        {% assign date = current_variant.next_incoming_date | date: "%B %-d, %Y" %}
+                        {{ 'products.product.will_be_in_stock_after' | t: date: date  }}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                </span>
+				<p class="availability_alt"></p>
+              </li>
+            {% endif %}
+            {% if section.settings.stock_enable %}
+              <li>
+                <span id="ProductSku-{{ section.id }}" class="product-single__sku">
+                  <label>SKU : </label><span>{{ current_variant.sku }}</span>
+                </span>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+        {% if showEmergencyMessage == 'true' %}
+			<span class="emergency-message">{{ emergencyMessage }}</span>
+		{% endif %}
+        {% if section.settings.social_sharing_products %}
+          {% if showEmergencyMessage == 'true' %}
+			<div class="emergency-social">
+              {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+        	</div>
+          {% else %}
+        	{% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+          {% endif %}
+        {% endif %}
+        <!--W3Trends-->
+        {% if product.tags contains 'Rx' or product.tags contains 'RXS' %}
+          <div style="position:relative; width:100%; margin-bottom:10px;">
+            <label><button type="button" name="prescription" class="prescriptionCheck btn btn--full "> Add Prescription Lenses</button></label>
+            </div>
+          <div class="dynamicForm"></div>
+        {% endif %}
+        <!--/W3Trends-->
+
+        <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-form" id="AddToCartForm">
+          <!--W3Trends-->
+          <div class="w3-product-options2" data-product-id="{{product.id}}" data-tags="{{ product.tags | join: ", " }}" style="position:relative; width:100%; display:none;" ></div>
+          <!--/W3Trends-->
+
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              <div class="selector-wrapper js product-form__item">
+                <label {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input"
+                  id="SingleOptionSelector-{{ forloop.index0 }}"
+                  data-name="{{ option.name }}"
+                  data-index="option{{ forloop.index }}">
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endfor %}
+          {% endunless %}
+
+          <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
+            {% for variant in product.variants %}
+              <option {% if variant == current_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" data-quantity="{{variant.inventory_quantity}}" value="{{ variant.id }}" {% unless variant.available %} disabled="disabled" {% endunless %}>
+                {% if variant.available %}
+                  {{ variant.title }} - {{ variant.price | money_with_currency }}
+                {% else %}
+                  {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                {% endif %}
+              </option>
+            {% endfor %}
+          </select>
+          <div class="product-form__item product-form__item--quantity">
+            <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+            <input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-form__input product-form__quantity">
+          </div>
+          <div class="grid__item medium-up--one-fifths item-submit-wrapper">
+          	<div class="product-form__item product-form__item--submit">
+            <button type="submit"
+              name="add"
+              id="AddToCart-{{ section.id }}"
+              class="btn btn--full product-form__cart-submit{% unless current_variant.available %} btn--sold-out{% endunless %}"
+              {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+              <span id="AddToCartText-{{ section.id }}">
+                {% unless current_variant.available %}
+                  {{ 'products.product.sold_out' | t }}
+                {% else %}
+                  {{ 'products.product.add_to_cart' | t }}
+                {% endunless %}
+              </span>
+            </button>
+            <a class="btn btn--full product-form__notify-availability" style="display: none;">Notify Me When Available</a>
+            </div>
+          </div>
+
+        </form>
+
+        <hr>
+<div id="sold-out-popup" class="mymodal">
+  
+  {% form 'contact' %}
+ 
+    {% if form.posted_successfully? %}
+    	<span class="close">×</span>
+    	<p class="accent-text">Thanks! We will notify you when this product becomes available!</p>
+  <script>
+     jQuery( document ).ready(function() {
+    	jQuery("#sold-out-popup").show(500);
+     });
+  </script>
+    {% else %}
+   {% endif %}
+    {% if form.errors %}
+    <div class="error feedback accent-text">
+      <span class="close">×</span>
+      <p>Please provide a valid email address.</p>
+    </div>
+    {% endif %}
+    {% unless form.posted_successfully? %}
+  <div class="notify-text"> <span class="close">×</span>
+    <h2>Back in Stock Notifications <span>We'll notify you when this product is back in stock</span></h2>
+  	<hr>
+    <h3>{{product.title}}</h3>
+  </div>
+    <div id="notify-me-wrapper" class="clearfix">
+      <input type="hidden" name="contact[subject]" value="Back in Stock Notifications" />
+      <input required="required" type="text" name="contact[first-name]" placeholder="First Name" class="styled-input{% if form.errors contains 'first-name' %} error{% endif %}" value="{{ contact.fields.first-name }}" />
+      <input required="required" type="text" name="contact[last-name]" placeholder="Last Name" class="styled-input{% if form.errors contains 'last-name' %} error{% endif %}" value="{{ contact.fields.last-name }}" />
+      
+      {% if customer %}
+      <input type="hidden" class="fullwidth" name="contact[email]" value="{{ customer.email }}" />
+      {% else %}
+      <input required="required" type="email" name="contact[email]" placeholder="Email Address" class="fullwidth styled-input{% if form.errors contains 'email' %} error{% endif %}" value="{{ contact.fields.email }}" />
+      {% endif %}
+		
+      <input required="required" type="text" name="contact[product-sku]" placeholder="product-sku" class="hide styled-input{% if form.errors contains 'product-sku' %} error{% endif %}" value="{{ current_variant.sku }}" /> 
+      <input required="required" type="text" name="contact[product-status]" id="product-status" placeholder="product-status" class="hide styled-input{% if form.errors contains 'product-status' %} error{% endif %}" value="">
+                     
+
+      <input type="hidden" name="contact[body]" value="Please notify me when {{ product.title | escape }} becomes available." />
+      <input class="btn styled-submit" type="submit" value=" Notify Me When Available " />
+    </div>
+    {% endunless %}
+  {% endform %}
+</div>
+
+<!-- Countdown Timer Ultimate App to set the product tag for which to show -->
+
+{% assign timer_tags = "Accessories,product_timer_tag2,product_timer_tag3" | split: "," %}
+
+{% assign timer_inserted = false %}
+{% for tag in product.tags %}
+{% if timer_inserted == false %}
+{% for timer_tag in timer_tags %}
+{% if timer_tag == tag %}
+{% assign timer_inserted = true %}
+<div class="countdown-KT-full-width hide-KT" id="countdownultimate-KT"></div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+ <!-- Countdown Timer Ultimate App END -->
+
+
+        <!-- Icon box -->
+        <div class="productShipBoxes">
+          <ul>
+            <li class="Freeship" click="openBoxModal(this)"><img src="//cdn.shopify.com/s/files/1/2807/8986/files/fship1.png"><br><span>Free Shipping</span></li>
+            <li class="PriceMatch" click="openBoxModal(this)"><img src="//cdn.shopify.com/s/files/1/2807/8986/files/fship2.png"><br><span>Price Match</span></li>
+            <li class="EasyReturn" click="openBoxModal(this)"><img src="//cdn.shopify.com/s/files/1/2807/8986/files/fship3.png"><br><span>Easy Returns</span></li>
+            <li class="Licenced" click="openBoxModal(this)"><img src="//cdn.shopify.com/s/files/1/2807/8986/files/fship4.png"><br><span>Licensed Opticians</span></li>
+          </ul>
+        </div>
+        <div id="myModal" class="mymodal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">×</span>
+            <p id="Freeship" class="popup-content" style="display: none;">
+                <strong class="FShipPTxt">Free Shipping</strong>
+                Free Shipping to the US on all Orders<br><br>
+                At DesignerOptics.com we are committed to the highest quality of service,<br><br>
+                We ship products to all 50 US states as well as to many other countries around the world. We take all the measures to ship all in-stock items in a timely manner, directly to your door, almost anywhere in the world.<br><br>
+                In stock products usually ship within two business days. but may take up to five business days*. When a order ships you will receive a confirmation email with the tracking information. You can also track your order by logging into your account.<br><br>
+                We provide FREE SHIPPING on all order no matter the amount of the order. We also offer overnight and second day delivery shipping options, Please note that when using next day or second day delivery it still takes 48 to 72 Business hours to process.
+            </p>
+
+            <p id="PriceMatch" class="popup-content" style="display: none;">
+                <strong class="FShipPTxt">Price Match</strong>
+                <strong>The Designer Optics Low Price Guarantee is simple:</strong><br><br>
+                Designeroptics.com matches the price of all retail competitors and major online retailers.<br><br>
+                <strong>How it works:</strong><br><br>
+                Place the frames in your cart<br><br>
+                Before placing your order in add the following the comments box, Add the URL (web address) of the page where you found the lower-priced item,<br><br>
+                Your credit card will not be charged until we have confirmed with you by phone or by email that your item qualifies for our Price-Match Guarantee.
+            </p>
+
+            <p id="EasyReturn" class="popup-content" style="display: none;">
+              <strong class="FShipPTxt">Easy Returns</strong>
+              Please Follow those easy steps for returns<br><br>
+              1- Please fill out this form Return Authorization Form to get a RMA # you will receive a RMA # with instruction on how to return them within 48 to 72 Business hours from the time you submitted the form. Wait for our confirmation e-mail before shipping back the return<br><br>
+              2- Send the product back to us following the instructions indicated in our e-mail and to the address we will provide you.<br><br>
+              3- Make sure to confirm us via e-mail the shipping date, the shipping service you used and the tracking number whenever you have<br><br>
+              4- Include details of the return and how you would like for us to go about it (refund, store credit, exchange, etc). Designer Optics is not responsible for items damaged along the way.<br><br>
+              Please allow us 3 to 5 business days from when items are received for us to process the refund. The amount to be refunded will not include shipping charges. if the order consists of 3 or more frames we will charge a 20% Restocking fee. otherwise only the shipping will be deducted.<br><br>
+              For more information please go to <a title="Returns" href="/Returns_s/1631.htm">Returns</a>
+            </p>
+
+            <p id="Licenced" class="popup-content" style="display: none;">
+                <strong class="FShipPTxt">Licensed Opticians On Site</strong>
+                Our two lab opticians are the once who make it all happen in the lab, they are responsible from reviewing your prescription and making sure that it all is correct and they will call you if they have any questions about your prescription. <br><br>
+        Our lab is equipped with the lasted technology in edging and cutting your lenses, from regular full frames to rimless with the newest equipment to make sure your lenses are cut and positioned to be 100% accurate.<br><br>
+        Both opticians are fully licensed and have over 30 combined years of experience, to discuss your prescription before or after an order with one of friendly opticians just send an email to <a href="mailto:Support@designeroptics.com;">Support@designeroptics.com</a> requesting a call back from our optician.
+            </p>
+          </div>
+        </div>
+
+        <!-- Chat box -->
+        <div class="chatbox chatbox-second medium-up--hide small--hide">
+          <p>Questions about <span>{{product.title}}?</span></p>
+          <span>Contact us for advice or more details.</span>
+          <ul>
+            <li><img src="" data-src="//cdn.shopify.com/s/files/1/2807/8986/files/call-icon.jpg"> 1.877.303.0735 </li>
+            <li><img src="" data-src="//cdn.shopify.com/s/files/1/2807/8986/files/msg-icon.jpg"><a href="#" class="email-support">Email an Expert</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!--W3Trends-->
+    <div class="w3-lensOptions grid__item"></div>
+    <!--/W3Trends-->
+
+    <!-- Product Description with metafields -->
+    <div class="grid__item product-desc" id="tab">
+      <div class="nav nav-tabs">
+        <a href="#home" class="product-details">Details</a>
+        <a href="#tab1" class="sizing-guide-tab">Sizing Guide</a>
+        <a href="#tab2">Description</a>
+        <a href="#tab3">Prescription Guide</a>
+        <a href="#tab4" class="product-review">Reviews</a>
+      </div>
+
+      <div class="tab-content">
+        <div class="accordion" id="section1">Details</div>
+        <div id="home" class="tab-pane fade">
+          <div class="grid__item medium-up--one-third">
+            <h4>Product Details</h4>
+            {{ collection.title }}
+            <ul>
+              {% for field in product.metafields.ProductData %}
+              	{% if field contains 'Model' %}
+              		<li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                {% endif %}
+              {% endfor %}
+              {% for field in product.metafields.ProductData %}
+              	{% if field contains 'Shape' %}
+              		<li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                {% endif %}
+              {% endfor %}
+              {% for field in product.metafields.ProductData %}
+              	{% if field contains 'Gender' %}
+              		<li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                {% endif %}
+              {% endfor %}
+              {% for field in product.metafields.ProductData %}
+              	{% if field contains 'Material' %}
+              		<li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="grid__item medium-up--one-third">
+            <h4>Color Details</h4>
+            {% for variant in product.variants %}
+              <ul class="hidden-option" data-id={{variant.id}} style="display: none;">
+                {% for field in variant.metafields.VariantData %}
+                   {% if field contains 'Size' or field contains 'BridgeType' or field contains 'RimType' or field contains 'Lens Width' or field contains 'Bridge Width' or field contains 'Temple Length' %}
+                      <li></li>
+                   {% else %}
+                      <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                   {% endif %}
+                {% endfor %}
+              </ul>
+            {% endfor %}
+          </div>
+          <div class="grid__item medium-up--one-third">
+            <h4>Size Details</h4>
+            {% for variant in product.variants %}
+              <ul class="hidden-option" data-id={{variant.id}} style="display: none;">
+                {% for field in variant.metafields.VariantData %}
+                  {% if field contains 'Lens Width'%}
+                      <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+                {% for field in variant.metafields.VariantData %}
+                  {% if field contains 'Bridge Width' %}
+                      <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+                {% for field in variant.metafields.VariantData %}
+                  {% if field contains 'Temple Length' %}
+                      <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+                {% for field in variant.metafields.VariantData %}
+                  {% if field contains 'Size' %}
+                      <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endfor %}
+          </div>
+          <div class="grid__item medium-up--one-fifths"><a href="#" class="size-guide-link">Need help with what these "SIZE DETAILS" mean?</a></div>
+        </div>
+
+        <div class="accordion">Sizing Guide</div>
+        <div id="tab1" class="tab-pane fade">
+          <div class="sizing-guide"><img src="" data-src="//cdn.shopify.com/s/files/1/2807/8986/files/sizing_guide_size.png" alt="Sizing Guide"></div>
+        </div>
+        <div class="accordion">Description</div>
+        <div id="tab2" class="tab-pane fade">
+          <p>{{ product.description }}</p>
+        </div>
+        <div class="accordion">Prescription Guide</div>
+        <div id="tab3" class="tab-pane fade">
+          <div class="map-container"><iframe src="https://www.youtube.com/embed/k24pK6I9g5g" frameborder="0" allow="encrypted-media" allowfullscreen></iframe></div>
+        </div>
+        <div class="accordion">Reviews</div>
+
+        <div id="tab4" class="tab-pane fade">
+          {% include 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false %}
+        </div>
+      </div>
+    </div>
+    <!-- End Metafields area -->
+  </div>
+
+  <!-- Prop-65 area -->
+  <div id="prop-65-text" class="prop-65-text">
+    <a class="prop-65-link" data-element="touch-target link" role="button" tabindex="0">
+      <span class="prop-65-link-text">Proposition 65 warning for California residents
+      </span>
+    </a>
+  </div>
+  <div id="prop-65-modal" class="mymodal">
+    <div class="modal-content">
+      <span class="close">×</span>
+      <p id="prop-65-link" class="popup-content" style="display: none;">
+        <strong class="FShipPTxt">California Proposition 65</strong>
+        Proposition 65 is a California regulation that requires special warnings to be presented to customers if a product contains certain quantities of chemicals or toxicants known to the State of California to cause cancer, birth defects, or other reproductive harm. The following warning applies to the products linking to this page:
+      </p>&nbsp;
+      <b>WARNING:</b>&nbsp;Reproductive Harm&nbsp;–&nbsp;<a class="prop-65-external" href="https://www.p65warnings.ca.gov/" role="button" tabindex="0" target="_blank"><span class="light_Z15fefG link_Z1Fch1g">https://www.p65warnings.ca.gov/</span></a>
+    </div>
+  </div>
+  <!-- End Prop-65 area -->
+
+  <!-- Contact Box -->
+  <div class="chatbox chatbox-first medium-up--hide">
+    <p>Questions about <span>{{product.title}}?</span></p>
+    <span>Contact us for advice or more details.</span>
+    <ul>
+      <li><img src="" data-src="//cdn.shopify.com/s/files/1/2807/8986/files/call-icon.jpg"> 1.877.303.0735 </li>
+      <li><img src="" data-src="//cdn.shopify.com/s/files/1/2807/8986/files/msg-icon.jpg"><a href="#" class="email-support">Email an Expert</a></li>
+    </ul>
+  </div>
+  <h3 class="customer-reivew-title">What our customers say about DesignerOptics</h3>
+  <div style="min-height: 100px; overflow: initial;" class="shopperapproved_widget sa_rotate sa_count4 sa_horizontal sa_count4 sa_bgWhite sa_colorBlack sa_borderGray sa_rounded sa_jMy sa_fill sa_showlinks sa_large sa_showdate "></div><script type="text/javascript">var sa_interval = 5000;function saLoadScript(src) { var js = window.document.createElement('script'); js.src = src; js.type = 'text/javascript'; document.getElementsByTagName("head")[0].appendChild(js); } if (typeof(shopper_first) == 'undefined') saLoadScript('//www.shopperapproved.com/widgets/testimonial/3.0/10109.js'); shopper_first = true; </script><div style="text-align:right;">
+  	<a class="sa_footer" href="https://www.shopperapproved.com/reviews/designeroptics.com/" target="_blank" rel="nofollow">
+      <img class="sa_widget_footer" style="border: 0;" alt="" src="" data-src=https://www.shopperapproved.com/widgets/widgetfooter-darklogo.png>
+    </a>
+  </div>
+</div>
+{% include 'cross-sell' %}
+{% unless product == empty %}
+  <script type="application/json" id="ProductJson-{{ section.id }}">
+    {{ product | json }}
+  </script>
+  {% if section.settings.stock_enable %}
+    <script type="application/json" id="VariantJson-{{ section.id }}">
+      [
+        {% for variant in product.variants %}
+          {
+             "incoming": {{ variant.incoming | default: false | json }},
+             "next_incoming_date": {{ variant.next_incoming_date | date: format: 'month_day_year' | json }},
+             "inventory_policy": {{ variant.inventory_policy | json }},
+             "inventory_quantity": {{ variant.inventory_quantity | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    </script>
+  {% endif %}
+{% endunless %}
+
+<!--W3Trends-->
+{{ 'https://productoptions.w3apps.co/js/options.js' | script_tag }}
+<script src="{{ 'product-options.js' | asset_url }}"></script>
+<!--/W3Trends-->
+
+
+<script>
+ setTimeout(function(){
+  var status = jQuery('.product-single__stock').text().trim();
+  jQuery('#product-status').val(status);
+ }, 3000);
+  
+  
+</script>
+
+<script>
+  $( document ).ready(function() {
+
+    <!-- Modal popup -->
+    $('.productShipBoxes ul li').bind('click', function(){
+      $("#myModal").show(500);
+      var boxId=$(this).attr("class");
+      $("#" + boxId).show(500);
+    });
+    $(".close").click(function(){
+      $("#myModal").hide();
+      $("#prop-65-modal").hide();
+      $(".popup-content").hide();
+       $("#sold-out-popup").hide();
+    });
+    $("#myModal").click(function(){
+      $("#myModal").hide();
+      $(".popup-content").hide();
+    });
+    $("a.prop-65-link").bind('click', function(){
+      $("#prop-65-modal").show(500);
+      var boxId=$(this).attr("class");
+      $("#prop-65-link").show(500);
+    }); 
+     $(".product-form__notify-availability").bind('click', function(){
+      $("#sold-out-popup").show(500);
+      var boxId=$(this).attr("class");
+      $("#sold-out-popup").show(500);
+     }); 
+    <!-- End modal popup -->
+
+    <!-- Display metafields for selected variant -->
+    var selected_color=document.getElementById("SingleOptionSelector-0");
+    var selected_size=document.getElementById("SingleOptionSelector-1");
+    var selected_option=document.getElementById("ProductSelect-product-template").options;
+    if (selected_color != null){
+      if( selected_size == null ){
+        product_color_change();
+        selected_color.addEventListener('change', function() {
+          product_color_change();
+        });
+      }else{
+        product_change();
+        selected_color.addEventListener('change', function() {
+          product_change();
+        });
+        selected_size.addEventListener('change', function() {
+          product_change();
+        });
+      }
+    }
+    $(".product-single__thumbnail-item a img").click(function(){
+      setTimeout(function(){
+       if(selected_size == null ){
+          product_color_change();
+        } else {
+          product_change();
+        }
+      }, 100);
+    });
+    function checkForNotifyButton() {
+      setTimeout(function() {
+    	var is_discontinued = $("#ProductStock-{{ section.id }}").html().indexOf('discontinued') > -1;
+        var is_backorder = $("#ProductStock-{{ section.id }}").html().indexOf('back-ordered') > -1;
+
+        if(is_discontinued || is_backorder) {
+        	$('.product-form__notify-availability').show();
+          	//$('#AddToCart-{{ section.id }}:not(.btn--sold-out)').hide();
+        } else {
+          	$('.product-form__notify-availability').hide();
+          	//$('#AddToCart-{{ section.id }}:not(.btn--sold-out)').show();
+        }
+        
+        if(is_discontinued) {
+        	$('#AddToCart-{{ section.id }}').hide();
+        } else {
+            $('#AddToCart-{{ section.id }}').show();
+        }
+        $('input[name="contact[product-sku]"]').val($('.product-single__sku span').text());
+        $('input[name="contact[product-sku]"]').attr('value', $('.product-single__sku span').text());
+          
+        $('input[name="contact[product-status]"]').val($('.product-single__stock').text().trim());
+        $('input[name="contact[product-status]"]').attr('value', $('.product-single__stock').text().trim());
+      }, 500);
+    }
+    function product_change(){
+      if (selected_color != null){
+        var color_str = selected_color.options[selected_color.selectedIndex].value;
+        var size_str = selected_size.options[selected_size.selectedIndex].value;
+        $("#ProductSelect-{{ section.id }} option").each(function(index, value){
+          var option_string = $(this).text();
+          if( (option_string.indexOf(color_str) !=-1) && (option_string.indexOf(size_str) !=-1)) {
+            $(".product-desc ul.hidden-option").hide();
+            $(".product-desc ul[data-id='" + $(this).val() + "']").show();
+            $("#ProductStock-{{ section.id }}").html($(this).data("quantity") + "available");
+            if($(this).data("quantity")>5000){
+              $("#ProductStock-{{ section.id }}").html('<span class="inStockMsg">IN STOCK <i class="ship-tooltip fas fa-question-circle"></i></span>');
+                
+              $("#ProductStock-{{ section.id }}-mobile").html('<span class="inStockMsg">IN STOCK <i class="ship-tooltip fas fa-question-circle"></i></span>');
+              $('.availability_alt').html("Product will be shipped within one business day. For quick delivery choose an expedited shipping service at checkout.");
+            }else if((1000< $(this).data("quantity")) && ($(this).data("quantity")<=5000)){
+              $("#ProductStock-{{ section.id }}").html('Ships within 2 to 3 Days <i class="ship-tooltip fas fa-question-circle"></i>');
+
+              $("#ProductStock-{{ section.id }}-mobile").html('Ships within 2 to 3 Days <i class="ship-tooltip fas fa-question-circle"></i>');
+              $('.availability_alt').html("Shipping information is provided by the manufacturer.");
+            }else if((0< $(this).data("quantity")) && ($(this).data("quantity")<=1000)){
+              $("#ProductStock-{{ section.id }}").html('back-ordered <i class="ship-tooltip fas fa-question-circle"></i>');
+                
+              $("#ProductStock-{{ section.id }}-mobile").html('back-ordered <i class="ship-tooltip fas fa-question-circle"></i>');
+              $('.availability_alt').html("We don't have a definitive shipping date from the manufacturer. Orders will be filled in the order they were placed. We'll keep you updated via email once the order is placed.");
+            }else if($(this).data("quantity") == 0 ){
+              $("#ProductStock-{{ section.id }}").removeClass("hide");
+              $("#ProductStock-{{ section.id }}").html('discontinued <i class="ship-tooltip fas fa-question-circle"></i>');
+                
+              $("#ProductStock-{{ section.id }}-mobile").removeClass("hide");
+              $("#ProductStock-{{ section.id }}-mobile").html('discontinued <i class="ship-tooltip fas fa-question-circle"></i>');
+              $('.availability_alt').html("This Product has been discontinued.");
+            }
+             $("#ProductSku-{{ section.id }} span").html($(this).data("sku"));
+			var altHTML = $('.availability_alt').html();
+            $('#ProductStock-{{ section.id }} .ship-tooltip').attr('data-tip' , altHTML );
+            jqTipr('#ProductStock-{{ section.id }}  .ship-tooltip').tipr();
+              
+            $('#ProductStock-{{ section.id }}-mobile .ship-tooltip').attr('data-tip' , altHTML );
+            jqTipr('#ProductStock-{{ section.id }}-mobile  .ship-tooltip').tipr();
+          }
+        });
+          color_str="";
+          size_str="";
+      }
+      checkForNotifyButton();
+    }
+    function product_color_change(){
+      if (selected_color != null){
+        var color_str = selected_color.options[selected_color.selectedIndex].value;
+        $("#ProductSelect-{{ section.id }} option").each(function(index, value){
+          var option_string = $(this).text();
+          if (option_string.indexOf(color_str) !=-1) {
+            $(".product-desc ul.hidden-option").hide();
+            $(".product-desc ul[data-id='" + $(this).val() + "']").show();
+            if($(this).data("quantity")>5000){
+              $("#ProductStock-{{ section.id }}").html('<span class="inStockMsg">IN STOCK <i class="ship-tooltip fas fa-question-circle"></i></span>');
+                
+              $("#ProductStock-{{ section.id }}-mobile").html('<span class="inStockMsg">IN STOCK <i class="ship-tooltip fas fa-question-circle"></i></span>');
+              $('.availability_alt').html("Product will be shipped within one business day. For quick delivery choose an expedited shipping service at checkout.");
+            }else if((1000< $(this).data("quantity")) && ($(this).data("quantity")<=5000)){
+              $("#ProductStock-{{ section.id }}").html('Ships within 2 to 3 Days <i class="ship-tooltip fas fa-question-circle"></i>');
+
+              $("#ProductStock-{{ section.id }}-mobile").html('Ships within 2 to 3 Days <i class="ship-tooltip fas fa-question-circle"></i>');
+              $('.availability_alt').html("Shipping information is provided by the manufacturer.");
+            }else if((0< $(this).data("quantity")) && ($(this).data("quantity")<=1000)){
+              $("#ProductStock-{{ section.id }}").html('back-ordered <i class="ship-tooltip fas fa-question-circle"></i>');
+                
+              $("#ProductStock-{{ section.id }}-mobile").html('back-ordered <i class="ship-tooltip fas fa-question-circle"></i>');
+              $('.availability_alt').html("We don't have a definitive shipping date from the manufacturer. Orders will be filled in the order they were placed. We'll keep you updated via email once the order is placed.");
+            }else if($(this).data("quantity") == 0 ){
+              $("#ProductStock-{{ section.id }}").removeClass("hide");
+              $("#ProductStock-{{ section.id }}").html('discontinued <i class="ship-tooltip fas fa-question-circle"></i>');
+                
+              $("#ProductStock-{{ section.id }}-mobile").removeClass("hide");
+              $("#ProductStock-{{ section.id }}-mobile").html('discontinued <i class="ship-tooltip fas fa-question-circle"></i>');
+              $('.availability_alt').html("This Product has been discontinued.");
+            }
+
+            $("#ProductSku-{{ section.id }} span").html($(this).data("sku"));
+			var altHTML = $('.availability_alt').html();
+            $('#ProductStock-{{ section.id }} .ship-tooltip').attr('data-tip' , altHTML );
+			jqTipr('#ProductStock-{{ section.id }}  .ship-tooltip').tipr();
+              
+            $('#ProductStock-{{ section.id }}-mobile .ship-tooltip').attr('data-tip' , altHTML );
+			jqTipr('#ProductStock-{{ section.id }}-mobile  .ship-tooltip').tipr();
+
+          }
+        });
+      }
+      checkForNotifyButton();
+    }
+    <!-- End metafields -->
+
+    <!-- Tabs for metafields -->
+      if(window.innerWidth < 1200){
+       $('.nav-tabs').each(function(){
+        // For each set of tabs, we want to keep track of
+        // which tab is active and its associated content
+        var $active, $content, $links = $(this).find('a');
+
+        // If the location.hash matches one of the links, use that as the active tab.
+        // If no match is found, use the first link as the initial active tab.
+        $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+        $active.addClass('active');
+
+        $content = $($active[0].hash);
+
+        // Hide the remaining content
+        $links.not($active).each(function () {
+          $(this.hash).hide();
+        });
+
+        // Bind the click event handler
+        $(this).on('click', 'a', function(e){
+          // Make the old tab inactive.
+          $active.removeClass('active');
+          $content.hide();
+
+          // Update the variables with the new link and content
+          $active = $(this);
+          $content = $(this.hash);
+
+          // Make the tab active.
+          $active.addClass('active');
+          $content.show();
+
+          // Prevent the anchor's default click action
+          e.preventDefault();
+        });
+      });
+    }
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      $('.accordion').click(function(e) {
+      	e.preventDefault();
+
+        var $this = $(this);
+        $(this).parent().find(".accordion").each(function() {
+          if($(this).is($this)) {
+            $(this).next(".tab-pane").slideToggle(300);
+          } else {
+          	$(this).next(".tab-pane").slideUp(300);
+          }
+        });
+
+      });
+    } else {
+      $('.nav-tabs').each(function(){
+        // For each set of tabs, we want to keep track of
+        // which tab is active and its associated content
+        var $active, $content, $links = $(this).find('a');
+
+        // If the location.hash matches one of the links, use that as the active tab.
+        // If no match is found, use the first link as the initial active tab.
+        $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+        $active.addClass('active');
+
+        $content = $($active[0].hash);
+
+        // Hide the remaining content
+        $links.not($active).each(function () {
+          $(this.hash).hide();
+        });
+
+        // Bind the click event handler
+        $(this).on('click', 'a', function(e){
+          $("#tab .sizing-guide-tab").removeClass("active");
+       	  $("#tab1").css("display", "none");
+          // Make the old tab inactive.
+          $active.removeClass('active');
+          $content.hide();
+
+          // Update the variables with the new link and content
+          $active = $(this);
+          $content = $(this.hash);
+
+          // Make the tab active.
+          $active.addClass('active');
+          $content.show();
+
+          // Prevent the anchor's default click action
+          e.preventDefault();
+        });
+      });
+    }
+    var flag = 0;
+    // Collapse/Expand button for color thumbs
+    if($(".product-single__thumbnail-item").size() > 12){$("#color-thumb-button").show();}
+    $(".color-thumb-button").click(function(){
+      flag++;
+      var $elem = $(".photos").find(".product-single__thumbnails");
+      if($elem.hasClass("collapse"))
+      {
+        $elem.removeClass("collapse");
+	    	$(this).text("Show Fewer Colors");
+      }
+      else
+      {
+        $elem.addClass("collapse");
+		    $(this).text("Show More Colors");
+      }
+      if(flag > 1){
+      	$(".chatbox-first").css("display", "block");
+        $(".chatbox-second").css("display", "none");
+        flag = 0;
+      }else{
+      	$(".chatbox-first").css("display", "none");
+        $(".chatbox-second").css("display", "block");
+      }
+    });
+
+    // Email function
+    $(".email-support").click(function(e){
+      e.preventDefault();
+      var email="support@designeroptics.com";
+      var subject="{{product.title}}";
+      var mailto_link='mailto:' + email + '?subject=' + encodeURIComponent(subject);
+      document.location.href=mailto_link;
+    });
+
+     $(".size-guide-link").click(function(){
+       $("#tab .product-details").removeClass("active");
+       $("#home").css("display", "none");
+       $("#tab .sizing-guide-tab").addClass("active");
+       $("#tab1").css("display", "block");
+     });
+    setTimeout(function(){
+      if( $("#tab4 #shopper_review_page #review_header div:first-child").hasClass('merchantheader')){
+        $("#product_page").css("display", "none");
+        $(".overall.block").css("display", "none");
+        $(".stars.block").css("display", "none");
+        $(".percentage.block").css("display", "none");
+        $("#review_header img").css("display", "none");
+        $("#review_header").css("border", "none");
+        $("#review_image").css("display", "none");
+        var html = "<div class='merchantheader'>We are currently collecting product reviews for this item. If you are going to leave your own review for this product, please click the below link. </div>";
+        $("#review_header .merchantheader").replaceWith(html);
+      }
+    }, 1000);
+  });
+</script>
+ 
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_ajax",
+        "label": "Stay on current page when item is added to cart",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "stock_enable",
+        "label": "Show stock",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_products",
+        "label": "Enable product sharing",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

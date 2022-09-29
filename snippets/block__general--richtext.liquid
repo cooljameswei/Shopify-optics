@@ -1,0 +1,113 @@
+<style>
+#richtext--{{-block.id}} {
+    {% unless block.settings.textColor contains 'rgba(0,0,0,0)' %}
+    color: {{block.settings.textColor}};
+    {% endunless %}
+    max-width: {{block.settings.maxBWidth -}}%;
+}
+</style>
+
+<div id="richtext--{{-block.id}}" class="font__size--{{-block.settings.fontSize}} font__family--{{-block.settings.fontFamily}}" {{block.shopify_attributes}}>
+{% if block.settings.detectLists %}
+    {% assign text = block.settings.content | split: '</p>' %}
+    {% assign inList = false %}
+    {% for row in text %}
+        {% assign t = row | replace_first: '<p>', '' %}
+        {% assign t0 = t | slice: 0 %}
+        {% if t0 == '-' %}
+            {% if inList %}
+                <li>{{t | replace_first: '-', ''}}</li>
+            {% else %}
+                {% assign inList = true %}
+                <ul>
+                    <li>{{t | replace_first: '-', ''}}</li>
+            {% endif %}
+        {% else %}
+            {% if inList %}
+                {% assign inList = false %}
+                </ul>
+            {% endif %}
+            <p>{{t}}</p>
+        {% endif %}
+    {% endfor %}
+    {% if inList %}
+        {% assign inList = false %}
+        </ul>
+    {% endif %}
+{% else %}
+    {{block.settings.content}}
+{% endif %}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "richText",
+    "name": "Text",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+    },
+    {
+        "type": "range",
+        "default": 100,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "id": "maxBWidth",
+        "label": "Width (desktop)",
+        "info": "Maximum width content of this block can span on Desktop."
+    },
+    {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>This is for your text</p>"
+    },
+    {
+        "type": "checkbox",
+        "id": "detectLists",
+        "label": "Automatically detect lists",
+        "default": true,
+        "info": "If a row begins with a '-' (dash), theme will automatically turn this row into a list element."
+    },
+    {
+        "type": "color",
+        "id": "textColor",
+        "label": "Text color",
+        "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "header",
+        "content": "Font"
+    },
+    {
+        "type": "radio",
+        "id": "fontFamily",
+        "label": "Font Family",
+        "options": [
+        {"value": "base", "label": "Base font family"},
+        {"value": "title", "label": "Title font family"}
+        ],
+        "default": "base"
+    },
+    {
+        "type": "select",
+        "label": "Font Size",
+        "default": "base",
+        "id": "fontSize",
+        "options": [
+        {"value": "small", "label": "Small"},
+        {"value": "base", "label": "Base"},
+        {"value": "medium", "label": "Medium"},
+        {"value": "big", "label": "Big"}
+        ]
+    }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

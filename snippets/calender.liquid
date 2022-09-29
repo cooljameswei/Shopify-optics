@@ -1,0 +1,315 @@
+<style>
+  
+  .holiday-shipping {
+    display: flex;
+    max-width: 1125px;
+    margin: auto;
+    margin-top: 20px;
+    font-family:'Karla' !important; 
+  }
+  
+  .holiday-detail-container, .holiday-detail-container ul {
+    padding-left: 20px;
+  }
+  .holiday-detail-container li {
+    margin-bottom: 10px;
+  }
+  .calender-container {
+    float: left;
+    margin-bottom: 30px;
+    color: #000;
+    padding: 0;
+    vertical-align: baseline;
+    box-sizing: border-box;
+    margin-left: auto;
+    min-width: 262px;
+  }
+  .note-calender {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    visibility: visible;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: default;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+  }
+  .note-calender header{
+    border: 0;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: default;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  .date-calender {
+    border-spacing: 0;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border-collapse: inherit;
+    border: 1px solid #d4d1d1;
+    background-color: #eee9;
+
+  }
+  .date-calender tr {
+    padding: 0;
+    opacity: 1;
+    background-image: none;
+  }
+  .date-calender th {
+    padding: 9px 5px 8px;
+
+    font-size: 13px;
+    line-height: 10px;
+  }
+  .date-calender td {
+    padding: 0;
+    opacity: 1;
+    background-image: none;
+    box-sizing: content-box;
+    background-clip: padding-box;
+    border-radius: 1px;
+    width: 29px;
+    box-shadow: -1px -1px 0 0 #ccc inset;
+    border: 1px solid transparent;
+    font-size: 12px;
+    line-height: 27px;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  .date-calender .date-blank-field {
+    line-height: 0;
+    border: none;
+    font-size: 0;
+    box-shadow: 0 -1px 0 0 #ccc inset;
+    background-color: #eee9;
+  }
+  .date-calender .weekend {
+    background-color: #e0e0e0;
+  }
+  .date-calender .shipping-unavailable {
+    background-color: {{section.settings.cut-off-bgcolor}};
+    color: {{section.settings.cut-off-textcolor}};
+  }
+  .date-calender .shipping-closed {
+    background-color: {{section.settings.closed-bgcolor}};
+    color: {{section.settings.closed-textcolor}};
+  }
+  .color-legend-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  .color-legend-container > span {
+    display: flex;
+  }
+  .calender-legend-box {
+    height: 20px;
+    width: 20px;
+    border: 1px solid #212020;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .white {
+    background-color: #fff;
+  }
+  .red {
+    background-color:#C03C43;
+  }
+  .grey {
+    background-color:#e0e0e0;
+  }
+  .black {
+
+    background-color: #575656;
+  }
+  
+  .calender-ok {
+    text-align: center;
+    padding: 10px 46px;
+    display: inline-block;
+    display: block;
+    margin: 40px auto auto;
+    font-size: 13px;
+    letter-spacing: 1.95px;
+    color: white;
+    background-color: #c63b3d;
+    border: none;
+    font-weight: bold;
+  }
+  .calender-ok:hover {
+    background-color: #782324;
+    border: none;
+  }
+  .calender-desktop-ok {
+    display: block;
+  }
+  .calender-mobile-ok {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .holiday-shipping {
+      display: block;
+    }
+    .calender-container {
+      margin-top: 20px;
+      float: initial;
+      width: 262px;
+      margin: auto;
+      padding-bottom: 20px;
+    }
+    .calender-desktop-ok {
+      display: none;
+    }
+    .calender-mobile-ok {
+      display: block;
+      margin-top: 20px;
+    }
+  }
+</style>
+
+{% assign cutOffDatesArr = section.settings.cut-off-days | strip | split:"," %}
+{% assign closedDatesArr = section.settings.closed-days | strip | split:"," %}
+
+
+<div class="holiday-shipping">
+  <div class="holiday-detail-container">
+    <h3>{{section.settings.holiday-schedule-heading}}</h3>
+    <ul>
+      {% for block in section.blocks %}
+      	{% if block.type == 'top-list' %}
+      		<li>{{block.settings.list-item}}</li>
+      	{% endif %}
+      {% endfor %}
+    </ul>
+    <button class="calender-desktop-ok calender-ok" onclick="calOkClick()">OK</button>
+  </div>
+  <div class="calender-container">
+    <div class="note-calender"><header>{{section.settings.calender_month}}</header>
+      <table class="date-calender">
+        <thead>
+          <tr>
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% assign startDay = section.settings.month-starting-date | plus:0 %}
+            {% for i in (1..startDay) %}
+              {% if i == startDay %}
+                {% break %}
+              {% endif %}
+              <td class="date-blank-field"></td>
+            {% endfor %}
+            {% assign dateDays = 8 | minus:startDay %}
+            {% for i in (1..dateDays) %}
+              <td class="
+                {%- if i == dateDays -%}
+                  weekend
+                {%-else-%}
+                  {%- for l in cutOffDatesArr -%}
+                  {%- capture lCap -%}{{-l-}}{%- endcapture -%}
+  	              {%- capture iCap -%}{{-i-}}{%- endcapture -%}
+                    {%- if lCap == iCap -%}
+                    shipping-unavailable 
+                    {%- elsif closedDatesArr contains iCap  -%}
+                    shipping-closed
+                    {%- else -%}
+                    shipping-available
+                    {% endif -%}
+                  {%- endfor -%}
+                {%- endif-%}">
+                {{i}}
+              </td>
+            {% endfor %}
+          </tr>
+          {% assign lastDateOfMonth = section.settings.no-of-days-in-month | strip | plus:0 %}
+          {% assign lastDateOfMonthExceeded = false %}
+          {% assign newDateDays = dateDays | plus:0 %}
+          {% assign dateDays = dateDays | plus:1 %}
+          {% assign temp = dateDays %}
+
+          
+          
+          {% for k in (0..4) %}
+          {% assign newDateDays = newDateDays | plus:7 %}
+          {% assign tempInc = k | times:7 %}
+          {% assign dateDays = temp | plus:tempInc %}
+          <tr>
+            {% for i in (dateDays..newDateDays) %}
+            	{% assign flag= false %}
+        	    {% if i == newDateDays %}
+	            <td class="weekend">{{i}}</td>
+    	        {% else %}
+            		{% for j in closedDatesArr %}
+            			{% capture jCap %}{{j}}{% endcapture %}
+	            		{% capture iCap %}{{i}}{% endcapture %}
+    	        		{% if jCap == iCap %}
+        	    			<td class="shipping-closed">{{i}}</td>
+	            			{% assign flag = true %}
+    	        			{% break %}
+	    	        	{% endif %}
+    	    	    {% endfor %}
+            		{% unless flag == true %}            
+        	    	{% for j in cutOffDatesArr %}
+            			{% capture jCap %}{{j}}{% endcapture %}
+	            		{% capture iCap %}{{i}}{% endcapture %}
+    	        		{% if jCap == iCap %}
+        	    			<td class="shipping-unavailable">{{i}}</td>
+	            			{% assign flag = true %}
+    	        			{% break %}
+	    	        	{% endif %}
+    	    	    {% endfor %}
+            		{% endunless %}
+            
+            		{% unless flag == true %}	
+            			<td class="shipping-available">{{i}}</td>
+            		{% endunless %}
+            	{% endif %}
+            {% if i == lastDateOfMonth %} 
+            	{% assign lastDateOfMonthExceeded = true %}
+            	{% break %}
+            {% endif%}
+            {% endfor %}
+          </tr>
+            {% if lastDateOfMonthExceeded %} 
+            	{% break %}
+            {% endif%}
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="color-legend-container"><span><span class="calender-legend-box white"></span> Open</span> <span><span class="calender-legend-box red"></span> Cut Off</span> <span><span class="calender-legend-box black"></span> Closed</span></div>
+    </div>
+    <button class="calender-mobile-ok calender-ok" onclick="calOkClick()">OK</button>
+  </div>
+</div>
+<script type="lazyload2">
+  function calOkClick(){
+    var calArea = document.getElementById("calenderArea");
+    var arrowUp = document.getElementById("calender-up-arrow");
+    var arrowDown = document.getElementById("calender-down-arrow");                                                    
+    if (calArea.style.display === "block") {   
+    	calArea.style.display = "none";
+      	arrowUp.style.display = "none";
+      	arrowDown.style.display = "inline-block";
+    }                                                       
+  }
+</script>

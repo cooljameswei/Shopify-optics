@@ -1,0 +1,211 @@
+<div class="product--tab__content {% if first %}tab--show{% endif %} {% if block.settings.content == 'description' or block.settings.content contains 'page' %}booster--revert{% endif %}" id="tab--{{-block.id}}">
+    {%- case block.settings.content %}
+        {% when 'description' %}
+        <div class="d-flex">
+            {% if product.description != blank %}
+            <div class="description-section">
+                <p>{{ product.description }}</p>
+            </div>
+            {% endif %}
+            <div class="fade details-section{% if product.description == blank %} no-description{% endif %}">
+              <div class="d-flex">
+                {% if product.metafields.ProductData.size > 0 %}
+                <div class="details-left">
+                  <h4><img src="{{ 'product-details.svg' | asset_url}}" alt="Product Details" />Product Details</h4>
+                  <ul>
+                    <!--Model link -->
+                    {% for field in product.metafields.ProductData %}
+                    {% if field contains 'Model' %}
+                    <li><h6>{{ field | first }}</h6><div>{{ field | last }}</div></li>
+                    {% endif %}
+                    {% endfor %}
+                    <!--Shape link By Tag -->
+                    {% for tag in product.tags %}
+
+                        {% if tag == 'Oval'%}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/oval">Oval</a></div></li>
+                        {% elsif tag == 'Pillow' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/pillow">Pillow</a></div></li>
+                        {% elsif tag == 'Irregular'%}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/irregular">Irregular</a></div></li>
+                        {% elsif tag == 'Round' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/round">Round</a></div></li>
+                        {% elsif tag == 'Square' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/square-sunglasses-and-eyeglasses">Square</a></div></li>
+                        {% elsif tag == 'Cat Eye' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/cat-eye">Cat Eye</a></div></li>
+                        {% elsif tag == 'Rectangle' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/rectangle">Rectangle</a></div></li>
+                        {% elsif tag == 'Shield' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/shield">Shield</a></div></li>
+                        {% elsif tag == 'Goggle' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/goggle">Goggle</a></div></li>
+                        {% elsif tag == 'Aviator' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/aviator-sunglasses-eyeglasses">Aviator</a></div></li>
+                        {% elsif tag == 'Pilot' %}
+                    <li><h6>Shape</h6><div>Pilot</div></li>
+                        {% elsif tag == 'Butterfly' %}
+                    <li><h6>Shape</h6><div><a href="https://designeroptics.com/collections/butterfly">Butterfly</a></div></li>
+                        {% endif %}
+                    {% endfor %}
+                     <!--Gender link By Tag -->
+                    {% for tag in product.tags %}
+                        {% if tag == 'Male'%}
+                    <li><h6>Gender</h6><div><a href="https://designeroptics.com/collections/male">Male</a></div></li>
+                        {% elsif tag == 'Female' %}
+                    <li><h6>Gender</h6><div><a href="https://designeroptics.com/collections/female">Female</a></div></li>
+                        {% elsif tag == 'Unisex' %}
+                    <li><h6>Gender</h6><div><a href="https://designeroptics.com/collections/unisex">Unisex</a></div></li>
+                        {% endif %}
+                    {% endfor %}
+                     <!--Material link By Tag -->
+                    {% for tag in product.tags %}
+                        {% if tag == 'Acetate'%}
+                    <li><h6>Material</h6><div><a href="https://designeroptics.com/collections/acetate">Acetate</a></div></li>
+                        {% elsif tag == 'Wood' %}
+                    <li><h6>Material</h6><div><a href="https://designeroptics.com/collections/wood">Wood</a></div></li>
+                        {% elsif tag == 'Metal Stainless Steel' or tag == 'Metal, Stainless Steel' %}
+                    <li><h6>Material</h6><div><a href="https://designeroptics.com/collections/metal-stainless-steel">{%if tag=="Metal Stainless Steel"%}Metal Stainless Steel{% else %}Metal, Stainless Steel{% endif %}</a></div></li>
+                        {% elsif tag == 'Nylon' %}
+                    <li><h6>Material</h6><div><a href="https://designeroptics.com/collections/nylon">Nylon</a></div></li>
+                        {% elsif tag == 'Aluminum�' or tag == 'Aluminum' %}
+                    <li><h6>Material</h6><div><a href="https://designeroptics.com/collections/aluminum">{%if tag=="Aluminum�"%}Aluminum�{% else %}Aluminum{% endif %}</a></div></li>
+                        {% elsif tag == 'Rubber' %}
+                    <li><h6>Material</h6><div><a href="https://designeroptics.com/collections/rubber">Rubber</a></div></li>
+                        {% elsif tag == 'Titanium' %}
+                    <li><h6>Material</h6><div><a href="https://designeroptics.com/collections/titanium">Titanium</a></div></li>
+                        {% endif %}
+                    {% endfor %}
+                    <!--BridgeType link By Tag -->
+                    {% for tag in product.tags %}
+                        {% if tag == 'Single Bridge'%}
+                    <li><h6>Bridge Type</h6><div><a href="https://designeroptics.com/collections/single-bridge">Single Bridge</a></div></li>
+                        {% elsif tag == 'Double Bridge' %}
+                    <li><h6>Bridge Type</h6><div><a href="https://designeroptics.com/collections/double-bridge">Double Bridge</a></div></li>
+                        {% endif %}
+                    {% endfor %}
+                    <!--RimType link By Tag -->
+                    {% for tag in product.tags %}
+                        {% if tag == 'Rimless'%}
+                    <li><h6>Rim Type</h6><div><a href="https://designeroptics.com/collections/rimless">Rimless</a></div></li>
+                        {% elsif tag == 'Half Rim' %}
+                    <li><h6>Rim Type</h6><div><a href="https://designeroptics.com/collections/half-rim">Half Rim</a></div></li>
+                        {% elsif tag == 'Full Rim' %}
+                    <li><h6>Rim Type</h6><div><a href="https://designeroptics.com/collections/full-rim">Full Rim</a></div></li>
+                        {% endif %}
+                    {% endfor %}
+                     <!--Age Group link By Tag -->
+                    {% for tag in product.tags %}
+                        {% if tag == 'Kids'%}
+                    <li><h6>Age Group</h6><div><a href="https://designeroptics.com/collections/kids">Kids</a></div></li>
+                        {% elsif tag == 'Adult' %}
+                    <li><h6>Age Group</h6><div><a href="https://designeroptics.com/collections/adult">Adult</a></div></li>
+                        {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
+                <div class="details-right">
+                    {% if product.variants.size > 1 %}
+                    <div class="colors-details">
+                      <h4><img src="{{ 'color-details.svg' | asset_url}}" alt="Color Details" />Color Details</h4>
+                      {% for variant in product.variants %}
+                      {% if variant.metafields.VariantData.size > 0 %}
+                      <ul data-desc-color-tab-opt class="hidden-option" data-id={{variant.id}} style="display: none;">
+                        {% for field in variant.metafields.VariantData %}
+                        {% if field contains 'Size' or field contains 'BridgeType' or field contains 'RimType' or field contains 'Lens Width' or field contains 'Bridge Width' or field contains 'Temple Length' or field contains 'PrivateLabelSKU' or field contains 'PrivateLabelUPC' or field contains 'Rating' %}
+                        <li></li>
+                        {% else %}
+                        <li><h6>{{ field | first }}</h6><div>{{ field | last }}</div></li>
+                        {% endif %}
+                        {% endfor %}
+                      </ul>
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                  {% if product.variants.size > 1 %}
+                    <div class="size-details">
+                      <h4><img src="{{ 'size-details.svg' | asset_url}}" alt="Size Details" />Size Details</h4>
+                      {% for variant in product.variants %}
+                        {% if variant.metafields.VariantData.size > 0 %}
+                          <ul data-desc-size-tab-opt class="hidden-option" data-id={{variant.id}} style="display: none;">
+                            {% for field in variant.metafields.VariantData %}
+                            {% if field contains 'Lens Width'%}
+                            <li><h6>{{ field | first }}</h6><div>{{ field | last }}</div></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% for field in variant.metafields.VariantData %}
+                            {% if field contains 'Bridge Width' %}
+                            <li><h6>{{ field | first }}</h6><div>{{ field | last }}</div></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% for field in variant.metafields.VariantData %}
+                            {% if field contains 'Temple Length' %}
+                            <li><h6>{{ field | first }}</h6><div>{{ field | last }}</div></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% for field in variant.metafields.VariantData %}
+                            {% if field contains 'Size' %}
+                            <li><h6>{{ field | first }}</h6><div>{{ field | last }}</div></li>
+                            {% endif %}
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+              {% unless eyewearAccessoriesProduct %}
+                <div style="padding-top: 20px;" class="grid__item medium-up--one-fifths"><span></span><a onclick="window.NEW_RX_PDP_TEMPLATE.sizeGuidePopUp()" href="javascript:void(0);" class="size-guide-link">Need help with what these "SIZE DETAILS" mean?</a></div>
+              {% endunless %}
+            </div>
+          </div>
+        {% when 'reviews' %}
+            {% if settings.reviewApp == "loox" %}
+                <div id="looxReviews" data-product-id="{{product.id}}" class="loox-reviews-default">{{ product.metafields.loox.reviews }}</div>
+            {% elsif settings.reviewApp == "shopifyReviews" %}
+                <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+            {% elsif settings.reviewApp == "alireviews" %}
+                <div id="shopify-ali-review" product-id="{{ product.id }}"> {{ shop.metafields.review_collector.review_code }} </div>
+            {% else %}
+                {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false %}
+            {% endif %}
+        {% when 'custom' %}
+            {{block.settings.customContent}}
+        {% when 'custom_liquid' %}
+            {{block.settings.customLiquidContent}}
+        {% when 'embedded_link' %}
+            {% if block.settings.embedded_link != blank %}
+                {% assign youtube_id = block.settings.embedded_link | split:"/" | last %}
+                <div class="map-container">
+                    <iframe 
+                        loading="lazy" 
+                        data-source-url="https://www.youtube.com/embed/{{youtube_id}}" 
+                        frameborder="0" 
+                        allow="encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            {% endif %}
+        {% when 'metafield' %}
+            {% assign metafield = product.metafields[block.settings.metafieldNS][block.settings.metafieldKey] %}
+            {{metafield}}
+        {% when 'page' %}
+            {% assign page = pages[block.settings.page] %}
+            {{page.content}}
+        {% when 'productPage' %}
+            {% assign handle = 'content-' | append: product.handle %}
+            {% assign page = pages[handle] %}
+            {% assign price = product.price | money | strip_html %}
+            {% assign prediscount = product.compare_at_price_max | money | strip_html %}
+            {{page.content | replace: '%product%', product.title | replace: '%brand%', product.vendor | replace: '%price%', price | replace: '%prediscount%', prediscount}}
+    {% endcase %}
+</div>
+
+{% comment %}
+{% blockdef %}
+
+{% endblockdef %}
+{% endcomment %}

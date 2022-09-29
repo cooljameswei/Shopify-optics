@@ -1,0 +1,99 @@
+.col__template--progressive-lenses .intro-section{
+    max-width:1350px;
+    margin:auto;
+} 
+.col__template--progressive-lenses .intro-section .collection__content-image-wrapper .collection__content-image-title{
+    font-family: 'Josefin-Sans-Bold';
+    font-style: normal;
+    font-size: 42px;
+    line-height: 50px;
+    text-transform: capitalize;
+    color: #4C4D4F;
+    width:100%;
+    text-align:center;
+    margin-bottom:25px;
+    font-weight: 700;
+}
+.col__template--progressive-lenses .intro-section .collection__content-image-wrapper .collection__content-image-text p{
+    font-family: 'Inter-Regular';
+    font-style: normal;
+    font-size: 20px;
+    line-height: 30px;
+    color: #4C4D4F;
+    font-weight:400;
+}
+.col__template--progressive-lenses .intro-section .collection__content-image-wrapper{
+    border-radius: 15px;
+}
+.col__template--progressive-lenses .collection__content-image-wrapper ul.collection__content-image-list li.collection__content-image-list-item{
+    display:flex;
+    justify-content: flex-start;
+}
+.col__template--progressive-lenses .collection__content-image-wrapper ul.collection__content-image-list li.collection__content-image-list-item .collection__content-image-list-icon{
+    margin-right:40px;
+}
+.col__template--progressive-lenses .collection__content-image-wrapper ul.collection__content-image-list li.collection__content-image-list-item p{
+    font-family: 'Inter-Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #4C4D4F;
+}
+@media(max-width:1349px){
+    .col__template--progressive-lenses .intro-section .collection__content-image-wrapper{
+        margin-bottom:20px;
+    }
+    .col__template--progressive-lenses .intro-section .collection__content-image-wrapper .collection__content-image-text p{
+        margin-bottom:35px;
+    }
+    .collection__content-image-wrapper .collection__content-image-text{
+        padding:0px 25px;
+    }
+    .col__template--progressive-lenses .intro-section .collection__content-image-wrapper .collection__content-image-title{
+        margin-bottom:10px;
+    }
+    .intro-section .collection__content-image-wrapper{
+        margin:0px 25px;
+    }
+    .col__template--progressive-lenses .collection__content-image-wrapper ul.collection__content-image-list li.collection__content-image-list-item{
+        align-items: center;
+    }
+}
+@media(min-width:768px) and (max-width:1023px){
+    .col__template--progressive-lenses .collection__content-image-wrapper .collection__content-image-list .collection__content-image-list-icon{
+        width:15%;
+    }
+    .col__template--progressive-lenses .collection__content-image-wrapper .collection__content-image-list .collection__content-image-list-icon-img{
+        width: 56px;
+    }
+}
+@media(max-width:767px){
+    .col__template--progressive-lenses .intro-section .collection__content-image-wrapper{
+        margin-bottom:20px;
+    }
+    .col__template--progressive-lenses .intro-section .collection__content-image-wrapper .collection__content-image-title{
+        font-size: 26px;
+        line-height: 38px;
+    }
+    .col__template--progressive-lenses .intro-section .collection__content-image-wrapper .collection__content-image-text p{
+        font-size: 16px;
+        line-height: 30px;
+        margin-bottom:0px;
+    }
+    .collection__content-image-wrapper .collection__content-image-text{
+        padding:0px 25px;
+    }
+    .col__template--progressive-lenses .intro-section .collection__content-image-wrapper .collection__content-image-title{
+        margin-bottom:10px;
+    }
+    .intro-section .collection__content-image-wrapper {
+        margin: 0;
+    }
+    .collection__content-image-wrapper .collection__content-image-group .collection__content-image-group-item .collection__content-image-group-picture{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}

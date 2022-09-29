@@ -1,0 +1,37 @@
+{% assign mobile = settings.cardMobile %}
+{% assign desktop = settings.cardDesktop %}
+
+{% assign products = "" %}
+
+{% for param in params %}
+    {% assign p = param | split: ':' %}
+    {% assign pname = p[0] | strip %}
+    {% assign value = p[1] | strip %}
+
+    {% case pname %}
+        {% when 'products' %}
+            {% assign products = value | remove: ' ' | split: ';' %}
+    {% endcase %}
+{% endfor %}
+
+<div id="s--{{section.id}}" class="{% render 'common-class', section: section, class: 'row', vAlign: false %}">
+<div class="row layout__content s__content">
+<div class="row">
+{% for p_handle in products %}
+{% assign product = all_products[p_handle] %}
+
+<div class="col-{{mobile}} col-md-{{-desktop}} card--holder">
+{% render 'product-card-default', product: product, dsize: '3' %}
+</div>
+{% else %}
+<h2>Error when rendering "Products"</h2><br>
+Found no products in a collection called: "{{collection}}". Make sure you typed the name correctly or check our tutorials.
+{%endfor%}
+</div>
+{% if showMore %}
+<div class="col-12 no-gap showMore {{showMoreAlignment}}">
+{% render 'button', type: 'primary', text: 'Show more', url: collections[collection].url %}
+</div>
+{% endif %}
+</div>
+</div>

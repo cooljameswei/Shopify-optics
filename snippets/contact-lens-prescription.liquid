@@ -1,0 +1,537 @@
+<style>
+  .container {
+    min-height: fit-content;
+  }
+  .contact-lens-pres-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .flex-cols {
+    display: flex;
+    flex-direction: column;
+    max-width: 100px;
+    min-width: 62px;
+    margin: 0 5px;    
+  }
+  .contact-lens-pres-layout .flex-cols:first-child {
+    min-width: 75px;
+  }
+  .flex-data input {
+    font-size:14px;
+    padding: 10px 0px 10px 10px;
+    background: none;
+    height: 50px;
+    border: 1px solid #e7e7e7;
+  }
+  .flex-head,
+  .flex-data {
+    min-height: 50px;
+    margin-bottom: 10px;
+    line-height:50px;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  .flex-head {
+    min-height: 0;
+    line-height: 30px;
+  }
+  .flex-cols select {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 20px 10px 10px;
+
+  }
+  .flex-cols .presc-fixed-value {
+    text-align: center;
+    background: #e7e7e7;
+  }
+  .contact-lens-modal {
+    opacity: 0;
+    z-index: -9999;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 90%;
+    max-width: 400px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    transition: 0.3s ease-in-out;
+    overflow: hidden;
+    min-height: 150px;
+  }
+  .contact-lens-modal .modal-header{
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .contact-lens-modal .close{
+    background: none;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    padding: 0;
+  }
+  .contact-lens-modal .modal-body {
+    padding: 15px;
+  }
+  .contact-lens-modal.showModal {
+    opacity: 1;
+    z-index: 9999;
+    visibility: visible;
+    transform: translate(-50%, 150px);
+  }
+  #contactLensErrorModalOverlay {
+    display: none;
+    position:fixed;
+    top: 0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+  }
+  #contactLensErrorModalOverlay.showModal {
+    display: block;
+  }
+  .contact-lens-modal .modal-header {
+    border-bottom: none;
+  }
+  .contact-lens-modal .modal-header .modal-title {
+    border: 0;
+    padding-bottom: 0;
+    font-size: 22px;
+    padding-top: 0;
+  }
+  .contact-lens-modal .modal-body-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #contactLensSavedPresctionListModal.contact-lens-modal .modal-body-inner {
+  	display: block;
+  }
+  .contact-lens-modal .modal-body-inner label {
+    /* display: inline; */
+    text-transform: none;
+    font-size: 16px;
+    font-weight: normal;
+    flex: 0 0 42%;
+  }
+  .contact-lens-modal .modal-body-inner input[type="text"]{
+    background: none;
+    border: 2px solid;
+    flex: 0 0 58%;
+    min-height: 40px;
+  }
+  .contact-lens-modal .modal-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 20px;
+  }
+  .contact-lens-modal .modal-footer button.contactlens-prescription-button {
+    width: 100%;
+    height: 40px;
+    background-color: #c63b3d;
+    color: #ffffff;
+    border: 1px solid #c63b3d;
+    border-color: #c63b3d;
+    outline-color: #c63b3d;
+    font-weight: bold;
+    flex: 0 0 43%;
+    border-radius: 0;
+  }
+  #contactLensSavePresctionModal.contact-lens-modal .modal-footer button.contactlens-prescription-button.cancel {
+    background-color: #ffffff;
+    color: #c63b3d;
+  }
+  #contactLensSavedPresctionListModal.contact-lens-modal .modal-footer button.contactlens-prescription-button {
+    flex: 0 0 100%; 
+  }  
+  #contactLensSavedPresctionListModal.contact-lens-modal .modal-footer button.contactlens-prescription-button.cancel {
+    flex: 0 0 100%;
+    border-color: #000000;
+    background: #ffffff;
+    color: #000000;
+    text-transform: uppercase;
+  }
+  .profile-select-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+  }
+  .profile-select-container ul li {
+    color: #AAAAAA;
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #dedede;
+  }
+  .profile-select-container ul li label {
+    display: block;
+    position: relative;
+    font-weight: normal;
+    font-size: 1.6rem;
+    padding: 0px;
+    margin: auto;
+    color: #000000;
+    z-index: 9;
+    cursor: pointer;
+    -webkit-transition: all 0.25s linear;
+  }
+  .profile-select-container ul li input[type=radio] {
+    position: absolute;
+    margin: 0;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .profile-select-container ul li label .check-container__profile {
+    padding: 13px 0px 13px 50px!important;
+    margin: auto;
+    text-transform: initial;
+    display: flex;
+    font-size: 1.7rem;
+    align-items: center;
+  }
+  .profile-select-container .check-container__profile span {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .profile-select-container .check-container__profile span {
+    padding-top:4px;
+    padding-bottom: 4px;
+  }
+
+  .profile-select-container ul li:hover label .unselected-profile {
+    background-color: #c63b3d40;
+  }
+
+  .select-profile-modal-window .modal-dialog {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .profile-select-container .selected-profile, .profile-select-container .unselected-profile {
+    font-size: 1.6rem;
+    margin-left: auto;
+    color: black;
+    font-weight: 500;
+    pointer-events:none;
+    float: right;
+  }
+  .profile-select-container .selected-profile {
+    display: none;
+    background-color: #c63b3e;
+    color: #ffffff;
+    font-weight: bold;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    padding-left: 7px;
+    padding-right: 10px;
+    align-items: center;
+    float: right;
+  }
+  .profile-select-container input[type=radio]:checked ~ .check-container__profile .selected-profile {
+    display: inherit;
+    border: 1px solid #c63b3d;
+  }
+  .profile-select-container input[type=radio]:checked ~ .check-container__profile .unselected-profile {
+    display: none;
+  }
+  .product-form .btn {
+    padding-left: 10px;
+    padding-right: 10px;
+    flex: 0 0 49%;
+    
+  }
+  .pdp-btn-addcart-wishlist {
+    flex: 0 0 50%;    
+  }
+  .pdp-btn-addcart-wishlist .btn {
+    font: 600 14px/21px Montserrat;
+    letter-spacing: .7px;
+    padding: 12px 15px;
+  }
+  @media screen and (max-width: 767px) {
+    .contact-lens-pres-layout {
+      display: flex;
+      flex-direction: column;
+    }
+    .flex-cols {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      max-width: 100%;
+    }
+    .flex-head, .flex-data{
+      flex: 0 0 30%;
+      line-height: 50px;
+    }
+    .flex-data input {
+      max-width: 95px;
+    }
+  }
+
+</style>
+
+{% assign SV = false %}
+{% assign Toric  = false %}
+{% assign Multi  = false %}
+{% assign All = false %}
+{% for tag in product.tags %}
+{% if tag contains 'Single Vision'%}
+{% assign SV = true %}
+{% endif  %}
+{% if tag contains 'Multifocal'%}
+{% assign Multi = true %}
+{% endif  %}
+{% if tag contains 'Toric'%}
+{% assign Toric = true %}
+{% endif  %}
+{% endfor %}
+
+{%- capture contact_lens_presc -%}
+<input type="hidden" id="prescription_type" name="properties[Contact Lens]" value="Contact Lens" />
+  <div class="contact-lens-pres-layout flex-half-division">
+    <input type="hidden" id="current_variant_sku" data-prop="sku" name="properties[sku]" value="{{ current_variant.sku }}" />
+    <input type="hidden" id="current_variant_id" data-prop="id" name="id" value="{{ current_variant.id }}" />
+    <input type="hidden" id="contactLensleft_description"  name="properties[_l_description]" value="" />
+    <input type="hidden" id="contactLensleft_osku"  name="properties[_l_osku]" value="" />
+    <input type="hidden" id="contactLensleft_p_name"  name="properties[_l_p_name]" value="" />
+    <input type="hidden" id="contactLensleft_price_pcat"  name="properties[_l_price_pcat]" value="" />
+    <input type="hidden" id="contactLensleft_price_per_piece"  name="properties[_l_price_per_piece]" value="" />
+    <input type="hidden" id="contactLensleft_upcc"  name="properties[_l_upcc]" value="" />
+    <input type="hidden" id="contactLensleft_vendor"  name="properties[_l_vendor]" value="" />
+    
+    <input type="hidden" id="contactLensright_description"  name="properties[_r_description]" value="" />
+    <input type="hidden" id="contactLensright_osku"  name="properties[_r_osku]" value="" />
+    <input type="hidden" id="contactLensright_p_name"  name="properties[_r_p_name]" value="" />
+    <input type="hidden" id="contactLensright_price_pcat"  name="properties[_r_price_pcat]" value="" />
+    <input type="hidden" id="contactLensright_price_per_piece"  name="properties[_r_price_per_piece]" value="" />
+    <input type="hidden" id="contactLensright_upcc"  name="properties[_r_upcc]" value="" />
+    <input type="hidden" id="contactLensright_vendor"  name="properties[_r_vendor]" value="" />
+    
+    <div class="flex-cols first">	
+      <div class="flex-head">Eyes</div>
+      <div class="flex-head flex-pres-right">Right(OD)</div>
+      <div class="flex-head flex-pres-left">Left(OS)</div>
+    </div>
+
+
+    <div class="flex-cols last">
+      <input type="hidden" value="1" id="contactLensQuantity" data-prop="total_quantity" name="quantity" pattern="[0-9]*" data-line="" class="" aria-live="polite">
+      <div class="flex-head">Boxes</div>
+      <div class="flex-data pres-boxes_right"><input type="number" value="" data-prop="r_boxes" data-name="rightBox" id="Quantity_box_right" name="properties[r_boxes]" pattern="[0-9]*" min="0" data-line="" class="lens-qty" aria-live="polite" /></div>
+      <div class="flex-data pres-boxes_left"><input type="number" value="" data-prop="l_boxes" data-name="leftBox" id="Quantity_box_left" name="properties[l_boxes]" pattern="[0-9]*" min="0" data-line="" class="lens-qty" aria-live="polite" /></div>
+    </div>
+
+    
+    <input type="hidden" id="contactLensTag" name="properties[type]" data-prop="type" value="{% if Toric and Multi %}{{ 'All' | downcase }}{% elsif Multi %}{{ 'Multi' | downcase }}{% elsif Toric %}{{ 'Toric' | downcase }} {% else %}{{ 'SV' | downcase }}{% endif %}" />
+    
+  </div>
+  
+{%- endcapture -%}
+{% if hasSubscription == false %}
+  {{ contact_lens_presc }}
+{% endif %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+<script type="text/javascript">
+ 
+  $(document).on('change', '.contact-lens-pres-layout select', function(){
+    var selectVal = $(this).val();
+    $(this).next('input:hidden').val(selectVal);
+  });
+
+
+
+  let queryString = window.location.search;   
+  if(queryString != ''){
+    queryString =  queryString.split('&itemkey=')[1];
+    let addcartItemKey = '<input type="hidden" id="contactLenscartitemkey" name="properties[_itemkey]" value="'+queryString+'" />';
+    $(document).find('.contact-lens-pres-layout').before(addcartItemKey);
+  }
+
+  var prodSku = '{{ current_variant.sku | url_encode }}';
+
+  $('.single-option-selector').on('change', function() {
+    if($('body').attr('data-load') == 'success') {
+      $(document).find('.contact-lens-pres-layout .flex-cols-dynamic-content').remove();
+      let v = $(this).val();
+      prodSku = encodeURI($('select[name="id"] option[data-selvar="'+v+'"]').attr('data-sku'));
+      getPrescritionDetails(prodSku);
+    }    
+  });
+
+
+function getPrescritionDetails(prodSku) {
+
+  //  Fetch API to get json from the server  
+  async function getPrescription() {
+    let url = 'http://cl.designeroptics.com/api/v1/commands/get-product-details?sku='+prodSku+'';   
+    
+    try {
+      let res = await fetch(url);
+      return await res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //   Render the Html as per the response data
+  async function renderPrescription() {
+    let presc = await getPrescription();
+    let data = presc.data;
+
+    let html = '';
+
+    if(data.hasOwnProperty('sph')){
+      let sphData ='sph';    
+      let sphOther =data.sph;
+      if(sphOther.length >= 1 && sphOther != 0){
+        renderBCHtml(sphData, sphOther);
+      }
+
+    }
+    if(data.hasOwnProperty('add')){
+      let addData ='add';      
+      let addOther =data.add;
+      if(addOther.length >= 1 && addOther != 0){
+        renderBCHtml(addData, addOther);
+      }      
+    }
+
+    if(data.hasOwnProperty('cyl')){
+      let cylData ='cyl';
+      let cylOther =data.cyl;
+      if(cylOther.length >= 1 && cylOther != 0){
+        renderBCHtml(cylData, cylOther);
+      }
+      
+    }
+    if(data.hasOwnProperty('bc')){
+      let bcData ='bc';
+      let bcOther =data.bc;
+      if(bcOther.length >= 1 && bcOther != 0){
+        renderBCHtml(bcData, bcOther);
+      }
+      
+    }
+
+    if(data.hasOwnProperty('axs')){
+      let axsData ='axs';
+      let axsOther =data.axs;
+      if(axsOther.length >= 1 && axsOther != 0){
+        renderBCHtml(axsData, axsOther);
+      }
+  }
+}
+  renderPrescription();
+}
+getPrescritionDetails(prodSku);
+
+  function renderHtml(headkey, from, last, diff, other) {
+    //console.log(headkey, from, last, diff);
+    const startNumber = Number(from); //console.log(startNumber)
+    const lastNumber = Number(last); //console.log(lastNumber)
+
+    let diffNumber = diff; //console.log(diffNumber);
+    var  htmlSegment = ''
+    if(diffNumber == 'NA'){
+      
+      htmlSegment += `<div class="flex-cols">
+<div class="flex-head">`+headkey+`</div>
+<div class="flex-data r_pres-`+headkey+`"><div class="presc-fixed-value" data-prop="r_`+headkey+`"><span data-value="`+startNumber+`" >`+startNumber+`</div><input type="hidden" id="r_pres-`+headkey+`" data-prop="r_`+headkey+`" name="properties[r_`+headkey+`]" value="`+startNumber+`" /></div>
+<div class="flex-data l_pres-`+headkey+`"><div class="presc-fixed-value" data-prop="l_`+headkey+`"><span data-value="`+lastNumber+`" >`+lastNumber+`</div><input type="hidden" id="l_pres-`+headkey+`" data-prop="l_`+headkey+`" name="properties[l_`+headkey+`]" value="`+lastNumber+`" /></div>
+  </div>`;
+
+    }else {
+      diffNumber = parseFloat(diffNumber);
+      
+      let betweenNumber = '';    
+      //console.log('add heretere');
+      for(var i=startNumber, j=lastNumber;i<=j; i+=diffNumber){
+        let str = i; 
+        //console.log(str);
+        if(Number.isInteger(str) == false ){
+          str = str.toFixed(2);
+        }
+        betweenNumber += '<option value="'+str+'">'+str+'</option>';
+      }
+      //Create Html Segment
+      htmlSegment += `<div class="flex-cols">
+<div class="flex-head">`+headkey+`</div>
+<div class="flex-data r_pres-`+headkey+`"><select data-prop="r_`+headkey+`"><option value="" > </option>`+betweenNumber+`</select><input type="hidden" id="r_pres-`+headkey+`" data-prop="r_`+headkey+`" name="properties[r_`+headkey+`]" value="" /></div>
+<div class="flex-data l_pres-`+headkey+`"><select data-prop="l_`+headkey+`"><option value="" > </option>`+betweenNumber+`</select><input type="hidden" id="l_pres-`+headkey+`" data-prop="l_`+headkey+`" name="properties[l_`+headkey+`]" value="" /></div>
+  </div>`;
+    }
+
+
+
+
+    $(document).find('.contact-lens-pres-layout .flex-cols.last').before(htmlSegment);
+    //     $(document).find('.r_pres-sph select').attr('required');
+
+    setTimeout(function(){
+      editContactLensPresc();
+    },1000)
+
+  }
+
+  function renderBCHtml(headkey, array) {
+    var  htmlSegment = ''
+    htmlSegment += `<div class="flex-cols flex-cols-dynamic-content">
+<div class="flex-head">`+headkey+`</div>`;
+
+    if(array.length == 1){
+      htmlSegment += `<div class="flex-data r_pres-`+headkey+`"><div class="presc-fixed-value" data-prop="r_`+headkey+`"><span data-value="`+array[0]+`" >`+array[0]+`</div><input type="hidden" id="r_pres-`+headkey+`" data-prop="r_`+headkey+`" name="properties[r_`+headkey+`]" value="`+array[0]+`" /></div>
+<div class="flex-data l_pres-`+headkey+`"><div class="presc-fixed-value" data-prop="l_`+headkey+`"><span data-value="`+array[0]+`" >`+array[0]+`</div><input type="hidden" id="l_pres-`+headkey+`" data-prop="l_`+headkey+`" name="properties[l_`+headkey+`]" value="`+array[0]+`" /></div>`;
+
+    }else {
+      let otherOptions = ''
+      for(var i=0; i<array.length; i++){
+
+        //Create Html Segment
+        otherOptions += `<option value="`+array[i]+`" >`+array[i]+`</option>`;
+
+      }
+
+      htmlSegment += `<div class="flex-data r_pres-`+headkey+`"><select data-prop="r_`+headkey+`"><option value="" ></option>`+otherOptions+`</select><input type="hidden" id="r_pres-`+headkey+`" data-prop="r_`+headkey+`" name="properties[r_`+headkey+`]" value="" /></div>
+<div class="flex-data l_pres-`+headkey+`"><select data-prop="l_`+headkey+`"><option value="" ></option>`+otherOptions+`</select><input type="hidden" id="l_pres-`+headkey+`" data-prop="l_`+headkey+`" name="properties[l_`+headkey+`]" value="" /></div>
+  </div>`;
+
+    }
+
+
+
+
+    $(document).find('.contact-lens-pres-layout .flex-cols.last').before(htmlSegment);
+
+    setTimeout(function(){
+      editContactLensPresc();
+    },1000)
+
+  }
+
+  function editContactLensPresc(){
+    const editPresc = localStorage.getItem('EditContactLensCartItem');
+    if(editPresc != null){
+      let splitData = editPresc.split(',');
+      splitData.forEach(function(i,v){
+        let itemKey = i.split(':')[0]; //console.log(itemKey)
+        let itemVal = i.split(':')[1];//console.log(itemVal)
+        $(document).find('.contactLens-presc-content .contact-lens-pres-layout select[data-prop="'+itemKey+'"] option[value="'+itemVal+'"]').prop('selected', true).change();
+        if(itemKey.indexOf('boxes')){
+          $(document).find('.contactLens-presc-content .contact-lens-pres-layout input[data-prop="'+itemKey+'"]').not('#contactLensTag').val(itemVal).change();
+        } 
+      });
+    }    
+  }
+</script>

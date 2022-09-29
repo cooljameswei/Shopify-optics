@@ -1,0 +1,66 @@
+<style>
+#column--{{-block.id}} .column__media iframe {
+    max-width: {{block.settings.videoSize}}%;
+}
+
+{% if block.settings.buttonFullWidth %}
+#column--{{-block.id}} .column__button {
+    max-width: 100%;
+    width: 100%;
+    flex-basis: 100%;
+}
+{% endif %}
+</style>
+
+<div class="column__media col-12 no-gap" {{block.shopify__attributes}}>
+{% unless block.settings.video == blank %}
+{% if block.settings.video.type == 'youtube' %}
+<iframe class="lazyload" id="player" type="text/html"
+  data-src="https://www.youtube.com/embed/{{-block.settings.video.id}}"
+  frameborder="0"></iframe>
+{% else %}
+<iframe class="lazyload" data-src="https://player.vimeo.com/video/{{-block.settings.video.id}}" frameborder="0" allowfullscreen></iframe>
+{% endif %}
+{% endunless %}
+</div>
+<div class="column__text col-12 unflex no-gap">
+<h3>{{block.settings.heading | remove: '<p>' | remove: '</p>'}}</h3>
+{{block.settings.content}}
+{%- unless block.settings.buttonText == blank %}
+{% if block.settings.openTab %}
+{% assign custom = 'target="_blank"' %}
+{% endif %}
+{% render 'button', text: block.settings.buttonText, type: block.settings.buttonStyle, buttonType: block.settings.buttonType, url: block.settings.buttonURL, class: 'column__button', custom: custom %}
+{% endunless -%}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "columnVideo",
+    "name": "Video + text",
+    "settings": [{
+            "type": "header",
+            "content": "Media"
+        },
+        {
+            "type": "video_url",
+            "label": "Video",
+            "id": "video",
+            "accept": ["youtube", "vimeo"]
+        },
+        {
+            "type": "range",
+            "label": "Video width",
+            "min": 10,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "default": 100,
+            "id": "videoSize"
+        },
+        @settings(columns-block)
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

@@ -1,0 +1,162 @@
+<div class="dob-container">
+  <div class="dob-inner-container-one">
+    {% if section.settings.dob_title_mesg %}
+    <p class="dob-inner-container-cong">{{ section.settings.dob_title_mesg }}</p>
+    {% endif %}
+
+    {% if section.settings.dob_image_icon %}
+    <img class="dob-img" src="{{section.settings.dob_image_icon}}" alt="DOB ICON"/>
+    {% endif %}
+
+    {% if section.settings.dob_title_text %}
+    <p class="dob-inner-container-moredata">{{section.settings.dob_title_text}}</p>
+    {% endif %}
+
+    {% if section.settings.dob_title_subtext %}
+    <p class="dob-inner-container-moreinfo">{{section.settings.dob_title_subtext}}</p>
+    {% endif %}
+  </div>
+  <div class="klaviyo-form-UZSQQC"></div>
+  <p class="dob-inner-container-goto-ac">
+    <a href="https://designeropticsdev.myshopify.com/account/">
+      Go to <u>My Account</u>
+    </a>
+  </p>
+</div>
+
+{% schema %}
+  {
+    "name": "Page DOB",
+    "settings": [
+      {
+		"type": "header",
+		"content": "DOB"
+      },
+      {
+		"type": "text",
+		"id": "dob_title_mesg",
+		"label": "Message",
+		"default": "Congratulations you are registered successfully."
+      },
+      {
+		"type": "image_picker",
+		"id": "dob_image_icon",
+		"label": "Icon"
+      },
+      {
+		"type": "text",
+		"id": "dob_title_text",
+		"label": "Title Text",
+		"default": "WANT SOMETHING MORE FOR YOUR BIRTHDAY"
+      },
+      {
+		"type": "text",
+		"id": "dob_title_subtext",
+		"label": "Title Text",
+		"default": "Please add your <b>date of birth</b> to get special surprise on birthday (Optional)."
+      },
+      {
+		"type": "checkbox",
+		"id": "enable_klaviyo",
+		"label": "Enable Klaviyo",
+		"default": true
+      },
+      {
+		"type": "text",
+		"id": "klaviyo_unique_class",
+		"label": "Klaviyo Unique class",
+		"default": "klaviyo-form-UZSQQC"
+      }	
+	],
+	"presets": [
+    {
+        "category": "custom-page-sections",
+        "name": "Page DOB"
+    }
+	]
+  }
+{% endschema %}
+
+<style>
+/*   html {
+    font-size: 10px;
+  }
+   */
+  
+  #section-{{section.id}} .dob-container * {
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  
+  #section-{{section.id}} .dob-container {
+    width:100%;
+    padding:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+  }
+  #section-{{section.id}} .dob-img {
+    margin: auto;
+    display: block;
+    padding-bottom:29px;
+  }
+  #section-{{section.id}} .dob-inner-container-goto-ac a {
+    color:black;
+  }
+  #section-{{section.id}} .dob-container .dob-inner-container-cong {
+    text-align: center;
+    font-family: "Montserrat";
+    letter-spacing: 0px;
+    color: #2B2E34;
+    opacity: 1;
+    padding-bottom:23.5px;
+    font-size:24px;
+    font-weight: 600;
+  }   
+  #section-{{section.id}} .dob-container form > div > div:first-child {
+    clip: rect(0 0 0 0); 
+    clip-path: inset(50%);
+    height: 1px; 
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap; 
+    width: 1px;
+  }
+  #section-{{section.id}} .dob-inner-container-moredata {
+    font-family: "Montserrat";
+    text-align: center;
+    letter-spacing: 1.8px;
+    color: #000000;
+    opacity: 1;
+    max-width: 68.5277516463%;
+    width: 100%;
+    margin: auto;
+    padding-bottom: 20.35px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  #section-{{section.id}} .dob-inner-container-moreinfo {
+    font-family: "Montserrat";
+    text-align: center;
+    letter-spacing: 0.7px;
+    color: #000000;
+    opacity: 1;
+    max-width: 58.277516463%;
+    width: 100%;
+    margin: auto;
+    font-size: 14px;
+  }
+  #section-{{section.id}} .dob-inner-container-goto-ac {
+    text-align: center;
+    letter-spacing: 1.4px;
+    color: #000000;
+    opacity: 1;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Montserrat";
+  }
+</style>
+{%comment%}
+<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=V75pxh"></script>
+{%endcomment%}

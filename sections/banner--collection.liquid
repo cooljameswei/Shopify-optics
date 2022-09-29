@@ -1,0 +1,262 @@
+{%liquid
+assign url = section.settings.defaultBackgroundImage  
+if collection.image != nil and section.settings.useCollectionImage
+assign url = collection.image
+endif %}
+
+{% capture layoutConfig %}{% render 'common-layout' with section as section %}{% endcapture %}
+
+{% assign default = false %}
+{% if url == nil and section.settings.fillColor contains 'rgba(0,0,0,0)' and section.settings.overlayOpacity == 0 %}
+{% assign default = true %}
+{% endif %}
+
+<style>
+#section-{{section.id}} {
+    position: relative;
+    {% if url != nil %}
+    background-image: url({{url | img_url: '10x' }});
+    background-size: cover;
+    background-position: center center;
+    {% endif %}
+    background-color: {{section.settings.fillColor}};
+    color: {% unless section.settings.contentColor contains 'rgba(0,0,0,0)' %}{{section.settings.contentColor}}{% else %}initial{% endunless %};
+    min-height: {{section.settings.height}}px;
+}
+
+#section-{{section.id}} .section__row {
+    z-index: 1;
+}
+
+{% if section.settings.overlayOpacity > 0 %}
+#section-{{section.id}} .overlay {
+    opacity: {{section.settings.overlayOpacity | times: 0.01}};
+    background: {{section.settings.overlayColor}};
+    z-index: 0;
+}
+{% endif %}
+
+#toggle-{{-section.id}}:checked + .description--collapse {
+  display: block;
+}
+
+#toggle-{{-section.id}}:checked ~ .readMore__toggle::after {
+  content: ' less';
+}
+  /*-------Ayush Changes-------*/
+  .breadcrumbs__wrapper{
+  	display:none;
+  } 
+  #section-template--14962273878224__banner{
+  	min-height: 100px;
+    background: #f6f6f8;
+    padding: 10px 0px;
+    margin-bottom:0px;
+  }
+  .layout__stretchBg>.layout__content{
+  	max-width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
+  }
+  .layout__content h1.font__size--medium{
+  	text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+    margin-bottom: 0;
+    font-family:Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #030303;
+  }
+  .collection-description{
+  	margin-top:20px;
+    font-size: 16px;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #666;
+    line-height: 1.375;
+    text-align:left;
+  }
+  .collection-description span{
+  	color:#0e101a;
+  }
+  .banner{
+  	background-color:#f6f6f8;
+  }
+</style>
+<div id="section-{section.id}}" 
+  class="{% unless section.settings.contentColor contains 'rgba(0,0,0,0)' %}inherit{% endunless %} lazyload row banner layout__{{layoutConfig}} {{section.settings.verticalAlignment}}">
+    <div class="col-12 unflex section__row layout__content {{section.settings.horizontalAlignment}}">
+      {% if section.settings.showTitle %}<h1 class="font__size--{{section.settings.fontSize}}">{{ collection.title }} {% if section.settings.showNumber %}(<span class="collection__total-items">{{collection.products_count}}</span>){% endif %}</h1>{% endif %}
+      {%- if section.settings.showDescription -%}
+          <div class="collection-description">
+            {% if collection.description.size < 20 %} 
+            	{{ collection.description }}
+            {% else %}
+            <div class="short">{{ collection.description | strip_html | truncate: section.settings.truncateDesc, '...' }} <a href="#">View More</a></div>
+            <div class="full" style="display: none">{{ collection.description }} <a href="#">View Less</a></div>
+            {% endif %}
+          </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Title banner"
+  },
+  "settings": [
+    {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458187525)"
+        },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Height",
+      "default": 300,
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "horizontalAlignment",
+      "label": "Content alignment (left to right)",
+      "options": [
+        {"value": "start", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "end", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "verticalAlignment",
+      "label": "Content alignment (top to bottom)",
+      "options": [
+        {"value": "top", "label": "Top"},
+        {"value": "middle", "label": "Middle"},
+        {"value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
+    },
+    {
+        "type": "header",
+        "content": "Style"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show Title",
+      "default": true,
+      "id": "showTitle"
+    },
+    {
+      "type": "select",
+      "label": "Title size",
+      "options": [
+        {"value": "small", "label": "Small"},
+        {"value": "base", "label": "Base"},
+        {"value": "medium", "label": "Medium"},
+        {"value": "big", "label": "Big"}
+      ],
+      "default": "medium",
+      "id": "fontSize"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show collection description",
+      "default": false,
+      "id": "showDescription"
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "label": "Truncate Description",
+      "info": "Limits the amount of characters in the description. This is ignored if 'Read More' is turned on (above setting).",
+      "id": "truncateDesc",
+      "default": 200
+    },
+    {
+      "type": "color",
+      "id": "contentColor",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "fillColor",
+      "label": "Background color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "checkbox",
+      "id": "useCollectionImage",
+      "label": "Use collection's featured image as background",
+      "default": true
+    },
+    {
+        "type": "image_picker",
+        "id": "defaultBackgroundImage",
+        "label": "Default background image"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlayOpacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Overlay opacity",
+      "default": 0,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "overlayColor",
+      "label": "Overlay color",
+      "default": "#000000"
+    }
+  ]
+}
+{% endschema %}
+<script>
+  $( document ).ready(function() {
+    $('.collection-description .full a').click(function() {
+      $('.collection-description .short').show();
+      $('.collection-description .full').hide();
+    });
+
+    $('.collection-description .short a').click(function() {
+      $('.collection-description .full').show();
+      $('.collection-description .short').hide();
+    });
+  });
+  
+</script>

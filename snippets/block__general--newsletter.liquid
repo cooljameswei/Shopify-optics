@@ -1,0 +1,136 @@
+<style>
+#form--{{-block.id}} .newsletter__input {
+    {% unless block.settings.inputText contains 'rgba(0,0,0,0)' %}
+    color: {{block.settings.inputText}};
+    {% endunless %}
+    {% unless block.settings.inputBackground contains 'rgba(0,0,0,0)' %}
+    background: {{block.settings.inputBackground}}
+    {% endunless %}
+}
+
+{% unless block.settings.inputMaxWidth == 0 %}
+#form--{{-block.id}} .newsletter__email {
+    max-width: {{block.settings.inputMaxWidth}}px;
+    flex: 1;
+    flex-shrink: 0;
+    width: 100%;
+}
+{% endunless %}
+</style>
+
+{% assign class = 'newsletter__form ' | append: section.settings.horizontalAlignment %}
+{% if block.settings.newsletter == "shopify" %}
+{% form 'customer', class: class %}
+{%- if block.settings.heading != blank -%}<span class="footer__title">{{block.settings.heading}}</span>{%-endif-%}
+<div id="form--{{-block.id}}" class="newsletter__inputs {{section.settings.horizontalAlignment}}">
+<input type="hidden" name="customer[accepts_marketing,newsletter,prospect]" value="true" />
+<input name="contact[email]" placeholder="{{block.settings.email | default: 'Email'}}" id="{{block.id-}}__email" class="newsletter__input newsletter__email" type="email">
+{% assign btntext = block.settings.submit | default: 'Subscribe' %}
+{% render 'button__submit', text: btntext, type: block.settings.buttonType %}
+</div>
+{% endform %}
+{% elsif block.settings.newsletter == "mailchimp" %}
+{% unless settings.mcAction == blank %}
+<form action="{{settings.mcAction}}" method="POST" class="{{class}}">
+{%- if block.settings.heading != blank -%}<span class="footer__title">{{block.settings.heading}}</span>{%-endif-%}
+{% unless settings.mcU == blank %}<input type="hidden" name="u" value="{{settings.mcU}}">{% endunless %}
+{% unless settings.mcID == blank %}<input type="hidden" name="id" value="{{settings.mcID}}">{% endunless %}
+<div id="form--{{-block.id}}" class="newsletter__inputs {{section.settings.horizontalAlignment}}">
+<input name="EMAIL" placeholder="{{block.settings.email | default: 'Email'}}" id="{{block.id-}}__email" class="newsletter__input newsletter__email" type="email">
+{% assign btntext = block.settings.submit | default: 'Subscribe' %}
+{% render 'button__submit', text: btntext, type: block.settings.buttonType %}
+</div>
+</form>
+{% else %}
+<h2>SETUP YOUR MAILCHIMP ACTION IN Theme Settings->Newsletter</h2>
+{% endunless %}
+{% endif %}
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "blockNewsletter",
+    "name": "Newsletter",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "fullWidth",
+            "default": true,
+            "label": "Single in row"
+        },
+        {
+            "type": "select",
+            "label": "Newsletter provider",
+            "options": [{
+                    "value": "shopify",
+                    "label": "Shopify"
+                },
+                {
+                    "value": "mailchimp",
+                    "label": "Mailchimp"
+                }
+            ],
+            "default": "shopify",
+            "id": "newsletter"
+        },
+        {
+            "type": "header",
+            "content": "Input"
+        },
+        {
+            "type": "range",
+            "min": 0,
+            "max": 1000,
+            "step": 10,
+            "unit": "px",
+            "id": "inputMaxWidth",
+            "label": "Maximum input width",
+            "default": 500
+        },
+        {
+            "id": "inputText",
+            "label": "Input text color",
+            "default": "rgba(0,0,0,0)",
+            "type": "color"
+        },
+        {
+            "id": "inputBackground",
+            "label": "Input background color",
+            "default": "rgba(0,0,0,0)",
+            "type": "color"
+        },
+        {
+            "type": "text",
+            "label": "Placeholder text",
+            "default": "Your e-mail goes here",
+            "id": "email"
+        },
+        {
+            "type": "header",
+            "content": "Button"
+        },
+        {
+            "type": "radio",
+            "default": "primary",
+            "label": "Button type",
+            "options": [{
+                    "value": "primary",
+                    "label": "Primary combination"
+                },
+                {
+                    "value": "secondary",
+                    "label": "Secondary combination"
+                }
+            ],
+            "id": "buttonType"
+        },
+        {
+            "type": "text",
+            "label": "Submit text",
+            "default": "Subscribe",
+            "id": "submit"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

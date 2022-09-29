@@ -1,0 +1,128 @@
+<div class="row inline-upsell max-width">
+    <h2 class="col-12 inline-upsell__heading">{{heading | default: 'People often buy'}}</h2>
+    {% unless subheading == blank %}<span class="col-12">{{subheading}}</span>{% endunless %}
+    {% assign totalPrice = 0 %}
+    {% assign totalDiscount = 0 %}
+    {% assign pastFirst = false %}
+    <div class="col-12 col-md inline-upsell__products">
+        {% if p1.id != product.id and p1 != blank %}
+            {% if p1.available %}
+                {% assign currVar = p1.selected_or_first_available_variant %}
+                {% assign totalPrice = totalPrice | plus: currVar.price %}
+                {% if currVar.compare_at_price > 0 %}
+                    {% assign totalDiscount = totalDiscount | plus: currVar.compare_at_price %}
+                {% else %}
+                    {% assign totalDiscount = totalDiscount | plus: currVar.price %}
+                {% endif %}
+            {% endif %}
+            <div class="col-12 col-md-min inline-upsell__plus">+</div>
+            <input onchange="BoosterTheme.inlineUpsell.toggleVariantIU(this)" {% if p1.available %}checked{% else %}disabled{% endif %} data-for="p1-{{p1.id}}" class="hide inline-upsell__toggle" type="checkbox" id="p1">
+            <label for="p1" class="col-12 col-md inline-upsell__product">
+                {% render 'product-card-upsell', product: p1, var: currVar %}
+                {% unless p1.variants.size == 1 or p1.has_only_default_variant %}
+                    <select onchange="BoosterTheme.inlineUpsell.toggleVariantIU(this)" class="col-12" data-upsell-id="{{p1.id}}" id="p1-{{p1.id}}">
+                        {% for variant in p1.variants %}
+                            {% if variant.available %}
+                                <option data-price="{{variant.price}}" data-compare-price="{{variant.compare_at_price | default: 0}}" value="{{variant.id}}">{{variant.title}}</option>
+                            {% else %}
+                                <option disabled>{{variant.title}} - {{'general.buttons.sold_out' | t}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input data-price="{{p1.price}}" data-compare-price="{{p1.compare_at_price | default: 0}}" type="hidden" value="{{p1.variants[0].id}}" id="p1-{{p1.id}}">
+                {% endunless %}
+            </label>
+        {% endif %}
+        {% if p2.id != product.id and p2 != blank %}
+            {% if p2.available %}
+                {% assign currVar = p2.selected_or_first_available_variant %}
+                {% assign totalPrice = totalPrice | plus: currVar.price %}
+                {% if currVar.compare_at_price > 0 %}
+                    {% assign totalDiscount = totalDiscount | plus: currVar.compare_at_price %}
+                {% else %}
+                    {% assign totalDiscount = totalDiscount | plus: currVar.price %}
+                {% endif %}
+            {% endif %}
+            <div class="col-12 col-md-min inline-upsell__plus">+</div>
+            <input onchange="BoosterTheme.inlineUpsell.toggleVariantIU(this)" {% if p2.available %}checked{% else %}disabled{% endif %} data-for="p2-{{p2.id}}" class="hide inline-upsell__toggle" type="checkbox" id="p2">
+            <label for="p2" class="col-12 col-md inline-upsell__product">
+                {% render 'product-card-upsell', product: p2, var: currVar %}
+                {% unless p2.variants.size == 1 or p2.has_only_default_variant %}
+                    <select onchange="BoosterTheme.inlineUpsell.toggleVariantIU(this)" class="col-12" data-upsell-id="{{p2.id}}" id="p2-{{p2.id}}">
+                        {% for variant in p2.variants %}
+                            {% if variant.available %}
+                                <option data-price="{{variant.price}}" data-compare-price="{{variant.compare_at_price | default: 0}}" value="{{variant.id}}">{{variant.title}}</option>
+                            {% else %}
+                                <option disabled>{{variant.title}} - {{'general.buttons.sold_out' | t}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input data-price="{{p2.price}}" data-compare-price="{{p2.compare_at_price | default: 0}}" type="hidden" value="{{p2.variants[0].id}}" id="p2-{{p2.id}}">
+                {% endunless %}
+            </label>
+        {% endif %}
+        {% if p3.id != product.id and p3 != blank %}
+            {% if p3.available %}
+                {% assign currVar = p3.selected_or_first_available_variant %}
+                {% assign totalPrice = totalPrice | plus: currVar.price %}
+                {% if currVar.compare_at_price > 0 %}
+                    {% assign totalDiscount = totalDiscount | plus: currVar.compare_at_price %}
+                {% else %}
+                    {% assign totalDiscount = totalDiscount | plus: currVar.price %}
+                {% endif %}
+            {% endif %}
+            <div class="col-12 col-md-min inline-upsell__plus">+</div>
+            <input onchange="BoosterTheme.inlineUpsell.toggleVariantIU(this)" {% if p3.available %}checked{% else %}disabled{% endif %} data-for="p3-{{p3.id}}" class="hide inline-upsell__toggle" type="checkbox" id="p3">
+            <label for="p3" class="col-12 col-md inline-upsell__product">
+                {% render 'product-card-upsell', product: p3, var: currVar %}
+                {% unless p3.variants.size == 1 or p3.has_only_default_variant %}
+                    <select onchange="BoosterTheme.inlineUpsell.toggleVariantIU(this)" class="col-12" data-upsell-id="{{p3.id}}" id="p3-{{p3.id}}">
+                        {% for variant in p3.variants %}
+                            {% if variant.available %}
+                                <option data-price="{{variant.price}}" data-compare-price="{{variant.compare_at_price | default: 0}}" value="{{variant.id}}">{{variant.title}}</option>
+                            {% else %}
+                                <option disabled>{{variant.title}} - {{'general.buttons.sold_out' | t}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input data-price="{{p3.price}}" data-compare-price="{{p3.compare_at_price | default: 0}}" type="hidden" value="{{p3.variants[0].id}}" id="p3-{{p3.id}}">
+                {% endunless %}
+            </label>
+        {% endif %}
+        {% if product.available %}
+            {% assign currVar = product.selected_or_first_available_variant %}
+            {% assign totalPrice = totalPrice | plus: currVar.price %}
+            {% if currVar.compare_at_price > 0 %}
+                {% assign totalDiscount = totalDiscount | plus: currVar.compare_at_price %}
+            {% else %}
+                {% assign totalDiscount = totalDiscount | plus: currVar.price %}
+            {% endif %}
+        {% endif %}
+        <div class="col-12 col-md-min inline-upsell__plus">+</div>
+        <input onchange="BoosterTheme.inlineUpsell.toggleVariantIU(this)" {% if product.available %}checked{% else %}disabled{% endif %} data-for="p4-{{product.id}}" class="hide inline-upsell__toggle" type="checkbox" id="p4">
+        <label for="p4" class="col-12 col-md inline-upsell__product">
+            {% render 'product-card-upsell', product: product, var: currVar %}
+            {% unless product.variants.size == 1 or product.has_only_default_variant %}
+                <select onchange="BoosterTheme.inlineUpsell.toggleVariantIU(this)" class="col-12" data-upsell-id="{{product.id}}" id="p4-{{product.id}}">
+                    {% for variant in product.variants %}
+                        {% if variant.available %}
+                            <option {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %} data-price="{{variant.price}}" data-compare-price="{{variant.compare_at_price | default: 0}}" value="{{variant.id}}">{{variant.title}}</option>
+                        {% else %}
+                            <option disabled>{{variant.title}} - {{'general.buttons.sold_out' | t}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            {% else %}
+                <input data-price="{{product.price}}" data-compare-price="{{product.compare_at_price | default: 0}}" type="hidden" value="{{product.variants[0].id}}" id="p4-{{product.id}}">
+            {% endunless %}
+        </label>
+    </div>
+    <div class="col-12 col-md unflex inline-upsell__atc">
+        <div class="inline-upsell__price">Total price: <span class="jsPrice" id="inline-upsell__total">{{totalPrice | money | strip_html}}</span><span class="jsPrice" id="inline-upsell__discount">{% if totalDiscount > totalPrice %}{{totalDiscount | money | strip_html}}{% endif %}</span></div>
+        {% assign text = 'general.buttons.inline_upsell' | t %}
+        {% render 'button--onclick', onclick: 'BoosterTheme.cart.addToCartIU()', type: 'primary', text: text %}
+    </div>
+</div>

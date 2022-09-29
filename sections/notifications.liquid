@@ -1,0 +1,109 @@
+{% if section.settings.enabled %}
+<div class="notif-holder {{section.settings.alignment}}">
+{% for block in section.blocks %}
+<div class="notif margin__vertical anim__fade-in colorCombo {% unless section.settings.colorCombo == 'customCombo' %}{{ section.settings.colorCombo}}{% endunless %}" style="{% if section.settings.colorCombo == 'customCombo' %}background-color: {{section.settings.customFillColor}}; color: {{section.settings.customContentColor}};{% endif %} animation-delay: 0.{{forloop.index}}0s;" ">{{block.settings.content}}{% if block.settings.dismissable %}<span onclick="fadeOut(this.parentNode)">X</span>{% endif %}</div>
+{% endfor %}
+</div>
+
+<style>
+#section-{{section.id}} {
+    
+}
+
+.notif-holder {
+    position: absolute;
+    z-index: 1;
+}
+
+.notif-holder.right {
+    right: 0;
+}
+
+.notif {
+    height: {{section.settings.height}}px;
+}
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": {
+    "en": "Floating messages"
+  },
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Enable/Disable"
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Show 'Floating messages'",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "text",
+      "id": "height",
+      "label": "Height (px)",
+      "default": "30"
+    },
+    {
+        "type": "select",
+        "id": "alignment",
+        "label": "Align",
+        "default": "right",
+        "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "right", "label": "right"}
+        ]
+    },
+    {
+        "type": "radio",
+        "id": "colorCombo",
+        "label": "Color combination",
+        "default": "primaryCombo",
+        "options": [
+            { "value": "primaryCombo", "label": "Primary combination" },
+            { "value": "secondaryCombo", "label": "Secondary combination" },
+            { "value": "customCombo", "label": "Custom combination"}
+        ]
+    },
+    {
+      "type": "color",
+      "id": "customFillColor",
+      "label": "Custom fill color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "customContentColor",
+      "label": "Custom content color",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+      {
+        "type": "text",
+        "name": "Notification",
+        "settings": [
+            {
+                "type": "text",
+                "id": "content",
+                "label": "Notification text"
+            },
+            {
+                "id": "dismissable",
+                "type": "checkbox",
+                "default": true,
+                "label": "Notification can be dismissed"
+            }
+        ]
+      }
+    ]
+}
+{% endschema %}

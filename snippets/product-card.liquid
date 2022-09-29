@@ -1,0 +1,62 @@
+<!-- /snippets/product-card.liquid -->
+
+{% comment %}
+  The product card snippet is passed a liquid object, used in this file
+  as "product". The object is either "product" or "item", the latter if
+  it is from search results.
+{% endcomment %}
+
+<a href="{{ product.url | within: collection }}" class="product-card">
+  <div class="product-card__image-wrapper">
+    <img data-src="{{product.featured_image.src | img_url:'430x293'}}" loading="lazy" class="lazyload" alt="{{ product.featured_image.alt | escape }}" class="product-card__image">
+  </div>
+  <div class="product-card__info">
+    {% if settings.product_vendor_enable %}
+      <div class="product-card__brand">{{ product.vendor }}</div>
+    {% endif %}
+
+    <div class="product-card__name">{{ product.title }}</div>
+
+   	{% if product.available %}
+      <div class="product-card__price">
+        {% if product.compare_at_price > product.price %}
+          {% comment %}
+            Product is on sale
+          {% endcomment %}
+          {% if product.price_varies %}
+            {% assign sale_price = product.price | money_without_trailing_zeros %}
+            On sale from {{ sale_price }}
+          {% else %}
+            <span class="visually-hidden">Regular price</span>
+            <s class="product-card__regular-price">{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+
+            <span class="visually-hidden">Sale price</span>
+            {{ product.price | money_without_trailing_zeros }}
+          {% endif %}
+
+        {% else %}
+          {% comment %}
+            Not on sale, but could still have varying prices
+          {% endcomment %}
+          {% if product.price_varies %}
+            {% assign price = product.price | money_without_trailing_zeros %}
+            From {{ product.price }}
+          {% else %}
+            <span class="visually-hidden">Regular price</span>
+            {{ product.price | money_without_trailing_zeros }}
+          {% endif %}
+
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="product-card__availability">
+        Sold Out
+      </div>
+    {% endif %}
+    {% include 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false %}
+  </div>
+  <div class="product-card__overlay">
+    {% assign view_string_length = 'products.product.view' | t | size %}
+    <span class="btn product-card__overlay-btn {% if view_string_length > 8 %} btn--narrow{% endif %}">View</span>
+  </div>
+</a>

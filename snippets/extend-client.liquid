@@ -1,0 +1,17 @@
+<!-- Extend - Add necessary SDK script tags and configure the store -->
+<link href="https://sdk.helloextend.com/extend-sdk-client/v1/extend-sdk-client.min.js" rel="preload" as="script" type="text/javascript">
+<link href="https://sdk.helloextend.com/extend-sdk-client-shopify-addon/v1/extend-sdk-client-shopify-addon.min.js" rel="preload" as="script" type="text/javascript">
+<script src="https://sdk.helloextend.com/extend-sdk-client/v1/extend-sdk-client.min.js"></script>  
+<script async src="https://sdk.helloextend.com/extend-sdk-client-shopify-addon/v1/extend-sdk-client-shopify-addon.min.js"></script>  
+<script>Extend.config({ storeId: 'df2a6461-0960-4924-b0f8-ff77657add52', environment: 'production' })</script>
+<!-- Extend - Render polyfills to enable IE11 support -->
+{% render 'extend-polyfills' %}
+<!-- Extend - Render aftermarket integration snippet -->
+{% render 'extend-aftermarket-integration' %}
+
+{% unless template contains "rx-new" %}
+    <!-- Extend -- Load product integration script -->
+    {% render 'extend-product-integration' %}
+    <!-- Extend - End Extend code -->    
+{% endunless %}
+

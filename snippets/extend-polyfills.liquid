@@ -1,0 +1,45 @@
+<script>
+  (function () {
+    function URLSearchParams (searchString) {
+      if(window.URLSearchParams){
+        return new window.URLSearchParams(window.location.search).get(searchString)
+      } else {
+        var self = this;
+        self.searchString = searchString;
+        self.get = function (name) {
+          var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(self.searchString);
+          if (results == null) {
+            return null;
+          }
+          else {
+            return decodeURI(results[1]) || 0;
+          }
+        };
+      } }
+      window.Extend && (
+        window.Extend.URLSearchParams = URLSearchParams
+      );
+  })()
+</script>
+<!-- usage: window.Extend.URLSearchParams('leadtoken') <-- returns the leadtoken regardless of browser -->
+
+
+<script>
+  (function () {
+    function CustomEvent ( event, params ) {
+      if ( typeof window.CustomEvent === "function" ) {
+        return new window.CustomEvent(event, params);
+      } else {
+        params = params || { bubbles: false, cancelable: false, detail: null };
+        var evt = document.createEvent( 'CustomEvent' );
+        evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+        return evt;
+      };
+    }
+    window.Extend && (
+      window.Extend.CustomEvent = CustomEvent
+    );
+  })();
+</script>
+<!-- usage dispatching event:
+window.dispatchEvent(window.Extend.CustomEvent('cartUpdated', { detail: cart })) params are not necessary -->

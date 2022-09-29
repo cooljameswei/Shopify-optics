@@ -1,0 +1,22 @@
+{% assign amount = "50%" %}
+{% assign height = "25px" %}
+{% assign width = "75%" %}
+
+{% for param in params %}
+    {% assign p = param | split: ':' %}
+    {% assign pname = p[0] | strip %}
+    {% assign value = p[1] | strip %}
+
+    {% case pname %}
+        {% when 'amount' %}
+            {% assign amount = value %}
+        {% when 'height' %}
+            {% assign height = value %}
+        {% when 'width' %}
+            {% assign width = value %}
+    {% endcase %}
+{% endfor %}
+
+<span style="height: {{height}}; display: inline-flex; width: {{width}}" class="sh__percentage">
+    <span class="amount"><span class="amount--left" style="width: {{amount}};"></span></span>
+</span>

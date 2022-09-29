@@ -1,0 +1,35 @@
+<style>
+
+
+</style>
+
+
+<input name="{{section.id}}" type="radio" style="display: none">
+<div style="height: 40px; width: 40px; background: red;"></div>
+
+<style>
+input[type="radio"]:checked + div {
+    background: green;
+}
+</style>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "accordion",
+    "name": "Accordion",
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "question",
+            "label": "Question"
+        },
+        {
+            "type": "richtext",
+            "id": "answer",
+            "label": "Answer"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

@@ -1,0 +1,23 @@
+<div class="col-12 product__stock {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+{% if product.available %}
+<span class="amount--text">
+<span 
+data-reduce="{{block.settings.reduce}}" 
+data-product="{{product.id}}" 
+data-stock-type="{{block.settings.stockLeft}}" 
+data-stock-left="{% unless block.settings.stockLeft == 'inventory' %}{{block.settings.stockLeft}}{%else%}{{product.first_available_variant.inventory_quantity | default: 5}}{%endunless%}">
+0</span>
+ {{'product_page.apps.in_stock' | t}}</span>
+<span class="amount"><span class="amount--left"></span></span>
+{% else %}
+<span class="amount--text">
+{{'product_page.apps.no_stock' | t}}</span>
+<span class="amount"><span class="amount--left" style="width: 2px;"></span></span>
+{% endif %}
+</div>
+
+{% comment %}
+{% blockdef %}
+
+{% endblockdef %}
+{% endcomment %}

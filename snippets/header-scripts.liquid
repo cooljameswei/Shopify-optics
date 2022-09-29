@@ -1,0 +1,55 @@
+<!--  global variables define start -->
+{%- capture slickCssURL -%}
+{%- if template contains 'product' or template contains 'cart' or template contains 'index' or template contains 'press' -%}{{-'slick-jsdelivr-181.css' | asset_url-}}{%- endif -%}
+{%- endcapture -%}
+<script type="text/javascript">
+    window.QUICK_FIX = window.QUICK_FIX || {};
+    window.QUICK_FIX.template = "{{-template-}}";
+    window.QUICK_FIX.collectionHandle = "{{-collection.handle-}}";
+    const _lazyStylesSheets = [
+        "{{-'rx-theme-specific-css.css' | asset_url-}}",
+        {%- if template contains 'product' or template contains 'cart' or template contains 'index' or template contains 'press' -%}"{{-'slick-jsdelivr-181.css' | asset_url-}}",{%- endif -%}
+    ];
+</script>
+<!--  global variables define end -->
+{%- if request.design_mode == false -%}
+    {{- 'jquery.min.js' | asset_url | preload_tag: as: 'script', type: 'text/javascript' -}}
+{%- endif -%}
+<script src="{{'jquery.min.js' | asset_url}}"></script>
+<!-- Google Tag Manager -->
+<script type="lazyload2" defer>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.defer=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NX9PSGP');
+</script>
+<!-- End Google Tag Manager -->
+
+<!-- Global site tag (gtag.js) START - Google Ads: 995381954 -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=AW-995381954"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-995381954');
+</script>
+<!-- Global site tag (gtag.js) - END -->
+
+{%- if template != 'index'-%}
+    {%- render 'judgeme_core' -%}
+{%- endif -%}
+<!-- Cart page Shipping Insurance adding issue fix start -->
+<script>
+    if(window.location.pathname == '/cart'){       
+    }else{
+        if(sessionStorage.getItem("shipping_insurance")){
+            sessionStorage.removeItem("shipping_insurance")
+        }
+    }
+</script>
+{%- comment -%}{%- render 'translation-lab-language-management' -%}{%- endcomment -%}
+<!-- Cart Page Shipping Insurance adding issue fix end -->
+{%- unless settings.headJS == blank -%}
+    <script type="lazyload2">
+    {{settings.headJS}}
+    </script>
+{%- endunless -%}
+

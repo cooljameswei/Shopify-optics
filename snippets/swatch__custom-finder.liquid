@@ -1,0 +1,43 @@
+{%- comment -%}
+value - current color we're searching for
+product - ProductDrop
+variantImages - array of images by color
+colorImages - variant featured_images COLOR#SRC
+{%- endcomment -%}
+{%- assign customColors = settings.swatchCustomColors | downcase | split: ',' -%}
+{%- assign currentColor = value | handleize -%}
+{%- assign featuredURL = false -%}
+
+{% if useImages %}
+    {%- assign images = colorImages | split: ',' -%}
+    {%- for image in images -%}
+    {%- assign splitImage = image | split: '##' -%}
+    
+    {%- if splitImage[0] != ix %}
+        {%- continue -%}
+    {%- endif -%}
+    {%- if splitImage[1] == currentColor -%}
+        {%- assign featuredURL = splitImage[2] -%}
+        {%- break -%}
+    {%- endif -%}
+    {%- endfor -%}
+
+    {% assign ext = '.' | append: settings.swatchFileExt %}
+
+    {%- assign productSpecificImage = product.handle | append: '-' | append: currentColor | append: ext -%}
+    {%- assign psURL = productSpecificImage | file_img_url: '100x100' -%}
+    {%- assign colorSpecificImage = currentColor | append: ext -%}
+    {%- assign csURL = colorSpecificImage | file_img_url: '100x100' -%}
+{% endif %}
+
+{%- assign color = currentColor -%}
+{%- for clr in customColors -%}
+    {% assign clr_s = clr | split: ':'%}
+    {% assign clr_h = clr_s[0] | handleize %}
+    {%- if clr_h == currentColor -%}
+        {%- assign color =  clr_s[1] | trim -%}
+        {%- break -%}
+    {%- endif -%}
+{%- endfor -%}
+
+style="background-color: {{color}}; {% if useImages %} background-image:url({{psURL}}), url({{csURL}}){% if featuredURL %}, url({{featuredURL}}){% endif %}; {% endif %}"

@@ -1,0 +1,101 @@
+<style type="text/css">
+{% if block.settings.customFont %}
+{% render 'font', font: block.settings.customFontFamily %}
+{% endif %}
+
+#richtext--{{-block.id}} {
+    {% unless block.settings.textColor contains 'rgba(0,0,0,0)' %}color: {{block.settings.textColor}};{% endunless %}
+    {% if block.settings.fontSize == 'custom' %}
+    font-size: {{block.settings.customFontSize}}px;
+    {% endif %}
+    {% if block.settings.customFont %}
+    font-family: {{ block.settings.customFontFamily.family }}, {{ block.settings.customFontFamily.fallback_families }};
+    font-weight: {{block.settings.customFontFamily.weight}};
+    {% endif %}
+    max-width: {{block.settings.maxBWidth -}}%;
+}
+</style>
+
+<div id="richtext--{{-block.id}}" class="{% unless block.settings.fontSize == 'custom'%}font__size--{{-block.settings.fontSize}}{% endunless %}" 
+{{block.shopify_attributes}}>
+{{block.settings.content}}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "customRichText",
+    "name": "Custom Text",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "fullWidth",
+        "default": true,
+        "label": "Single in row"
+    },
+    {
+        "type": "range",
+        "default": 100,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "id": "maxBWidth",
+        "label": "Width (desktop)",
+        "info": "Maximum width content of this block can span on Desktop."
+    },
+    {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>This is for your text</p>"
+    },
+    {
+        "type": "color",
+        "id": "textColor",
+        "label": "Text color",
+        "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "header",
+        "content": "Font"
+    },
+    {
+        "type": "select",
+        "label": "Font size",
+        "id": "fontSize",
+        "options": [
+        {"value": "small", "label": "Small"},
+        {"value": "base", "label": "Base"},
+        {"value": "medium", "label": "Medium"},
+        {"value": "big", "label": "Big"},
+        {"value": "custom", "label": "Custom"}
+        ],
+        "default": "medium"
+    },
+    {
+        "type": "range",
+        "id": "customFontSize",
+        "label": "Custom Font size",
+        "unit": "px",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "default": 18
+    },
+    {
+        "type": "checkbox",
+        "label": "Use custom font",
+        "default": false,
+        "id": "customFont"
+    },
+    {
+        "id": "customFontFamily",
+        "label": "Custom font",
+        "type": "font_picker",
+        "default": "work_sans_n6"
+    }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

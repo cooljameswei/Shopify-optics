@@ -1,0 +1,34 @@
+<div class="card--default">
+
+<a class="card__img--container" href="">
+<div class="card__img--ratio">
+  <div class="card__img">
+    {% comment %} {% render 'image', src: product.featured_image.src, alt: product.featured_image.alt, size: '300x' %} {% endcomment %}
+    <img data-product-image src>
+    <div data-countdown data-ct-key="" class="countdown">
+      <span class="countdown__holder"><span class="days">00</span><br>DAYS</span>
+      <span class="countdown__holder"><span class="hours">00</span><br>HRS</span>
+      <span class="countdown__holder"><span class="minutes">00</span><br>MIN</span>
+      <span class="countdown__holder"><span class="seconds">00</span><br>SEC</span>
+    </div>
+  </div>
+</div>
+</a>
+
+
+<div class="card__info">
+<a class="card__title" href="">
+{% comment %} {{ product.title }} {% endcomment %}
+</a>
+
+<span class="card__price jsPrice">
+{% comment %} {% if product.price_varies %}
+from {{ product.price_min | money }}
+{% else %}
+{{ product.price | money }}
+{% endif %} {% endcomment %}
+</span>
+
+</div>
+
+</div>

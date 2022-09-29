@@ -1,0 +1,169 @@
+<script>
+  
+  function addItemFromForm(properties) {
+    var productForm = document.querySelector('form[action="/cart/add"]');
+    
+    let formData = $(productForm).serialize();
+    formData = formData.split("&");
+    let formJsonData = {}
+    for(let i=0; i< formData.length; i++) {
+      let keyVal = formData[i].split("=");
+      formJsonData[keyVal[0]] = keyVal[1];
+    }
+    formJsonData["properties"] = properties || {};
+    if($("#selShape") && $("#selShape").val()) formJsonData.properties["Shape"] = $("#selShape").val();
+    if($("#selLens") && $("#selLens").val()) formJsonData.properties["Lens Size"] = $("#selLens").val();
+    var t = {
+      type: "POST",
+      url: "/cart/add.js",
+      data: formJsonData,
+      dataType: "json",
+      success: function (e) {
+//         checkInsurance(res, undefined, true, "/cart");
+        window.location.href = '/cart';
+      },
+      error: function (e, t) {
+        console.log("error, ",e)
+      }
+    };
+    $.ajax(t);
+  }
+
+  if (window.Extend && window.ExtendShopify && window.Shopify.currency.active === "USD") {
+
+    function initProductOffer() {
+
+      //initial variables
+      var productForm = document.querySelector('form[action="/cart/add"]');
+      var addToCartButton = productForm.querySelector('button[name="add"]');  
+      var extendOffer = productForm.querySelector('#extend-offer');
+
+      
+      //fail safe
+      if(!productForm || !addToCartButton || !extendOffer) return;
+
+      function isExtend() {
+        if(meta.product && meta.product.vendor == "Extend"){
+          addToCartButton.disabled = true;
+        }
+      }
+
+      //Checks if product is an Extend warranty and if so disables 
+      isExtend();
+
+      $('.single-option-selector').on('change', function() {
+        var variantId = productForm.id.value
+        if (variantId) {
+          Extend.setActiveProduct('#extend-offer', variantId);
+          isExtend();
+        }
+      })
+
+      var firstVariant = productForm.id.value
+      Extend.buttons.render(extendOffer, {referenceId: firstVariant })
+
+      addToCartButton.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        var quantityEl = productForm.querySelector('[name="quantity"]');
+        var quantity = quantityEl && quantityEl.value;
+        
+        ExtendShopify.handleAddToCart("#extend-offer", {
+          quantity: quantity,
+          modal: false,
+          done: function (e) {
+            const component = Extend.buttons.instance('#extend-offer');
+            const plan = component.getPlanSelection();
+            if (plan) {
+              productForm.addProperties = {
+                "Extend Title" : plan.title,
+                "Extend Price" : '$' + (plan.price/100),
+                "Term" : plan.term/12 + ' years - sold by Extend',
+                "extend_exist" : true,
+                "ExtendVariantTitle": plan.planId + '-' + plan.price,
+                "Warranty added for": quantity
+              }
+              if(parseInt(plan.term/12) <= 1) {
+                productForm.addProperties["Term"] = plan.term/12 + ' year - sold by Extend';
+              }
+//               $(productForm).trigger("submit");            
+              addItemFromForm(productForm.addProperties);
+            } else {
+              var variantId = productForm.id.value
+              Extend.modal.open({
+                referenceId: variantId,
+                onClose: function(plan, product) {
+                  if (plan && product) {
+                    var quantityEl = productForm.querySelector('[name="quantity"]');
+                    var quantity = quantityEl && quantityEl.value;
+                    ExtendShopify.addPlanToCart(
+                      {
+                        plan: plan,
+                        product: product,
+                        quantity: quantity,
+                      },
+                      function (err) {
+                        if (err) {
+                          addItemFromForm(productForm.addProperties);
+//                           $(productForm).trigger("submit");  
+                          return;
+                        } else {
+                          productForm.addProperties = {
+                            "Extend Title" : plan.title,
+                            "Extend Price" : '$' + (plan.price/100),
+                            "Term" : plan.term/12 + ' years - sold by Extend',
+                            "extend_exist" : true,
+                            "ExtendVariantTitle": plan.planId + '-' + plan.price,
+                            "Warranty added for": quantity
+                          }
+                          if(parseInt(plan.term/12) <= 1) {
+                            productForm.addProperties["Term"] = plan.term/12 + ' year - sold by Extend';
+                          }
+                          addItemFromForm(productForm.addProperties);
+//                           $(productForm).trigger("submit");            
+                        }
+                      }
+                    );
+                    
+                  } else {
+                    addItemFromForm(productForm.addProperties);
+//                     $(productForm).trigger("submit");            
+                  }
+                },
+              })
+            }
+          }
+        }); // End- handleAddToCart  
+
+      });	// End - AddToCartListener
+
+    } 
+    
+    window.addEventListener('pdpInitialized', function(){
+      	var offerElement = document.createElement('div')
+        offerElement.id = 'extend-offer';
+      	var submitElement = document.querySelector('.product-form__item--submit');
+      	submitElement.parentNode.insertBefore(offerElement, submitElement);
+      	//initial product offer render
+    	initProductOffer();
+    })
+
+  }
+
+</script>
+
+<style>
+
+  #extend-offer {
+    padding-bottom: 5px;
+  }
+
+  #extend-offers-modal-iframe {
+    z-index: 999999999!important;
+  }
+  
+  #extend-learn-more-modal-iframe {
+  	z-index: 999999999!important;
+  }
+  
+</style>

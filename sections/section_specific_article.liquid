@@ -1,0 +1,232 @@
+<style type="text/css">
+{% render 'common-css' with section as section %}
+
+.custom--article-card { border: 1px solid #dddddd; }
+.custom--article-card .article--info { padding: 15px; }
+.custom--article-card .article--info h3 { font-size: 20px; line-height: 24px; font-weight: bold; height: 80px; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
+.custom--article-card .article--info .article--date { margin-top: 10px; display: inline-block; font-size: 12px; }
+.custom--article-card .article--info .bcard__excerpt { margin-top: 10px !important; display: inline-block; font-size: 12px; }
+.custom--article-card .article--info .read-more-link { margin-top: 10px; color: #c73c3d !important; display: inline-block; font-size: 14px; font-weight: bold; }
+.custom--article-card .article--info .read-more-link:hover { text-decoration: underline; }
+.specific-article-grid .btn-bottom { width: 100%; text-align: center; margin-top: 30px; z-index: 9; }
+.specific-article-grid .btn-bottom .button--primary { background-color: #c73c3d !important; }
+.specific-article-grid .btn-bottom .button--primary:hover { background-color: #000000 !important; color: #ffffff !important; }
+.custom--article-card .article--img{
+	height:196px;
+  	width:100%;
+}
+.custom--article-card .article--img img{
+	height: 100%;
+  	width:100%;
+    object-fit: cover;
+}  
+@media(max-width:1023px){
+    .specific-article-grid .s__block.article-block{
+        margin-bottom:15px;   
+    }
+}
+@media(max-width:767px){
+  .custom--article-card .article--img{
+  	height:auto;
+  }
+}
+</style>
+    
+<div
+id="s--{{section.id}}"
+{% unless section.settings.backgroundImage == nil -%}{% render 'background', image: section.settings.backgroundImage %}{%- endunless %}
+class="{% render 'common-class', section: section, class: 'row section__columns', bg: true %}">
+    {% if section.settings.overlayOpacity > 0 %}
+    <div
+    class="overlay"
+    style="opacity: {{section.settings.overlayOpacity | times: 0.01}}; background-color: {{section.settings.overlayColor}};">
+    </div>
+    {% endif %}
+    <div 
+    class="row {{ section.settings.horizontalAlignment }} middle s__content layout__content">
+    {% render 'block__general--heading' with section as section %}
+    {%- for block in section.blocks %}
+        {% assign article = articles[block.settings.article] %}
+        <div id="blog--{{-block.id}}" class="col-12 col-md-6 col-lg-3 s__block article-block">
+            <div class="custom--article-card">
+                <div class="article--img">
+                    <a href="{{article.url}}"><img src="{{ article.image | img_url : "master" }}" alt="{{article.title}}"></a>
+                </div>
+                <div class="article--info">
+                    <h3 class="article--title"><a href="{{article.url}}">{{article.title}}</a></h3>
+                    <span class="article--date">Updated: {{ article.updated_at | date: "%b %d, %Y" }}</span>
+                    <p class="bcard__excerpt">{{article.excerpt | default: article.content | truncate: 140 | strip_html }}</p>
+                    <a class="read-more-link" href="">Read More</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% for i in (1..3) %}
+            <div id="blog--{{-block.id}}" class="col-12 col-md-4 s__block">
+                {% render 'blog-card-fake', i: i %}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    </div>
+    {% if section.settings.btn__label != blank and section.settings.button_url != blank %}
+    <div class="btn-bottom">
+        <a href="{{ section.settings.button_url }}" class="button button--primary button--filled button--primary__filled
+        font__size--base font__family--base">{{ section.settings.btn__label }}</a>
+    </div>
+    {% endif %}
+</div>
+{% schema %}
+{
+    "name": {
+        "en": "Specific Articles"
+    },
+    "class": "specific-article-grid",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+            "type": "paragraph",
+            "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458159219)"
+        },
+        {
+            "type": "header",
+            "content": "Section layout"
+        },
+        {
+            "type": "radio",
+            "id": "displayFor",
+            "label": "Show this section on",
+            "options": [
+                {
+                    "value": "display--both",
+                    "label": "All devices"
+                },
+                {
+                    "value": "hide-desktop",
+                    "label": "Mobile only"
+                },
+                {
+                    "value": "hide-mobile",
+                    "label": "Desktop only"
+                }
+            ],
+            "default": "display--both"
+        },
+        {
+            "type": "select",
+            "id": "layout",
+            "label": "Section layout",
+            "options": [
+                {
+                    "value": "default",
+                    "label": "Global default"
+                },
+                {
+                    "value": "boxed",
+                    "label": "Boxed"
+                },
+                {
+                    "value": "stretchBg",
+                    "label": "Full width background"
+                },
+                {
+                    "value": "stretchContent",
+                    "label": "Full width"
+                }
+            ],
+            "default": "default"
+        },
+        {
+            "type": "checkbox",
+            "id": "nomargin",
+            "default": false,
+            "label": "Remove section's bottom margin"
+        },
+        {
+            "type": "textarea",
+            "id": "scopedCSS",
+            "label": "Section-scoped CSS",
+            "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+        },
+        {
+            "type": "header",
+            "content": "Section background"
+        },
+        {
+            "id": "backgroundColor",
+            "type": "color",
+            "default": "rgba(0,0,0,0)",
+            "label": "Background color"
+        },
+        {
+            "type": "header",
+            "content": "Section heading"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Section heading",
+            "default": "Check out this section's heading"
+        },
+        {
+            "type": "color",
+            "id": "headingColor",
+            "default": "rgba(0,0,0,0)",
+            "label": "Heading Color"
+        },
+        {
+            "type": "select",
+            "id": "headingAlignment",
+            "label": "Heading alignment (left to right)",
+            "options": [
+                {
+                    "value": "start",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ],
+            "default": "center"
+        },
+        {
+            "type": "text",
+            "label": "Button Label",
+            "id": "btn__label"
+        },
+        {
+            "type": "url",
+            "label": "Button URL",
+            "id": "button_url"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "article",
+            "name" :  "Article",
+            "settings": [
+                {
+                   "type": "article",
+                   "id": "article",
+                   "label": "Article"
+                }  
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "category": "Blog",
+            "name": "Specific Articles",
+            "blocks": []
+        }
+    ]
+}
+{% endschema %}

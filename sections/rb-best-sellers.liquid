@@ -1,0 +1,398 @@
+    {{ 'slick.scss' | asset_url | stylesheet_tag }}
+	{{ 'slick.min.js' | asset_url | script_tag }}
+<div class="page-width rb-best-sellers padding-fix" style="padding-top:50px;">
+  <div class="rb-container">
+    <h3 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">OUR BEST SELLER ICONS</h3>
+    {% if section.settings.shop_seller_banner_enable %}
+      <div class="cover-intro hide-mobile" style="background-image:url('{{ section.settings.background_img | img_url: '1250x1250' }}')">
+        <a href="{{section.settings.background_link}}" style="display:block; width:100%; height:100%;"></a>
+        <div class="text-wrapper rb-col-lg-5 rb-col-md-7">
+          <h2 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.header}}</h2>
+          <p class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.content}}</p>
+          <a href="{{section.settings.shop_now_link}}" class="rb-btn-primary wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;"> SHOP NOW</a>
+        </div>
+      </div>
+    {% endif %}
+    <div class="cover-intro hide-desktop" style="background-image:url('{{ section.settings.mbackground_img | img_url: '1250x1250' }}')">
+      <a href="{{section.settings.background_link}}" style="display:block; width:100%; height:100%;"></a>
+      <div class="text-wrapper rb-col-lg-5 rb-col-md-7">
+        <h2 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.header}}</h2>
+        <p class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.content}}</p>
+        <a href="{{section.settings.shop_now_link}}" class="rb-btn-primary wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;"> SHOP NOW</a>
+      </div>
+    </div>
+
+    <div class="product-wrapper icon-slider">
+      <a class="product-img first" href="{{section.settings.icon_1_link}}">
+        <img class="lazyload" data-src="{{section.settings.icon_1 | img_url: '189x166'}} ">
+          <span class="product-name wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;"> {{section.settings.icon_1_title}}</span>
+        </a>
+      <a class="product-img" href="{{section.settings.icon_2_link}}">
+        <img class="lazyload" data-src="{{section.settings.icon_2 | img_url: '189x166'}}">
+          <span class="product-name wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;"> {{section.settings.icon_2_title}}</span>
+        </a>
+      <a class="product-img" href="{{section.settings.icon_3_link}}">
+        <img class="lazyload" data-src="{{section.settings.icon_3 | img_url: '189x166'}}">
+          <span class="product-name wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;"> {{section.settings.icon_3_title}}</span>
+        </a>
+      <a class="product-img" href="{{section.settings.icon_4_link}}">
+        <img class="lazyload" data-src="{{section.settings.icon_4 | img_url: '189x166'}}">
+          <span class="product-name wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;"> {{section.settings.icon_4_title}}</span>
+        </a>
+      <a class="product-img last" href="{{section.settings.icon_5_link}}">
+        <img class="lazyload" data-src="{{section.settings.icon_5 | img_url: '189x166'}}">
+          <span class="product-name wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;"> {{section.settings.icon_5_title}}</span>
+        </a>
+    </div>
+  </div>
+
+</div>
+{{ 'home-page.css' | asset_url | stylesheet_tag }}
+{% schema %}
+{
+"name": "Best Seller Large",
+"settings": [
+	{
+      "type":"checkbox",
+      "id":"shop_seller_banner_enable",
+      "label":"Shop Seller Banner",
+	  "default":true
+	},
+    {
+      "type": "image_picker",
+      "id": "background_img",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mbackground_img",
+      "label": "Mobile Background Image"
+    },
+    {
+      "id": "background_link",
+      "type": "url",
+      "label": "Backround Link"
+    },
+    {
+      "type": "text",
+      "id": "header",
+      "label": "Header"
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "id": "shop_now_link",
+      "type": "url",
+      "label": "Shop Now Link"
+    },
+	{
+      "type": "image_picker",
+      "id": "icon_1",
+      "label": "Icon 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "icon_1_title",
+      "label": "Icon 1 Title"
+    },
+	{
+      "type": "url",
+      "id": "icon_1_link",
+      "label": "Icon 1 Link"
+    },
+	{
+      "type": "image_picker",
+      "id": "icon_2",
+      "label": "Icon 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "icon_2_title",
+      "label": "Icon 2 Title"
+    },
+	{
+      "type": "url",
+      "id": "icon_2_link",
+      "label": "Icon 2 Link"
+    },
+	{
+      "type": "image_picker",
+      "id": "icon_3",
+      "label": "Icon 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "icon_3_title",
+      "label": "Icon 3 Title"
+    },
+	{
+      "type": "url",
+      "id": "icon_3_link",
+      "label": "Icon 3 Link"
+    },
+	{
+      "type": "image_picker",
+      "id": "icon_4",
+      "label": "Icon 4 Image"
+    },
+    {
+      "type": "text",
+      "id": "icon_4_title",
+      "label": "Icon 4 Title"
+    },
+	{
+      "type": "url",
+      "id": "icon_4_link",
+      "label": "Icon 4 Link"
+    },
+	{
+      "type": "image_picker",
+      "id": "icon_5",
+      "label": "Icon 5 Image"
+    },
+    {
+      "type": "text",
+      "id": "icon_5_title",
+      "label": "Icon 5 Title"
+    },
+	{
+      "type": "url",
+      "id": "icon_5_link",
+      "label": "Icon 5 Link"
+    }
+
+	],
+  "presets": [
+    {
+        "name": "Best Seller large",
+        "category": "Image"
+    }
+  ]
+}
+
+{% endschema %}
+
+{% stylesheet %}
+.hide-desktop{
+display:none;
+}
+.hide-mobile{
+display:block;
+}
+.rb-best-sellers .rb-container h3 {
+  margin-bottom: 0;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 0;
+  text-align: center;
+  padding: 15px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+}
+
+.rb-best-sellers .rb-container .cover-intro {
+    padding-top: 0;
+	position: relative;
+    background-position: center center;
+    background-size: cover;
+    height: 425px;
+    background-repeat: no-repeat; 
+}
+
+
+.rb-best-sellers .rb-container .cover-intro  a:hover{
+background-color:rgba(0,0,0,.3);
+}
+
+.rb-best-sellers .rb-container .cover-intro picture{
+    padding: 15px 13px 15px 14px;
+    padding-top: 0;
+	position: relative;
+}
+
+.rb-best-sellers .rb-container .cover-intro .text-wrapper {
+    padding: 0 0 45px 30px;
+	color: white;
+    position: absolute;
+    bottom: 0;
+	max-width: 70%;
+}
+
+.rb-best-sellers .rb-container .cover-intro .text-wrapper h2 {
+    margin-bottom: 0;
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: 1px;
+	text-transform: uppercase;
+    margin: 0;
+    text-align: center;
+	font-weight: 600;
+	color:#fff;
+}
+
+.rb-best-sellers .rb-container .cover-intro .rb-col-md-7 {
+    -webkit-box-flex: 0;
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rb-best-sellers .rb-container .rb-btn-primary {
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.6px;
+    color: #1F1F24;
+    background: white;
+    width: 175px;
+    padding-top: 5px;
+    border: 1px solid #1F1F24;
+    text-align: center;
+    transition: all ease-in-out 0.4s;
+    height: 50px;
+    align-items: center;
+    display: flex;
+	justify-content: center; 
+	border: none; 
+	transition: all .2s;
+}
+
+.rb-best-sellers .rb-container .rb-btn-primary:hover {
+    color: #fff;
+    background: #1F1F24; 
+}
+
+.rb-best-sellers .rb-container .product-wrapper {
+    display: flex;
+    padding: 15px 0px 15px 0px;
+}
+
+.rb-best-sellers .rb-container  .product-wrapper .product-img img {
+    transition: all ease-in-out 0.3s;
+}
+
+.rb-best-sellers .rb-container  .product-wrapper .product-img {
+    position: relative;
+    background-color: #F4F4F4;
+    margin: 0 11px;
+    padding: 25px;
+    box-sizing: border-box;
+	color:#000;
+}
+
+.rb-best-sellers .rb-container  .product-wrapper .product-img.first  {
+    margin-left:0px;
+}
+
+.rb-best-sellers .rb-container  .product-wrapper .product-img.last {
+    margin-right:0px;
+}
+
+
+.rb-best-sellers .rb-container  .product-wrapper .product-img:hover img {
+    transform: scale(1.1);
+}
+
+.rb-best-sellers .rb-container .product-wrapper .product-img span {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+@media only screen and (max-width: 800px) {
+  .rb-best-sellers .rb-container .cover-intro .rb-col-md-7 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    
+  }
+
+  .rb-best-sellers .rb-container .cover-intro .text-wrapper {
+      padding: 45px;
+      text-align: center;
+  }
+
+  .rb-best-sellers .rb-container .cover-intro .text-wrapper h2{
+      width:100%;
+  }
+
+  .rb-best-sellers .rb-container .rb-btn-primary{
+      margin-left:auto;
+      margin-right:auto;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+
+  .rb-best-sellers .rb-container  .product-wrapper .product-img.first {
+          margin: 0 11px;
+
+  }
+
+  .rb-best-sellers .rb-container  .product-wrapper .product-img.last {
+          margin: 0 11px;
+
+  }
+
+}
+@media(max-width:768px){
+.hide-desktop{
+display:block;
+}
+.hide-mobile{
+display:none;
+}
+.rb-best-sellers .rb-container .cover-intro {
+background-image:url('{{ section.settings.background_img | img_url: '470x425' }}');
+}
+}
+{% endstylesheet %}
+
+<script>
+  if(window.innerWidth<=768){
+    $('.icon-slider').slick({
+      responsive: [
+        {
+          breakpoint: 960,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '80px',
+            slidesToShow: 4,
+            slidesToScroll: 3,
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '40px',
+            slidesToShow: 2,
+            slidesToScroll: 2,
+
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '40px',
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          }
+        }
+      ]
+  });
+  }
+</script>

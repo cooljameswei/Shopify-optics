@@ -1,0 +1,164 @@
+<div class="cx-width cx-activate-account">
+  <div class="content-block">
+    <h1>Activate Account</h1>
+    <p>Create your password to activate your account.</p>
+    {% form 'activate_customer_password' %}
+    {{ form.errors | default_errors }}
+    <input type="password" value="" name="customer[password]" id="CustomerPassword" placeholder="{{ 'customer_area.forms.password' | t }}">
+    <input type="password" value="" name="customer[password_confirmation]" id="CustomerPasswordConfirmation" placeholder="{{ 'customer_area.forms.confirm_password' | t }}">
+    <input type="submit" class="activate-btn" value="{{ 'customer_area.forms.activate' | t }}">
+    <input type="submit" class="decline-btn" name="decline" value="{{ 'customer_area.forms.decline' | t }}">
+    {% endform %}
+  </div>
+</div>
+
+<style>
+  html {
+  	font-size: 10px;
+  }
+  .cx-width {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .cx-activate-account .content-block {
+  	width: 100%;
+    margin: 30px auto 0;
+    text-align: center;
+  }
+  
+  .cx-activate-account .content-block h1 {
+    font-size: 1.875em;
+    margin: 0 0 .625em;
+    line-height: 1.1;
+    color: #030303;
+    padding: 0;
+    font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  
+  .cx-activate-account .content-block p {
+    padding: 0;
+    letter-spacing: .7px;
+    color: #000;
+    line-height: 1.375;
+    margin: 0 0 30px;
+    font-family: Montserrat,sans-serif;
+    font-size: 13px;
+  }
+  
+  .cx-activate-account .content-block input {
+    font-size: 13px;
+    letter-spacing: .65px;
+    padding: 13px 25px;
+    font-weight: 400;
+    display: block;
+    width: 100%;
+    margin: 0 0 20px;
+    background-color: #fff;
+    max-width: 100%;
+    line-height: 1.375;
+    border-radius: 0;
+    border:0;
+    border-bottom: 1px solid #e6e6e6;
+    font-family: Karla, HelveticaNeue, "Helvetica Neue", sans-serif;
+  }
+  
+  .cx-activate-account .content-block input::placeholder {
+    color: #000;
+    font-family: 'Montserrat';
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 10px;
+  }
+  
+  .cx-activate-account .content-block .activate-btn {
+    margin: 0;
+    background-color: #c63b3d;
+    color: #fff;
+    text-transform: uppercase;
+    opacity: 1;
+    font-family: Montserrat,sans-serif;
+    border-radius: 0;
+    padding: 15px 14px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+    border: 0;
+    line-height: 1.375;
+  }
+  
+  .cx-activate-account .content-block .activate-btn:hover {
+  	background-color: #a02e30;
+    color: #fff;
+  }
+  
+  .cx-activate-account .content-block .decline-btn {
+    background-color: #fff;
+    color: #c63b3d;
+    border: 0;
+    margin: 0 0 20px;
+    padding: 15px 14px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    opacity: 1;
+    font-family: Montserrat,sans-serif;
+    cursor: pointer;
+    display: inline-block;
+    transition: color .1s ease-in,background-color .1s ease-in;
+  }
+  
+  .cx-activate-account .content-block .decline-btn:hover {
+    color: #8c292a;
+    background-color: #fff;
+  }
+  
+  .cx-activate-account .errors {
+    background-color: #ce3330;
+    color: #fff;
+    padding: 15px 0 14px 0;
+    margin: 0 0 10px;
+  }
+  
+  .cx-activate-account .errors ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .cx-activate-account .error li {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.375;
+    letter-spacing: 1.1px;
+    font-family: Montserrat,sans-serif;
+  }
+  
+  @media only screen and (min-width: 750px) {
+    .cx-activate-account .content-block {
+      width: 540px;
+    }
+    
+    .cx-activate-account .content-block h1 {
+      font-size: 2.25em;
+      font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+      font-weight: 700;
+      color: #030303;
+      margin: 0 0 .625em;
+      line-height: 1em;
+    }
+    
+    .cx-activate-account .content-block .activate-btn {
+      margin: 30px 0 20px;
+    }
+    
+    .cx-activate-account .content-block input::placeholder{
+      font-size: 13px;
+    }
+  }
+  
+</style>

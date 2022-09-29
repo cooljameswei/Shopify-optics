@@ -1,0 +1,207 @@
+<script defer type="text/javascript" src="{{ 'lazysizes.min.js' | asset_url }}"></script>
+{%- comment -%} NS - START{%- endcomment -%}
+{%- render "cart-hooks" -%}
+{%- comment -%} NS - END{%- endcomment -%}
+{%- if template contains 'product' -%}
+    {%- render 'magic360.headers' -%}
+{%- endif -%}
+{%- if template contains 'product' or template contains 'cart' -%} 
+    {%- render "extend-client", template:template -%}
+{%- endif -%}
+{%- if template contains 'product' or template contains 'cart' or template contains 'index' or template contains 'press' -%}
+    {%- if request.design_mode == false -%}
+        {{- 'slick-jsdelivr_181.min.js' | asset_url | preload_tag: as: 'script', type: 'text/javascript' -}}
+    {%- endif -%}
+    <script src="{{ 'slick-jsdelivr_181.min.js' | asset_url }}" defer></script>
+{%- endif -%}
+{%- if template contains 'product' or template contains 'cart' -%}
+    {% render 'cart-js' %}
+{%- endif -%}
+{%- if template == "customers/account" -%}
+    <div class="overlay-popups" onclick="closeModal()"></div>
+    <div id="modalToDisplay" class="modal"></div>
+{%- endif -%}
+{%- if template contains 'product' -%}
+    <style>
+        #cboxOverlay{ background: #000; position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 999; overflow: hidden; -webkit-transform: translate3d(0,0,0); }
+    </style>
+    <div id="cboxOverlay" style="opacity: 0.9; cursor: pointer; visibility: visible; display: none;"></div>
+    <div id="ProductModal">
+        <div class="custom-modal__inner">
+            <img id="productModalImage" src="#" class="product-modal__image" onerror="this.onerror=null;">
+            <button type="button" class="custom-modal__close">
+                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close"
+                    viewBox="0 0 32 32">
+                    <path fill="#444"
+                        d="M25.313 8.55l-1.862-1.862-7.45 7.45-7.45-7.45L6.689 8.55l7.45 7.45-7.45 7.45 1.862 1.862 7.45-7.45 7.45 7.45 1.862-1.862-7.45-7.45z">
+                    </path>
+                </svg>
+                <span class="icon__fallback-text">"Close (esc)"</span>
+            </button>
+        </div>
+    </div>
+{%- endif -%}
+{%- if template != 'index'-%}
+    {%- render 'social-login' -%}
+{% endif %}
+{%- if template.name == 'product' -%}
+        {%- comment -%}
+        <div id="ProductModal" class="modal">
+        <div class="modal__inner">
+            <img src="" id="ProductZoomImg" class="product-modal__image">
+        </div>
+        <button type="button" class="modal__close js-modal-close text-link">
+            {% include 'icon-close' %}
+            <span class="icon__fallback-text">close</span>
+        </button>
+        </div>
+        {% endcomment %}
+    <script type="lazyload2">
+        $(document).ready(function () {
+            $(document).on('click', '.js-modal-open-product-modal', function (e) {
+                e.preventDefault();
+                //           var href= $(this).attr('href') || "";
+                // let href = $(this).find("img") ? $(this).find("img").attr('src') : '';
+                let href = $(this).find("img.image-zoom") ? $(this).find("img.image-zoom").attr('src') :
+                    '';
+                $("#ProductModal #productModalImage").attr("src", href);
+                $("#cboxOverlay").attr("style",
+                    "opacity: 0.9;cursor: pointer;visibility: visible;display: block;");
+                $("#ProductModal").show();
+            });
+            $(document).on('click', '#ProductModal .custom-modal__close', function (e) {
+                $("#cboxOverlay").attr("style",
+                    "opacity: 0.9;cursor: pointer;visibility: visible;display: none;");
+                $("#ProductModal").hide();
+            });
+        });
+    </script>
+{%- endif -%}
+{%- unless template =='index' or template == 'collection' or template == 'blog' -%}
+    <script defer id="w3prescription" src="https://app1.prescriptionserver.com/public/w3prescription.js" data-width="100%" data-height="400"  data-mode="click" crossorigin="anonymous"></script>
+{%-  endunless -%}
+
+<script>
+    if(window.location.pathname=='/challenge'){
+        $('.shopify-challenge__container form').append('<input type="hidden" name="return_to" value="/pages/date-birth">')
+    }
+</script>
+<!-- Defer Loading of Images and iFrames for faster load times -->
+<script type="text/javascript" async="async">
+    window.renderBadge = function () {
+        var ratingBadgeContainer = document.createElement("div");
+        document.body.appendChild(ratingBadgeContainer);
+        window.gapi.load('ratingbadge', function () {
+            window.gapi.ratingbadge.render(ratingBadgeContainer, {
+                "merchant_id": 9729688,
+                "position": "BOTTOM_LEFT"
+            });
+        });
+    }
+    window.___gcfg = {
+        lang: 'en_US'
+    };
+
+    function initIFrameDefer() {
+        var vidDefer = document.getElementsByTagName('iframe');
+        for (var i = 0; i < vidDefer.length; i++) {
+            if (vidDefer[i].getAttribute('data-src')) {
+                vidDefer[i].setAttribute('src', vidDefer[i].getAttribute('data-src'));
+            }
+        }
+    }
+    window.onload = initIFrameDefer;
+
+    function initImgDefer() {
+        var imgDefer = document.getElementsByTagName('img');
+        for (var i = 0; i < imgDefer.length; i++) {
+            if (imgDefer[i].getAttribute('data-src')) {
+                imgDefer[i].setAttribute('src', imgDefer[i].getAttribute('data-src'));
+            }
+        }
+    }
+    window.onload = initImgDefer;
+</script>
+    
+{%- if template.suffix == 'contact-lens' -%}
+    <!-- Modal -->
+    <style>
+        .contact-lens-modal {
+            opacity: 0;
+            z-index: -9999;
+            visibility: hidden;
+        }
+    </style>
+    <div id="contactLensErrorModalOverlay"></div>
+    <div id="contactLensErrorModal" class="contact-lens-modal modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Contact Lens Error</h5>
+            <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <span style="color: red; border-bottom: 1px solid; line-height: 40px;">Correct the following errors:</span>
+            <div class="modal-body-inner"></div>
+        </div>
+    </div>
+
+    <div id="contactLensSavePresctionModal" class="contact-lens-modal modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Save Prescription Profile</h5>
+            <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-body-inner">
+                <label for="contactlensprofileName">Prescription Name</label>
+                <input id="contactlensprofileName" type="text" value="" class="">
+            </div>
+            <div class="modal-footer">
+                <button class="contactlens-prescription-button cancel" onClick="contactLenskipPresc();">Skip</button>
+                <button class="contactlens-prescription-button" onClick="contactLenSavePresc();">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactLensSavedPresctionListModal" class="contact-lens-modal modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">SELECT PRESCRIPTION</h5>
+            <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-body-inner">
+
+            </div>
+            <div class="modal-footer">
+                <button class="contactlens-prescription-button hide" id="contactLensSelectedPrescBtn">Ok</button>
+                <div style="text-align: center; padding: 12px 0;">
+                    Or Add New Prescription
+                </div>
+                <button class="contactlens-prescription-button cancel" id="contactLensNewPrescBtn">New Prescription</button>
+            </div>
+        </div>
+    </div>
+{%- endif -%} 
+{%- if template contains 'product'-%}
+    <script>
+        let spanInterval2 = setInterval(function(){
+            if(window.GorgiasChat){    
+                clearInterval(spanInterval2);
+                window.GorgiasChat.init().then(function () {
+                    window.GorgiasChat.setPosition({
+                        alignment: 'bottom-right',
+                        offsetX: 0,
+                        offsetY: 40
+                    });
+                });
+            }
+        }, 1000);
+    </script>
+{%- endif -%}
+{%- comment -%} GA NEW DATA LAYER START {%- endcomment -%}
+<script src="{{ 'google-new-datalayer.js' | asset_url }}" defer></script>
+{%- comment -%} GA NEW DATA LAYER END {%- endcomment -%}

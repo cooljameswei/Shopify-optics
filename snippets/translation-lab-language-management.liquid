@@ -1,0 +1,174 @@
+{%- liquid
+
+assign request_locale = request.locale
+
+assign shop_published_locales = shop.published_locales
+assign use_international_domains = false
+
+if shop.metafields.translation_lab.published_locales
+    assign shop_published_locales = shop.metafields.translation_lab.published_locales
+    assign use_international_domains = true
+endif
+
+-%}
+
+<script>
+
+    if (!Array.prototype.find) {
+        Object.defineProperty(Array.prototype, 'find', {
+            value: function (predicate) {
+                if (this == null) {
+                    throw TypeError('"this" is null or not defined');
+                }
+
+                var o = Object(this);
+
+                var len = o.length >>> 0;
+
+                if (typeof predicate !== 'function') {
+                    throw TypeError('predicate must be a function');
+                }
+
+                var thisArg = arguments[1];
+
+                var k = 0;
+
+                while (k < len) {
+                    var kValue = o[k];
+                    if (predicate.call(thisArg, kValue, k, o)) {
+                        return kValue;
+                    }
+                    k++;
+                }
+
+                return undefined;
+            },
+            configurable: true,
+            writable: true
+        });
+    }
+
+    if (typeof window.TranslationLab === 'undefined') {
+        window.TranslationLab = {};
+    }
+
+    if (typeof TranslationLab.Helpers === 'undefined') {
+        TranslationLab.Helpers = {};
+    }
+
+    TranslationLab.Helpers.getSavedLocale = function (langList) {
+        var savedLocale = localStorage.getItem('translation-lab-lang');
+        var sl = savedLocale ? langList.find(x => x.iso_code.toLowerCase() === savedLocale.toLowerCase()) : null;
+        return sl ? sl.iso_code : null;
+    }
+
+    TranslationLab.Helpers.getBrowserLocale = function (langList) {
+        var browserLocale = navigator.language;
+        if (browserLocale) {
+            var localeParts = browserLocale.split('-');
+            var bl = localeParts[0] ? langList.find(x => x.iso_code.toLowerCase().startsWith(localeParts[0])) : null;
+            return bl ? bl.iso_code : null;
+        } else {
+            return null;
+        }
+    }
+
+    TranslationLab.Helpers.buildRedirectUrl = function (redirectLanguage, currentLocale, shopDomain, useInternationalDomains) {
+
+        if (!redirectLanguage)
+            return null;
+
+        if (!currentLocale)
+            return null;
+
+        var redirectLocaleLower = redirectLanguage.iso_code.toLowerCase();
+        var currentLocaleLower = currentLocale.toLowerCase();
+
+        if (currentLocaleLower === redirectLocaleLower)
+            return null;
+
+        var pathnameWithLocale = window.location.pathname;
+        var queryString = window.location.search || '';
+
+        var currentLocaleRegEx = new RegExp('^\/' + currentLocaleLower, "ig");
+        var pathname = pathnameWithLocale.replace(currentLocaleRegEx, '');
+
+        if (useInternationalDomains)
+            return 'https://' + redirectLanguage.domain + pathname + queryString;
+
+        if (redirectLanguage.root_url === '/')
+            return 'https://' + shopDomain + pathname + queryString;
+
+        return 'https://' + shopDomain + redirectLanguage.root_url + pathname + queryString;
+    }
+
+    if (typeof TranslationLab.BrowserLanguageDetection === 'undefined') {
+        TranslationLab.BrowserLanguageDetection = {};
+    }
+
+    TranslationLab.BrowserLanguageDetection.configure = function (currentLocale, shopDomain, useInternationalDomains, languageList) {
+
+        function getRedirectLanguage(languageList) {
+            var savedLocale = TranslationLab.Helpers.getSavedLocale(languageList);
+            var browserLocale = TranslationLab.Helpers.getBrowserLocale(languageList);
+            var preferredLocale = null;
+
+            var redirectLocale = null;
+
+            if (savedLocale) {
+                redirectLocale = savedLocale;
+            } else if (preferredLocale) {
+                redirectLocale = preferredLocale;
+            } else if (browserLocale) {
+                redirectLocale = browserLocale;
+            }
+
+            if (!redirectLocale)
+                return null;
+
+            return languageList.find(function (x) { return x.iso_code.toLowerCase() === redirectLocale.toLowerCase(); });
+        }
+
+        if (window.Shopify && window.Shopify.designMode)
+            return;
+
+        var botPatterns = "(bot|Googlebot\/|Googlebot-Mobile|Googlebot-Image|Googlebot-News|Googlebot-Video|AdsBot-Google([^-]|$)|AdsBot-Google-Mobile|Feedfetcher-Google|Mediapartners-Google|APIs-Google|Page|Speed|Insights|Lighthouse|bingbot|Slurp|exabot|ia_archiver|YandexBot|YandexImages|YandexAccessibilityBot|YandexMobileBot|YandexMetrika|YandexTurbo|YandexImageResizer|YandexVideo|YandexAdNet|YandexBlogs|YandexCalendar|YandexDirect|YandexFavicons|YaDirectFetcher|YandexForDomain|YandexMarket|YandexMedia|YandexMobileScreenShotBot|YandexNews|YandexOntoDB|YandexPagechecker|YandexPartner|YandexRCA|YandexSearchShop|YandexSitelinks|YandexSpravBot|YandexTracker|YandexVertis|YandexVerticals|YandexWebmaster|YandexScreenshotBot|Baiduspider|facebookexternalhit|Sogou|DuckDuckBot|BUbiNG|crawler4j|S[eE][mM]rushBot|Google-Adwords-Instant|BingPreview\/|Bark[rR]owler|DuckDuckGo-Favicons-Bot|AppEngine-Google|Google Web Preview|acapbot|Baidu-YunGuanCe|Feedly|Feedspot|google-xrawler|Google-Structured-Data-Testing-Tool|Google-PhysicalWeb|Google Favicon|Google-Site-Verification|Gwene|SentiBot|FreshRSS)";
+        var userAgentRegex = new RegExp(botPatterns, 'i');
+        if (userAgentRegex.test(navigator.userAgent))
+            return;
+
+        var redirectLanguage = getRedirectLanguage(languageList);
+
+        var redirectUrl = TranslationLab.Helpers.buildRedirectUrl(redirectLanguage, currentLocale, shopDomain, useInternationalDomains);
+
+        redirectUrl && window.location.assign(redirectUrl);
+    }
+
+</script>
+
+<script>
+    (function () {
+
+        var useInternationalDomains = {{ use_international_domains | json }};
+
+        var shopDomain = window.Shopify && window.Shopify.designMode
+            ? '{{shop.permanent_domain}}'
+            : '{{shop.domain}}';
+
+        var currentLocale = '{{request_locale.iso_code}}';
+
+        var languageListJson = '[{%- for locale in shop_published_locales %}{\
+"name": "{{locale.name | split: "(" | first | strip}}",\
+"endonym_name": "{{ locale.endonym_name | split: "(" | first | strip}}",\
+"iso_code": "{{ locale.iso_code }}",\
+"primary": {{ locale.primary }},\
+"flag": "{{ locale.iso_code | append: ".png" | asset_url }}",\
+"domain": {{ locale.domain | json }},\
+"root_url": {{ locale.root_url | json }}\
+}{% unless forloop.last %},{% endunless -%}{%- endfor %}]';
+        var languageList = JSON.parse(languageListJson);
+
+        TranslationLab.BrowserLanguageDetection.configure(currentLocale, shopDomain, useInternationalDomains, languageList);
+
+    })();
+</script>

@@ -1,0 +1,412 @@
+{%- if section.settings.layout == 'default' -%}
+{%- assign layout = settings.baseLayout -%}
+{%- else -%}
+{%- assign layout = section.settings.layout -%}
+{%- endif -%}
+
+<style>
+    {% render 'header__common-css', section: section, layout: layout %}
+    
+    @media screen and (min-width: 768px){
+        .search__container--inline input {
+            {% unless section.settings.searchBg contains 'rgba(0,0,0,0)' %}
+            background: {{section.settings.searchBg}};
+            {% endunless %}
+            {% unless section.settings.searchText contains 'rgba(0,0,0,0)' %}
+            color: {{section.settings.searchText}};
+            {% endunless %}
+        }
+        
+        {% unless section.settings.searchText contains 'rgba(0,0,0,0)' %}
+        .search__container--inline .search__icon--submit, .search__container--inline .search__icon {
+            color: {{section.settings.searchText}};
+        }
+        {% endunless %}
+        
+        .main__navigation > .nav__link__holder > .nav__link {
+            min-height: 3.5rem;
+        }
+
+        .center .logo-img img {
+            object-position: center;
+        }
+
+        .header__logo {
+            padding: 1rem;
+            height: 100%;
+        }
+    }
+
+    .header__top {
+        min-height: max(var(--height), 4em);
+    }
+
+    .header__bottom {
+        min-height: 3em;
+    }
+</style>
+
+<div data-search-container class="search__container--abs">
+    <div class="search__overlay" onclick="BoosterTheme.ELEMENTS.closeSearch(this)"></div>
+    <div class="search__container--wrapper">
+        <h4 class="search__title">{{'general.search.heading' | t}} <span onclick="BoosterTheme.ELEMENTS.closeSearch(this)">{% render 'get-icon', icon: 'close' %}</span></h4>
+        <form method="get" action="/search">
+            <button type="submit" class="search__icon--submit">{% render 'get-icon', icon: 'search' %}</button>
+            <input autocomplete="off" placeholder="{{'general.search.placeholder' | t }}" name="q" onfocus="BoosterTheme.ELEMENTS.openSearch(this)" type="search" data-search>
+        </form>
+    </div>
+    <div class="search__results search__results--abs" data-search-suggest>
+    </div>
+</div>
+
+<header class="page__header page__header--desktop row {% if template == "index" and section.settings.transparent %}page__header--transparent{% endif %}">
+    <div class="page__header--width row col-12 no-gap">
+        <div class="header__top col-12 row nogap">
+            <div class="header__logo header__element--width no-gap middle col-3">
+                {% render 'logo' with section as section %}
+            </div>
+            <div class="col-6 middle center">
+                <div data-search-container class="search__container search__container--inline col-min col-md-9 start-md hide-mobile">
+                    <div class="search__container--sub">
+                    <span onclick="BoosterTheme.ELEMENTS.openSearch(this)" class="search__icon hide-mobile">{% render 'get-icon', icon: 'search' %}</span>
+                    <form method="get" action="/search">
+                        <span onclick="BoosterTheme.ELEMENTS.submitSearch(this)" class="search__icon--submit">{% render 'get-icon', icon: 'search' %}</span>
+                        <input placeholder="{{'general.search.placeholder' | t }}" autocomplete="off" name="q" onfocus="BoosterTheme.ELEMENTS.openSearch(this)" type="search" data-search>
+                    </form>
+                    </div>
+                    <div class="search__overlay" onclick="BoosterTheme.ELEMENTS.closeSearch(this)"></div>
+                    <div class="search__results" data-search-suggest>
+                    </div>
+                </div>
+            </div>
+            <div class="header__element--width header__utility no-gap col-3">
+                {% render 'header__general--utility', showCart: section.settings.desktopCart, hideSearch: true %}
+            </div>
+        </div>
+    </div>
+    <div class="page__header--width middle col-12 no-gap header__bottom">
+        <nav class="main__navigation main__navigation--{{section.settings.linkPosition}} main__navigation--{{section.settings.hoverStyle}} font__size--{{-section.settings.fontSize}}">
+            {% for link in linklists[section.settings.menuLinks].links %}
+                {% if link.links.size > 0 %}{% capture submenu %}{% render 'header--link-submenu' with link as link %}{% endcapture %}{% else %}{% assign submenu = '' %}{% endif %}
+                <span class="nav__link__holder {% if link.active or link.child_active %}nav__link--active{% endif %} {% if submenu contains 'nav__submenu--regular' %}nav__link__holder--regular{% endif %}">
+                    <a class="nav__link nav__link--{{section.settings.hoverStyle}}" href="{{link.url}}">{% render 'header--link-tag' with link.title as text %}</a>
+                    {{submenu}}
+                </span>
+            {% endfor %}
+        </nav>
+    </div>
+</header>
+
+<header class="page__header page__header--mobile hide-desktop {% if template == "index" and section.settings.transparent %}page__header--transparent{% endif %}">
+    <div class="page__header--width">
+        <label class="mobile-submenu-label" for="open-mobile-nav">
+            <i class="uil uil-bars"></i>
+        </label>
+        <div class="header__logo header__element--width">
+            {% render 'logo' with section as section %}
+        </div>
+        <input id="open-mobile-nav" type="checkbox" style="display: none">
+        <label for="open-mobile-nav" class="overlay overlay--nav"></label>
+        <nav class="mobile__navigation">
+            {% for link in linklists[section.settings.menuLinks].links %}
+                <span class="nav__link__holder">
+                    <a class="nav__link {% if link.active or link.child_active %}nav__link--active{% endif %}" href="{{link.url}}">{% render 'header--link-tag' with link.title as text %}</a><!--
+                    {% if link.links.size > 0 %}
+                        --><input type="checkbox" style="display: none" id="mobile-submenu-{{forloop.index}}"><!--
+                        --><label class="mobile__submenu__toggle" for="mobile-submenu-{{forloop.index}}"><i class="uil uil-plus"></i><i class="uil uil-minus"></i></label>
+                        {% render 'header--link-submenu--mobile', link: link, ix: forloop.index %}
+                    {% else %}
+                    -->
+                    {% endif %}
+                </span>
+            {% endfor %}
+            <div class="mobile__navigation__footer">
+                {% render 'header__mobile--footer' %}
+            </div>
+        </nav>
+        <div class="header__utility">
+        {% render 'header__general--utility', mobile: true, showCart: section.settings.mobileCart  %}
+        </div>
+    </div>
+</header>
+
+{% render 'header__common-js' with section as section %}
+
+{% schema %}
+{
+  "name": {
+    "en": "Header - Inline Search"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458159291)"
+    },
+    {
+        "type": "header",
+        "content": "Global header settings"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+        "type": "range",
+        "label": "Height",
+        "id": "minHeight",
+        "min": 0,
+        "max": 150,
+        "step": 5,
+        "unit": "px",
+        "default": 0
+    },
+    {
+        "type": "range",
+        "label": "Border radius",
+        "id": "borderRadius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+    },
+    {
+        "type": "checkbox",
+        "id": "shadow",
+        "label": "Enable shadow",
+        "default": true
+    },
+    {
+        "type": "link_list",
+        "id": "menuLinks",
+        "label": "Menu links"
+    },
+    {
+        "type": "checkbox",
+        "id": "megamenu",
+        "label": "Enable megamenu",
+        "default": true
+    },
+    {
+        "type": "select",
+        "label": "Link position (desktop)",
+        "options": [
+            {"value": "start", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "end", "label": "Right"}
+        ],
+        "default": "center",
+        "id": "linkPosition"
+    },
+    {
+        "type": "range",
+        "label": "Logo width",
+        "id": "logoWidth",
+        "min": 50,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "default": 160
+    },
+    {
+        "type": "range",
+        "label": "Logo height",
+        "id": "logoHeight",
+        "min": 0,
+        "max": 500,
+        "step": 5,
+        "unit": "px",
+        "default": 0,
+        "info": "Maximum logo height. If set to 0 (zero) it will take up as much space as needed."
+    },
+    {
+        "type": "select",
+        "label": "Logo position (desktop)",
+        "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"}
+        ],
+        "default": "left",
+        "id": "desktopLogoPosition"
+    },
+    {
+        "type": "checkbox",
+        "id": "sticky",
+        "label": "Make the header stick to top",
+        "default": true
+    },
+    {
+        "type": "range",
+        "label": "Content margin",
+        "id": "contentMargin",
+        "min": 0,
+        "max": 200,
+        "step": 5,
+        "unit": "px",
+        "default": 0
+    },
+    {
+        "type": "header",
+        "content": "Header buttons"
+    },
+    {
+        "type": "checkbox",
+        "id": "desktopCart",
+        "label": "Show Cart (desktop)",
+        "default": true
+    },
+    {
+        "type": "color",
+        "label": "Background color",
+        "default": "rgba(0,0,0,0)",
+        "id": "headerBg"
+    },
+    {
+        "type": "header",
+        "content": "Link style"
+    },
+    {
+        "type": "color",
+        "id": "linkColor",
+        "label": "Text color",
+        "default": "#000000"
+    },
+    {
+        "type": "color",
+        "id": "accentColor",
+        "label": "Active accent color",
+        "default": "#000000"
+    },
+    {
+        "type": "select",
+        "id": "hoverStyle",
+        "label": "Hover style",
+        "options": [
+            {"value": "fill", "label": "Fill"},
+            {"value": "underline", "label": "Underline"},
+            {"value": "opacity", "label": "Opacity"},
+            {"value": "strikethrough", "label": "Line through text"},
+            {"value": "dotBelow", "label": "Dot below"},
+            {"value": "dotAbove", "label": "Dot above"}
+        ],
+        "default": "fill"
+    },
+    {
+        "type": "color",
+        "id": "tagBgColor",
+        "label": "Tag color",
+        "default": "#000"
+    },
+    {
+        "type": "color",
+        "id": "tagTextColor",
+        "label": "Tag text color",
+        "default": "#FFF"
+    },
+    {
+        "id": "transparent",
+        "label": "Make the header transparent",
+        "type": "checkbox",
+        "default": false
+    },
+    {
+        "type": "color",
+        "id": "linkColorT",
+        "label": "Text color (transparent)",
+        "default": "#FFF"
+    },
+    {
+        "type": "color",
+        "id": "accentColorT",
+        "label": "Active accent color (transparent)",
+        "default": "#EFEFEF"
+    },
+    {
+        "type": "color",
+        "id": "searchBg",
+        "label": "Search bar background",
+        "default": "rgba(0,0,0,0)",
+        "info": "If set to none, default will be used."
+    },
+    {
+        "type": "color",
+        "id": "searchText",
+        "label": "Search bar color",
+        "default": "rgba(0,0,0,0)",
+        "info": "If set to none, default will be used."
+    },
+    {
+        "id": "fontSize",
+        "type": "select",
+        "label": "Font size",
+        "options": [
+            {"value": "small", "label": "Small"},
+            {"value": "base", "label": "Base"},
+            {"value": "medium", "label": "Medium"},
+            {"value": "big", "label": "Big"}
+        ],
+        "default": "base"
+    },
+    {
+        "type": "checkbox",
+        "label": "Use a custom font family",
+        "id": "customFont",
+        "default": false
+    },
+    {
+        "id": "fontFamily",
+        "label": "Font Family",
+        "type": "font_picker",
+        "default": "work_sans_n6"
+    },
+    {
+        "type": "header",
+        "content": "Cart"
+    },
+    {
+        "type": "select",
+        "label": "Cart icon",
+        "id": "cartIcon",
+        "options": [
+            {"value": "shopping-bag", "label": "Bag"},
+            {"value": "shopping-cart", "label": "Cart"},
+            {"value": "shopping-basket", "label": "Basket"}
+        ],
+        "default": "shopping-cart"
+    },
+    {
+        "type": "header",
+        "content": "Mobile menu"
+    },
+    {
+        "type": "select",
+        "label": "Logo position (mobile)",
+        "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "right", "label": "Right"}
+        ],
+        "default": "left",
+        "id": "mobileLogoPosition"
+    },
+    {
+        "type": "checkbox",
+        "label": "Show cart icon (mobile)",
+        "id": "mobileCart",
+        "default": true
+    }
+  ]
+}
+{% endschema %}

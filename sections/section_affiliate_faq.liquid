@@ -1,0 +1,876 @@
+<style>
+    {% render 'common-css' with section as section %}
+  
+    .v2-text-img {
+        padding-top:100px;
+        position: relative;
+    }
+    .affiliate-faq-main {
+        margin-bottom: 0px !important;
+        padding-bottom: 100px;
+    }
+    .wrapper--bottom {
+        padding-top: 0px;
+    }
+    {% if section.settings.overlayOpacity > 0 %}
+    .overlay--{{-section.id}} {
+        opacity: {{section.settings.overlayOpacity | times: 0.01}};
+        background-color: {{section.settings.overlayColor}};
+    }
+    {% endif %}
+    
+    {% if section.settings.imageOverlayOpacity > 0 %}
+    .image__overlay--{{-section.id}} {
+        opacity: {{section.settings.imageOverlayOpacity | times: 0.01}};
+        background-color: {{section.settings.imageOverlayColor}};
+    }
+    {% endif %}
+    
+    #s--{{section.id}} .s__content {
+      {% if section.settings.imagePosition == "right" %}
+      flex-direction: row-reverse;
+      {%endif%}
+      padding: {{section.settings.padding}}px;
+    }
+
+    {% unless section.settings.backgroundColor contains 'rgba(0,0,0,0)' %}
+    #shopify-section-{{section.id}}.v2-text-img {
+        background-color: {{ section.settings.backgroundColor }};
+    }
+    {% endunless %}
+    
+    #s--{{section.id}} .s__content .tximage__txt .button--primary {
+        background-color: #C63C3E;
+        font-size: 20px;
+        padding: 15px 49px;
+        border-radius: 15px; 
+    }
+
+    #s--{{section.id}} .s__content .tximage__txt .button--primary:hover {
+        background-color: #a02e30;
+        color: #ffffff !important; 
+    }
+
+    #s--{{section.id}} .s__content .tximage__image .badge {
+        position: absolute;
+        bottom: 20px;
+        {% if section.settings.imagePosition == "right" %}
+        left: 0px;
+        {% else %}
+        right: 0px;
+        {%endif%}
+    }
+
+
+    {% if section.settings.layout == "stretchContent" %}
+    #s--{{section.id}} .tximage__image {
+      padding: 0px;
+    }
+    {%endif%}
+
+    #s--{{section.id}} .s__content .tximage__image>img{
+        border-radius: 15px;
+        box-shadow: 0px 1px 3px rgb(105 105 105 / 15%);
+    }
+   
+    #s--{{section.id}} .tximage__image .side-image{
+        position: absolute;
+        z-index:99;
+        {% if section.settings.imagePosition == "right" %}    
+            top: -28px;
+            right: -26px;
+        {% else %}
+            bottom: -32px;
+            right: -30px;
+        {% endif %}  
+    }
+    .tximage__image img{
+        position: relative;
+        z-index: 100;
+    }
+    #s--{{section.id}}.s__holder{
+        overflow:inherit;
+    }
+    #s--{{section.id}} .s__block--title .font__family--title{
+        color: #4c4d4f;
+        font-size: 42px; 
+    }
+    #s--{{section.id}} .s__block p{
+        font-size:20px;
+        line-height:30px;
+        color: #4c4d4f;
+    }
+    .font__family--base{
+        font-family: var(--titleFont);
+    }
+  
+    .font__size--medium.font__family--title{
+     	line-height: 50px;
+    }
+    .icon--grid .icon-wrapper .icon-title {
+        font-family: var(--titleFont);
+    }
+    .v2-text-img  #s--{{section.id}} .tximage__txt .s__block.s__block--icon-grid{
+        width: 100%;
+        margin-bottom:47px;
+    }
+
+    .faq-accordion {
+        width: 100%;
+        margin-top: 40px;
+    }
+
+    .faq-accordion .item {
+        margin-bottom: 20px;
+        font-family: 'Lato';
+    }
+
+
+
+    .faq-accordion .item .title {
+        text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor:pointer;
+        font-weight: 700;
+    }
+
+    .faq-accordion .item .title .icon {
+        display: inline-block;
+        vertical-align: middle;
+        width: 16px;
+        height: 100%;
+    }
+
+    .faq-accordion .item .title span.icon img {
+        display: block;
+        max-width: 16px;
+    }
+    .faq-accordion .item .title span.icon img:first-child {
+        display: none;
+    }
+    .faq-accordion .item .title.active span.icon img:first-child {
+        display: block;
+    }  
+    .faq-accordion .item .title.active span.icon img:last-child {
+        display: none;
+    }  
+    .faq-accordion .item .body {
+        display: none;
+        padding: 10px 0;
+    }
+    .v2-text-img.affiliate-faq-main .tximage__txt .font__size--medium.font__family--title{
+      font-size:42px;
+      font-weight: 700;
+      line-height: 50px;
+      color: #4C4D4F;
+      font-family: Lato, sans-serif;
+    }
+    .v2-text-img.affiliate-faq-main .faq-accordion .item .title p{
+      font-family: Lato, sans-serif;
+      font-size: 20px;
+      line-height:28px;
+      font-weight: 600;
+      color: #4C4D4F;
+    }
+    .v2-text-img.affiliate-faq-main .faq-accordion .item .body p{
+      font-family: Lato, sans-serif;
+      font-size: 17px;
+      line-height:1.3;
+      font-weight: 400;
+      color: #4C4D4F;
+    }
+    @media screen and (min-width: 768px){
+        #s--{{section.id}} .s__content .tximage__txt {
+            {% if section.settings.imagePosition == "right" %}
+                padding-right: 70px;
+            {% else %}
+                padding-left: 70px;
+            {%endif%}
+        }
+
+        #s--{{section.id}} .s__content .tximage__image .badge {
+            {% if section.settings.imagePosition == "right" %}
+                left: -50px;
+            {% else %}
+                right: -50px;
+            {%endif%}
+        }
+    }
+    @media (min-width:1024px) and (max-width:1350px){
+        #s--{{section.id}} .tximage__image .side-image{
+           {% if section.settings.imagePosition == "right" %}    
+                top: -38px;
+                right: 3px;
+            {% endif %}  
+        }
+    }
+    @media(min-width:851px) and (max-width:1100px){
+        #s--{{section.id}}  .font__size--medium.font__family--title{
+     	    line-height: 40px;
+             font-size: 26px; 
+        }
+        #s--{{section.id}} .s__block{
+            margin-bottom:10px;
+        }
+        #s--{{section.id}} .s__block p{
+            font-size: 16px;
+            line-height: 25px;
+        }
+        #s--{{section.id}} .s__block.s__block--richText{
+            margin-bottom:25px;
+        }
+    }
+    @media(max-width:950px){
+        #s--{{section.id}} .middle{
+            align-items: flex-start;
+        }
+    }
+    @media(min-width:768px) and (max-width:1023px){
+        #s--{{section.id}} .middle{
+            align-items: center;
+        }
+      #s--{{section.id}} .s__content.middle{
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+      .tximage__image{
+        flex-basis: 100%;
+        max-width:100%;
+        margin-bottom:30px;
+      }
+      .tximage__txt{
+        flex-basis: 100%;
+        max-width:100%; 
+        margin-bottom:30px;
+      }
+      .font__size--medium.font__family--title{
+     	    line-height: 38px; 
+        }
+        #s--{{section.id}} .s__content .tximage__txt .button--primary {
+            padding: 10px 31px;
+            border-radius: 10px; 
+        }
+        .v2-text-img #s--{{section.id}} .s__content .s__block.no-gap{
+            margin-bottom:0px;
+        }
+        .v2-text-img #s--{{section.id}} .s__content .s__block h2{
+            font-size: 26px;
+            line-height: 38px;
+            margin-bottom: 15px;
+        }
+        .v2-text-img #s--{{section.id}} .s__content .tximage__txt .s__block p{
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 28px;
+        }
+        .tximage__txt{
+            padding-left: 15px;
+            padding-right:15px;
+        }
+        .icon--grid{
+            margin-bottom: 20px;
+        }
+        .icon--grid .icon-wrapper{
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        #s--{{section.id}} .s__content .tximage__txt{
+            padding-left: 70px; 
+        }
+        #s--{{section.id}} .tximage__image .side-image{
+           {% if section.settings.imagePosition == "right" %}    
+                top: -38px;
+                right: 3px;
+                {% else %}
+                bottom: -24px;
+                right: 0;
+            {% endif %}  
+        }
+    }
+    @media(max-width:767px){
+        .font__size--medium.font__family--title{
+     	    line-height: 38px; 
+        }
+        #s--{{section.id}} .s__content .tximage__txt .button--primary {
+            padding: 10px 31px;
+            border-radius: 10px; 
+        }
+        .v2-text-img #s--{{section.id}} .s__content .s__block.no-gap{
+            margin-bottom:0px;
+        }
+        .v2-text-img #s--{{section.id}} .s__content .s__block h2{
+            font-size: 26px;
+            line-height: 38px;
+            margin-bottom: 15px;
+        }
+        .v2-text-img #s--{{section.id}} .s__content .tximage__txt .s__block p{
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 28px;
+            text-align: justify;
+        }
+        .tximage__txt{
+            padding-left: 15px;
+            padding-right:15px;
+        }
+        /* #s--{{section.id}} .tximage__image .side-image{
+            display:none;
+        } */
+        #s--{{section.id}} .tximage__image .side-image{
+        {% if section.settings.imagePosition == "right" %}    
+            top: auto;
+            right: auto;
+            bottom: -32px;
+            left: -10px;
+        {% else %}
+            bottom: -32px;
+            right: -10px;
+        {% endif %}  
+        }
+        {% if section.settings.imagePosition == "right" %} 
+        #shopify-section-{{section.id}}{
+          padding-top:70px;
+        }
+        {% endif %}
+        #shopify-section-{{section.id}}.v2-text-img{
+            padding-left:15px;
+            padding-right:15px;  
+        }
+        #s--{{section.id}} .icon--grid .icon-wrapper .icon-title {
+            margin-left: 10px;
+        }
+        #s--{{section.id}} .s__content .tximage__image .badge {
+            top: -25px;
+            right: 15px;
+            max-width: 60px;
+            left:auto;
+            bottom: auto;
+        }
+        .v2-text-img #s--{{section.id}} .s__content .s__block.no-gap .icon--grid{
+            margin-bottom:20px;
+        }
+        .icon--grid .icon-wrapper .icon-main img.icon-img{
+            max-width: 46px;
+            height: 47px;
+        }
+        .icon--grid .row .icon-wrapper{
+            padding: 0px;
+        }
+        .v2-text-img .s__block--icon-grid .icon--grid .row{
+            align-items: center;
+            justify-content: space-between;
+        }
+        .icon--grid .icon-wrapper{
+            max-width: 49%;
+            
+        }
+        .v2-text-img .tximage__txt{
+            padding-left:0px;
+            padding-right:0px;
+            {% if section.settings.titleAlignmentMobile == "above_img" %}
+              padding-top: 0px;
+            {% endif %}  
+        }
+        {% if section.settings.titleAlignmentMobile == "below_img" %}
+        #s--{{section.id}} .v2-text-img .tximage__txt{
+                padding-top: 32px;
+          }      
+        {% endif %}
+        {% if section.settings.titleAlignmentMobile == "above_img" %}
+          #s--{{section.id}} .tximage__txt .s__block--richText{
+            margin-top: 30px;
+          }  
+        {% endif %}
+        #s--{{section.id}} .s__content.remove-extra-space > .extra-space-richtext .s__block--richText{
+          margin-top:0px;
+        }
+        .v2-text-img.img-txt-with-container{
+          padding-top:80px;
+        }
+    }
+    @media only screen and (max-width: 749px) {
+        .small--hide {
+            display: none !important;
+        }
+    }
+    @media only screen and (min-width: 750px) {
+        .medium-up--hide {
+            display: none !important;
+        }
+    }
+</style>
+    
+    {% assign iWidth = section.settings.imageWidth %}
+    {% assign tWidth = 12 | minus: section.settings.imageWidth %}
+    
+    <div id="s--{{section.id}}"
+    {% unless section.settings.backgroundImage == nil -%}{% render 'background', image: section.settings.backgroundImage %}{%- endunless %}
+    class="{% render 'common-class', section: section, class: 'row', bg: true, vAlign: false %}">
+    
+      {% if section.settings.overlayOpacity > 0 %}
+        <div class="overlay overlay--{{-section.id}}"></div>
+      {% endif %}
+      <div class="row s__content {{ section.settings.verticalAlignment }} layout__content {% if section.settings.titleAlignmentMobile == "above_img" %}remove-extra-space{%endif%}">
+        {% if section.settings.titleAlignmentMobile == "above_img" %}
+            <div class="inherit col-12 col-md-{{-tWidth}} {{section.settings.horizontalAlignment}} tximage__txt medium-up--hide extra-space-richtext">
+                {%- for block in section.blocks %}
+                    <div class="no-gap s__block s__block--{{-block.type}} {%if block.settings.wideButton or block.type == 'separator' or block.settings.fullWidth%}col-12 {{ section.settings.horizontalAlignment }}{%endif%} margin__bottom--12">
+                        {% if block.type == "title" %}
+                            {% render 'get-block' with block as block %}
+                        {% endif %}          
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}    
+        <div class="col-12 col-md-{{-iWidth}} tximage__image">
+          {% if section.settings.imageOverlayOpacity > 0 %}
+            <div class="overlay image__overlay--{{-section.id}}"></div>
+          {% endif %}
+          {% unless section.settings.image == nil %}
+            {% render 'ratio-image', image: section.settings.image, mratio: '12', dratio: iWidth, ratioType: 'col' %}
+            {% unless section.settings.badge == nil %}
+            <div class="badge">
+                <img class="lazyload" loading="lazy" data-src="{{ section.settings.badge | img_url : 'master' }}">
+            </div>
+            {% endunless %}
+          {% endunless %}
+          <div class="side-image">
+            <img class="lazyload" width="108" height="108" src="{{'Combined_Shape.png' | asset_img_url: 'master'}}" alt="Combined-Shape" />
+          </div>
+        </div>
+        <div class="inherit col-12 col-md-{{-tWidth}} {{section.settings.horizontalAlignment}} tximage__txt">
+            {%- if section.settings.heading !=blank -%}
+            <div class="no-gap s__block s__block--{{-block.type}} {%if block.settings.wideButton or block.type == 'separator' or block.settings.fullWidth%}col-12 {{ section.settings.horizontalAlignment }}{%endif%} margin__bottom--12">
+                {% if section.settings.titleAlignmentMobile == "above_img" and block.type == "title"%}   
+                    <div class="small--hide">
+                        <h2 class="font__size--medium font__family--title">{{ section.settings.heading }}</h2>
+                    </div>
+                {% else %}
+                    <h2 class="font__size--medium font__family--title">{{ section.settings.heading }}</h2>
+                {% endif %}  
+            </div>
+            {%- endif -%}
+            <div class="accordion-wrapper faq-accordion">
+                {% for block in section.blocks %}
+                    {% if block.settings.question == empty or block.settings.answer == empty %}{% continue %}{% endif %}
+                    <div class="item">
+                        <div class="title">{{block.settings.question}} 
+                          <span class="icon">
+                            <img src="//cdn.shopify.com/s/files/1/2807/8986/files/icon-minus.png?v=1660635608">
+                            <img src="//cdn.shopify.com/s/files/1/2807/8986/files/icon-plus.png?v=1660635618">
+                          </span>
+                        </div>
+                        <div class="body">
+                            {{block.settings.answer}}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+      </div>
+    </div>
+<script>
+  $('.faq-accordion .item .title').on('click',function(){
+    $(this).toggleClass('active').next().slideToggle();
+    $(this).parent().siblings().find('.title').removeClass('active').end().find('.body').slideUp()
+  });
+</script>    
+{% schema %}
+{
+    "name": {
+      "en": "Affiliate FAQ"
+    },
+    "class": "v2-text-img affiliate-faq-main",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458159197)"
+      },
+      {
+        "type": "header",
+        "content": "Section layout"
+      },
+      {
+        "type": "radio",
+        "id": "displayFor",
+        "label": "Show this section on",
+        "options": [
+          {
+            "value": "display--both",
+            "label": "All devices"
+          },
+          {
+            "value": "hide-desktop",
+            "label": "Mobile only"
+          },
+          {
+            "value": "hide-mobile",
+            "label": "Desktop only"
+          }
+        ],
+        "default": "display--both"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Section layout",
+        "options": [
+          {
+            "value": "default",
+            "label": "Global default"
+          },
+          {
+            "value": "boxed",
+            "label": "Boxed"
+          },
+          {
+            "value": "stretchBg",
+            "label": "Full width background"
+          },
+          {
+            "value": "stretchContent",
+            "label": "Full width"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "checkbox",
+        "id": "nomargin",
+        "default": false,
+        "label": "Remove section's bottom margin"
+      },
+      {
+        "type": "textarea",
+        "id": "scopedCSS",
+        "label": "Section-scoped CSS",
+        "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+      },
+      {
+        "type": "range",
+        "id": "height",
+        "label": "Minimum height",
+        "default": 0,
+        "min": 0,
+        "max": 800,
+        "step": 10,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "padding",
+        "label": "Section padding",
+        "default": 0,
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "lineMargin",
+        "label": "Space between blocks",
+        "default": 12,
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Section background"
+      },
+      {
+        "id": "backgroundColor",
+        "type": "color",
+        "default": "rgba(0,0,0,0)",
+        "label": "Background color"
+      },
+      {
+        "type": "image_picker",
+        "id": "backgroundImage",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "backgroundPosition",
+        "label": "Background image position",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "middle"
+      },
+      {
+        "type": "select",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "blur",
+            "label": "Blur"
+          },
+          {
+            "value": "contrast",
+            "label": "Contrast"
+          },
+          {
+            "value": "grayscale",
+            "label": "Black & White"
+          },
+          {
+            "value": "invert",
+            "label": "Invert colors"
+          },
+          {
+            "value": "sepia",
+            "label": "Sepia (retro)"
+          },
+          {
+            "value": "saturate",
+            "label": "Saturation"
+          }
+        ],
+        "id": "backgroundFilter",
+        "label": "Background effect",
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "label": "Effect intensity",
+        "id": "backdropIntensity",
+        "default": 50,
+        "unit": "%"
+      },
+      {
+        "type": "checkbox",
+        "id": "parallax",
+        "label": "Enable parallax",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "backgroundPattern",
+        "label": "Background pattern",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Background overlay"
+      },
+      {
+        "type": "range",
+        "id": "overlayOpacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "label": "Overlay opacity",
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "color",
+        "id": "overlayColor",
+        "label": "Overlay color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Section content"
+      },
+      {
+        "type": "color",
+        "id": "contentColor",
+        "label": "Default text color",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "select",
+        "id": "horizontalAlignment",
+        "label": "Content alignment (left to right)",
+        "options": [
+          {
+            "value": "start",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "Right"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "select",
+        "id": "verticalAlignment",
+        "label": "Content alignment (top to bottom)",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "middle"
+      },
+      {
+        "type": "select",
+        "id": "titleAlignmentMobile",
+        "label": "Title alignment (Above image or Below image)",
+        "info": "Apply on mobile device only",
+        "options": [
+          {
+            "value": "above_img",
+            "label": "Above image"
+          },
+          {
+            "value": "below_img",
+            "label": "Below image"
+          }
+        ],
+        "default": "below_img"
+      },
+      {
+        "type": "header",
+        "content": "Image"
+      },
+      {
+        "type": "select",
+        "id": "imagePosition",
+        "label": "Image position",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "imageWidth",
+        "label": "Image width",
+        "options": [
+          {
+            "value": "9",
+            "label": "75%"
+          },
+          {
+            "value": "8",
+            "label": "66%"
+          },
+          {
+            "value": "6",
+            "label": "50%"
+          },
+          {
+            "value": "4",
+            "label": "33%"
+          },
+          {
+            "value": "3",
+            "label": "25%"
+          }
+        ],
+        "default": "6"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "header",
+        "content": "Image overlay"
+      },
+      {
+        "type": "range",
+        "id": "imageOverlayOpacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "label": "Overlay opacity",
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "color",
+        "id": "imageOverlayColor",
+        "label": "Overlay color",
+        "default": "#000000"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "accordion",
+        "name": "Accordion",
+        "settings": [
+            {
+                "type": "richtext",
+                "id": "question",
+                "label": "Question"
+            },
+            {
+                "type": "richtext",
+                "id": "answer",
+                "label": "Answer"
+            }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Content + text",
+        "name": "Affiliate FAQ",
+        "settings": {
+          
+        }
+      }
+    ]
+  }
+{% endschema %}

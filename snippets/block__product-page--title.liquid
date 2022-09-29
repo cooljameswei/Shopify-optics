@@ -1,0 +1,77 @@
+
+{%- if block.settings.color != "rgba(0,0,0,0)" -%}
+<style>
+  div:not(.booster--revert)>h1.product__title {
+    font-weight: 600;
+    font-stretch: normal;
+    font-size: 22px;
+    line-height: 27px;
+    font-family: Montserrat;
+  }
+  .product__title--{{block.id}} {
+    color: {{block.settings.color}};
+  }
+  .relative-pos{
+    position:relative;
+  }
+  .dflex{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+  }
+  .justify-content-between{
+  	justify-content:space-between;
+  }
+  .product__row--default .product-single__vendor{
+  	letter-spacing: 1.2px;
+    color: #ce3330;
+    font-weight: 600;
+    font-stretch: normal;
+    font-size: 12px;
+    line-height: normal;
+    font-family: Montserrat;
+    margin-bottom:15px;
+  }
+  .jdgm-prev-badge__text{
+  	font: 14px/16px Montserrat;
+    letter-spacing: .65px;
+    margin-left: 10px;
+    color: #0c0c0c;
+  }
+  .product-single__meta-list:before {
+    content: "|";
+    color: #707070;
+    display: inline-block;
+    margin: 0 5px;
+   }
+  .product-single__meta-list{
+    padding-top:0px;
+  }
+  .product-single__meta-list .product-single__stock .inStockMsg{
+    font: normal bold normal 14px/24px Montserrat;
+    color: #006eff;
+  }
+  .product-single__meta-list .product-single__stock{
+  	margin-right:10px;
+  }
+  .product-single__meta-list .product__sku span,
+  .product-single__meta-list .product__sku label{
+  	font: normal bold normal 13px/24px Montserrat;
+    color: #242424;
+  }
+  .product-single__meta-list li:last-child {
+    padding-right: 0;
+  }
+  .product-single__stock .inStockMsg img{
+	margin-top:-3px;
+  }
+  .desktop_hide.pdp-wishlist-icon.swym-button.swym-add-to-wishlist-view-product {
+      position: absolute;
+      right: 16px;
+      top: 20px;
+      opacity: 1!important;
+  }
+</style>
+{%- endif -%}
+<h1 class="relative-pos product__title product__title--{{block.id}} font__family--{{block.settings.fontFamily}} font__size--{{block.settings.fontSize}}  {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" 
+  {{block.shopify_attributes}} > {{ product.title }} </h1>

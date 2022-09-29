@@ -1,0 +1,39 @@
+{% comment %}
+ Wishlist Hero Snippets -  V 1.0.0
+{% endcomment %}
+<!-- Font icon for header icons -->
+<link href="https://wishlisthero-assets.revampco.com/safe-icons/css/wishlisthero-icons.css" rel="preload" as="style" rel="preload">
+<link rel="stylesheet" href="https://wishlisthero-assets.revampco.com/safe-icons/css/wishlisthero-icons.css" media="print" onload="this.media='all'">
+<!-- Style for floating buttons and others -->
+<style type="text/css">
+    .wishlisthero-floating { position: absolute; {% assign wishlistHero = shop.metafields.wishlistHero %} {% assign key = 'WishListHero_setting' %} {% if wishlistHero.WishListHero_setting.CollectionViewIconPlacment == 'Left' %}        left: 5px !important; right: auto;{% else %}        right:5px;{% endif %} top: 5px; z-index: 23; border-radius: 100%; }
+    .wishlisthero-floating:hover { background-color: rgba(0, 0, 0, 0.05); }
+    .wishlisthero-floating button { font-size: 20px !important; width: 40px !important; padding: 0.125em 0 0 !important; }
+    .MuiTypography-body2 ,.MuiTypography-body1 ,.MuiTypography-caption ,.MuiTypography-button ,.MuiTypography-h1 ,.MuiTypography-h2 ,.MuiTypography-h3 ,.MuiTypography-h4 ,.MuiTypography-h5 ,.MuiTypography-h6 ,.MuiTypography-subtitle1 ,.MuiTypography-subtitle2 ,.MuiTypography-overline , MuiButton-root,  .MuiCardHeader-title a{ font-family: inherit !important; /*Roboto, Helvetica, Arial, sans-serif;*/ }
+    .MuiTypography-h1 , .MuiTypography-h2 , .MuiTypography-h3 , .MuiTypography-h4 , .MuiTypography-h5 , .MuiTypography-h6 ,  .MuiCardHeader-title a{ font-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }} !important; font-family: {{ settings.type_header_family.family }}, {{ settings.type_header_family.fallback_families }} !important; font-family: {{ settings.type_header_font_family.family }}, {{ settings.type_header_font_family.fallback_families }} !important; font-family: {{ settings.header_font.family }}, {{ settings.header_font.fallback_families }} !important; }
+
+    /****************************************************************************************/
+    /* For some theme shared view need some spacing */
+    /*
+    #wishlist-hero-shared-list-view { margin-top: 15px; margin-bottom: 15px; }
+    #wishlist-hero-shared-list-view h1 { padding-left: 5px; }
+    #wishlisthero-product-page-button-container { padding-top: 15px; }
+*/
+    /****************************************************************************************/
+    /* #wishlisthero-product-page-button-container button { padding-left: 1px !important; } */
+    /****************************************************************************************/
+    /* Customize the indicator when wishlist has items AND the normal indicator not working */
+/*     span.wishlist-hero-items-count { top: 0px; right: -6px; }
+        @media screen and (max-width: 749px){
+          .wishlisthero-product-page-button-container{ width:100% }
+          .wishlisthero-product-page-button-container button{ margin-left:auto !important; margin-right: auto !important; }
+        }
+        @media screen and (max-width: 749px) {
+        span.wishlist-hero-items-count { top: 10px; right: 3px; }
+        }
+*/
+</style>
+<script>window.wishlisthero_cartDotClasses=['site-header__cart-count', 'is-visible'];</script>
+{% assign wishlistHero = shop.metafields.wishlistHero %} {% assign key = 'WishListHero_setting' %}<script type='text/javascript'>try{
+ {% unless wishlistHero.WishListHero_setting %}  window.WishListHero_setting = null; {% else %}  window.WishListHero_setting = {{ wishlistHero.WishListHero_setting | json }};  
+ {% endunless %} }catch(e){ console.error('Error loading config',e); } </script>

@@ -1,0 +1,30 @@
+<label class="contact__checkbox"><input {%if block.settings.required%}required{%endif%} {% if block.settings.checked %}checked{% endif %} name="contact[{{i}}-{{block.settings.name | handleize}}]" type="checkbox" value="{{block.settings.name}}">{{block.settings.name}} {% unless block.settings.required %}(optional){% endunless -%}</label>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "contactFormCheckbox",
+    "name": "Checkbox field",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "required",
+            "label": "This field is required",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "name",
+            "label": "Field name",
+            "default": "Input title"
+        },
+        {
+            "type": "checkbox",
+            "id": "checked",
+            "label": "Checked by default",
+            "default": false
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

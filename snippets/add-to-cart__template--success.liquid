@@ -1,0 +1,25 @@
+<div class="add-to-cart__success--message">{{'upsell.added' | t }}</div>
+{% unless settings.cartAction == 'message' %}
+<div class="row add-to-cart__success--modals fancy-scroll">
+<div class="col add-to-cart__success--single">
+<img class="add-to-cart__success--single-img lazyload" loading="lazy">
+<div class="add-to-cart__success--single-info">
+<span class="add-to-cart__success--single-title">%title%</span>
+<span class="add-to-cart__success--single-variation">%variant%</span>
+</div>
+<p class="add-to-cart__success--single-current">
+{{'upsell.in_cart' | t}}<br>
+{{'upsell.total' | t}}
+</p>
+<button onclick="closeModal(event)" class="button button--full-width add-to-cart__success--button-margin add-to-cart__success--continue"><svg xmlns="http://www.w3.org/2000/svg" width="12.07" height="9.454" viewBox="0 0 12.07 9.454"><path d="M.936-23.509H-9.116l3.574-3.471-.721-.741-4.871,4.727,4.871,4.727.721-.741-3.574-3.471H.936Z" transform="translate(11.134 27.721)" fill="currentColor"/></svg> {{'general.buttons.continue' | t}}</button>
+{% assign tcheckout = 'general.buttons.checkout' | t %}
+{% assign tviewcart = 'general.buttons.view_cart' | t %}
+{% render 'button', class: 'button--full-width add-to-cart__success--button-margin', type: 'secondary', url: '/cart', text: tviewcart %}
+{% render 'button', class: 'button--full-width', type: 'primary', url: '/checkout', text: tcheckout %}
+</div>
+{% if settings.cartAction == 'upsell' %}
+<div class="col add-to-cart__success--upsell">
+</div>
+{% endif %}
+</div>
+{% endunless %}

@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="{{ 'magic360.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'magic360.additional.css' | asset_url }}" media="print" onload="this.media='all'">
+<script defer src="{{ 'magic360.js' | asset_url }}" type="text/javascript"></script>
+<script type="text/javascript" async>
+    window.Magic360 && (window.Magic360.options = {
+		'autospin-direction':'clockwise',
+		'columns':36,
+		'rows':1,
+		'magnify':true,
+		'magnifier-width':'60%',
+		'magnifier-shape':'inner',
+		'fullscreen':true,
+		'spin':'drag',
+		'speed':50,
+		'mousewheel-step':1,
+		'autospin-speed':4000,
+		'smoothing':true,
+		'autospin':'once',
+		'autospin-start':'load,hover',
+		'autospin-stop':'click',
+		'initialize-on':'load',
+		'start-column':1,
+		'start-row':'auto',
+		'loop-column':true,
+		'loop-row':false,
+		'reverse-column':false,
+		'reverse-row':false,
+		'column-increment':1,
+		'row-increment':1,
+		'hint':true
+    });
+    window.Magic360 && (Magic360.lang = {
+		'loading-text':'Loading...',
+		'fullscreen-loading-text':'Loading large spin...',
+		'hint-text':'Drag to spin',
+		'mobile-hint-text':'Swipe to spin'
+    });
+</script>
+

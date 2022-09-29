@@ -1,0 +1,86 @@
+<div class="page-width customer-register">
+  <div class="grid">
+    <div class="grid__items-one">
+      <h5>Why register to <span class="heading-red">Designer Optics</span></h5>
+      <ul class="grid__item-one-pro">
+        {% for block in section.blocks %}
+        <li class="manage-menu">
+          <div class="manage-menu-img">
+            <img loading="lazy" class="lazyload" width="auto" height="100%" src="{{ block.settings.reg-svg }}" alt="{{block.settings.reg_svg_alt}}"/>
+          </div>
+          <p class="manage-menu-desc">{{ block.settings.reg-text }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="grid__item-two grid__item medium-up--one-half medium-up--push-one-quarter">
+      <div class="cx-register">
+        <h4>{{ 'customer_area.forms.sign_up_title' | t }}</h4>
+        <p class="customer-login-desc"><b>Register now</b> to get access to wish-lists, track orders & more!</p>
+        <div class="form-vertical form-container">
+          {% form 'create_customer' %}
+
+          {{ form.errors | default_errors }}
+          <div class="register-names">
+            <input type="text" name="customer[first_name]" id="FirstName" placeholder="{{ 'customer_area.account.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autofocus>
+            <input type="text" name="customer[last_name]" id="LastName" placeholder="{{ 'customer_area.account.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+          </div>
+          
+          <input type="email" name="customer[email]" id="Email" class="{% if form.errors contains 'email' %} input--error{% endif %}" placeholder="{{ 'customer_area.forms.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+          <input type="password" name="customer[password]" id="CreatePassword" class="{% if form.errors contains 'password' %} input--error{% endif %}" placeholder="{{ 'customer_area.forms.password' | t }}">
+ 		  <input type="hidden" name="return_to" value="/pages/date-birth">
+          <p>
+            {% assign regt = 'customer_area.forms.register' | t %}
+            {% render 'submit-button', text: regt, type: 'primary', class: 'button--submit' %}
+          </p>
+          {% endform %}
+          
+		  <div style="margin-bottom:10px;">
+            <div class="one-click-social-login"></div>
+          </div>
+          
+          
+          <div class="register-bottom-text">
+            <p>Already have an account? <u><a href="{{ routes.account_login_url }}">Login</a></u></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+        {
+		  "name": "Register Section",
+		  "class": "register-section",
+          "blocks": [
+            {
+              "type": "register-section",
+              "name": "Register Section",
+              "settings": [
+                  {
+                    "id": "reg-svg",
+                    "type": "text",
+                    "label": "Image SVG Path"
+                  },
+				  {
+					"id": "reg_svg_alt",
+					"type": "text",
+					"label": "Image SVG Alt",
+					"default": "icons"
+				  },
+                  {
+                    "id": "reg-image",
+                    "type": "image_picker",
+                    "label": "Image"
+                  },
+                  {
+                    "id": "reg-text",
+                    "type": "text",
+                    "label": "Text"
+                  }
+              ]
+            }
+ 
+          ]
+        }
+{% endschema %}

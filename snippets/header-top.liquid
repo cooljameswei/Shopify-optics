@@ -1,0 +1,165 @@
+<div class="header-top-container page__header--desktop">
+    <div class="header-top">
+      <div class="header-top-left" style="justify-content: flex-start;">
+      {%- if section.settings.enable-gift-card -%}
+        <div class="header-top-gift header-top-items">
+          <picture>
+            <source media="(min-width:768px)" srcset="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/gift.svg?v=1624619938">
+            <img width="15" height="16.484" alt="Gift" class="lazyload" data-src="{{ 'tiny_fallback.jpg' | asset_img_url }}" style="margin-top:2px;">
+          </picture>
+          <a href="/products/gift-card">
+            <span style="margin-left:11px;">{{section.settings.gift-card}}</span>
+          </a>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.enable-wish-list -%}
+        <div class="header-top-wish header-top-items">
+          <picture>
+            <source media="(min-width:768px)" srcset="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/wishlist_1.svg?v=1624619938">
+            <img class="wish-list lazyload" width="15.5" height="13.266" alt="Heart" style="margin-top:2px;"  data-src="{{ 'tiny_fallback.jpg' | asset_img_url }}" style="margin-top:2px;">
+          </picture>
+          <a href="#hero-wishlist">
+            <span style="margin-left:9px;">{{section.settings.wish-lists}}</span>
+          </a>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.enable-blog -%}
+        <div class="header-top-wish header-top-items">
+          
+          <picture>
+            <source media="(min-width:768px)" srcset="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/blog.svg?v=1626080336">
+            <img width="16.563" height="14.203" alt="blog" style="margin-top:2px; height:14px;" class="lazyload" data-src="{{ 'tiny_fallback.jpg' | asset_img_url }}" style="margin-top:2px;">
+          </picture>
+          <a href="/blogs/news">
+            <span style="margin-left:9px;">{{section.settings.blog}}</span>
+          </a>
+        </div>
+      {%- endif -%}
+      </div>
+      <div class="header-top-right">
+      {%- if section.settings.enable-other-status -%}
+        <div class="header-top-order header-top-items">
+          <picture>
+            <source media="(min-width:768px)" srcset="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/order_status.svg?v=1624619938">
+            <img width="16.906" height="16.906" alt="Circle with a tick inside it" style="margin-top:2px" class="lazyload" data-src="{{ 'tiny_fallback.jpg' | asset_img_url }}">
+          </picture>
+
+          <a href="/pages/order-lookup">
+            <span style="margin-left:16px;">{{section.settings.other-status}}</span>
+          </a>
+        </div>
+      {%- endif -%}
+      {%- if customer -%}
+        <div class="header-top-out header-top-items">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-start customerName">
+              <span style="margin-top:3px;">Hi {{ customer.first_name }}</span>
+              <span class="down-arrow" id="down-arrow" style="margin-right:4px;margin-top:4px;">
+                <img width="20" height="20" loading="lazy" class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/expand-arrow.png?v=1627302395" />
+              </span>
+            </div> 
+            <div>&nbsp;&#124;&nbsp;</div> 
+            <div style="margin-left:6px;"><a href="/account/logout">Sign Out</a></div>
+          </div>
+          <ul class="my-account" id="accountDropdown">
+            <li class="myAccountLi bg-red01"><p><a href="/account">My Account</a></p></li>
+            <li class="myAccountLi"><p><a href="/pages/order-lookup">Orders</a></p></li>
+          </ul>
+        </div>
+      {%- else -%}
+        <div class="header-top-sign header-top-items">
+          <picture>
+            <source media="(min-width:768px)" srcset="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/lock.svg?v=1624619938">
+            <img width="10.516" height="15.141" alt="Lock" style="margin-top:2px" class="lazyload" data-src="{{ 'tiny_fallback.jpg' | asset_img_url }}" >
+          </picture>
+          <a href="/account/login">
+            <span style="margin-left:16px;">{{section.settings.sign-in}}</span>
+          </a>
+        </div>
+      {%- endif -%}
+      </div>
+    </div>
+</div>
+<div class="header-top-container page__header--mobile hide-desktop">
+      <div class="header-top">
+    <div class="header-top-left header-phone-info">
+      <div class="header-phone-icon">
+        <a href="tel:718-412-0407">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15.516" height="15.141" viewBox="0 0 28.938 28.418">
+            <g id="Group_414" data-name="Group 414" transform="translate(8.419 20.255)">
+              <path id="Path_312" data-name="Path 312" d="M0,0S11.822,10.939,18.485,7.49c0,0,1.842-1.529,2.02-3.031s-1.351-2.51-1.943-2.852C17.147.783,15.691.016,14.247-.765a2.087,2.087,0,0,0-1.491-.39,5.1,5.1,0,0,0-.918.306C10.821-.365,9.987.092,8.886.546c0,0-1.125-.333-5.319-4.2C-.889-7.772-.286-9.3-.286-9.3A16.7,16.7,0,0,0,1.26-11.664a5.948,5.948,0,0,0,.558-1.088c.112-.39-.117-.669-.31-1.011-.427-.766-.884-1.517-1.357-2.26a27.282,27.282,0,0,0-2.692-3.768c-.11-.119-.367-.478-.576-.464-2.317.143-4.6,2.255-4.6,2.255C-11.3-12.023,0,0,0,0" fill="#c53a3c"/>
+            </g>
+          </svg>
+        </a>
+      </div>
+      <p class="header-phone-number"><a href="tel:{{section.settings.phone-no}}">{{section.settings.phone-no}}</a></p>
+    </div>
+      <div class="header-top-right">
+      {%- if customer -%}
+          <div class="header-top-out header-top-items">
+            <span style="margin-top:3px">Hi {{ customer.first_name }} &nbsp;</span>
+            <!-- <span class="down-arrow" onclick="accountDropdown()" id="down-arrow" style="margin-right:4px;margin-top:4px;"><img width="20" height="20" loading="lazy" src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/expand-arrow.png?v=1627302395" /></span>
+            <span class="up-arrow" id="up-arrow" style="margin-right:4px;margin-top:4px;"><img width="20" height="20" src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/collapse-arrow.png?v=1627302395" loading="lazy" /></span>  -->
+            &#124;<span style="margin-left:4px;margin-top:1px;"><a href="/account/logout">Sign Out</a></span>
+            <!-- <ul class="my-account" id="accountDropdown">
+              <li class="myAccountLi bg-red01"><p><a href="/account">My Account</a></p></li>
+              <li class="myAccountLi"><p><a href="/pages/order-lookup">Orders</a></p></li>
+            </ul> -->
+          </div>
+        {%- else -%}
+          <div class="header-top-sign header-top-items">
+            <img width="10.516" height="15.141" alt="Lock" style="margin-top:2px" loading="lazy" class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/lock.svg?v=1624619938" >
+            <a href="/account/login">
+              <span style="margin-left:9px;">{{section.settings.sign-in-text-mobile}}</span>
+            </a>
+          </div>
+        {%- endif -%}
+        </div>
+      </div>
+</div>
+<style type="text/css" data-shopify>
+  .header-top-items{ display:flex; align-items:center; justify-content:flex-start; }
+  {%- if customer -%} .header-top-sign { display:none; } {%- else -%} .header-top-sign { display:flex; } {%- endif -%}
+  .up-arrow { display:none; }
+  .show{ display:block !important; }
+  .rotate-arrow img{ transform: rotate(180deg); }
+  .header-top-out ul{ list-style-type:none; position:absolute; border: none; -webkit-box-shadow: 0 0 3px #ccc; box-shadow: 0 0 3px #ccc; margin-top: 10px; width: 188px; }
+  .header-top-out ul.my-account { width: 166px; top:33px; }
+  .my-account li:not(:last-child){ border: none; color: black; }
+  .bg-red01 { background-color: #ff000011; }
+  .my-account li:hover { background-color: #ff000022; }
+  .my-account li p{ margin:0px; }
+  .my-account { justify-content: center; display: flex; /* width: 56%; */ display: none; font-size: 14px; color: #FFF; font-weight: 600; padding: 0px; border: 1px solid #9f9f9f; margin-top: 5px; background-color: #FFF; box-shadow: none; width: 160px; z-index: 9; }
+  .my-account a { color:#000; border-radius:4px; font-size: 16px; display: inline-block; padding: 10px 16px; width: 100%; line-height:22px; }
+  .header-top-out { margin-left: 19.16px; margin-top:0px; }
+  .header-top-out-after { margin-left: 19.16px; z-index: 10; }
+  .header-top-out img { margin-top:0px; display:inline-block; height: 20px; }
+  .site-header__upper { padding-top: 29px; padding-bottom: 28px; }
+  .header-top-container{ background-color: #F8F8F8; }
+  .nav-bar { border: none; }
+  .header-top{ /*max-width:1079px;*/ /*------As per the new requiremnet TW#33265426-----*/ max-width:1350px; margin:auto; }
+  .site-header__upper { width:100% !important; background-color: #fff; }
+  .header-top{ display:flex; justify-content:space-between; height:43px; width:100%; }
+  .header-top span { font-size:14px; margin:0; letter-spacing: 0.35px; color: #2B2E34; font-weight:600; font-family:'Karla'; }
+  .header-top a{ text-decoration:none; font-family:'Karla'; line-height:1.375; font-size: 14px; font-weight: normal; }
+  .header-top-left { display:flex; justify-content:space-between; align-items:center; min-width:295.61px; }
+  .header-top-right { display:flex; justify-content:space-between; align-items:center; }
+  .header-top-wish { margin-left:25.16px; }
+  .header-top-sign { margin-left:19.16px; }
+  .site-header__logo img { max-width: 169px; }
+  a { color: #c63b3d; text-decoration: none; transition: color .1s ease-in,background-color .1s ease-in; }
+  a:hover { color: #8c292a !important; }
+  .header-top-container picture { padding-bottom: 0; height: auto; margin-bottom: 0; line-height: 1; font-size: 0; }
+  .d-flex{ display: flex; }
+  .align-items-center{ align-items: center; }
+  .justify-content-between{ justify-content: space-between; }
+  .justify-content-start{ justify-content: flex-start; }
+  .customerName{ cursor: pointer; }
+  @media (min-width: 1100px) and (max-width: 1275px){
+    .header-top-out ul.my-account { width: 180px; }
+  }
+  @media screen and (max-width: 767px){
+    header.page__header--mobile .header-top a span{ font-size: 11px; }
+    .header-top-sign { margin-left: 5.16px; }
+  }  
+</style>

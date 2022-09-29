@@ -1,0 +1,25 @@
+<div class="block__html booster--revert">
+{{pages[block.settings.page].content}}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "pageBlock",
+    "name": "Page Content",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "fullWidth",
+            "default": true,
+            "label": "Single in row"
+        },
+        {
+            "type": "page",
+            "id": "page",
+            "label": "Choose a page"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

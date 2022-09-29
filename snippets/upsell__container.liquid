@@ -1,0 +1,81 @@
+<h3 class="add-to-cart__success--heading">{{config.heading | default: 'Recommended for you'}}</h3>
+{%unless config.subheading == blank%}<p>{{config.subheading}}</p>{% endunless %}
+{% if type == 'collection' %}
+<div class="add-to-cart__success--product-holder">
+{% for product in data.products limit: 5 %}
+<div class="row add-to-cart__success--product">
+<div class="col-sm-12 add-to-cart__success--product-img">
+<a class="card__img--container"  href="{{ product.url }}">
+<div class="card__img--ratio">
+<div class="card__img">
+<img class="lazyload" loading="lazy" src="{{ product.featured_image | img_url: '10x10' }}" data-sizes="(max-width: 767px) 90vw, 140px" data-srcset="{{ product.featured_image | img_url: '480x' }} 480w, {{ product.featured_image | img_url: '240x' }} 240w, {{ product.featured_image | img_url: 'medium' }} 140w" alt="{{ product.featured_image.alt | escape }}">
+</div>
+</div>
+</a>
+</div>
+<div class="col-12 col-md unflex add-to-cart__success--product-swatch">
+<div class="add-to-cart__success--title">{{product.title}}</div>
+<div><span class="add-to-cart__success--price jsPrice {% if product.compare_at_price_max > 0 %}product__price--sale{% endif %}" data-product-price="{{product.id}}">{{product.price | money | strip_html}}</span><span data-product-price-sale="{{product.id}}" class="jsPrice add-to-cart__success--sale">{% if product.compare_at_price_max > 0 %}{{product.compare_at_price_max | money | strip_html }}{% endif %}</span></div>
+{% if product.variants.size > 1 %}
+{% render 'upsell__swatch--compact', product: product, index: forloop.index %}
+{% endif %}
+</div>
+<div class="col-12 col-md add-to-cart__success--product-buttons">
+{% form "product", product %}
+<div class="product__atc {% if block.settings.noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+{% if product.available %}
+<input style="display: none;" name="id" data-bstr-variant-input="{{product.id}}" data-variant-id="{{product.selected_or_first_available_variant.id}}" value="{{product.selected_or_first_available_variant.id}}">  <div class="quantity--input">  <button class="quantity--input__button quantity--input__incr" onclick="BoosterTheme.cart.quantityHandler(event, false, false)">-</button><!--
+--><input class="quantity--input__input" value="1" data-qty-input type="number" name="quantity" min="1"><!--
+--><button class="quantity--input__button quantity--input__decr" onclick="BoosterTheme.cart.quantityHandler(event, true, false)">+</button>
+</div>
+{% render 'add-to-cart-button', price: product.price %}
+{% else %}
+{% render 'sold-out-button', disabled: 'disabled' %}
+{%endif%}
+</div>
+{% endform %}
+</div>
+</div>
+{% endfor %}
+</div>
+{% else %}
+{% assign product = data %}
+<div class="center add-to-cart__success--product--single">
+<div class="col-min no-gap add-to-cart__success--product-img">
+<a class="card__img--container"  href="{{ product.url }}">
+<div class="card__img--ratio">
+<div class="card__img">
+<img class="lazyload" loading="lazy" src="{{ product.featured_image | img_url: '10x10' }}" data-sizes="(max-width: 767px) 90vw, 140px" data-srcset="{{ product.featured_image | img_url: '480x' }} 480w, {{ product.featured_image | img_url: '240x' }} 240w, {{ product.featured_image | img_url: 'medium' }} 140w" alt="{{ product.featured_image.alt | escape }}">
+</div>
+</div>
+</a>
+</div>
+<div class="col no-gap unflex">
+    <div class="col-12 no-gap unflex add-to-cart__success--product-swatch">
+        <div class="add-to-cart__success--title">{{product.title}}</div>
+        <div>
+            <span class="add-to-cart__success--price jsPrice" data-product-price="{{product.price}}">{{product.price | money | strip_html}}</span>
+            {% if product.compare_at_price_min > 0 %}<span class="add-to-cart__success--sale jsPrice" data-product-price-sale="{{product.id}}">{{product.compare_at_price_max | money | strip_html }}</span>{% endif %}
+        </div>
+        {% if product.variants.size > 1 %}
+            {% render 'upsell__swatch--compact', product: product, index: forloop.index %}
+        {% endif %}
+    </div>
+    <div class="col-12 no-gap add-to-cart__success--product-buttons">
+        {% form "product", product %}
+        <div class="product__atc {% if block.settings.noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+        {% if product.available %}
+        <input style="display: none;" name="id" data-bstr-variant-input="{{product.id}}" data-variant-id="{{product.selected_or_first_available_variant.id}}" value="{{product.selected_or_first_available_variant.id}}">  <div class="quantity--input">  <button class="quantity--input__button quantity--input__incr" onclick="BoosterTheme.cart.quantityHandler(event, false, false)">-</button><!--
+        --><input class="quantity--input__input" value="1" data-qty-input type="number" name="quantity" min="1"><!--
+        --><button class="quantity--input__button quantity--input__decr" onclick="BoosterTheme.cart.quantityHandler(event, true, false)">+</button>
+        </div>
+        {% render 'add-to-cart-button', price: product.price %}
+        {% else %}
+        {% render 'sold-out-button', disabled: 'disabled' %}
+        {%endif%}
+        </div>
+        {% endform %}
+    </div>
+</div>
+</div>
+{% endif %}

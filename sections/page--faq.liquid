@@ -1,0 +1,366 @@
+{% render 'page-faq-css' %}
+<div class="faq-main-container">
+  <!--  contact info section call   -->
+  <div class="faq--padd cont-info--main">
+	<div class="contact--info">
+      <div class="contact--info-wrap">
+        <div>
+          <img width="{{section.settings.mobileImage.width}}" height="{{section.settings.mobileImage.height}}" src="{{ section.settings.mobileImage | img_url: "master" }}" />
+          <span>{{ section.settings.mobile }}</span>
+        </div>
+        <span class="vertical-line"></span>
+        <div>
+          <img width="{{section.settings.emailImage.width}}" height="{{section.settings.emailImage.height}}" src="{{ section.settings.emailImage | img_url: "master" }}" />
+          <span>{{ section.settings.email }}</span>
+        </div>
+         <span class="vertical-line"></span>
+        <div>
+          <img width="{{section.settings.faxImage.width}}" height="{{section.settings.faxImage.height}}" src="{{ section.settings.faxImage | img_url: "master" }}" />
+          <span>{{ section.settings.fax }}</span>
+        </div>
+      </div>
+      {% if section.settings.enable_search %}
+        <div class="search-wrap">
+              <input type="text" placeholder="Search.." />
+              <img src="{{ "search.svg" | file_url }}" />
+        </div>
+      {% endif %}
+  	</div>
+    
+  </div>
+  <!--  Faq accordion section call   -->
+  {% assign sectionCount = section.blocks.size %}
+  <div class="faq-accordion faq--padd">
+    <!--  mobile dropdown  -->
+    <div class="mobile_dropdownbtn">
+      <h3><span></span></h3>
+    </div>
+
+    <!--  Accordian container  -->
+    <div class="faq-accordian-container">
+      <!--   web left sidebar     -->
+      <div class="sidebar">
+        <div class="maintitle active">
+          <img src="{{ "General_Question.png" | file_url }}" alt="General">
+          <h3 class="general">General</h3>
+        </div>
+      </div>
+
+      <!--   main content section     -->
+      <div class="main--content">
+        {% if sectionCount > 0 %}
+        <div class="accordion-wrapper m-0 d-inline"></div>
+        {% for block in section.blocks %} 
+        <div class="accordion-wrapper">
+          <h2>{{block.settings.title }}</h2>
+          <div class="maintitle" data-title="{{ block.settings.title | downcase | remove:" "}}">
+            <img src="{{ block.settings.titleImage | img_url: '25*25'}}" alt="{{block.settings.titleImage}}" />
+            <h3>{{block.settings.title }}</h3>
+          </div>
+          {% for i in (1..15) %}
+          {% capture answer %}ans_{{i}}{% endcapture %}
+          {% capture question %}ques_{{i}}{% endcapture %}
+          {% if block.settings[question] != blank %}
+          <div class="item">
+            <div class="title">{{  block.settings[question] }} 
+              <span class="icon">
+                <img src="{{ "up_arrow.svg"  | file_url }}">
+                <img src="{{ "down_arrow.svg"  | file_url }}">
+              </span>
+            </div>
+            <div class="body">{{  block.settings[answer] }}</div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div> 
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Faq Section",
+    "settings": [
+      {
+      "type": "image_picker",
+      "label" : "Select image",
+      "id" : "mobileImage"
+      },
+      {
+      "type": "text",
+      "label" : "Mobile Nummber",
+      "id" : "mobile"
+      },
+      {
+      "type": "image_picker",
+      "label" : "Select image",
+      "id" : "emailImage"
+      },
+      {
+      "type": "text",
+      "label" : "Email",
+      "id" : "email"
+      },
+      {
+      "type": "image_picker",
+      "label" : "Select image",
+      "id" : "faxImage"
+      },
+      {
+      "type": "text",
+      "label" : "Fax Number",
+      "id" : "fax"
+      },
+      {
+      "type": "checkbox",
+      "id": "enable_search",
+      "label": "Show Search"
+      }	
+   	],
+	"blocks": [
+    {
+      "type": "select",
+      "name": "Accordion",
+      "settings": [
+        {
+          "id": "titleImage",
+          "type": "image_picker",
+          "label": "Title Image"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "ques_1",
+          "type": "text",
+          "label": "Question 1"
+        },
+        {
+          "id": "ans_1",
+          "type": "textarea",
+          "label": "Answer 1"
+        },
+        {
+          "id": "ques_2",
+          "type": "text",
+          "label": "Question 2"
+        },
+        {
+          "id": "ans_2",
+          "type": "textarea",
+          "label": "Answer 2"
+        },
+        {
+          "id": "ques_3",
+          "type": "text",
+          "label": "Question 3"
+        },
+        {
+          "id": "ans_3",
+          "type": "textarea",
+          "label": "Answer 3"
+        },
+        {
+          "id": "ques_4",
+          "type": "text",
+          "label": "Question 4"
+        },
+        {
+          "id": "ans_4",
+          "type": "textarea",
+          "label": "Answer 4"
+        },
+        {
+          "id": "ques_5",
+          "type": "text",
+          "label": "Question 5"
+        },
+        {
+          "id": "ans_5",
+          "type": "textarea",
+          "label": "Answer 5"
+        },
+        {
+          "id": "ques_6",
+          "type": "text",
+          "label": "Question 6"
+        },
+        {
+          "id": "ans_6",
+          "type": "textarea",
+          "label": "Answer 6"
+        },
+        {
+          "id": "ques_7",
+          "type": "text",
+          "label": "Question 7"
+        },
+        {
+          "id": "ans_7",
+          "type": "textarea",
+          "label": "Answer 7"
+        },
+        {
+          "id": "ques_8",
+          "type": "text",
+          "label": "Question 8"
+        },
+        {
+          "id": "ans_8",
+          "type": "textarea",
+          "label": "Answer 8"
+        },
+        {
+          "id": "ques_9",
+          "type": "text",
+          "label": "Question 9"
+        },
+        {
+          "id": "ans_9",
+          "type": "textarea",
+          "label": "Answer 9"
+        },
+        {
+          "id": "ques_10",
+          "type": "text",
+          "label": "Question 10"
+        },
+        {
+          "id": "ans_10",
+          "type": "textarea",
+          "label": "Answer 10"
+        },
+        {
+          "id": "ques_11",
+          "type": "text",
+          "label": "Question 11"
+        },
+        {
+          "id": "ans_11",
+          "type": "textarea",
+          "label": "Answer 11"
+        },
+        {
+          "id": "ques_12",
+          "type": "text",
+          "label": "Question 12"
+        },
+        {
+          "id": "ans_12",
+          "type": "textarea",
+          "label": "Answer 12"
+        },
+        {
+          "id": "ques_13",
+          "type": "text",
+          "label": "Question 13"
+        },
+        {
+          "id": "ans_13",
+          "type": "textarea",
+          "label": "Answer 13"
+        },
+        {
+          "id": "ques_14",
+          "type": "text",
+          "label": "Question 14"
+        },
+        {
+          "id": "ans_14",
+          "type": "textarea",
+          "label": "Answer 14"
+        },
+        {
+          "id": "ques_15",
+          "type": "text",
+          "label": "Question 15"
+        },
+        {
+          "id": "ans_15",
+          "type": "textarea",
+          "label": "Answer 15"
+        }
+      ]
+    }
+  ],
+	"presets": [
+		{
+			"category": "custom-page-sections",
+			"name": "Page FAQ",
+			"blocks": [
+              {
+                "type": "select"
+              },
+              {
+                "type": "select"
+              }
+            ]
+		}
+	]
+  }
+{% endschema %}
+
+<script>
+  //========== append title to sidebar   
+  $('.accordion-wrapper .maintitle').each(function(){
+    $('.faq-accordion .sidebar').append($(this))
+  });
+
+  //========== add active class   
+  $('.faq-accordion .sidebar .maintitle:first-child,.faq-accordion .main--content .accordion-wrapper:first-child,.faq-accordion .main--content .accordion-wrapper .item:first-child .title,.faq-accordion .main--content .accordion-wrapper .item:first-child .body').addClass('active');
+
+  //========== show all accordians for General tab   
+  $('.faq-accordion .main--content .accordion-wrapper').addClass('active');
+  
+  //========== accordian functionality 
+  $('.faq-accordion .mobile_dropdownbtn h3 span').text($('.faq-accordion .sidebar .maintitle.active h3').text())
+
+  //========== on mobile sidebar as select box   
+  if($(window).width() < 768){ $('.faq-accordion .sidebar').hide() }
+</script>
+<!-- <script type="lazyload2"> -->
+<script>
+  // show active tab on basis of URL
+  $(document).ready(function(){
+    if(window.location.hash){
+      let hashUrl = window.location.hash.split('#')[1];
+      $('.sidebar .maintitle[data-title="' + hashUrl + '" ]').find('h3').trigger('click');
+    }
+  })
+  
+  $('.faq-accordion .sidebar .maintitle:first-child').on('click', function(){
+    $('.faq-accordion .main--content .accordion-wrapper').addClass('active');
+  });
+  //========== on mobile make sidebar slideup & on web navigate as tabs   
+  $('.faq-accordion .sidebar .maintitle h3').on('click',function(){
+    if($(window).width() < 768){
+      var text = $(this).text()
+      $('.faq-accordion .sidebar').slideUp()
+      $('.faq-accordion .mobile_dropdownbtn h3 span').text(text)
+    }
+    var i = $(this).parent().index();
+    $(this).parent().addClass('active').siblings().removeClass('active');
+    $('.faq-accordion .main--content .accordion-wrapper').eq(i).addClass('active').siblings().removeClass('active')
+  });  
+
+  //========== accordian functionality   
+  $('.faq-accordion .main--content .accordion-wrapper .item .title').on('click',function(){
+    $(this).toggleClass('active').next().slideToggle();
+    $(this).parent().siblings().find('.title').removeClass('active').end().find('.body').slideUp()
+  });
+  
+  $('.faq-accordion .mobile_dropdownbtn').on('click', function(){
+    $('.faq-accordion .sidebar').slideToggle();
+    $('.faq-accordian-container').slideDown();
+  });  
+  // last tab redirect to contact page   
+  $('.faq-accordion .sidebar .maintitle:last-child').on('click', function(){
+    window.open('/pages/contact-us/', '_self');
+  });
+
+</script>

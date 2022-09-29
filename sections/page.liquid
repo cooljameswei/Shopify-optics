@@ -1,0 +1,113 @@
+{% capture layoutConfig %}{% render 'common-layout' with section as section %}{% endcapture %}
+
+<div class="row layout__{{-layoutConfig}}">
+    <div class="col-12 unflex layout__content section__page booster--revert">
+      {% if section.settings.enableShortcodes %}
+        {% assign c = page.content %}
+        {% assign sc = c | split: 'endinsert]' %} {% comment %} split content {% endcomment %}
+        {% assign nc = '' %} {% comment %} new content to echo {% endcomment %}
+
+        {% if sc.size > 1 %}
+          {% for b in sc %}
+            {% assign rsection = '' %}
+
+            {% if forloop.last %}
+              {% assign nc = nc | append: b %} {% comment %} append last always {% endcomment %}
+              {% continue %}
+            {% endif %}
+
+            {% assign sb = b | split: '[insert' %} {% comment %} split content and parameteres {% endcomment %}
+            {% assign nc = nc | append: sb[0] %} {% comment %} add content {% endcomment %}
+            {% assign params = sb[1] | split: ',' %} {% comment %} split parameters {% endcomment %}
+
+            {% assign sname = params[0] | strip %}
+
+            {% case sname %}
+              {% when 'collection' %}
+                {% assign syntax = '[insert collection, collection-name:(text), limit:(number 0-50), show-more:(true, false), show-more-alignment:(start, center, end) endinsert]' %}
+                {% assign example = '[insert collection, collection-name:necklace, limit:3, show-more:true, show-more-alignment:end endinsert]' %}
+                {% capture rsection %}{% render 'shortcode__collection', params: params %}{% endcapture %}
+              {% when 'product' %}
+                {% assign syntax = '[insert product, product-handle:(text), show-description:(true, false) endinsert]' %}
+                {% assign example = '[insert product, product-handle:3-4-sleeve-kimono-dress-coral, show-description:false endinsert]' %}
+                {% capture rsection %}{% render 'shortcode__product', params: params %}{% endcapture %}
+              {% when 'product-grid' %}
+                {% assign syntax = '[insert product-grid, products:(semi-colon ; separated list of product handles) endinsert]' %}
+                {% assign example = '[insert product-grid, products:3-4-sleeve-kimono-dress-coral;1-3-blue-blouse endinsert]' %}
+                {% capture rsection %}{% render 'shortcode__product-grid', params: params %}{% endcapture %}
+              {% when 'countdown' %}
+                {% assign syntax = '[insert countdown, time:(number, date), format:(days, hours, minutes, seconds), title:(text), text:(text), style:(compact, doublecolumn), align:(start, center, end) endinsert]' %}
+                {% assign example = '[insert countdown, time:30, format:minutes, title:This offer will expire soon, text:After this offer expires you wont be able to get this price, style:compact endinsert]' %}
+                {% capture rsection %}{% render 'shortcode__countdown', params: params %}{% endcapture %}
+              {% when 'newsletter' %}
+                {% assign syntax ="[insert newsletter, placeholder:(text), button-type:(primary, secondary), button-text:(text), newsletter-type:(shopify, mailchimp), width:(number + css unit), align:(start, center, end) endinsert]" %}
+                {% assign example = "[insert newsletter, placeholder:Placeholder e-mail, button-type:primary, button-text:Submit, newsletter-type:shopify, width:500px, align:center endinsert]" %}
+                {% capture rsection %}{% render 'shortcode__newsletter', params: params %}{% endcapture %}
+              {% when 'percentage' %}
+                {% assign syntax ="[insert percentage, amount:(percentage), height:(number + css unit), width:(number + css unit) endinsert]" %}
+                {% assign example = "[insert percentage, amount:75%, width:150px, height: 10px endinsert]" %}
+                {% capture rsection %}{% render 'shortcode__percentage', params: params %}{% endcapture %}
+            {% endcase %}
+
+            {% unless rsection contains 'Liquid error' %}
+              {% assign nc = nc | append: rsection %}
+            {% else %}
+              {% capture error %}
+                  <br>  
+                  <h2>An error occurred while rendering {{params[0]}}</h2><br>
+                  Syntax for this section:<br>
+                  <code>{{syntax}}</code><br><br>
+                  Example:<br>
+                  <code>{{example}}</code><br><br>
+                  Your parameters:<br>
+                  <code>{{params | json | replace: ',', ' '}}</code><br><br>
+                  Liquid error:<br>
+                  <code>{{rsection}}</code><br><br>
+                {% endcapture %}
+                {% assign nc = nc | append: error %}
+            {% endunless %}
+
+          {% endfor %}
+        {% else %}
+          {% assign nc = c %}
+        {% endif %}
+
+        {{nc}}
+      {% else %}
+        {{page.content}}
+      {% endif %}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": {
+    "en": "Page layout"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "enableShortcodes",
+      "label": "Enable sections (BETA)",
+      "info": "Parses page's content for sections using BoosterRender. More information will be provided soon.",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner--contact",
+      "disabled": true,
+      "settings": {
+        "layout": "default",
+        "height": 300,
+        "horizontalAlignment": "center",
+        "verticalAlignment": "middle",
+        "fontSize": "medium",
+        "contentColor": "rgba(0,0,0,0)",
+        "fillColor": "rgba(0,0,0,0)",
+        "overlayOpacity": 0,
+        "overlayColor": "#000000"
+      }
+    },
+    "contact": {
+      "type": "contact",
+      "disabled": true,
+      "settings": {
+      }
+    },
+    "1634061290d25c0426": {
+      "type": "page--contact",
+      "settings": {
+        "max_width": "1350px",
+        "margin-top_mobile": "20px",
+        "margin-top_desktop": "30px",
+        "enable_map": true,
+        "pageTitleHeaderColor": "#030303",
+        "title_align": "left",
+        "pageContentColor": "#666666",
+        "content_padding": "40px",
+        "para_bottom_margin": "20px",
+        "enable_link_colors": false,
+        "linksColor": "#c63b3d",
+        "linksHoverColor": "#8c292a"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "contact",
+    "1634061290d25c0426"
+  ]
+}

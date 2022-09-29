@@ -1,0 +1,91 @@
+<style>
+#separator--{{-block.id}} {position: relative;width: 100%; flex-basis: 100%; height: {{block.settings.height}}px;}
+
+{% if block.settings.dividerHeight > 0 %}
+#separator--{{-block.id}}::after {
+    height: {{block.settings.dividerHeight}}px;
+    width: {{block.settings.dividerWidth}}%;
+    background: {{block.settings.dividerColor}};
+    position: absolute;
+    top: 50%;
+    margin-top: -{{block.settings.dividerHeight | divided_by: 2}}px;
+    {% case block.settings.position %}
+    {% when 'center' %}
+    left: 50%;
+    transform: translateX(-50%);
+    {% when 'left' %}
+    left: 0;
+    {% when 'right' %}
+    right: 0;
+    {% endcase %}
+    content: '';
+}
+{% endif %}
+</style>
+<div id="separator--{{block.id}}"></div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "separator",
+    "name": "Separator",
+    "settings": [
+    {
+        "type": "header",
+        "content": "Separator"
+    },
+    {
+        "type": "range",
+        "min": 0,
+        "max": 250,
+        "step": 5,
+        "unit": "px",
+        "id": "height",
+        "label": "Height",
+        "default": 50
+    },
+    {
+        "type": "header",
+        "content": "Divider"
+    },
+    {
+        "type": "range",
+        "label": "Divider height",
+        "unit": "px",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "default": 0,
+        "id": "dividerHeight"
+    },
+    {
+        "type": "range",
+        "label": "Divider width",
+        "unit": "%",
+        "min": 5,
+        "max": 100,
+        "step": 5,
+        "default": 50,
+        "id": "dividerWidth"
+    },
+    {
+        "type": "color",
+        "label": "Divider color",
+        "default": "#000",
+        "id": "dividerColor"
+    },
+    {
+        "type": "select",
+        "default": "left",
+        "id": "position",
+        "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "right", "label": "Right"}
+        ],
+        "label": "Divider position"
+    }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

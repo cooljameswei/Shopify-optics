@@ -1,0 +1,83 @@
+{% if settings.enable_checkout_ga_events %}
+    <!-- Google Tag Manager -->
+    <script type="text/javascript" async="async">
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NX9PSGP');
+    </script>
+    <!-- End Google Tag Manager -->
+    <script src="{{ 'google-new-datalayer.js' | asset_url }}" defer></script>
+    {%- capture line_items -%}
+        {%- for item in checkout.line_items -%}
+            ,{
+                "product_title":"{{-item.product.title-}}",
+                "product_id":"{{-item.product.id-}}",
+                "price":"{{-item.price-}}",
+                "vendor":"{{-item.product.vendor-}}",
+                "product_type":"{{-item.product.type-}}",
+                "variant_title":"{%- if item.variant.title == "Default Title"-%}{{-item.title-}}{%- else -%}{{-item.variant.title-}}{%- endif -%}",
+                "quantity":"{{-item.quantity-}}"
+            }
+        {%- endfor -%}
+    {%- endcapture -%}
+    <script>
+        (function($) {
+            let _items = [{{-line_items | remove_first:","-}}];
+            let shippingTitle = "{{-shipping_tire-}}";
+            $(document).on("page:load page:change", function() {
+                if (Shopify.Checkout.page !== "thank_you") {
+                    const beginCheckout = () => {
+                        let isInitCheckoutDone = localStorage.getItem("isInitCheckout") || "";
+                        if(isInitCheckoutDone === "" && _items.length > 0){
+                            window.gaBeginCheckout(_items);
+                            localStorage.setItem("isInitCheckout", "yes");
+                        }
+                    }
+                    beginCheckout();
+                    
+                    let checkoutBtn = document.getElementById("continue_button");
+                    if(checkoutBtn){
+                        checkoutBtn.addEventListener("click", () => {
+                            if (Shopify.Checkout.step === "shipping_method") {
+                                let shippingMethodHandle = document.querySelector('[name="checkout[shipping_rate][id]"]:checked').getAttribute("id") || "";
+                                if(shippingMethodHandle !== ""){
+                                    let shippingMethod = document.querySelector(`label[for="${shippingMethodHandle}"] span[data-shipping-method-label-title]`) && document.querySelector(`label[for="${shippingMethodHandle}"] span[data-shipping-method-label-title]`).getAttribute("data-shipping-method-label-title") || "";
+                                    if(shippingMethod !== "" && _items.length > 0){
+                                        window.gaAddShippingInfo(_items,shippingMethod);
+                                    }
+                                }
+                            }
+                            else if (Shopify.Checkout.step === "payment_method") {
+                                let payment_type_value = document.querySelector('[name="checkout[payment_gateway]"]:checked').value || "";
+                                if(payment_type_value !== ""){
+                                    let payment_type = document.querySelector(`[data-select-gateway="${payment_type_value}"]`) && document.querySelector(`[data-select-gateway="${payment_type_value}"]`).getAttribute("data-gateway-name") || "";
+                                    if(payment_type !== ""  && _items.length > 0){
+                                        window.gaAddPaymentInfo(_items,payment_type);   
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            if (Shopify.Checkout.page !== "thank_you" && Shopify.Checkout.OrderStatus) {
+                let spanInterval = setInterval(function(){
+                    if(window.gaPurchase && _items.length > 0){    
+                        clearInterval(spanInterval);  
+                        let order_info = {
+                            currency:"{{-checkout.currency-}}",
+                            value:Number("{{-checkout.total_price | money_without_currency-}}"),
+                            tax:Number("{{-checkout.tax_price  | money_without_currency-}}"),
+                            shipping:Number("{{-checkout.shipping_price  | money_without_currency -}}"),
+                            affiliation:"New",
+                            transaction_id: "{{-checkout.order_name-}}",
+                            coupon: "{{-checkout.discount_applications[0].title-}}"
+                        };
+                        if(_items.length > 0){
+                            window.gaPurchase(_items,order_info)
+                            localStorage.removeItem("isInitCheckout")
+                        }
+                    }
+                }, 1000);
+            }
+        })(Checkout.$);
+    </script>
+{% endif %}

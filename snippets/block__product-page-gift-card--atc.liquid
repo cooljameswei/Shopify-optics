@@ -1,0 +1,89 @@
+<div class="product__atc {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+    {% if product.available %}
+        <div class="product__atc-container">
+            <input style="display: none;" name="id" data-bstr-variant-input="{{product.id}}" value="{{product.selected_or_first_available_variant.id}}">
+            <div class="quantity--input product__atc-container-item">
+                <label for="Quantity" class="label-txt">Quantity</label>
+                <div class="quantity--input__buttons">
+                    <button class="quantity--input__button quantity--input__incr" onclick="BoosterTheme.cart.quantityHandler(event, false, false)">-</button>
+                    <input class="quantity--input__input" value="1" data-qty-input type="number" name="quantity" min="1">
+                    <button class="quantity--input__button quantity--input__decr" onclick="BoosterTheme.cart.quantityHandler(event, true, false)">+</button>
+                </div>
+            </div>
+            <div class="addtocart__button product__atc-container-item">
+                {% render 'add-to-cart-button-gift-card', type: 'secondary', price: product.price %}
+            </div>
+            <div class="product__wishlist-container-item">
+            {% render 'wishlisthero-custom-button' %}
+          </div>
+        </div>
+        {% if settings.dynamicCheckout %}
+            <div data-dynamic-button="{{product.id}}"  class="col-12 no-gap checkout--dynamic">
+            {{ form | payment_button }}
+            {% comment %} {% if additional_checkout_buttons %}
+                {{ content_for_additional_checkout_buttons }}
+            {% endif %} {% endcomment %}
+            </div>
+        {% endif %}
+    {% else %}
+        {% render 'sold-out-button', disabled: 'disabled' %}
+    {%endif%}
+</div>
+
+<style>
+    .product__atc-container {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: start;
+        align-items: center;
+    }
+    .product__atc-container-item {
+        flex: 0 0 auto;
+    }
+    .product__atc-container .quantity--input {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: start;
+    }
+    .product__atc-container .quantity--input {
+        margin-bottom: 10px;
+    }
+    .addtocart__button {
+        width: 70%;
+    }
+    .product__atc-container .quantity--input label.label-txt {
+        width: 100%;
+        text-align: center;
+    }
+</style>
+
+{% if block.settings.stickyATC == "scroll" %}
+<script>
+document.addEventListener('booster:initialized', (e)=>{
+    let bt = event.detail.BoosterTheme
+    let sticky = document.querySelector('.sticky--mobile:not([data-bstr-initd])')
+    if(!sticky) return
+    sticky.dataset.bstrInitd = "true"
+    document.addEventListener('scroll', debounce(()=>{
+        if(window.innerWidth > 768) return
+        let patc = document.querySelector('.product__atc')
+        if(!patc) return
+        if(patc.offsetTop + patc.clientHeight < window.scrollY){
+            sticky.classList.remove('hide')
+        } else {
+            sticky.classList.add('hide')
+            sticky.classList.add('sticky--closed')
+        }
+    }, 150))
+})
+</script>
+{% elsif block.settings.stickyATC == "always" %}
+<style>
+@media screen and (max-width: 767px){
+    .sticky--mobile {
+        display: block !important;
+    }
+}
+</style>
+{% endif %}

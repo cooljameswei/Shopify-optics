@@ -1,0 +1,176 @@
+{% if product.variants.size > 1 %}
+
+    {% capture vArray %}{ {%- for variant in product.variants -%}{%- if variant.featured_image != nil -%}
+    {%- assign img = variant.featured_image | img_url: '100x100' -%}
+    {%- for ix in optionIndex -%}
+        {%- assign idx = ix | plus: 0 -%}
+        {%- assign option = variant.options[idx] | handleize -%}
+    {%- endfor -%}
+    {%-endif-%}"{{variant.id}}": {"sku": {{ variant.sku | json }},"incoming": {{ variant.incoming | default: false | json }},"next_incoming_date": {{ variant.next_incoming_date | date: format: 'month_day_year' | json }},"inventory_policy": {{ variant.inventory_policy | json }},"inventory_quantity": {{ variant.inventory_quantity | json }},"available": {{variant.available | json}} ,"id": {{variant.id | json}}, "price_raw": {{variant.price}}, "sale_raw": {{variant.compare_at_price | default: false}}, "price": {{variant.price | money | strip_html | json}}, "sale": {{variant.compare_at_price | money | strip_html | json}}, "options": {{variant.options | json }} }{%- unless forloop.last -%},{% endunless -%}{%- endfor -%}}{%- endcapture %}
+
+    <noscript data-bstr-preselect="{{product.selected_or_first_available_variant.id}}" data-bstr-swatch="{{product.id}}">
+    {{vArray}}
+    </noscript>
+    {%- assign existingValues = null | sort -%}
+    <div class="ph-item" data-variant-img-swatch-skeleton>
+        <div class="ph-row">
+            <div class="ph-col-12">
+                <div class="ph-col-4"><div class="ph-picture"></div></div>
+                <div class="ph-col-4"><div class="ph-picture"></div></div>
+                <div class="ph-col-4"><div class="ph-picture"></div></div>
+            </div>
+        </div>
+        <div class="ph-row">
+            <div class="ph-col-12">
+                <div class="ph-col-4"><div class="ph-picture"></div></div>
+                <div class="ph-col-4"><div class="ph-picture"></div></div>
+                <div class="ph-col-4"><div class="ph-picture"></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="product__swatches rx-new__hidden-visibility {% if fullyOutOfStock == "YES" %}hide{% endif%}" data-variant-img-swatch-slider>
+        {% assign avVariants = product.variants | where: 'available', true %}
+        <div id="avVariants_size" style="display: none;">{{ avVariants.size }}</div>
+        <div class="swatches__holder rx-new__swatch-holder">
+            {% for avVariant in avVariants %}
+                {% if backorder_brands contains product.vendor and isCustomerEligible.size == 0 %}
+                    {% assign index = forloop.index0 %}
+                    {% if avVariant.available and avVariant.inventory_quantity >= 5000 %}
+                        {%- assign _value = nil -%}
+                        {% for option in avVariant.options %}
+                            {% if _value == nil %}
+                                {%- assign _value = option -%}    
+                            {% else %}
+                                {%- assign _value = _value | append: '~' | append: option -%}
+                            {% endif %}
+                        {% endfor %}
+                        <div data-var="{{avVariant.title}}" data-varId="{{avVariant.id}}" class="rx-new__swatch-image {% if avVariant.id == product.selected_or_first_available_variant.id %} swatch--active {% endif %}">
+                            <a href="javascript:void(0)" data-variant-img-swatch>
+                                <img src="{{ avVariant.featured_image | img_url: '160x160' }}" alt="{{ avVariant.alt | escape }}" data-var="{{_value | escape}}" data-varId="{{avVariant.id}}" data-product="{{product.id}}" />
+                                <div class="tooltip-wrap"><span>{{ avVariant.title }}</span></div>
+                            </a>
+                        </div> 
+                    {% endif %}
+                {% else %}
+                    {% assign index = forloop.index0 %}
+                    {% if avVariant.available %}
+                        {%- assign _value = nil -%}
+                        {% for option in avVariant.options %}
+                            {% if _value == nil %}
+                                {%- assign _value = option -%}    
+                            {% else %}
+                                {%- assign _value = _value | append: '~' | append: option -%}
+                            {% endif %}
+                        {% endfor %}
+                        <div data-var="{{avVariant.title}}" data-varId="{{avVariant.id}}" class="rx-new__swatch-image {% if avVariant.id == product.selected_or_first_available_variant.id %} swatch--active {% endif %}">
+                            <a href="javascript:void(0)" data-variant-img-swatch>
+                                <img src="{{ avVariant.featured_image | img_url: '160x160' }}" alt="{{ avVariant.alt | escape }}" data-var="{{_value | escape}}" data-varId="{{avVariant.id}}" data-product="{{product.id}}" />
+                                <div class="tooltip-wrap"><span>{{ avVariant.title }}</span></div>
+                            </a>
+                        </div> 
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {%- comment -%}
+        {% assign avvars = product.variants | where: 'available', true %}
+        {% for product_option in product.options_with_values %}
+            {% assign product_option_lc = product_option.name | downcase %}
+            {% assign index = forloop.index0 %}
+            {% assign optix = 'option' | append: product_option.position %}
+            {% if forloop.first %}
+            <div class="swatches__holder rx-new__swatch-holder">
+                {% endif %}
+                {% assign ix = product_option.position | minus: 1 | append: '' %}
+                    {% for value in product_option.values %}
+                        {% assign vars = avvars | where: optix, value %}
+                        {%- assign _variant = vars | first -%}
+                        {% if _variant.available %}
+                            <span class="lazyload swatch--color rx-new__swatch-image" style="background-image:{% if _variant.featured_image.src %}url({{_variant.featured_image | img_url:"160x160"}}){% endif %};" data-swatch-option="{{value| escape}}" data-swatch-index="{{product.id}}-{{index}}" {% if vars.size == 0 %}data-swatch-soldout="true"{% endif %}></span>
+                        {% endif %}
+                    {% endfor %}
+                {% if forloop.last %}
+            </div>
+            {% endif %}
+        {% endfor %}
+        {% if section.settings.pdp_swatch_img_text != blank %}
+            <p class="rx-new__pdp-swatch-footer-text"><i>{{ section.settings.pdp_swatch_img_text }}</i></p>    
+        {% endif %}
+        {%- endcomment -%}
+        {% if section.settings.pdp_swatch_img_text != blank %}
+            <p class="rx-new__pdp-swatch-footer-text hide"><i>{{ section.settings.pdp_swatch_img_text }}</i></p>    
+        {% endif %}
+    </div>
+{% endif %}
+
+
+<style>
+    .swatches__holder{
+        margin-left:0;
+    }
+    .rx-new__swatch-holder {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+    .rx-new__swatch-image:not(.slick-slide){
+        margin-right: 5px;
+        width: 30%;
+    }
+    .rx-new__swatch-image {
+        /* height: 60px; */
+        /* width: 25%; hot fix*/ 
+        width: 24%;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        /* margin-right: 10px;  hot fix*/
+        /* margin-right: 5px; */
+    }
+    
+    .rx-new__swatch-image.swatch--active {
+        border: 3px solid #c63b3d;
+    }
+    .swatches__holder .swatches__title{
+  	font-size: .75em;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+    line-height: normal;
+  }
+  .product__swatches select{
+  	width:100%;
+  }
+  .swatches__holder.rx-new__swatch-holder span.swatch--color.rx-new__swatch-image{
+  	border-radius:0px;
+    height: 66px;
+    width:21%;
+    border: 1px solid #ccc;
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-color: white;
+    margin-right:16px;
+    padding:0px;
+  }
+  .swatches__holder.rx-new__swatch-holder span[data-swatch-option].rx-new__swatch-image.swatch--active{
+  	border:3px solid #c63b3d;
+  }
+  .rx-new__pdp-swatch-footer-text{
+    color:#c63b3d;
+    font-size:14px;
+  }
+  .product__swatches .rx-new__swatch-holder.slick-slider{
+      margin-bottom: 0px;
+  }
+  .product__swatches .rx-new__swatch-image:hover .tooltip-wrap {
+        opacity: 1;
+        visibility: visible;
+    }
+</style>
+{% comment %}
+{% blockdef %}
+
+{% endblockdef %}
+{% endcomment %}

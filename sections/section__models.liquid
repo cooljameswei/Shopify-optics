@@ -1,0 +1,241 @@
+<style type="text/css">
+{% render 'common-css' with section as section %}
+
+#colorcode{}
+</style>
+ 
+<style>
+    #s--{{section.id}} .lookbook--3d{
+        height: {{section.settings.height | at_least: 450}}px;
+    }
+</style>
+
+<div
+id="s--{{section.id}}"
+class="{% render 'common-class', section: section, class: 'row section__columns', bg: true %} ">
+  <div 
+  class="row middle s__content layout__content">
+    {% render 'block__general--heading' with section as section %}
+    {% if section.blocks.size > 0 %}
+        <div class="lookbook--3d" data-max="{{section.blocks.size | minus: 1}}" data-current="0">
+            <div class="lookbook--3d__slides">
+                <div>
+                    <button onclick="slideModels(event)" class="lookbook--3d__button lookbook--3d__button--back"><i class="uil uil-angle-right-b"></i></button>
+                    <button onclick="slideModels(event, true)" class="lookbook--3d__button"><i class="uil uil-angle-right-b"></i></button>
+                </div>
+                {% for block in section.blocks %}
+                    <div class="lookbook--3d__slide" data-position="{{0 | minus: forloop.index0}}">
+                        <img loading="lazy" height="{{block.settings.model.height}}" width="{{block.settings.model.width}}" class="lazyload" src="{{ block.settings.model | img_url: '350x' }}">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="lookbook--3d__products__holder">
+                <div class="lookbook--3d__products">
+                    {% for block in section.blocks %}
+                        {% assign product = all_products[block.settings.product] %}
+                        <a href="{{product.url}}" class="lookbook--3d__product {% if forloop.first %}product--active{%endif%}">
+                            <img src="{{product.featured_image | img_url: '10x'}}" data-src="{{product.featured_image | img_url: '450x'}}" height="{{product.featured_image.height}}" width="{{product.featured_image.width}}" loading="lazy" class="lookbook--3d__product__background lazyload">
+                            <span class="lookbook--3d__product__title font__family--title">
+                                {{product.title}}
+                            </span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="lookbook--3d" data-max="5" data-current="0">
+            <div class="lookbook--3d__slides">
+                <div>
+                    <button onclick="slideModels(event)" class="lookbook--3d__button lookbook--3d__button--back"><i class="uil uil-angle-right-b"></i></button>
+                    <button onclick="slideModels(event, true)" class="lookbook--3d__button"><i class="uil uil-angle-right-b"></i></button>
+                </div>
+                {% for block in (0..5) %}
+                    <div class="lookbook--3d__slide" data-position="{{0 | minus: forloop.index0}}">
+                        <img loading="lazy" class="lazyload" src="{{'model__thumb.png' | asset_img_url: '10x'}}" data-src="{{'model__thumb.png' | asset_img_url: '250x'}}">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="lookbook--3d__products__holder">
+                <div class="lookbook--3d__products">
+                    {% for block in (1..6) %}
+                        <div class="lookbook--3d__product {% if forloop.first %}product--active{%endif%}">
+                            {{ 'product-' | append: block | placeholder_svg_tag: 'lookbook--3d__product__background svg__thumb' }}
+                            <span class="lookbook--3d__product__title font__family--title">
+                                Product #{{block}}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": {
+        "en": "Model showcase (beta)"
+    },
+    "settings": [
+        {
+        "type": "header",
+        "content": "Section layout"
+    },
+    {
+      "type": "radio",
+      "id": "displayFor",
+      "label": "Show this section on",
+      "options": [
+        {"value": "display--both", "label": "All devices"},
+        {"value": "hide-desktop", "label": "Mobile only"},
+        {"value": "hide-mobile", "label": "Desktop only"}
+      ],
+      "default": "display--both"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "nomargin",
+      "default": false,
+      "label": "Remove section's bottom margin"
+    },
+    {
+      "type": "textarea",
+      "id": "scopedCSS",
+      "label": "Section-scoped CSS",
+      "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Minimum height",
+      "default": 0,
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Section padding",
+      "default": 0,
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+        {
+    "type": "header",
+    "content": "Section background"
+  },
+  {
+    "id": "backgroundColor",
+    "type": "color",
+    "default": "rgba(0,0,0,0)",
+    "label": "Background color"
+  },
+        {
+    "type": "header",
+    "content": "Section heading"
+},
+{
+    "type": "text",
+    "id": "heading",
+    "label": "Section heading",
+    "default": "Check out this section's heading"
+},
+{
+    "type": "color",
+    "id": "headingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Heading Color"
+},
+{
+    "type": "text",
+    "id": "subheading",
+    "label": "Section subheading",
+    "default": "THIS IS A SUBHEADING"
+},
+{
+    "type": "color",
+    "id": "subheadingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Subheading Color"
+},
+{
+    "type": "select",
+    "id": "subheadingPosition",
+    "label": "Subheading position",
+    "options": [
+      {"value": "above", "label": "Above heading"},
+      {"value": "below", "label": "Below heading"}
+    ],
+    "default": "above"
+},
+{
+    "type": "select",
+    "id": "headingAlignment",
+    "label": "Heading alignment (left to right)",
+    "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+    ],
+    "default": "center"
+}
+    ],
+    "blocks": [
+        {
+            "type": "model",
+            "name": "Product",
+            "limit": 6,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Model"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "model",
+                    "label": "Model image",
+                    "info": "This is the picture that will be used in a slider. Showcase your product on a model or an amazing picture to take advantage of this!"
+                },
+                {
+                    "type": "header",
+                    "content": "Product"
+                },
+                {
+                    "type": "product",
+                    "label": "Product",
+                    "id": "product",
+                    "info": "Product that's being showcased on a presented (current) model."
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+        "category": "Lookbook",
+        "name": "Model showcase (beta)",
+        "settings": {
+        },
+        "blocks": [
+        ]
+      }
+    ]
+}
+{% endschema %}

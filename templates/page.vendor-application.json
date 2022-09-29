@@ -1,0 +1,71 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner--page",
+      "disabled": true,
+      "settings": {
+        "layout": "boxed",
+        "height": 120,
+        "horizontalAlignment": "start",
+        "verticalAlignment": "middle",
+        "fontSize": "medium",
+        "contentColor": "#030303",
+        "fillColor": "rgba(0,0,0,0)",
+        "overlayOpacity": 0,
+        "overlayColor": "#000000"
+      }
+    },
+    "1655980132fb4a68b9": {
+      "type": "vendor-application",
+      "blocks": {
+        "cf30b73c-b6c5-4c36-b5f0-06d0a0615e8a": {
+          "type": "fullImage",
+          "settings": {
+            "full_image": "shopify:\/\/shop_images\/vendor-application-image.jpg",
+            "margin_bottom": 20
+          }
+        },
+        "3ace517a-dad1-4cf0-ad6d-ab61908590b3": {
+          "type": "onlyText",
+          "settings": {
+            "only_text": "<p>Founded in 2011, Designer Optics is the largest eCommerce platform for branded eyewear. You will find a wide range of prescription sunglasses and eyeglasses to choose from. <\/p><p>We aim to offer the best selection of branded eyewear at the best prices; that is why we collaborate with authentic luxury brands like Gucci, Tom Ford, Prada, Dior, and more. Besides luxury brands, our collection also features affordable sunglasses and eyeglasses to give you the best of both worlds. With Designer Optics, you will surely find the frame you’ve been looking for!  <\/p>",
+            "content_position": "justify",
+            "margin_bottom": 0
+          }
+        },
+        "58d89df4-c39c-42f4-8e52-66ff55b6a6e1": {
+          "type": "iconText",
+          "settings": {
+            "icon_heading": "Want to sell your optical products?",
+            "icon_text": "",
+            "content_position": "right",
+            "margin_bottom": 0
+          }
+        },
+        "852dde5c-8c51-44fb-b0db-bd6f710f4c54": {
+          "type": "onlyText",
+          "settings": {
+            "only_text": "<p>Are you looking for an ppropriate platform to sell your optical product? Since our eyewear collection combines branded and affordable quality products, we welcome each potential partner to avail our platform. if you have quality eyewear or other eye-related products.<\/p><p>Our online marketplace and customer count keep growing, and you can use that to your advantage. We continue to grow because of our efficient services and varying prices. Get in touch with us and let us help you reach a more significant customer count.     <\/p>",
+            "content_position": "justify",
+            "margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "cf30b73c-b6c5-4c36-b5f0-06d0a0615e8a",
+        "3ace517a-dad1-4cf0-ad6d-ab61908590b3",
+        "58d89df4-c39c-42f4-8e52-66ff55b6a6e1",
+        "852dde5c-8c51-44fb-b0db-bd6f710f4c54"
+      ],
+      "settings": {
+        "main_heading": "Vendor Application Form",
+        "sub_heading": "<p>Fill out the form below to apply to become a vendor and sell on designeroptics.com<\/p>",
+        "form_code": "<div style=\"margin:0 auto; width: 100%;\" class=\"pxFormGenerator\" id=\"ADmC8QO_g8mb7irD-fxkEw\"><\/div>"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "1655980132fb4a68b9"
+  ]
+}

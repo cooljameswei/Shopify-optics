@@ -1,0 +1,387 @@
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+{% comment %} Josefin font for Article Heading {% endcomment %}
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+{% comment %} Josefin font for Article Body {% endcomment %}
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+{{ 'blogs.css' | asset_url | stylesheet_tag }}
+{%- assign new_comment = false -%}
+{% if comment and comment.created_at %}
+  {%- assign new_comment = true -%}
+  {%- assign new_comment_id = comment.id -%}
+{% endif %}
+
+{% if new_comment %}
+  {%- assign duplicate_comment = false %}
+  {% for comment in article.comments %}
+    {% if comment.id == new_comment_id %}
+      {%- assign duplicate_comment = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if duplicate_comment %}
+    {%- assign number_of_comments = article.comments_count -%}
+  {% else %}
+    {%- assign number_of_comments = article.comments_count | plus: 1 -%}
+  {% endif %}
+{% else %}
+  {%- assign number_of_comments = article.comments_count -%}
+{% endif %}
+<div class="page-width">
+	<div class="cm-back_button">
+		<a href="{{ blog.url }}" class="h1 return-link">
+			<img src="https://cdn.shopify.com/s/files/1/2807/8986/files/Group_5.svg?v=1614695558">
+			Back to Blog Page
+		</a>
+	</div> 
+	<div class="grid">
+      	<div class="right-side">
+			<div class="content-block">
+			
+			
+			<h1 class="h2">{{ article.title }}
+			</h1>
+
+			 <p class="blog__meta">
+				
+				Updated: {{ article.published_at | time_tag: format: 'month_day_year' }}
+			  </p>
+
+			  <div class="rte rte--indented-images">
+				{{ article.content }}
+			  </div>
+			</div>
+      {% if section.settings.social_sharing_blog %}
+			<hr>
+			<div class="article-post___share">
+				{% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+			</div>
+      {% endif %}
+			
+			<!-- updated comment section  -->
+
+			
+		</div>
+		<div class="left-sidebar blog">
+			<div class="sidebar-content recent-posts">
+				<div class="widget-header">
+					<h3>RECENT POSTS</h3>
+				</div>
+
+				<div class="latest-blog-posts-wrapper">
+					<ul class="latest-blog-posts-list">
+						{% for article in blog.articles limit: 3 %}
+							<li><div class="left-wrap"><img src="{{ article.image | img_url: '80x50' }}"></div><div class="right-wrap">{{ article.title | link_to: article.url }}</div></li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="sidebar-content blog-tag">
+				<div class="widget-header">
+					<h3>BLOG TAGS</h3>
+				</div>
+				<div class="latest-blog-posts-wrapper">
+					<ul class="latest-blog-posts-list">
+						{% for tag in blog.all_tags %} 
+							<a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="link-body-color"><strong>{{ tag }}</strong></a>
+						{% endfor %}
+						
+					</ul>
+				</div>
+			</div>
+			<div class="sidebar-content featured-products">
+				<div class="featured-pro-wrapper">
+					{%- assign collection = collections[section.settings.collection] -%}
+					{%- if collection != blank -%}
+					  {% if collection.products_count != 0 %}
+						<div class="blog-featured-products-main-wrapper">
+							<h3 class="h4">Hot Deal</h3>
+								<div class="blog-featured-products-wrapper">
+								  {% for product in collection.products limit: 4 %}
+									<div class="item-wrap">
+									  {% include 'product-card', product: product %}
+									</div>
+								  {% endfor %}
+								</div>
+						</div>
+					  {% endif %}
+					{%- endif -%}
+
+				</div>
+			</div>
+			<div class="sidebar-content follow-us">
+				<div class="featured-folow-wrapper">
+					<h3 class="h4">Follow Us</h3>
+					<ul>
+						<li class="facebook"><a href="https://www.facebook.com/DesignerOpticscom/"><img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/facebook.png?v=1611922584"></a></li>
+						<li class="twitter"><a href="https://twitter.com/DesignerOptics1"><img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/twitter.png?v=1611922584"></a></li>
+						<li class="printrest"><a href="https://pinterest.com/designeroptics/"><img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/pinterest.png?v=1611922584"></a></li>
+					</ul>
+					<div class="newsletter-wrapper">
+					 <h3 class="h4">NEWSLETTER</h3>
+					 <p>Fill your email below to subscribe to our newsletter</p>
+					 <div class="klaviyo-form-WDa6ie"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<!-- updated comment section  -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="comment--wrap">
+	<!-- new comment section	 -->
+        {% if number_of_comments > 0 %}
+          <div class="content-block updated-blog-section blog-comnt-sec">
+			<div id="comments">
+				<div class="comment--header">
+                  <div class="ch--left">
+                    <h2 class="h3"> Comments ({{ number_of_comments }})</h2>
+                  </div>
+                	<div class="ch--left hidden">
+                      <h1> Designer Optics </h1>
+                      <p> 791 Kent Avenue Brooklyn, NY 11205 </p>
+                  	</div>
+                  	<div class="ch--right btn">
+                      	<img src="{{ "edit-pen.png" | asset_url }}" />
+                      	<a id="writeReview"> Write a comment</a>                      
+                  	</div>
+              	</div>
+              {% if new_comment %}
+              <p class="form-success" style="background-color:#59ac6c;padding: 13px;margin: 0 0 10px;">
+                {% if blog.moderated? %}
+                  Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.
+                {% else %}
+                  Your comment was posted successfully! Thank you!
+                {% endif %}
+              </p>
+              {% endif %}
+
+              {% if number_of_comments > 0 %}
+              		<ul class="comments list--no-bullets" id="commentUl">
+                        {% if new_comment %}
+                        	{% unless paginate.current_page > 1 %}
+                               <li id="{{ comment.id }}">
+									<div class="comment">
+									<div class="comment--img">
+										<img class="quote-img" src="{{ "user-icon-grey.svg" | asset_url }}" />
+									</div>
+									<div class="comment--details">
+										{% include 'comment' %}
+									</div>
+									</div>
+								</li>
+                        	{% endunless %}
+                        {% endif %}
+
+                        {% for comment in article.comments %}
+                            {% unless comment.id == new_comment_id %}
+                                <li id="{{ comment.id }}">
+                                  <div class="comment">
+                                    <div class="comment--img">
+                                        <img class="quote-img" src="{{ "user-icon-grey.svg" | asset_url }}" />
+                                    </div>
+                                    <div class="comment--details">
+                                        {% include 'comment' %}
+                                    </div>
+                                  </div>
+                                </li>
+                            {% endunless %}
+                        {% endfor %}
+                      </ul>
+                      {% if number_of_comments > 3 %}
+                        <div id="commentViewAll" class="view--all">
+                              <p id="commentVA">View All Comments</p>
+                              <p id="commentVL" class="d-none">View Less Comments</p>  	
+                        </div>
+                      {% endif %}
+              
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}	
+    <!-- new comment section ends  -->
+    
+      {% if blog.comments_enabled? %}
+		<div class="content-block" id="writeReviewTarget">
+            <div class="comment-form form-vertical comment-form-wrap" >
+              {% form 'new_comment', article %}
+
+              <h2 class="h3">Leave a comment</h2>
+
+              {{ form.errors | default_errors }}
+
+              <div>
+                <div>
+                  <label for="CommentAuthor" class="label--hidden">Name</label>
+                  <input type="text" name="comment[author]" id="CommentAuthor" class="{% if form.errors contains 'author' %} input--error{% endif %}" placeholder="Name" value="{{ form.author }}">
+            	</div>
+
+                <div>
+                  <label for="CommentEmail" class="label--hidden">Email</label>
+                  <input type="email" name="comment[email]" id="CommentEmail" class="{% if form.errors contains 'email' %} input--error{% endif %}" placeholder="Email" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+            	</div>
+              </div>
+			  <label for="CommentBody" class="label--hidden">Message</label>
+              <textarea name="comment[body]" id="CommentBody" class="{% if form.errors contains 'body' %} input--error{% endif %}" placeholder="Message">{{ form.body }}</textarea>
+
+              <input type="submit" class="btn" value="POST COMMENT">
+
+                {% if blog.moderated? %}
+                <p class="text-center">
+                  <small>Please note, comments must be approved before they are published</small>
+                </p>
+                {% endif %}
+                {% endform %}
+              </div>
+          </div>
+          {% endif %}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Article content",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "social_sharing_blog",
+        "label": "Enable blog post sharing",
+        "default": true
+      },
+	  {
+        "type": "collection",
+        "id": "collection",
+        "label": "Sidebar Featured Collection"
+      }
+    ],
+  "presets": [
+    {
+        "name": "Article for Blog",
+        "category": "Blog"
+    }
+  ]
+
+  }
+{% endschema %}
+<style>
+	
+  .view--all {
+		position: relative;
+		padding: 30px 0
+	}
+
+	.view--all p {
+		color: #c63b3d;
+		font: normal normal bold 20px/36px Karla;
+		text-align: center;
+		cursor: pointer
+	}
+	.cm-back_button {
+		margin-bottom: 18px;
+	}
+	.view--all:before {
+		content: '';
+		width: 42%;
+		height: 1px;
+		background: #ccc;
+		position: absolute;
+		left: 0;
+		top: 50%
+	}
+	.d-none {
+		display: none !important;
+	}
+    .article-post___share .social-sharing.grid{
+		display: flex;
+    }
+  .article-post___share .social-sharing.grid .grid__item.medium-up--two-thirds{
+  	display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .article-post___share .social-sharing.grid .grid__item.medium-up--two-thirds a.social-sharing__link{
+  	display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 20px;
+  }
+  .article-post___share .social-sharing.grid .grid__item.medium-up--two-thirds a.social-sharing__link svg{
+  	margin-right: 10px;
+  }
+	.view--all:after {
+		content: '';
+		width: 42%;
+		height: 1px;
+		background: #ccc;
+		position: absolute;
+		right: 0;
+		top: 50%
+	}
+
+	@media (max-width: 992px) {
+      	.view--all:before {
+			width:18%
+		}
+		.view--all:after {
+			width:18%
+		}
+	}
+  @media(max-width:767px){
+    .article-post___share .social-sharing.grid .grid__item.medium-up--two-thirds{
+    	display:block;
+    }
+    .article-post___share .social-sharing.grid .grid__item.medium-up--two-thirds a{
+    	margin-right:0px;
+      	margin-bottom:15px;
+    }
+  }
+
+</style>
+
+<script>
+	$('.blog-featured-products-wrapper').slick({
+		infinite: true,
+		autoplay:  true,
+		arrows:  true,
+		speed: 1000,
+	});
+	
+	$(document).ready(function(){
+		$('#commentVL').addClass('d-none')
+		$(document).on('click','#commentViewAll', function(){
+		  $('#commentUl').toggleClass('showUl');
+			  $('#commentVL').toggleClass('d-none')
+			  $('#commentVA').toggleClass('d-none')
+		  })
+		
+		$('.comment--wrap #comments .comment--header .ch--right.btn').on('click', function(){
+			  $('html, body').animate({
+				scrollTop: $("#writeReviewTarget").offset().top
+			   }, 2000);
+		})
+	});
+  
+</script>
+<script>
+  $(document).on('ready',function(){
+    if($(window).width() > 1236){
+      $('.newsletter-form-section').html('');
+      $('.newsletter-form-section').append('<script type="text/javascript" src="https://newsletter.designeroptics.com/view_webform_v2.js?u=V&webforms_id=s" data-webform-id="s"/>')
+    }
+    else if($(window).width() > 767 && $(window).width() < 1237){
+      $('.newsletter-form-section').html('');
+      $('.newsletter-form-section').append('<script type="text/javascript" src="https://newsletter.designeroptics.com/view_webform_v2.js?u=V&webforms_id=g" data-webform-id="g"/>')
+    }
+    else{
+      $('.newsletter-form-section').html('');
+      $('.newsletter-form-section').append('<script type="text/javascript" src="https://newsletter.designeroptics.com/view_webform_v2.js?u=V&webforms_id=G" data-webform-id="G"/>')
+    }
+  })
+</script>

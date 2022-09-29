@@ -1,0 +1,7 @@
+.MuiDialog-root .MuiButtonBase-root{ font-size: 12px; }
+.MuiDialog-root .MuiButtonBase-root .MuiButton-label{ color:white; font-size: 12px; }
+.MuiDialog-root .MuiButtonBase-root .MuiSvgIcon-root{ width: 20px; height: 20px; }
+.MuiSnackbar-root .MuiSnackbarContent-message #message-id{ font-size:12px; }
+@media(min-width:1920px){
+  .MuiGrid-spacing-xs-2 > .MuiGrid-item{ max-width: 25%; flex-basis: 25%; }
+}

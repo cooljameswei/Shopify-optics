@@ -1,0 +1,42 @@
+{% assign style = "compact" %}
+{% assign format = "minutes" %}
+{% assign time = "30" %}
+{% assign title = "Countdown" %}
+{% assign text = "" %}
+
+{% for param in params %}
+    {% assign p = param | split: ':' %}
+    {% assign pname = p[0] | strip %}
+    {% assign value = p[1] | strip %}
+
+    {% case pname %}
+        {% when 'style' %}
+            {% assign style = value %}
+        {% when 'format' %}
+            {% assign format = value %}
+        {% when 'time' %}
+            {% assign time = value %}
+        {% when 'title' %}
+            {% assign title = value %}
+        {% when 'text' %}
+            {% assign text = value %}
+        {% when 'align' %}
+            {% assign align = value %}
+    {% endcase %}
+{% endfor %}
+
+
+<div style="display: block;" class="product__countdown--holder product__countdown--{{-style}} {{align}}" {{block.shopify_attributes}}>
+    <div style="position: relative; min-width: 280px;" data-countdown data-ct-key="block-{{block.id}}" data-duration="{{time}}" data-duration-format="{{format}}" class="countdown product__countdown">
+        <span class="countdown__title" style="z-index: 1;">{{-title-}}</span>
+        <span class="countdown__holder"><span class="days">00</span><br>DAYS</span>
+        <span class="countdown__holder"><span class="hours">00</span><br>HOURS</span>
+        <span class="countdown__holder"><span class="minutes">00</span><br>MINUTES</span>
+        <span class="countdown__holder"><span class="seconds">00</span><br>SECONDS</span>
+    </div>
+    <p class="countdown__warning">
+        {{-text}}
+    </p>
+</div>
+
+{% comment %} [render countdown time(number) format(days, hours, minutes, seconds) title(text) text(text) style(compact, doublecolumn) endrender] {% endcomment %}

@@ -1,0 +1,38 @@
+<label class="contact__radio">{{block.settings.name}} {% unless block.settings.required %}(optional){% endunless -%}</label>
+{% assign options = block.settings.options | split: ',' %}
+<div class="contact__radio--options">
+{% for option in options %}
+<label><input type="radio" name="contact[{{i}}-{{block.settings.name | handleize}}]" value="{{option | handleize}}" {% if forloop.first %}checked{% endif %}>
+{{option}}</label>
+{% endfor %}
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "contactFormRadio",
+    "name": "Radio button field",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "required",
+            "label": "This field is required",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "name",
+            "label": "Field name",
+            "default": "Input title"
+        },
+        {
+            "type": "textarea",
+            "id": "options",
+            "label": "Options",
+            "default": "Option 1, Option 2, Option 3",
+            "info": "Comma separated options."
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

@@ -1,0 +1,65 @@
+<div>
+{%- if block.settings.heading != blank -%}<span class="footer__title">{{block.settings.heading}}</span>{%-endif-%}
+<div class="footer__text">{{block.settings.text}}</div>
+</div>
+
+{% comment %}
+{% blockdef %}
+{
+    "name": "Text",
+    "type": "footerText",
+    "settings": [
+        {
+            "id": "width",
+            "label": "Width",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "12", "label": "100%"},
+                {"value": "9", "label": "75%"},
+                {"value": "8", "label": "66%"},
+                {"value": "6", "label": "50%"},
+                {"value": "4", "label": "33%"},
+                {"value": "3", "label": "25%"},
+                {"value": "1-5", "label": "20%"}
+            ],
+            "default": "auto"
+        },
+        {
+            "type": "select",
+            "id": "horizontalAlignment",
+            "label": "Content alignment (left to right)",
+            "options": [
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "center"
+        },
+        {
+            "type": "select",
+            "id": "verticalAlignment",
+            "label": "Content alignment (top to bottom)",
+            "options": [
+                {"value": "top", "label": "Top"},
+                {"value": "middle", "label": "Middle"},
+                {"value": "bottom", "label": "Bottom"}
+            ],
+            "default": "middle"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "default": "TITLE"
+        },
+        {
+            "id": "text",
+            "label": "Text",
+            "type": "richtext",
+            "default": "<p>Enjoy unlimited amount of characters in this field. Just go at it.</p>"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

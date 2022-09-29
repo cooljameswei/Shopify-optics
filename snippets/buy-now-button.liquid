@@ -1,0 +1,8 @@
+<button 
+data-buy-button
+{{disabled}}
+data-original-text="{{-text-}}"
+class="button button--primary button--{{-settings['primaryButtonStyle']}}  button--primary__{{-settings['primaryButtonStyle']-}}" 
+onclick="event.preventDefault(); window.location.href = `/cart/${this.closestEl('#variantId').value}:1`;">
+{{- text -}}
+</button>

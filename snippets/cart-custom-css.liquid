@@ -1,0 +1,1970 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+  div[data-section-type="cart"] * {
+    font-family: IBM Plex Sans!important;
+  }
+  
+  div[data-section-type="cart"] span {
+    color: inherit;
+  }
+  
+  div[data-section-type="cart"] {
+    margin-bottom: 20px;
+  }
+  
+  .page-empty {
+    padding: 120px 0;
+    margin-bottom: 20px;
+  }
+  
+  .cart--cookie-message {
+    display: none;
+    padding-bottom: 25px;
+  }
+  
+  .page-empty hr {
+    margin: 20px 0;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 1px 0 0;
+  }
+  
+  a {
+    color: inherit;
+  }
+  
+  .cart--continue-message a {
+    display: inline-block;
+    width: auto;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #c63b3d;
+    color: #fff;
+    font-size: .8125em;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 15px 45px;
+    transition: color .1s ease-in,background-color .1s ease-in;
+    border-radius: 0;
+  }
+  
+  .page-empty .cart--continue-message a:hover {
+    background-color: #a02e30;
+    color: #fff !important;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .money {
+    line-height: 1.375;
+  }
+  
+  .cm-flex-wrap .grid {
+    display: block;
+  }
+  
+  .cart-page-main {
+    /*max-width: 1300px;*/
+    /*------As per the new requiremnet TW#33265426-----*/
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+  .options-hidden {
+    display: none!important;
+  }
+  .cm-flex-wrap select, .cm-flex-wrap input {
+    border-radius: 0;
+  }
+  div[data-section-type="cart"], div[data-section-type="cart"] p {
+    color: #666666;
+  }
+  .cart_term_link {
+    color: #c63b3d;
+    text-decoration: none;
+    transition: color 0.1s ease-in, background-color 0.1s ease-in;
+  }
+  .slick-prev, .slick-next {
+    position: absolute;
+    display: block;
+    height: 20px;
+    width: 20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    background: transparent;
+    color: transparent;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    border: none;
+  }
+  .proper-title-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  .title_con_wrap .right {
+    font-size: 25px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #000000;
+  }
+  .proper-title-wrap .price_text {
+    font-weight: 500;
+    line-height: normal;
+    color: #000000;
+    margin-left: auto;
+  }
+
+  .cm-property-wrap:first-child h3.property_title {
+    margin-bottom: 0;
+  }
+  div[data-section-type="cart"] h1 {
+    font-family: IBM Plex Sans;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #cc4143;
+    margin-bottom: 39px;
+  }
+  .main-content {
+    margin-top: 30px;
+  }
+
+  body[data-ng-app="prescriptionClient"] .main-content {
+    margin-top: 0 !important;
+  }
+  
+  .cm-flex-wrap {
+    display: flex;
+  }
+
+  .cm-flex-wrap .responsive-table.cart-table {
+    width: calc(70% - 60px);
+    margin-right: 60px;
+  }
+
+  .cm-flex-wrap .grid.cart__row {
+    width: 30%;
+    margin: 0;
+  }
+  #MainContent  .cm-flex-wrap .grid.cart__row .cart__buttons{
+    padding: 28px 29px 27px 32px;
+    border: solid 1px #979797;	
+    position: relative;
+  }
+  .cm-flex-wrap .title-wrap h2 {
+    font-family: IBM Plex Sans;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #020302;
+  }
+  .custom_prescription.readers {
+    border-right: solid 1px #dfdfdf;
+  }
+
+  .cart__cell--quantity select {
+    background: none;
+    border: solid 1px #cbcbcb;
+    width: 57px;
+    height: 29px;
+    text-align: left;
+    padding: 0 0 0 16px;
+    outline: 0;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: right center;
+    background-image: url(https://cdn.shopify.com/s/files/1/2807/8986/files/caret_sm_down.png?v=1631114163);
+    border-radius:0;
+    color: #4b5354;
+    appearance: none;
+  }
+  .cart__cell--total .cm-flex-cd {
+    margin-top: 0;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .title_con_wrap p {
+    font-size: 18px;
+/*     font-weight: 500; */
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+/*     color: #020302; */
+    color: #666;
+  }
+
+  .cart-edit-rm-wrap a {
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 15px;
+    letter-spacing: normal;
+    text-decoration: none;
+    color: #cd4346;
+  }
+  .custom_prescription_mobile{
+    display:none
+  }
+  .cart-edit-rm-wrap .cm-remove:before {
+    content:"";
+    background-color: #cc4143;
+    display: inline-block;
+    width: 1px;
+    height: 15px;
+    margin: 0px 10px;
+  }
+  .cart-edit-rm-wrap .cm-remove.no-before:before {
+  	width: 0;
+  }
+
+  .cart-edit-rm-wrap {
+    align-items: center;
+    display: flex;
+    margin-left: auto; 
+  }
+  
+  .prescription_warranty .cart-edit-rm-wrap {
+    height: 26px
+  }
+  
+  .extend-quantity {
+    width: 105px;
+    line-height: 0.9;
+    height: 28px;
+    border-radius: 0;
+  }
+  .extend-quantity-container {
+    display: flex;
+  }
+
+  .title_con_wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  #MainContent .grid__item.medium-up--one-half {
+    width: 100%;
+  }
+  #MainContent .grid__item.medium-up--one-half {
+    padding: 0;
+  }
+  div#CartProducts .cart__image {
+    display: block;
+    max-width: 100%;
+    margin: 0;
+  }
+  .cm-flex-cd {
+    display: flex;
+    margin-top: 27px;
+    margin-bottom: 27px;
+  }
+  .continue_shop {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #020302;
+    text-decoration: underline;
+    padding-top: 18px;
+  }
+  .cm-flex-cd .cm-property-wrap {
+    width: calc( 73% - 54px );
+    margin-left: 54px;
+  }
+  .cm-flex-wrap .cart__cell--quantity {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+  }
+  .cart__quantity-label {
+    margin: 0;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666;
+    margin-right: 20px;
+    text-transform: none;
+  }
+  .cm-slick-in.slick-slider {
+    margin: 0;
+  }
+  .cm-flex-wrap .cart__cell--quantity .js-qty {
+    margin: 0;
+    background: transparent;
+  }
+  .cm-flex-wrap .js-qty__input {
+    max-width: 74px;
+    padding: 3px 0;
+    background-color: transparent;
+    border: solid 1px #cbcbcb;
+  }
+  .cm-item-ct.cm-ord-total {
+    border-top: 1px solid #bfbfbf;
+    padding-top: 17px !important;
+    margin-top: 0;
+  }
+  .cm-flex-wrap .js-qty__adjust {
+    width: 20px;
+    border: none;
+  }
+  .cm-flex-wrap .js-qty__adjust .icon {
+    width: 8px;
+    height: 8px;
+    fill: #000000;
+  }
+  .cm-flex-wrap .js-qty__adjust .icon path {
+    fill: #000000;
+    stroke: #000000;
+  }
+  .cm-flex-cd .cart__cell--image {
+    width: 27%;
+    border: solid 1px #d1d1d1;
+  }
+
+  .cart__cell--total {
+    width: 100%;
+  }
+
+  .title_con_wrap .left {
+      padding-right: 20px;
+    }
+  .cart__cell--total .cm-flex-cd label {
+    margin: 0;
+    font-family: IBM Plex Sans;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;	
+    color: #000000;
+    text-transform: none;
+    width: 30%;
+    text-align: left;
+  }
+  .cm-content-wrapper {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .cbb-shipping-rates-calculator.cbb-desktop-view {
+    margin-top: 0 !important;
+    border-top: 0 !important;
+  }
+  .cm-content-wrapper .cm-left {
+    width: 40%;
+  }
+
+  .cm-content-wrapper .cm-right {
+    width: 60%;
+  }
+  .cm-content-wrapper .cm-left .cart__cell--image {
+    width: 100%;
+  }
+  .cart__cell--total .cm-flex-cd .left-cm {
+    justify-content: end;
+    text-align: right;
+    width: 70%;
+  }
+  /* 	.cart__row.responsive-table__row {
+  padding: 42px 14px 41px;
+  background-color: #f8f8f8;
+  } */
+  .cm-flex-wrap .responsive-table__row {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #979797;
+  }
+  .cm-flex-wrap .responsive-table__row .cm-ff-wrap h3 {
+    padding-bottom: 0px;
+    line-height: normal;
+    font-weight: 500;
+  }
+  .cm-content-wrapper .cm-left .cart__cell--image {
+    margin-top: 25px;
+  }
+  .cart__cell--total .cm-flex-cd .left-cm span.cart__item-total {
+    padding: 0;
+    font-family: IBM Plex Sans;
+    font-size: 25px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #cd4346;
+  }
+  .display-none,
+  .cbb-shipping-rates-calculator + .cbb-shipping-rates-calculator {
+    display: none !important;
+  }
+  .cbb-shipping-rates-calculator.cbb-desktop-view {
+    display: block; /*-------Changes regarding TW#33612394--------*/
+
+    border: 1px solid #979797 !important;
+  }
+  .shipping-rates-calculator-desktop-container h3,
+  .cm-flex-wrap h3,
+  .property_title, .cm-property-wrap .property_title {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    margin:0;
+    padding: 20px 0;
+  }
+
+  .shipping-rates-calculator-desktop-container h3,
+  .property_title, .cm-property-wrap .property_title {
+    cursor: pointer;
+    padding-top: 0;
+  }
+  /*-------Changes regarding TW#33612394--------*/	
+  .cbb-shipping-rates-calculator.cbb-desktop-view.active {
+    display: none; 
+  }
+  .shipping-rates-calculator-desktop-container h3::after{
+    content: '';
+    background-image: url(https://cdn.shopify.com/s/files/1/2807/8986/files/caret_up.png?v=1630931649);
+    display: inline-block;
+    width: 30px;
+    height: 16px;
+    background-repeat: no-repeat;
+    position: relative;
+    transform: rotate(180deg);
+    top: 2px;
+    left: 0px;
+  }
+  .shipping-rates-calculator-desktop-container.panel-open h3::after{
+  	content: '';
+    background-image: url(https://cdn.shopify.com/s/files/1/2807/8986/files/caret_up.png?v=1630931649);
+    display: inline-block;
+    width: 30px;
+    height: 16px;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 10px;
+    top:4px;
+    transform: rotate(0deg);
+  }
+  .shipping-rates-calculator-desktop-container .grid__item.medium-up--one-half.cm-cart-note{
+    display:none;
+  }
+  .shipping-rates-calculator-desktop-container.panel-open .grid__item.medium-up--one-half.cm-cart-note{
+    display:block;
+  }
+  /*-------Changes regarding TW#33612394 ended here --------*/
+  .accessories-item {
+    position: relative;
+    margin: 0 10px;
+    text-align: center;
+  }
+
+  .accessories-img-wrapper {
+    margin: 0 auto 10px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+  }
+
+  .accessories-img-wrapper img {
+    margin: 0 auto;
+  }
+
+  .accessories-title-wrap a {
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #020302;
+    display: inline-block;
+    margin-bottom: 7px;
+  }
+  button.cbb-shipping-rates-calculator-update-button {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal !important;
+    text-transform: uppercase !important;
+    outline:0 !important;
+    padding: 5px !important;
+    width: 48% !important;
+    display: inline-block !important;
+    margin-top: 17px !important;
+  }
+
+  form#cbb-shipping-rates-calculator-form select,
+  form#cbb-shipping-rates-calculator-form input {
+    background-color: transparent;
+    border: solid 1px #cbcbcb;
+    padding: 0 30px !important;
+    height: 28px !important;
+    outline: 0 !important;
+    margin-top: 0 !important;
+    width: 48% !important;
+    margin-bottom: 0 !important;
+    line-height: normal !important;
+  }
+  form#cbb-shipping-rates-calculator-form select {
+    background-image: url(//cdn.shopify.com/s/files/1/0046/6966/9491/files/screenshot-app.zeplin.io-2021.03.09-17_32_45.png?v=1615291454) !important;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 95% center;
+    -webkit-appearance: none;
+    appearance: none !important;
+  }
+  .cbb-shipping-rates-calculator-change-shipping-address-link {
+    font-size: 14px;
+    color: #000;
+  }
+
+  .cbb-shipping-rates-calculator-change-shipping-address {
+    margin-bottom: 7px;
+  }
+
+  .cbb-shipping-rates-calculator {
+    padding-bottom: 33px !important;
+  }
+  form#cbb-shipping-rates-calculator-form select:nth-child(even) {
+    margin-right: 0 !important;
+  }
+
+  form#cbb-shipping-rates-calculator-form select,form#cbb-shipping-rates-calculator-form input {
+    margin-right: 4% !important;
+  }
+  .accessory-price {
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #494949;
+    margin-bottom:6px;
+  }
+  .cm-btn-wrap a {
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+
+    text-decoration: underline;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #cd4346;
+  }
+  .cm-btn-wrap a.cm-add-to-cart:focus {
+    outline: none;
+  }
+
+  .cart-page-main h2.cm-sm {
+    font-family: IBM Plex Sans;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    margin-bottom: 28px;
+    color: #020302;
+  }
+  .cm-item-ct {
+    overflow: hidden;
+  }
+
+  .cm-item-ct span {
+    width: 50%;
+    display: inline-block;
+  }
+  
+  .cm-item-ct span.money {
+    width: 100%;
+  }
+
+  .cm-item-ct span.right-col {
+    text-align: right;
+  }
+
+  .cm-flex-wrap .responsive-table.cart-table .cm-item-ct.cm-ord-total {
+    padding: 15px 0 0;
+  }
+
+  .cm-flex-wrap .responsive-table.cart-table .cm-item-ct.cm-ord-total span {
+    font-family: IBM Plex Sans;
+    font-size: 25px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+  }
+  .cm-slick-in .slick-arrow {
+    background-image: url(//cdn.shopify.com/s/files/1/0046/6966/9491/files/leftarrow.png?v=1616413478);
+    width: 30px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+  }
+
+  .cm-slick-in .slick-next {
+    background-image:url(//cdn.shopify.com/s/files/1/0046/6966/9491/files/rightarrow.png?v=1616413478)
+  }
+
+  .cm-ff-wrap h3 {
+    color: #020302;
+  }
+
+  .cm-slick-in .slick-prev {
+    left: 0;
+  }
+
+  .cm-slick-in .slick-next {
+    right: 0;
+  }
+  .cm-flex-wrap .responsive-table.cart-table .cm-item-ct.cm-ord-total span.right-col{
+    color:#cd4346;
+  } 
+
+  .cm-flex-wrap .grid.cart__row .cm-item-ct {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2c2c2c;
+  }
+  .accessories-item:nth-child(3n):after {
+    display: none;
+  }
+  .cm-flex-wrap .grid.cart__row .cm-item-ct + .cm-item-ct {
+    padding-top: 10px;
+  }
+
+  .cm-flex-wrap .grid.cart__row .cm-item-ct + .cm-item-ct span.right-col {
+    font-size: 14px;
+  }
+  .cart-properties-head >p:first-child:after{ 
+    content: '';
+    background-image: url(https://cdn.shopify.com/s/files/1/0046/6966/9491/files/screenshot-app.zeplin.io-2021.03.09-17_32_45.png?v=1615291454);
+    display: inline-block;
+    width: 30px;
+    height: 16px;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 15px;
+  }
+  
+  .proper-title-wrap:after {
+    content: '';
+    background-image: url(https://cdn.shopify.com/s/files/1/2807/8986/files/caret_down.png?v=1630929827);
+    width: 30px;
+    height: 16px;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 15px;
+  }
+  
+  .proper-title-wrap.open:after {
+    background-image: url(https://cdn.shopify.com/s/files/1/2807/8986/files/caret_up.png?v=1630931649);
+    top: 3px;
+  }
+  
+  .cm-paymt-imgs-wrap img:first-child {
+    width: 36px;
+    height: 11px;
+    margin-left: 0;
+  }
+
+  .cm-paymt-imgs-wrap img:nth-child(2) {
+    width: 49px;
+    height: 13px;
+  }
+
+  .cm-paymt-imgs-wrap img:nth-child(3) {
+    width: 35px;
+    height: 21px;
+  }
+
+  .cm-paymt-imgs-wrap img:nth-child(4) {
+    width: 53px;
+    height: 21px;
+    margin-right: 0;
+  }
+  
+  .cm-paymt-imgs-wrap img:nth-child(5) {
+    height: 15px;
+  }
+
+  .cm-paymt-imgs-wrap img {
+    object-fit: contain;
+    margin: 0 10px;
+  }
+
+  .cm-paymt-imgs-wrap {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    padding: 20px 0;
+    clear: both;
+    border-bottom: solid 1px #979797;
+  }
+  .cm-cont-top-wrap {
+    padding: 20px 0;
+    border-bottom: solid 1px #979797;
+  }
+
+  .cm-cont-wrap:not(:last-child) {
+    padding: 0 0 20px;
+  }
+
+  .cm-cont-wrap > div {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .cm-cont-wrap > div.cm-left-col {
+    padding-right: 27px;
+  }
+
+  .cm-cont-wrap > div.cm-left-col img {
+    max-width: 35px;
+  }
+
+  .cm-cont-wrap > div p {
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    color: #2c2c2c;
+    margin: 0;
+  }
+
+  .cm-cont-wrap > div p strong {
+    font-weight: 600;
+    color: #000000;
+  }
+
+  /*-------Changes regarding TW#33612394--------*/
+  #MainContent .grid__item.medium-up--one-half.cm-cart-note{
+    padding: 0px 0px 15px;
+  }
+/*   #MainContent .shipping-rates-calculator-desktop-container{
+  	padding:15px 0px 0px;
+  } */
+  /*-------Changes regarding TW#33612394--------*/
+  #MainContent .grid__item.medium-up--one-half.cm-cart-note label{
+  	margin-bottom:10px;
+    display:block;
+  }
+/*   #MainContent .shipping-rates-calculator-desktop-container{
+  	border-bottom:solid 1px #979797;
+  } */
+  /*-------Changes regarding TW#33612394 ended here--------*/
+  .grid__item.medium-up--one-half.cm-cart-note label {
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    margin-bottom: 17px;
+  }
+
+  .grid__item.medium-up--one-half.cm-cart-note textarea#CartSpecialInstructions {
+    border: solid 1px #979797;
+    height: 100px;
+    width: 100%;
+    background-color: white;
+    border-radius: 0;
+    padding: 13px 15px;
+    color: #333;
+  }
+  .cm-flex-wrap .grid.cart__row  .cm-item-ct.cm-ord-total {
+    padding-top: 15px;
+    border-top: 1px solid #979797;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    margin-bottom: 12px;
+    color: #020302;
+  }
+
+  .cm-flex-wrap .grid.cart__row .cm-item-ct.cm-ord-total span#CartSubtotal {
+    font-size: 18px;
+  }
+  .cm-flex-wrap .grid.cart__row p.cart__taxes {
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2c2c2c;
+    margin-bottom: 28px;
+  }
+
+  div#insurance-div {
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  div#insurance-div .insurance-left {
+    float: left;
+    width: 80%;
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2c2c2c;
+  }
+
+  div#insurance-div .insurance-right {
+    float: right;
+  }
+
+  div#insurance-div .btm-txt {
+    font-family: IBM Plex Sans;
+    font-size: 10px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2c2c2c;
+    margin-top: 7px;
+  }
+
+  .cm-flex-wrap .grid.cart__row p.cart__term {
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2c2c2c;
+  }
+
+  .cm-flex-wrap .grid.cart__row button.btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+  }
+  span.cm-insc-wrap {
+    display: inline-block;
+    width: 43px;
+    height: 20px;
+    border-radius: 14.5px;
+    border: solid 1px #cc4143;
+    position: relative;
+  }
+
+  span.cm-insc-wrap:after {
+    content: 'no';
+    padding: 3px 1px 3px 0;
+    background-color: #cc4143;
+    font-family: IBM Plex Sans;
+    font-size: 8px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #fff;
+    text-align: center;
+    border-radius: 100%;
+    text-transform: capitalize;
+    height: 11px;
+    width: 16px;
+    display: inline-block;
+    top: 1px;
+    position: absolute;
+    left: 1px;
+    right: auto;
+  }
+  input.insurance-selector[type="checkbox"]:checked +.cm-insc-wrap:after {
+    content: 'yes';
+    right: 1px;
+    left: auto;
+  }
+  div#insurance-div .insurance-right label {
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+  .dynamic-checkout__content .shopify-cleanslate ul > li {
+    -webkit-flex-basis: 46.9% !important;
+    -ms-flex-preferred-size: 46.9% !important;
+    flex-basis: 46.9% !important;
+  }
+  div#insurance-div input.insurance-selector {
+    width: 44px !important;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+  }
+  p.cm-remove {
+    text-align: right;
+  }
+  div[data-section-type="cart"] #cartForm .checkout_btn.btn, .checkout_btn.btn {
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    font-family: IBM Plex Sans;
+    background-color: #c63b3d;
+    border-radius: 0;
+    border: 0;
+    color: white;
+    padding: 15px 0;
+    margin-bottom: 10px;
+  }
+  .custom_prescription ul,
+  .contact-lens-properties .custom_prescription_mobile ul{
+    list-style: none;
+    display: flex;
+    padding: 0;
+  }
+  .custom_prescription li,
+  .contact-lens-properties .custom_prescription_mobile li{
+    flex: 1;
+  }
+  .custom_prescription ul li span,
+  .contact-lens-properties .custom_prescription_mobile ul li span{
+    width: 100%;
+    min-height: 43px;
+    border: solid 1px #dfdfdf;
+    font-size: 12px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #494949;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0;
+    border-right: oldlace;
+    height: 43px;
+    overflow: hidden;
+  }
+  .contact-lens-properties .custom_prescription ul li.details div:last-child span{
+  	border-bottom: solid 1px #dfdfdf;
+  }
+  .custom_prescription.readers li.Magnification {
+    display: none;
+  }
+  .custom_prescription ul.children {
+    display: block;
+  }
+  .custom_prescription ul.children li:last-child span {
+    border-bottom: solid 1px #dfdfdf;
+  }
+  .custom_prescription_hide{
+    display:none
+  }
+  .custom_prescription > ul > li:last-child span {
+    border-right: solid 1px #dfdfdf;
+  }
+  .continue_shop a {
+    color: inherit;
+  }
+  .cart__note {
+    height: 145px;
+  }
+  .custom_prescription > ul > li:first-child span,.custom_prescription > ul > li > span,
+  .contact-lens-properties .custom_prescription_mobile > ul > li:first-child span,
+	.contact-lens-properties .custom_prescription_mobile > ul > li span{
+    font-weight: bold;
+    color: #000;
+  }
+
+  .prescription ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .prescription ul ul {
+    display: flex;
+    padding: 0;
+  }
+
+  .prescription ul ul > li {
+    flex: 1;
+    order: inherit;
+    margin-bottom: 18px;
+    margin-right: 15px; /*shipping insurance change TW#33396560*/
+  }
+  .prescription.prescription_warranty ul ul > li.last {
+    flex:2;
+  }
+
+  .prescription ul ul li span {
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #6e6e6e;
+  }
+  li.remove_row {
+      display: none;
+    }
+  .prescription ul ul li:nth-child(2) span {
+/*     color: #000000;
+    font-weight: normal; */
+    color: #6e6e6e;
+    font-weight: 500;
+  }
+  .prescription.prescription_warranty ul ul li:nth-child(2) span {
+    color: #6e6e6e;
+    font-weight: 500;
+  
+  }
+  .cm-property-wrap .property_title {
+    padding: 0;
+    /*     margin-bottom: 20px; */
+  }
+  .cm-property-wrap .property_title.cx-pres {
+    margin-bottom: 20px;
+    
+  }
+  .cm-property-wrap{
+    margin-bottom: 15px;
+  }
+  .cm-flex-wrap .cart__cell--quantity {
+    padding-top: 5px;
+  }
+  .prescription ul ul li.price span {
+    font-size: 12px;
+    color: #494949;
+  }
+  .custom_prescription .children.remove_cell {
+    height: calc(100% - 43px);
+  }
+
+  .custom_prescription .children.remove_cell > li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: solid 1px #dfdfdf;
+    border-right: 0;
+  }
+  .prescription ul ul > li.price.show_li {
+    visibility: visible;
+  }
+  .custom_prescription .children.remove_cell > li > span {
+    border: 0 !important;
+  }
+  .custom_prescription > ul > li:last-child .children.remove_cell > li {
+    border-right: solid 1px #dfdfdf;
+  }
+
+  .cm-ff-wrap .slick-list:after,.cm-ff-wrap .slick-list:before {
+    width: 1px;
+    content: "";
+    z-index: 1;
+    height: 86%;
+    display: block;
+    position: absolute;
+    top: 5%;
+    background: #979797;
+  }
+
+  .cm-ff-wrap .slick-list:before {
+    left: 32%;
+  }
+
+  .cm-ff-wrap .slick-list:after {
+    left: 67%;
+  }
+  .cm-ff-wrap.no .slick-list:before,
+  .cm-ff-wrap.no .slick-list:after,
+  .cm-slick-in .slick-arrow:before,
+  .cm-slick-in .slick-arrow:after{
+    display:none
+  }
+  .cm-ff-wrap.no .accessories-item:not(:last-child):after{
+    width: 1px;
+    content: "";
+    z-index: 1;
+    height: 86%;
+    display: block;
+    position: absolute;
+    top: 5%;
+    right: 0;
+    background: #979797;
+  }
+  .prescription ul ul > li.price {
+    text-align: right;
+    visibility: hidden;
+  }
+  span#CartSubtotal .money {
+    width: 100%;
+  }
+  .prescription-profile-name {
+    color: black;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .prescription-profile-name__title {
+    float: right;
+  }
+  .cart__drawer .prescription-profile-name__title {
+    float: inherit;
+  }
+  
+  .extend-protection-btn {
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-bottom: 0;
+    padding: 7px 13px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  
+  .title_con_wrap .right {
+    position: relative;
+  }
+  
+  .title-wrap {
+    display: block;
+  }
+  
+  .cm-price {
+    margin-top: 9px;
+    margin-bottom: 16px;
+    font-size: 24px;
+    color: #2c2c2c;
+    display: block;
+  }
+  
+  .cart-hr {
+    width: 100%;
+    height: 1px;
+    border-top: solid 1px #d5d5d5;
+    margin: 0 0 20px;
+    border-width: 1px 0 0;
+  }
+  
+  
+  .d-flex {
+    display: flex;
+  }
+  
+  .property_title.cx-pres:before {
+    content: '';
+    background-image: url(https://cdn.shopify.com/s/files/1/2807/8986/files/caret_down.png?v=1630929827);
+    width: 30px;
+    height: 16px;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: -15px;
+  }
+  
+  .property_title.cx-pres.open:before {
+    background-image: url(https://cdn.shopify.com/s/files/1/2807/8986/files/caret_up.png?v=1630931649);
+  }
+  
+  .position-relative {
+    position: relative;
+  }
+  
+  .prescription.another {
+    margin-bottom: 5px;
+  }
+  .custom_prescription,
+  .contact-lens-properties .custom_prescription_mobile {
+    margin-bottom: 20px;
+  }
+  
+  .extend-protection-add-btn {
+    border: 0;
+    width: 100%;
+    color: #000;
+    cursor: initial;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    background-color: #f6f3f3;
+    padding: 10px 20px;
+  }
+  
+/*    */
+  
+  .warranty-container {
+    background-color: #fbfbfb;
+  }
+  .warranty-btn-containers {
+    padding: 10px 20px;
+    
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-between;
+    -ms-flex-pack: space-between;
+    justify-content: space-between;
+    flex-direction: row;
+    
+    flex-wrap: wrap;
+  }
+
+  .warranty-label {
+    display: flex;
+    color: #020302;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 34px;
+    margin-bottom: 0;
+    position: relative;
+    padding-left: 25px;
+    font-weight: normal;
+    align-items: center;
+    text-transform: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+  }
+  
+/*   .warranty-label:first-child {
+    margin-right: 10px;
+  } */
+  
+  .w-price {
+    color: #000;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .warranty-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .checkcircle {
+    position: absolute;
+    top: 8px;
+    left: 1px;
+    height: 19px;
+    width: 19px;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 2px solid #979797;
+  }
+
+  .warranty-label:hover input ~ .checkcircle {
+    background-color: #ccc;
+  }
+
+  .warranty-label input:checked ~ .checkcircle {
+    background-color: #f6f6f6;
+    border: 2px solid #979797;
+  }
+
+  .warranty-label .checkcircle:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .warranty-label input:checked ~ .checkcircle:after {
+    display: block;
+  }
+
+  .warranty-label .checkcircle:after {
+    top: 2px;
+    left: 2px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #cd4346;
+  }
+  .warranty-add-btn, .warranty-update-btn {
+    width: 104px;
+    height: 34px;
+    color: #41afe4;
+    font-size: 15px;
+    font-weight: 500;
+    border: solid 1px #41afe4;
+    background-color: #fff;
+    border-radius: 0;
+  }
+  
+  .warranty_mesg {
+    color: #020302;
+    font-size: 13px;
+    padding: 10px 20px;
+    line-height: 1.375;
+  }
+  
+  .warranty_mesg a {
+    color: #c63b3d;
+  }
+  
+  .desktop {
+    display: block;
+  }
+  .mobile {
+    display: none;
+  }
+  
+  button.warranty-update-btn:hover {
+    color: #23607d;
+    border-color: #23607d;
+  }
+  
+  button.warranty-update-btn:active {
+    color: #cd4346;
+    border-color: #cd4346;
+  }
+  
+  button.warranty-update-btn:hover:active {
+    color: #cd4346;
+  }
+  
+  .info-btn {
+    float: right;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    line-height: 1;
+    vertical-align: middle;
+    background: transparent;
+    margin-left: 5px;
+  }
+  .info-btn svg {
+    fill: #C63B3D;
+    stroke: #C63B3D;
+    stroke-width: 0.5;
+  }
+  .info-btn:hover svg {
+    fill: black;
+    stroke: black;
+    stroke-width: 0.5;
+  }
+  
+  .coverSpinner, .coverSpinnerCartButtons, .draftSpinner {
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(220, 220, 220, 0.4);
+    z-index: 9999;
+    display: none;
+  }
+  
+  .coverSpinner {
+    position: fixed;
+  }
+  
+  .coverSpinnerCartButtons {
+    position: absolute;
+  }
+
+  @-webkit-keyframes spin {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .coverSpinner:after, .coverSpinnerCartButtons:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 48%;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+    border-style: solid;
+    border-color: black;
+    border-top-color: transparent;
+    border-width: 4px;
+    border-radius: 50%;
+    -webkit-animation: spin .8s linear infinite;
+    animation: spin .8s linear infinite;
+  }
+
+  .draftSpinner:after {
+  	content: '';
+    display: block;
+    position: absolute;
+    left: 48%;
+    top: 20%;
+    width: 20px;
+    height: 20px;
+    border-style: solid;
+    border-color: #e4e1e1;
+    border-top-color: transparent;
+    border-width: 4px;
+    border-radius: 50%;
+    -webkit-animation: spin .8s linear infinite;
+    animation: spin .8s linear infinite;
+  }
+  
+  .extend-leadtoken__detail {
+    display: flex;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    color: #6e6e6e;
+  }
+  
+  .extend-leadtoken__title {
+    flex: 1;
+    order: inherit;
+    margin-bottom: 18px;
+  }
+  .extend-leadtoken__value {
+    flex: 2;
+    order: inherit;
+    margin-bottom: 18px;
+  }
+  
+  .draft-order{
+    position: relative;
+  }
+    .draft-order-btn {
+    background-color: red;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    width: 100%;
+    display: block;
+    padding: 15px;
+  }
+  
+  .draft-order-btn:hover {
+    background-color: #ff3300;
+  }
+  
+  .draft-order-btn:active, .draft-order-btn:focus {
+    background-color: #dc0303;
+  }
+  
+  .draft-message {
+    font-weight: 500;
+    margin-top: 10px;
+    color: darkgreen;
+    font-size: 15px;
+    background: #e7ffdd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .cm-flex-wrap .cart__cell--quantity[data-type="Contact Lenses"] label,
+  .cm-flex-wrap .cart__cell--quantity[data-type="Contact Lenses"] select{
+  	display: none;
+  }
+  
+  @media (min-width:768px) {
+    .custom_prescription_mobile,
+    .property_title.custom_pres{
+      display: none !important;
+    }
+    
+    .cart-page-main {
+      padding: 0 20px;
+    }
+  }
+  @media(max-width:991px) {
+    .cm-flex-wrap .grid.cart__row {
+      width: 100%;
+      margin: 0;
+    }
+    .custom_prescription.readers + .custom_prescription_hide {
+      display: none !important;
+    }
+    .cm-flex-wrap .responsive-table.cart-table {
+      width: 100%;
+      margin-right: 0;
+    }
+    .cm-flex-wrap {
+      display: block;
+    }
+    /*------Changes regarding TW#33612394-------*/
+    .cbb-shipping-rates-calculator.cbb-mobile-view {
+      display: block;
+    }
+
+    .cbb-shipping-rates-calculator.cbb-mobile-view.active {
+      display: none;
+    }
+    /*------Changes regarding TW#33612394 ended here -------*/
+  }
+  @media (max-width:767px){
+    .cm-paymt-imgs-wrap img {
+      margin: 0 13px;
+    }
+    div[data-section-type="cart"] h1 {
+      font-size: 25px;
+      margin-bottom: 40px;
+      padding:0px 7px 0 7px;
+    }
+    .property_title.desktop {
+      display: none !important;
+    }
+    
+    .property_title.custom_pres {
+      display: block;
+    }
+    .desktop {
+      display: none;
+    }
+    .mobile {
+      display: block;
+    }
+    .title_con_wrap.mobile {
+      display: flex;
+    }
+    .property_title.custom_pres:after {
+      content: '';
+      background-image: url(https://cdn.shopify.com/s/files/1/2807/8986/files/caret_down.png?v=1630929827);
+      width: 30px;
+      height: 16px;
+      background-repeat: no-repeat;
+      position: absolute;
+      right: 10px;
+    }
+  
+    .cm-flex-wrap .cart__cell--quantity {
+      padding-bottom: 24px;
+    }
+    .cm-flex-wrap .title-wrap h2 {
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .cbb-shipping-rates-calculator.cbb-mobile-view {
+      padding: 0 !important;
+      border: 0 !important;
+    }
+
+    h4.cbb-shipping-rates-calculator-header.translatable {
+      text-align: left !important;
+      font-family: IBM Plex Sans!important;
+    }
+    .title_con_wrap p {
+      font-size: 16px;
+    }
+    .cm-paymt-imgs-wrap img {
+      margin: 0 13px;
+    }
+
+    .responsive-table.cart-table {
+      padding: 0 7px;
+    }
+    .cbb-shipping-rates-calculator.cbb-desktop-view {
+      border: 0 !important;
+      padding: 0 0 !important;
+    }
+    .prescription ul ul > li {
+      flex: auto;
+      margin-bottom: 0;
+      line-height: normal;
+      margin-right: 0; /*shipping insurance change TW#33396560*/
+    }
+
+    .prescription ul ul {
+      display: block;
+    }
+
+    .prescription ul ul li:nth-child(2) {
+      margin-bottom: 9px;
+    }
+
+    .cm-property-wrap .property_title {
+      margin-bottom: 20px;
+    }
+
+    .prescription {
+      margin-top: -11px;
+      margin-bottom: 40px;
+    }
+    .cbb-shipping-rates-calculator-map, .cbb-shipping-rates-calculator-change-shipping-address,.cbb-shipping-rates-rate-list {
+      width: 100% !important;
+      display: block !important;
+    }
+
+    .main-content {
+      margin-top: 20px;
+      padding-bottom: 15px;
+    }
+
+    .cm-content-wrapper .cm-left,.cm-content-wrapper .cm-right {
+      width: 100%;
+    }
+
+    .cm-content-wrapper {
+      flex-wrap: wrap;
+    }
+
+    .cm-content-wrapper .cm-left .cart__cell--image {
+      margin-top: 4px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    form#cbb-shipping-rates-calculator-form select,
+    button.cbb-shipping-rates-calculator-update-button, form#cbb-shipping-rates-calculator-form input {
+      width: 100% !important;
+    }
+
+    button.cbb-shipping-rates-calculator-update-button,form#cbb-shipping-rates-calculator-form select, form#cbb-shipping-rates-calculator-form input {
+      margin-right: 0 !important;
+      border-radius: 0;
+    }
+
+    form#cbb-shipping-rates-calculator-form select {
+      margin-bottom: 17px !important;
+    }
+
+    form#cbb-shipping-rates-calculator-form select {
+      background-position: 98% center;
+      padding: 0 22px !important;
+    }
+
+    #MainContent  .cm-flex-wrap .grid.cart__row .cart__buttons {
+      padding: 28px  22px;
+    }
+
+    .continue_shop a {
+      color: inherit;
+    }
+    .cm-flex-wrap .grid.cart__row button.btn {
+      margin-bottom: 0;
+    }
+
+    .shopify-cleanslate .iZJMuEDN4NxKS3mrxcBP9 {
+      flex-direction: row !important;
+    }
+
+    .dynamic-checkout__content .shopify-cleanslate ul > li {
+      margin-top: 0 !important;
+    }
+
+    .dynamic-checkout__content .shopify-cleanslate ul > li {
+      margin-right: 12px !important;
+      -webkit-flex-basis: 50%!important;
+      -ms-flex-preferred-size: 50%!important;
+      flex-basis: 50%!important;
+    }
+    .dynamic-checkout__content .shopify-cleanslate ul > li:nth-child(2) {
+      margin-right: 0 !important;
+    }
+    .main-content .page-width {
+      padding: 0 15px;
+    }
+    .custom_prescription_mobile ul {
+      list-style: none;
+    }
+
+    .custom_prescription_mobile li li {
+      font-size: 14px;
+      font-weight: 300;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: #494949;
+      border: solid 1px #dfdfdf;
+      width: 100%;
+      padding: 12px 5px;
+      border-bottom: 0;
+      border-right: 0;
+    }
+
+    .custom_prescription_mobile .details li span,.custom_prescription_mobile .right li:first-child span,
+    .custom_prescription_mobile .left li:first-child span {
+      font-weight: 600;
+    }
+    .custom_prescription_mobile {
+      margin-bottom: 30px;
+    }
+    .custom_prescription_mobile > ul {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .custom_prescription_mobile > ul > li.details {
+      width: 30%;
+    }
+    .custom_prescription:not(.readers),
+    .custom_prescription:not(.contact-lens)
+    {
+      display: none !important;
+    }
+    .custom_prescription.readers {
+      display: none;
+    }
+    .custom_prescription_mobile > ul > li {
+      width: 35%;
+    }
+
+    .custom_prescription_mobile > ul > li:last-child {
+      border-right: solid 1px #dfdfdf;
+    }
+
+    .custom_prescription_mobile > ul ul li:last-child {
+      border-bottom: solid 1px #dfdfdf;
+    }
+
+    .custom_prescription_mobile li li span {
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      overflow: hidden;
+    }
+    .prescription ul ul > li.price {
+      display: none;
+    }
+
+    .prescription ul ul > li.price.show_li {
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+
+    .prescription ul ul {
+      position: relative;
+    }
+    
+    .prescription.another {
+      margin-bottom: 25px;
+      margin-top: 0;
+    }
+    
+    .proper-title-wrap {
+      margin-bottom: 0;
+    }
+    
+    .extend-quantity-container {
+      margin-top: 7px;
+    }
+    extend-quantity-container .info-btn {
+      margin-left: 5px;
+    }
+    
+    .prescription.prescription_warranty ul ul li:nth-child(2) span {
+      color: #000;
+      font-weight: normal;
+    }
+    .extend-quantity {
+      line-height: 1;
+      color: #000;
+      height: 35px;
+    }
+    
+    .extend-protection-add-btn {
+      text-align: center;
+    }
+    
+    .extend-leadtoken__detail {
+      display: block;
+    }
+
+    .extend-leadtoken__title {
+      margin-bottom: 0;
+    }
+    .extend-leadtoken__value {
+      font-weight: normal;
+      color: #000000;
+      margin-bottom: 9px;
+    }
+    .custom_prescription_mobile:not(.contact-lens) {
+      display: block;
+    }
+    
+    .custom_prescription_mobile > ul > li:first-child span, .custom_prescription > ul.parent {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .custom_prescription_mobile > ul > li:first-child span, .custom_prescription > ul > li.details {
+    	display: flex;
+      	justify-content: center;
+    }
+    .custom_prescription_mobile > ul > li:first-child span, .custom_prescription > ul > li.details > span {
+      flex: 0 0 33.333%;
+    }
+    .custom_prescription_mobile > ul > li:first-child span, .custom_prescription > ul > li.details > div {
+      flex: 0 0 33.333%;
+    }
+
+  }
+  @media (max-width:600px){
+    .cm-ff-wrap.no .slick-list:before{
+      display:block
+    }
+    .cm-ff-wrap.yes .slick-list:after,
+    .cm-ff-wrap.no .accessories-item:not(:last-child):after{
+      display: none;
+    }
+    .cm-ff-wrap .slick-list:before {
+      left: 52%;
+    }
+    
+    .warranty-btn-containers {
+      flex-wrap: wrap;
+    }
+    
+    .warranty-btn-containers label {
+      flex: 50%;
+    }
+    .warranty-btn-containers button.warranty-add-btn,
+    .warranty-btn-containers button.warranty-update-btn {
+      margin: auto;
+      width: 150px;
+      margin-top: 10px;
+    }
+    
+    
+  }
+  @media (max-width:480px){
+    .cm-ff-wrap.no .accessories-item:not(:last-child):after,
+    .cm-slick-in .slick-arrow:before,.cm-slick-in .slick-arrow:after,
+    .cm-ff-wrap.yes .slick-list:before,
+    .cm-ff-wrap.no .slick-list:before{
+      display: none;
+    }
+    .accessories-item {
+      padding: 0 25px;
+    }
+    
+    .warranty-btn-containers {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+  
+  @media(min-width:991px) and (max-width:1180px) {
+    .warranty-add-btn {
+      width: 55px;
+    }
+    .warranty-update-btn {
+      width: 63px;
+    }
+  }
+  
+</style>

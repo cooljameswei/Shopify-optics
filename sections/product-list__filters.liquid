@@ -1,0 +1,395 @@
+{% if section.settings.filter %}
+{% comment %} {%- for filter in collection.filters -%}
+{% comment %} {% for f in filter.inactive_values %}
+        active {{f.active}}
+        count {{f.count}}
+        label {{f.label}}
+        param name {{f.param_name}}
+        add {{f.url_to_add}}
+        remove {{f.url_to_remove}}
+        value {{f.value}}
+{% endfor %}
+{% for f in filter.inactive_values %}
+        active {{f.active}}
+        count {{f.count}}
+        label {{f.label}}
+        param name {{f.param_name}}
+        add {{f.url_to_add}}
+        remove {{f.url_to_remove}}
+        value {{f.value}}
+{% endfor %} {% endcomment %}
+{% comment %} {{filter.label}}
+max value: {{filter.max_value.value}}
+min value: {{filter.min_value.value}}
+{{filter.param_name}}
+{{filter.range_max}}
+{{filter.type}}
+{{filter.url_to_remove}} {% endcomment %}
+{% comment %} {{filter.values | json}} {% endcomment %}
+{% endfor %} {% endcomment %}
+
+
+<input type="checkbox" id="filterToggle" class="hide">
+<label for="filterToggle" class="overlay filter__overlay"></label>
+<div id="filterSidebar" class="disable-select">
+<div data-current-filters="[]" class="filter__current-filters">
+</div>
+{% assign customColors = settings.swatchCustomColors | downcase | split: ',' %}
+{% for group in section.blocks %}
+{% assign ix = forloop.index %}
+{% case group.type %}
+  {% when 'filter' %}
+    {% if group.settings.hideDisabled %}
+      <style>
+        .filter--disabled {
+          display: none !important;
+        }
+      </style>
+    {% endif %}
+    {% if group.settings.useSwatch %}
+      {% assign swatches = group.settings.useSwatchList | replace: ' ', '' | downcase | split: ',' %}
+    {% else %}
+      {% assign swatches = '' | split: '' %}
+    {% endif %}
+    {% for filter in collection.filters %}
+      {% assign ix = forloop.index %}
+      {% case filter.type %}
+        {% when 'price_range' %}
+
+        {% when 'list' %}
+          <input id="{{group.id}}{{forloop.index}}-{{ix}}" {% if group.settings.expanded %}checked{%endif%} type="checkbox" class="hide filter__toggle">
+          <div id="{{group.id}}" class="filter__group">
+              <label for="{{group.id}}{{forloop.index}}-{{ix}}" class="filter__group-title">{{filter.label}}</label>
+              {% assign dcase = filter.label | downcase %}
+              {% if swatches contains dcase %}
+                {% for f in filter.values %}
+                  {% assign replaceValue = f.label | downcase | escape %}
+                  {% assign style = 'style="--scolor: {{color}}"' %}
+                  {% for color in customColors %}
+                      {% if color contains replaceValue %}
+                          {% assign temp = color | split: ':' %}
+                          {% assign replaceValue = temp[1] %}
+                          {% break %}
+                      {% endif %}
+                  {% endfor %}
+                  {% assign style = style | replace: '{{color}}', replaceValue %}
+                  <div class="filter__checkbox--swatch filter__tag {% if f.active %}filter__swatch--current{% endif %} {% if f.count == 0 %}filter--disabled{% endif %}">
+                    <input style="display: none" type="checkbox" {% if f.active %}checked{% endif %} {% if f.count == 0 %}disabled{% endif %} data-filter-href="{% if f.active %}{{f.url_to_remove}}{% else %}{{f.url_to_add}}{% endif %}" id="{{-group.id-}}-{{forloop.index}}-{{ix}}" data-parent="{{group.id}}" data-filter="{{-filter.label|escape-}}-{{-f.value|escape-}}">
+                    <label data-filter-value="{{f.label|escape}}" for="{{-group.id-}}-{{forloop.index}}-{{ix}}" {{style}} class="filter__tag--swatch">
+                      <span class="filter__color--swatch"></span>
+                      <span>{{f.label}}</span>
+                      <span data-filter-count>{{f.count}}</span>
+                    </label>
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% for f in filter.values %}
+                <div class="filter__checkbox filter__tag {% if f.active %}filter__checkbox--current{% endif %} {% if f.count == 0 %}filter--disabled{% endif %}">
+                  <input type="checkbox" {% if f.active %}checked{% endif %} {% if f.count == 0 %}disabled{% endif %} data-filter-href="{% if f.active %}{{f.url_to_remove}}{% else %}{{f.url_to_add}}{% endif %}" id="{{-group.id-}}-{{forloop.index}}-{{ix}}" data-parent="{{group.id}}" data-filter="{{-filter.label|escape-}}-{{-f.value|escape-}}">
+                  <label for="{{-group.id-}}-{{forloop.index}}-{{ix}}">
+                    <span>{{-f.label}}</span>
+                    <span data-filter-count>{{f.count}}</span>
+                  </label>
+                </div>
+                {% endfor %}
+              {% endif %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+    
+  {% when 'collectionList' %}
+    <input id="{{group.id}}{{forloop.index}}" {% if group.settings.expanded %}checked{%endif%} type="checkbox" class="hide filter__toggle">
+    <div id="{{group.id}}" class="filter__group">
+        <label for="{{group.id}}{{forloop.index}}" class="filter__group-title">{{group.settings.name}}</label>
+
+        <a href="{{ routes.all_products_collection_url }}" class="filter__tag filter__tag--text filter__collection {% if collection.url == routes.all_products_collection_url %}filter__collection--current{% endif %}">{{'collection_page.sidebar.all_products' | t }}</a>
+        {% if section.settings.customList != blank %}
+          {% assign list = section.settings.customList | replace: ' ', '' | split: "," %}
+          {% for coll in collections %}
+            {% if list contains coll %}
+              <a class="filter__tag filter__tag--text filter__collection {% if coll == collection %}filter__collection--current{% endif %}" href="{{coll.url}}">{{coll.title}}</a>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {% for coll in collections %}
+            <a class="filter__tag filter__tag--text filter__collection {% if coll == collection %}filter__collection--current{% endif %}" href="{{coll.url}}">{{coll.title}}</a>
+          {% endfor %}
+        {% endif %}
+    </div>
+
+  {% when 'brandList' %}
+    <input id="{{group.id}}{{forloop.index}}" {% if group.settings.expanded %}checked{%endif%} type="checkbox" class="hide filter__toggle">
+    <div id="{{group.id}}" class="filter__group">
+        <label for="{{group.id}}{{forloop.index}}" class="filter__group-title">{{group.settings.name}}</label>
+        {% if collection.current_vendor %}
+            <a href="{{ routes.all_products_collection_url }}" class="filter__tag filter__tag--text filter__vendor filter__vendor--back">{% render 'get-icon', icon: 'arrow-left' %} {{'collection_page.sidebar.back_to_all' | t }}</a>
+            <span class="filter__tag filter__tag--text filter__vendor filter__vendor--current">{{collection.current_vendor}}</span>
+        {% else %}
+          {% for vendor in collection.all_vendors %}
+            <a href="{{vendor | url_for_vendor}}" class="filter__tag filter__tag--text filter__vendor">{{-vendor-}}</a>
+          {% endfor %}
+        {% endif %}
+    </div>
+
+  {% when 'typeList' %}
+    <input id="{{group.id}}{{forloop.index}}" {% if group.settings.expanded %}checked{%endif%} type="checkbox" class="hide filter__toggle">
+    <div id="{{group.id}}" class="filter__group">
+        <label for="{{group.id}}{{forloop.index}}" class="filter__group-title">{{group.settings.name}}</label>
+        {% if collection.current_type %}
+            <a href="{{ routes.all_products_collection_url }}" class="filter__tag filter__tag--text filter__vendor filter__vendor--back">{% render 'get-icon', icon: 'arrow-left' %} {{'collection_page.sidebar.back_to_all' | t }}</a>
+            <span class="filter__tag filter__tag--text filter__vendor filter__vendor--current">{{collection.current_type}}</span>
+        {% else %}
+          {% for type in collection.all_types %}
+            <a href="{{type | url_for_type}}" class="filter__tag filter__tag--text filter__vendor">{{-type-}}</a>
+          {% endfor %}
+        {% endif %}
+    </div>
+  
+  {% when 'image' %}
+    <input id="{{group.id}}{{forloop.index}}" checked type="checkbox" class="hide filter__toggle">
+    <div id="{{group.id}}" class="filter__group">
+        <label for="{{group.id}}{{forloop.index}}" class="filter__group-title">{{group.settings.name}}</label>
+        {% if group.settings.url != blank %}
+          <a href="{{group.settings.url}}">{% render 'image', src: group.settings.image, size: '720x', class: 'filter__image' %}</a>
+        {% else %}
+          {% render 'image', src: group.settings.image, size: '720x', class: 'filter__image' %}
+        {% endif %}
+    </div>
+
+  {% when 'text' %}
+    <input id="{{group.id}}{{forloop.index}}" checked type="checkbox" class="hide filter__toggle">
+    <div id="{{group.id}}" class="filter__group">
+        <label for="{{group.id}}{{forloop.index}}" class="filter__group-title">{{group.settings.name}}</label>
+        <div class="filter__text">{{group.settings.text}}</div>
+    </div>
+  {% endcase %}
+{% endfor %}
+</div>
+<label for="filterToggle" class="filter__mobile--button hide-desktop"><i class="uil uil-filter"></i><span class="filter__mobile--current">0</span></label>
+
+<style>
+  /*--------Ayush changes-----*/
+  .filter__group-title{
+  	font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    line-height: 20px;
+    padding-bottom: 5px;
+    width: auto;
+    display: block;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #666;
+  }
+  .filter__group-title::after{
+  	height:auto;
+  }
+  .filter-01-1-1{
+  	font-size: 16px;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    display: block;
+    background: 0 0;
+    border: none;
+    width: 100%;
+    position: static;
+    text-decoration: none;
+    color: #000;
+  }
+@media only screen and (min-width: 768px) {
+    .product__list {
+      flex-basis: 77%;
+      max-width: calc(1200px * 0.77);
+    }
+
+    .product__list--filter {
+      max-width: calc(1200px * 0.23);
+    }
+
+    .filter__overlay {
+        display: none;
+    }
+
+    #filterSidebar {
+        display: block;
+    }
+}
+@media(max-width:1256px){
+	.product__list--filter {
+    	max-width: 23%;
+	}  
+}
+@media(max-width:767px){
+  .filter__bar select{
+  	width:100%;
+  }  
+}  
+</style>
+{% else %}
+<style>
+#shopify-section-{{section.id}} {
+  display: none !important;
+} 
+</style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Sidebar & Filters",
+    "class": "col-12 col-md-3 unflex product__list--filter",
+    "settings": [
+      {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458187513)"
+        },
+      {
+        "id": "filter",
+        "type": "checkbox",
+        "label": "Enable sidebar",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collectionList",
+        "name": "Collection list",
+        "limit": 1,
+        "settings": [
+          {
+                "type": "checkbox",
+                "id": "expanded",
+                "label": "Show this group by default",
+                "default": true
+          },
+          {
+            "id": "name",
+            "label": "Filter group name",
+            "type": "text",
+            "default": "Collections"
+          },
+          {
+            "id": "customList",
+            "label": "Custom list of collections",
+            "info": "A comma (,) separated list of collection handles. (Example: best-sellers for a collection named \"Best Sellers\")\nLeave empty for all collections.",
+            "type": "textarea"
+          }
+        ]
+      },
+      {
+        "type": "typeList",
+        "name": "Type list",
+        "limit": 1,
+        "settings": [
+          {
+                "type": "checkbox",
+                "id": "expanded",
+                "label": "Show this group by default",
+                "default": true
+          },
+          {
+            "id": "name",
+            "label": "Filter group name",
+            "type": "text",
+            "default": "Types"
+          }
+        ]
+      },
+      {
+        "type": "brandList",
+        "name": "Brand list",
+        "limit": 1,
+        "settings": [
+          {
+                "type": "checkbox",
+                "id": "expanded",
+                "label": "Show this group by default",
+                "default": true
+          },
+          {
+            "id": "name",
+            "label": "Filter group name",
+            "type": "text",
+            "default": "Vendors"
+          }
+        ]
+      },
+      {
+        "type": "filter",
+        "name": "Filters",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Style"
+            },
+            {
+              "type": "checkbox",
+              "label": "Hide unavailable options",
+              "default": true,
+              "id": "hideDisabled"
+            },
+            {
+                "type": "checkbox",
+                "id": "expanded",
+                "label": "Show this group by default",
+                "default": true
+            },
+          {
+            "id": "useSwatch",
+            "label": "Use color swatches",
+            "type": "checkbox",
+            "default": true
+          },
+          {
+            "id": "useSwatchList",
+            "label": "List of swatch options",
+            "info": "Comma (,) separated list of option names to use color swatches for.",
+            "default": "color, colour",
+            "type": "textarea"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "id": "name",
+            "label": "Title",
+            "type": "text",
+            "default": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "label": "Image URL",
+            "id": "url"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "id": "name",
+            "label": "Title",
+            "type": "text",
+            "default": "Look at this"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema%}

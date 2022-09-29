@@ -1,0 +1,42 @@
+{% unless block.settings.collection == blank %}
+    {% assign collection = collections[block.settings.collection] %}
+    <div class="fplist--title">
+        <h3>{% unless block.settings.title == blank %}{{block.settings.title}}{% else %}{{collection.title}}{% endunless %}</h3>
+        {% if section.settings.showMore %}<a href="{{collection.url}}" class="fplist--showmore">VIEW ALL</a>{% endif %}
+    </div>
+    {% assign iter = collection.products.size | at_most: section.settings.prdtCount | minus: 1 %}
+    {% for i in (0..iter) %}
+    {% assign prdt = collection.products[i] %}
+    <div class="fplist--item">
+        <a href="{{prdt.url}}"><img src="{{prdt.featured_image | img_url: '5x'}}" loading="lazy" height="{{prdt.featured_image.height}}" width="{{prdt.featured_image.width}}" data-src="{{prdt.featured_image | img_url: '80x'}}" class="lazyload fplist--image"></a>
+        <div class="fplist--info">
+            <a href="{{prdt.url}}" class="fplist--name">{{prdt.title}}</a>
+            <span class="fplist--price">{{prdt.price | money | strip_html}}</span>
+        </div>
+    </div>
+    {% endfor %}
+{% endunless %}
+
+{%- comment -%}
+{% blockdef %}
+{
+    "type": "fplistCollection",
+    "name": "Featured collection",
+    "settings": [
+        {
+            "type": "collection",
+            "label": "Featured collection",
+            "id": "collection"
+        },
+        {
+            "type": "text",
+            "label": "List title",
+            "id": "title"
+        }
+    ]
+}
+{% endblockdef %}
+{% params %}
+block:block, section:section
+{% endparams %}
+{%- endcomment -%}

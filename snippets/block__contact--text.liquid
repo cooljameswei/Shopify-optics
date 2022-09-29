@@ -1,0 +1,43 @@
+<label class="contact__text" for="{{block.id}}">{{block.settings.name}} {% unless block.settings.required %}(optional){% endunless -%}</label>
+<input {%if block.settings.required%}required{%endif%} id="{{block.id}}" name="contact[{{i}}-{{block.settings.name | handleize}}]" type="{{block.settings.type}}" placeholder="{{block.settings.placeholder}}">
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "contactFormText",
+    "name": "Text field",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "required",
+            "label": "This field is required",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "name",
+            "label": "Field name",
+            "default": "Input title"
+        },
+        {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder",
+            "default": "Example input"
+        },
+        {
+            "type": "select",
+            "id": "type",
+            "label": "Field type",
+            "options": [
+                {"value": "text", "label": "Text"},
+                {"value": "date", "label": "Date"},
+                {"value": "email", "label": "E-mail"},
+                {"value": "number", "label": "Number"},
+                {"value": "tel", "label": "Phone"}
+            ]
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

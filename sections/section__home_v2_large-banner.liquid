@@ -1,0 +1,209 @@
+{% style %}{% render 'common-css' with section as section %}{% endstyle %}
+{% style %}
+    .v2-large-banner { margin-bottom: 0px !important; padding-top: 100px; background-color: #f4f4f4; }
+    #s--{{section.id}} .s__content { {%- if section.settings.content_position == "left" -%} flex-direction: row-reverse; {%-endif-%} }
+    #s--{{section.id}} { padding: 100px 0; height: 665px; }
+    #s--{{section.id}} .tximage__txt .title { color: #ffffff; font-size: 45px; }
+    #s--{{section.id}} .tximage__txt .s__block--richText { color: #ffffff; }
+    #s--{{section.id}} .tximage__txt .button--primary { background-color: #C63C3E; font-size: 20px; padding: 15px 49px; border-radius:15px; }
+    #s--{{section.id}} .tximage__txt .button--primary:hover { background-color: #a02e30; color: #ffffff !important; }
+    #s--{{section.id}} .banner-wrapper .font__family--base p{ font-size: 20px; line-height: 30px; }
+    .v2-large-banner .s__holder{ z-index: 100; }
+    #s--{{section.id}} .banner-wrapper>div{ margin-bottom: 30px; }
+    @media(min-width:1500px){
+        #s--{{section.id}}{ height: 80vh; background-position:center; } 
+    }
+    @media(min-width:768px) and (max-width:1023px){
+        #s--{{section.id}}{ background-position: bottom; }
+        #s--{{section.id}} .layout__boxed{ display: flex; align-items: center; justify-content: flex-end; }
+        #s--{{section.id}} .layout__boxed>.layout__content{ width: 55%; margin: 0; }
+        #s--{{section.id}} .tximage__txt .title{ font-size: 26px; }
+        #s--{{section.id}} .banner-wrapper .font__family--base p{ font-size:16px; }
+        #s--{{section.id}} .banner-wrapper>div{ margin-bottom: 20px; }
+    }
+    @media(max-width:767px){
+        .v2-large-banner{ padding-top:70px; }
+        #s--{{section.id}} .tximage__txt .title { font-size: 26px; line-height: 38px; }
+        #s--{{section.id}} { padding: 0px 0; }
+        #s--{{section.id}} .layout__boxed { height: 100%; }
+        #s--{{section.id}} .banner-wrapper .font__family--base p{ font-size: 16px; line-height: 28px; text-align: justify; }
+        .v2-large-banner .hide-lg{ height:100vh; background-size:100% 100%; }
+        .v2-large-banner .hide-lg #s--{{section.id}}{ height: 100%; background-position: bottom; }
+        #s--{{section.id}} .tximage__txt .button--primary { border-radius:10px; padding: 10px 31px; }
+        #s--{{section.id}} .banner-wrapper>div{ margin-bottom: 20px; }
+        #s--{{section.id}} .tximage__txt { padding-left: 20px; padding-right: 20px; }
+    }
+    @media(max-width:550px){
+        .v2-large-banner .hide-lg{ height: 800px; }
+    }
+{% endstyle %}
+{%- capture preload_desktop_banner -%}
+    {% unless section.settings.background_img == nil -%}{% render 'background', image: section.settings.background_img %}{%- endunless %}
+{%- endcapture -%}
+{%- capture preload_mobile_banner -%}
+    {% if section.settings.mb_background_img != blank -%}{% render 'background', image: section.settings.mb_background_img %}{% else %} {% render 'background', image: section.settings.background_img %} {%- endif %}
+{%- endcapture -%}
+<div class="hide-mobile" data-homeV2lg-desktop>
+    <div class="do_placeholder ph-item" style="width:100%;height:845px;"></div>
+    {%- capture home_v2_desktop_lg_banner -%}
+    <div id="s--{{section.id}}"
+        class="{% render 'common-class', section: section, class: 'row', bg: true, vAlign: false %}">
+            <div class="layout__boxed  ">
+                <div class="row s__content middle layout__content">
+                    <div class="col-12 col-md-6 tximage__image">
+
+                    </div>
+                    <div class="inherit col-12 col-md-6 tximage__txt">
+                        <div class="banner-wrapper">
+                            {% if section.settings.banner_title != blank %}
+                            <div class="no-gap s__block s__block--title col-12 start">
+                                <h2 class="title font__size--medium font__family--title">{{ section.settings.banner_title }}</h2>
+                            </div>
+                            {% endif %}
+                            {% if section.settings.content != blank %}
+                            <div class="no-gap s__block s__block--richText col-12 start">
+                                <div class="font__size--base font__family--base">
+                                    {{ section.settings.content }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
+                            <div class="no-gap s__block s__block--button col-12 start">
+                                <a class="button button--primary button--filled button--primary__filled font__size--base font__family--base button__animation--none" href="{{ section.settings.btn_url }}">
+                                    <span>{{ section.settings.btn_label }}</span>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%- endcapture -%}
+</div>
+<div class="hide-md hide-lg" data-homeV2lg-mobile>
+    <div class="do_placeholder ph-item" style="width:100%;height:845px;"></div>
+    {%- capture home_v2_mobile_lg_banner -%}
+        <div id="s--{{section.id}}"
+        class="mobile-large-banner {% render 'common-class', section: section, class: 'row', bg: true, vAlign: false %}">
+            <div class="layout__boxed  ">
+                <div class="row s__content middle layout__content">
+                    <div class="col-12 col-md-6 tximage__image">
+
+                    </div>
+                    <div class="inherit col-12 col-md-6 tximage__txt">
+                        <div class="banner-wrapper">
+                            {% if section.settings.banner_title != blank %}
+                            <div class="no-gap s__block s__block--title col-12 start margin__bottom--12">
+                                <h2 class="title font__size--medium font__family--title">{{ section.settings.banner_title }}</h2>
+                            </div>
+                            {% endif %}
+                            {% if section.settings.content != blank %}
+                            <div class="no-gap s__block s__block--richText col-12 start margin__bottom--12">
+                                <div class="font__size--base font__family--base">
+                                    {{ section.settings.content }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
+                            <div class="no-gap s__block s__block--button col-12 start margin__bottom--12">
+                                <a class="button button--primary button--filled button--primary__filled font__size--base font__family--base button__animation--none" href="{{ section.settings.btn_url }}">
+                                    <span>{{ section.settings.btn_label }}</span>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%- endcapture -%}
+</div>
+<script type="module" defer>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        let  homeV2LgMobileSelector = document.querySelector('[data-homeV2lg-mobile]'); 
+        let  homeV2LgDesktopSelector = document.querySelector('[data-homeV2lg-desktop]');
+        homeV2LgDesktopSelector && (
+            homeV2LgDesktopSelector.innerHTML = `{{-home_v2_desktop_lg_banner | strip-}}`
+        ); 
+        if(homeV2LgDesktopSelector.querySelector('#s--{{section.id}}')){
+            let preLoaderV2Banner = homeV2LgDesktopSelector.querySelector('#s--{{section.id}}');
+            preLoaderV2Banner && (
+                preLoaderV2Banner.setAttribute('data-bgset', `{{preload_desktop_banner | replace:'data-bgset="','' | replace:'"',''}}`)
+            );     
+        }
+        setTimeout(() => {
+            homeV2LgMobileSelector && (
+                homeV2LgMobileSelector.innerHTML = `{{-home_v2_mobile_lg_banner | strip-}}`
+            );
+            if(homeV2LgMobileSelector.querySelector('#s--{{section.id}}')){
+                let preLoaderV2Banner = homeV2LgMobileSelector.querySelector('#s--{{section.id}}');
+                preLoaderV2Banner && (
+                    preLoaderV2Banner.setAttribute('data-bgset', `{{preload_mobile_banner | replace:'data-bgset="','' | replace:'"',''}}`)
+                );     
+            } 
+        }, 200);
+    });
+</script>
+{% schema %}
+{
+"name": "Home v2 Large Banner",
+"class": "v2-large-banner",
+"settings": [
+    {
+        "type": "image_picker",
+        "id": "background_img",
+        "label": "Background Image"
+    },
+    {
+        "type": "image_picker",
+        "id": "mb_background_img",
+        "label": "Mobile Background Image"
+    },
+	{
+	  "type": "text",
+      "id": "banner_title",
+      "label": "Title"
+	},
+	{
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    },
+	{
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label"
+    },
+	{
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button URL"
+    },
+    {
+       "type": "select",
+       "id": "content_position",
+       "label": "Content Position",
+       "options": [
+            {
+               "value": "left",
+               "label": "Left"
+            },
+            {
+                "value": "right",
+                "label": "Right"
+            }
+       ]
+    }
+	],
+  "presets": [
+    {
+        "name": "Home v2 Large Banner",
+        "category": "Image"
+    }
+  ]
+}
+
+{% endschema %}

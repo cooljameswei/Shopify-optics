@@ -1,0 +1,31 @@
+{
+  "wrapper": "div.row",
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+      }
+    },
+    "content": {
+      "type": "cart-page",
+      "disabled": true,
+      "settings": {
+        "discount": "money",
+        "featured": ""
+      }
+    },
+    "1635805250e322b583": {
+      "type": "cart-custom-page",
+      "settings": {
+        "cart_notes_enable": true,
+        "collection": "eyewear-accessories",
+        "shipping_insurance_percentage": 3
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "content",
+    "1635805250e322b583"
+  ]
+}

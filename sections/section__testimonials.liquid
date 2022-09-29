@@ -1,0 +1,398 @@
+{% unless section.blocks.size == 0 %}
+<style>
+{% render 'common-css' with section as section %}
+
+{% assign backgroundColor = section.settings.blockBackground %}
+{% assign textColor = section.settings.blockText %}
+
+#s--{{-section.id}} .testimonial--author-inside .testimonial__author--name {
+    color: {{textColor}};
+}
+
+#s--{{-section.id}} .testimonial--author-inside .testimonial__content--holder {
+  background: {{backgroundColor}};
+  padding: 16px;
+  color: {{textColor}};
+  text-align: {{section.settings.testimonialAlign}};
+}
+
+#s--{{-section.id}} .testimonial--author-below .testimonial__content {
+    background: {{backgroundColor}};
+    padding: 16px;
+    margin-bottom: 8px;
+    width: 100%;
+    color: {{textColor}};
+    text-align: {{section.settings.testimonialAlign}};
+}
+
+
+#s--{{-section.id}} .testimonial--author-below .testimonial__author--name {
+    padding: 8px 12px;
+    background: {{section.settings.blockBottomBackground}};
+    color: {{section.settings.blockBottomText}};
+    text-align: left;
+    flex: 1;
+}
+
+
+{% if section.settings.roundedImages %}
+#s--{{-section.id}} .testimonial__author--image {
+    border-radius: 50%;
+}
+{% endif %}
+
+#colorcode {};
+</style>
+
+{% if section.settings.useFakeImages %}
+{% assign imageCntr = 1 %}
+{% comment %} <img class="lazyload testimonial__author--image" src="https://i.pravatar.cc/10?u={{block.id}}" data-src="https://i.pravatar.cc/140?u={{block.id}}"> {% endcomment %}
+{% endif %}
+
+<div id="s--{{-section.id}}" class="{% render 'common-class', section: section, class: 'testimonials', bg: false, vAlign: false %}">
+    <div class="row layout__content s__content">
+        {% render 'block__general--heading' with section as section %}
+        {% case section.settings.blockStyle %}
+            {% when 'author-below' %}
+                {% for block in section.blocks %}
+                    <div class="col-12 col-md-4 unflex testimonial testimonial--author-below" {{block.shopify_attributes}}>
+                        <div class="testimonial__content inherit">
+                        "{{ block.settings.text }}"
+                        </div>
+                        <div class="testimonial__author">
+                        {% unless block.settings.authorImage == nil %}
+                            {% render 'image', src: block.settings.authorImage, size: '140x140', class: 'testimonial__author--image' %}
+                        {% elsif section.settings.useFakeImages %}
+                            <img loading="lazy" class="lazyload testimonial__author--image" 
+                            src="https://randomuser.me/api/portraits/thumb/{{-block.settings.fakeImageSex-}}/{{imageCntr}}.jpg" 
+                            data-src="https://randomuser.me/api/portraits/{{-block.settings.fakeImageSex-}}/{{imageCntr}}.jpg">
+                            {% assign imageCntr = imageCntr | plus: 1 %}
+                        {% endunless %}
+                        <span class="testimonial__author--name">{{block.settings.authorName}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% when 'author-below-image-overlap' %}
+                {% for block in section.blocks %}
+                    <div class="col-12 col-md-4 unflex testimonial testimonial--author-below testimonial--author-below--image-overlap" {{block.shopify_attributes}}>
+                        {%- if section.settings.useFakeImages or block.settings.authorImage != nil -%}
+                            {% assign contentClass = 'testimonial__content--has-image' %}
+                        {% else %}
+                            {% assign contentClass = '' %}
+                        {%- endif -%}
+                        <div class="testimonial__content inherit {{contentClass}}">
+                        "{{ block.settings.text }}"
+                        </div>
+                        <div class="testimonial__author">
+                        {% unless block.settings.authorImage == nil %}
+                            {% render 'image', src: block.settings.authorImage, size: '140x140', class: 'testimonial__author--image' %}
+                        {% elsif section.settings.useFakeImages %}
+                            <img loading="lazy" class="lazyload testimonial__author--image" 
+                            src="https://randomuser.me/api/portraits/thumb/{{-block.settings.fakeImageSex-}}/{{imageCntr}}.jpg" 
+                            data-src="https://randomuser.me/api/portraits/{{-block.settings.fakeImageSex-}}/{{imageCntr}}.jpg">
+                            {% assign imageCntr = imageCntr | plus: 1 %}
+                        {% endunless %}
+                        <span class="testimonial__author--name">{{block.settings.authorName}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% when 'author-inside' %}
+                {% for block in section.blocks %}
+                    <div class="col-12 col-md-4 unflex testimonial testimonial--author-inside" {{block.shopify_attributes}}>
+                        <div class="testimonial__content--holder">
+                            <div class="testimonial__author">
+                                {% unless block.settings.authorImage == nil %}
+                                    {% render 'image', src: block.settings.authorImage, size: '140x140', class: 'testimonial__author--image' %}
+                                {% elsif section.settings.useFakeImages %}
+                                    <img loading="lazy" class="lazyload testimonial__author--image" 
+                                    src="https://randomuser.me/api/portraits/thumb/{{-block.settings.fakeImageSex-}}/{{imageCntr}}.jpg" 
+                                    data-src="https://randomuser.me/api/portraits/{{-block.settings.fakeImageSex-}}/{{imageCntr}}.jpg">
+                                    {% assign imageCntr = imageCntr | plus: 1 %}
+                                {% endunless %}
+                                <span class="testimonial__author--name">{{block.settings.authorName}}</span>
+                            </div>
+                            <div class="testimonial__content inherit">
+                            "{{ block.settings.text }}"
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}    
+        {% endcase %}
+    </div>
+</div>
+{% endunless %}
+
+{% schema %}
+{
+    "name": {
+        "en": "Testimonials"
+    },
+    "settings": [
+        {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458157763)"
+    },
+    {
+        "type": "header",
+        "content": "Section layout"
+    },
+    {
+      "type": "radio",
+      "id": "displayFor",
+      "label": "Show this section on",
+      "options": [
+        {"value": "display--both", "label": "All devices"},
+        {"value": "hide-desktop", "label": "Mobile only"},
+        {"value": "hide-mobile", "label": "Desktop only"}
+      ],
+      "default": "display--both"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "nomargin",
+      "default": false,
+      "label": "Remove section's bottom margin"
+    },
+    {
+      "type": "textarea",
+      "id": "scopedCSS",
+      "label": "Section-scoped CSS",
+      "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Minimum height",
+      "default": 0,
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Section padding",
+      "default": 0,
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+    "type": "header",
+    "content": "Section background"
+  },
+  {
+    "id": "backgroundColor",
+    "type": "color",
+    "default": "rgba(0,0,0,0)",
+    "label": "Background color"
+  },
+    {
+    "type": "header",
+    "content": "Section heading"
+},
+{
+    "type": "text",
+    "id": "heading",
+    "label": "Section heading",
+    "default": "Check out this section's heading"
+},
+{
+    "type": "color",
+    "id": "headingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Heading Color"
+},
+{
+    "type": "text",
+    "id": "subheading",
+    "label": "Section subheading",
+    "default": "THIS IS A SUBHEADING"
+},
+{
+    "type": "color",
+    "id": "subheadingColor",
+    "default": "rgba(0,0,0,0)",
+    "label": "Subheading Color"
+},
+{
+    "type": "select",
+    "id": "subheadingPosition",
+    "label": "Subheading position",
+    "options": [
+      {"value": "above", "label": "Above heading"},
+      {"value": "below", "label": "Below heading"}
+    ],
+    "default": "above"
+},
+{
+    "type": "select",
+    "id": "headingAlignment",
+    "label": "Heading alignment (left to right)",
+    "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+    ],
+    "default": "center"
+},
+    {
+        "type": "header",
+        "content": "Testimonial style"
+    },
+    {
+        "type": "select",
+        "id": "blockStyle",
+        "label": "Testimonial design",
+        "options": [
+            {"value": "author-below", "label": "Author information below"},
+            {"value": "author-below-image-overlap", "label": "Author information below, overlap image"},
+            {"value": "author-inside", "label": "Author information inside"}
+        ],
+        "default": "author-below"
+    },
+    {
+        "type": "color",
+        "id": "blockBackground",
+        "label": "Testimonial background",
+        "default": "rgba(0,0,0,0)"
+    },
+    {
+        "type": "color",
+        "id": "blockText",
+        "label": "Testimonial text",
+        "default": "#000"
+    },
+    {
+        "type": "select",
+        "id": "testimonialAlign",
+        "label": "Testimonial text align",
+        "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "right", "label": "Right"}
+        ],
+        "default": "left"
+    },
+    {
+        "type": "header",
+        "content": "Bottom bar style"
+    },
+    {
+        "type": "paragraph",
+        "content": "Only applies to 'Author information below' testimonial design"
+    },
+    {
+        "type": "color",
+        "id": "blockBottomBackground",
+        "label": "Bottom background color",
+        "default": "#000"
+    },
+    {
+        "type": "color",
+        "id": "blockBottomText",
+        "default": "#FFF",
+        "label": "Bottom text color"
+    },
+    {
+        "type": "header",
+        "content": "Author information"
+    },
+    {
+        "type": "checkbox",
+        "label": "Use a stock image if there is no author image",
+        "default": true,
+        "id": "useFakeImages"
+    },
+    {
+        "type": "checkbox",
+        "label": "Make author pictures rounded",
+        "default": true,
+        "id": "roundedImages"
+    }
+    ],
+    "blocks": [
+        {
+            "type": "testimonial",
+            "name": "Testimonial",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Testimonial"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Testimonial text",
+                    "default": "<p>I love this product</p>"
+                },
+                {
+                    "type": "header",
+                    "content": "Author"
+                },
+                {
+                    "type": "text",
+                    "label": "Author name",
+                    "default": "John Doe",
+                    "id": "authorName"
+                },
+                {
+                    "type": "select",
+                    "id": "fakeImageSex",
+                    "label": "Author gender (used for a stock image)",
+                    "options": [
+                        {"value": "men", "label": "Male"},
+                        {"value": "women", "label": "Female"}
+                    ],
+                    "default": "men"
+                },
+                {
+                    "type": "image_picker",
+                    "label": "Author image",
+                    "id": "authorImage"
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+        "category": "Reviews",
+        "name": "Testimonials",
+        "settings": {
+            "heading": "Testimonials",
+            "subheading": "What others have to say",
+            "padding": 40
+        },
+        "blocks": [
+            {
+                "type": "testimonial"
+            },
+            {
+                "type": "testimonial"
+            },
+            {
+                "type": "testimonial"
+            }
+        ]
+      }
+    ]
+  }
+{% endschema %}

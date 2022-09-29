@@ -1,0 +1,847 @@
+{%- comment -%} NS START{%- endcomment -%}
+{%liquid
+  assign global_shipping_percentage = settings.shipping_insurance_percentage | times:1.0
+  assign global_shipping_percentage = global_shipping_percentage | divided_by: 100 | default:0.01
+%}
+{%liquid
+  assign rx_options = null | sort
+  assign rx_option_collection = collections[settings.rx_cost_options]
+  if rx_option_collection.id 
+    paginate rx_option_collection.products by 1000
+      for product in rx_option_collection.products
+        if product.tags contains "CALC_INS" 
+          for variant in product.variants
+              assign rx_option_variant_id = variant.id | sort
+              if rx_options.size == 0
+                assign rx_options = rx_option_variant_id
+              else
+                assign rx_options = rx_options | concat: rx_option_variant_id
+              endif
+          endfor
+        endif 
+      endfor
+    endpaginate
+  endif
+%}
+<script type="text/javascript">
+  window.CART_HOOKS = window.CART_HOOKS || {}
+  window.CART_HOOKS.shipping_insurance = window.CART_HOOKS.shipping_insurance || {};
+  window.CART_HOOKS.shipping_insurance.percentage = Number({{-global_shipping_percentage-}});
+  window.CART_HOOKS.shipping_insurance.rx_options = {{-rx_options | json-}};
+</script>
+
+<script defer>
+ // Shipping Insurance Adding Multiple Products Fix 
+ const getCart = ()=>{
+   $('.coverSpinnerCartButtons').show();
+    $.ajax({
+      type: "GET",
+      url: "/cart.js",
+      dataType: 'json',
+      success:function(data){
+        if(data.items.length){
+          if(!data.attributes["Shipping Insurance"]){
+            if(sessionStorage.getItem("shipping_insurance") == null){
+              $('.insurance-selector').removeAttr('checked');
+              sessionStorage.setItem("shipping_insurance","true");
+              $('div#insurance-div .insurance-right .cm-insc-wrap')[0].click();
+            }
+          }
+          else if(data.attributes["Shipping Insurance"] == 'true'){
+            if(sessionStorage.getItem("shipping_insurance") == null){
+              sessionStorage.setItem("shipping_insurance","true");
+              $('.insurance-selector').removeAttr('checked');
+              $('div#insurance-div .insurance-right .cm-insc-wrap')[0].click();
+            } else {
+              $('.coverSpinnerCartButtons').hide();
+            }
+          } else {
+            $('.coverSpinnerCartButtons').hide();
+          }
+        }else {
+          $.ajax({
+            type: "POST",
+            url: "/cart/update.js",
+            dataType: 'json',
+            data:{
+              attributes: {
+                "Shipping Insurance": ""
+              }
+            },
+            success:function(data){
+              $('.coverSpinnerCartButtons').hide();
+            },
+            error:function(xhr,text){
+              $('.coverSpinnerCartButtons').hide();
+            }
+          })
+        }
+      },
+      error:function(xhr,text){
+        console.log(xhr)
+      }
+    })
+  }
+  if(window.location.pathname == '/cart'){
+    $(document).on('click','.cm-btn-wrap a',function(){
+      sessionStorage.removeItem("shipping_insurance");
+    })
+    getCart();
+  }
+  // Shipping Insurance Adding Multiple Products Fix End
+    
+  $('.insurance-selector').on('change', function(event) {
+    $('.coverSpinnerCartButtons').show();
+    var iCheck = $(this);
+    var isChecked = iCheck.prop('checked');
+    var msgData = {
+      attributes: {
+        'Shipping Insurance': isChecked
+      }
+    }
+     
+    var params = {
+      type: 'POST',
+      url: '/cart/update.js',
+      data: msgData,
+      dataType: 'json',
+      success: function (cartData) {
+        checkInsurance(cartData, undefined, false, true);
+      },
+      error: function (err) {
+//         console.log('error', err);
+        $('.coverSpinnerCartButtons').hide();
+      }
+    }
+    $.ajax(params);
+  });
+  
+  function removeID(pID, pKey, callback, relatedObj) {
+    $(".coverSpinner").show();
+    if(!$('body').hasClass('template-cart')) {
+      $(document).find('.cart__drawer').addClass('removeItems-hit');
+    }
+    var updateString = "updates[" + pKey + "]=0";
+    if (pID == 4038744080428) {
+      updateString = updateString + "&attributes[Shipping Insurance]=false";
+    }
+    if (relatedObj && relatedObj.extend && !relatedObj.isPrescription) {
+      var paramsGet = {
+        type: 'GET',
+        url: '/cart.js',
+        dataType: 'json',
+        success: $.proxy(function (cartData) {
+          dispatchEvent((new CustomEvent('cart:remove:item',{detail:{cartData,variant_key:pKey}})));
+          for(var i=0; i< cartData.items.length; i++) {
+            if(cartData.items[i].variant_title != relatedObj.extend) continue;
+            if((cartData.items[i].properties || {}).Ref != pKey.split(":")[0]) continue;
+            updateString += "&updates[" + cartData.items[i].key + "]=0";
+            updateCartTest(updateString, callback);
+            break;
+          }
+        }, this)
+      };
+      $.ajax(paramsGet);
+      return;
+    } else if (relatedObj && relatedObj.isPrescription) {
+      var paramsGet = {
+        type: 'GET',
+        url: '/cart.js',
+        dataType: 'json',
+        success: $.proxy(function (cartData) {
+          dispatchEvent((new CustomEvent('cart:remove:item',{detail:{cartData,variant_key:pKey}})));
+          for(var i=0; i< cartData.items.length; i++) {
+            if(relatedObj.extend) {
+              if(cartData.items[i].variant_title != relatedObj.extend) continue;
+              if((cartData.items[i].properties || {}).Ref != pKey.split(":")[0]) continue;
+            } else {
+              if(cartData.items[i].properties != relatedObj._options_group_id) continue;
+              if(cartData.items[i].key == pKey ) continue;
+            }
+            updateString += "&updates[" + cartData.items[i].key + "]=0";
+          }
+          updateCartTest(updateString, callback);
+        }, this)
+      };
+      $.ajax(paramsGet);
+      return;
+    } else {
+      var paramsGet = {
+        type: 'GET',
+        url: '/cart.js',
+        dataType: 'json',
+        success: $.proxy(function (cartData) {
+          dispatchEvent((new CustomEvent('cart:remove:item',{detail:{cartData,variant_key:pKey}})));
+          updateCartTest(updateString);
+        }, this)
+      };
+      $.ajax(paramsGet);
+      return;
+    }
+  }
+  
+  function removeExtendProduct(pKey, relatedObj, callback=undefined) {
+    $(".coverSpinner").show();
+    if(!(pKey && relatedObj)) return;
+    if(!$('body').hasClass('template-cart')) {
+      $(document).find('.cart__drawer').addClass('removeItems-hit');
+    }
+    var paramsGet = {
+      type: 'GET',
+      url: '/cart.js',
+      dataType: 'json',
+      success: $.proxy(function (cartData) {
+        
+        for(var i=0; i< cartData.items.length; i++) {
+          if(cartData.items[i].key == pKey) {
+            var finalData = {"id": cartData.items[i].key,"quantity": cartData.items[i].quantity};
+            if((callback && callback.edit_warranty)) {
+              updateProperties(finalData, relatedObj, 0, cartData, callback);
+              return;
+            }
+            
+            var prop  = cartData.items[i].properties || {};
+            propertiesToDelete = ['Extend Price', 'Extend Title', 'ExtendVariantTitle', 'Warranty added for', 'Term', 'extend_exist'];
+            for(var j=0; j<propertiesToDelete.length; j++) {
+              delete prop[propertiesToDelete[j]];
+            }
+
+            finalData["properties"] = prop;
+            finalData["properties"].extend_remove = "true";
+            updateProperties(finalData, relatedObj, 0, undefined, callback);
+            return;
+          }
+        }
+      }, this)
+    };
+    $.ajax(paramsGet);
+  }
+  
+  function editWarranty(pKey, relatedObj, callback=undefined) {
+    var keyWithoutColon = pKey.replace(":", "");
+    var elemSelector = '.extend_exist_to_update-' + keyWithoutColon + ', .cancel-warranty-' + keyWithoutColon;
+    $('.edit-warranty-' + keyWithoutColon).hide();
+    $(".extend_exist_to_update-" + keyWithoutColon ).css("padding-bottom", "20px");
+    $(elemSelector).removeClass("display-none");
+  }
+
+  function cancelWarranty(pKey) {
+    var keyWithoutColon = pKey.replace(":", "");
+    var elemSelector = '.extend_exist_to_update-' + keyWithoutColon + ', .cancel-warranty-' + keyWithoutColon;
+    $(elemSelector).addClass("display-none");
+    $('.edit-warranty-' + keyWithoutColon).show();
+  }
+
+  async function updateProperties(finalData, relatedObj, quantity=0, cartData={}, callback=undefined) {
+    var cart = cartData;
+    if(!(callback && callback.edit_warranty)) {
+      let changePromise = new Promise(function(resolve, reject) {
+        $.ajax({
+          type: 'POST',
+          url: '/cart/change.js',
+          dataType: 'json',
+          data: finalData,
+          success: function(ev) {
+//             resolve(ev);
+            resolve(ev);
+          },
+          error: function(res){
+            reject(res);
+          }
+        });
+      });
+
+      cart = await changePromise;
+    }
+    
+    var cartLen = (cart.items || []).length;
+
+    for(var i=0; i< cartLen; i++) {
+      var title = cart.items[i].variant_title;
+      if(!(title)) continue;
+	  //  TODO-LATER - handle c_title for the prescription warranty - Test
+      var c_title = title.trim(); 
+      var r_extend = (relatedObj && relatedObj.extend) ? relatedObj.extend.trim() : '';
+      if(c_title != r_extend) {
+        if(!(callback && callback.edit_warranty)) continue
+        if(c_title.split('AAEYE').length != 2) continue
+      }
+      var ref = (cart.items[i].properties || {}).Ref ? (cart.items[i].properties || {}).Ref.trim() : '';
+      var finalId = (finalData && finalData.id && finalData.id.split(":").length) ? finalData.id.split(":")[0] : '';
+      if(ref != finalId) continue;
+      var updateString = "updates[" + cart.items[i].key + "]=" + quantity;
+      updateCartTest(updateString, callback);
+      break;
+    }
+
+  }
+
+  function updateCartTest(updateString, callback=undefined) {
+    var params = {
+      type: 'POST',
+      url: '/cart/update.js',
+      data: updateString,
+      dataType: 'json',
+      success: $.proxy(function (cart) {
+        checkInsurance(cart, this).then(async function (ev) {
+          // check if cart has insurance product only then clear cart and reload the page - NS
+          await window.CART_HOOKS.methods.handleCartHasOnlyInsurance();
+//           TODO-NOW
+          if(callback && callback.edit_warranty) {
+            callback.edit_warranty();
+          	return;
+          }
+          //Till here          
+            window.location.href = "/cart";
+
+        });
+      }, this)
+    };
+    $.ajax(params);
+
+  }
+
+  function editCartItem(pID, variantId, pKey, profileId, profileCId, customerId) {
+    if(!(profileId) && !(profileCId)) return;
+
+    // If Customer and saved approach
+    var serverUrl = "https://app1.prescriptionserver.com/api/options/getPrescriptionLenseSettingsByEmail?email=" + customerId;
+    
+    var hrefUrl = "/apps/prescriptions/?productID=" + pID + "&variantID=" + variantId + "&customerID=" + customerId +"&profileID="+ profileId; 
+    if(!(profileId)){
+      var hrefUrl = "/apps/prescriptions/?productID=" + pID + "&variantID=" + variantId + "&profileCID="+ profileCId;
+    }
+
+    if (pKey && pKey.split(":").length > 1) {
+      var editStr =  "&editKey=" + pKey.split(/:(.+)/)[1];
+      hrefUrl += editStr;
+    }
+    
+    $.ajax({
+      type: "POST",
+      url: serverUrl,
+      success: function(result){
+        window.location.href = hrefUrl;
+      },
+      error:function(error) {
+        console.log("error ", error)
+      },
+      dataType: 'json'
+    });
+  }
+  
+  function updateInsuranceAndTotal(price, removeInsurance, totalAmt) {
+    $('.cm-ship-insu').removeClass('hide');
+    $('.cm-ship-insu .right-col').html(formatMoney(price));
+    var totalAmtCart = $('.cm-ord-total .cip-amt .money').html();
+    var amt;
+    if(totalAmt) {
+    	amt = totalAmt;
+    } else {
+    	amt = parseInt(parseFloat(((totalAmtCart.split('$') || [0,0])[1]).replace(',','')) * 100);
+    }
+    
+    if(removeInsurance) { 
+      $('.cm-ship-insu').addClass('hide');
+      $('#CartSubtotal').html(totalAmtCart);
+    } else {
+      $('.cm-ship-insu').removeClass('hide');
+      $('#CartSubtotal').html(formatMoney(amt + price ));
+    }
+    $('.coverSpinnerCartButtons').hide();
+  }
+
+  function checkInsurance(cartData, ev, reload=false, onlyInsurance=false) {
+    return new Promise(function (resolve, reject) {
+      if(cartData.attributes["Shipping Insurance"] == "True" && cartData.item_count == 1) {
+        $.ajax({
+          type: "POST",
+          url: '/cart/clear.js',
+          dataType: 'json',
+          success: function(){
+//             resolve(ev);   
+            $('.coverSpinnerCartButtons').hide();
+            location.reload();
+          }
+        });
+      }
+      else {
+        var cTotal = 0;
+        var editstring = "";
+        var removeArray = [];
+        for (var x = 0; x < cartData.items.length; x++) {
+          if (cartData.items[x].handle == 'routeins') {
+            removeArray.push("updates[" + cartData.items[x].id + "]=0");
+          } else {
+            if(window.CART_HOOKS.shipping_insurance.rx_options.includes(cartData.items[x].variant_id)){
+              cTotal = cTotal + cartData.items[x].final_line_price;  
+            }else{
+              if(!(cartData.items[x].requires_shipping)) continue;
+              cTotal = cTotal + cartData.items[x].final_line_price;
+            }
+          }
+        }
+        console.log(cTotal);
+        editstring = removeArray.join("&");
+        
+        var paramsUpdate = {
+          type: 'POST',
+          url: '/cart/update.js',
+          data: editstring,
+          dataType: 'json',
+          success: function (cartData) {
+            
+            let isShippingRequire = false;
+            for(var i=0; i< cartData.items.length; i++) {
+              let cItem = cartData.items[i];
+              if(cItem.vendor == 'Extend') continue;
+              isShippingRequire = true;
+            }
+            if(!(isShippingRequire)) { 
+              $('.cm-ship-insu').addClass('hide');
+              if(reload == true) location.reload();
+              else if(onlyInsurance == true) updateInsuranceAndTotal(selPrice, false);
+              else {
+                if($('.coverSpinnerCartButtons')) $('.coverSpinnerCartButtons').hide();
+                resolve(ev);
+              }
+            }
+
+            jQuery.getJSON('/products/routeins.js', function (product) {
+              var selVariant = 0;
+              var selPrice = 0;
+              for (var i = 0; i < product.variants.length; i++) {
+                var obj = product.variants[i];
+                let shipping_insurance_percentage =  window.CART_HOOKS.shipping_insurance.percentage || 0.01; // NS global shipping percentage change
+                var cartTotal = cTotal * shipping_insurance_percentage; // NS global shipping percentage change
+                if (cartTotal > 0 && cartTotal <= 98) {
+                  cartTotal = 98;
+                }
+                if (obj.price <= cartTotal) {
+                  selVariant = obj.id;
+                  selPrice = obj.price;
+                  $('.shipping-protection-cost').html(formatMoney(obj.price));
+                  updateInsuranceAndTotal(obj.price, false, cartData.total_price);
+                }
+              }
+
+              //get shipping insurance
+              var addShipping = "true";
+              if (cartData.attributes["Shipping Insurance"] != null) {
+                addShipping = cartData.attributes["Shipping Insurance"];
+              } else {
+                addShipping = "true";
+              }
+
+              if (addShipping == "true") {
+                //if checkbox is selected then add the insurance product
+                var shippingAdd = {
+                  type: "POST",
+                  url: "/cart/add.js",
+                  data: {
+                    quantity: 1,
+                    id: selVariant
+                  },
+                  dataType: "json",
+                  success: function (e) {
+                    if(reload == true) location.reload();
+                    else if(onlyInsurance == true) updateInsuranceAndTotal(selPrice, false);
+                    else resolve(ev);
+                  },
+                  error: function (e, t) {
+                    console.log("error" , e, t);
+                    //location.reload();
+                  }
+                };
+                $.ajax(shippingAdd);
+              } else {
+                if(reload == true) location.reload();
+                else if(onlyInsurance == true) updateInsuranceAndTotal(selPrice, true);
+                else {
+                  $('.coverSpinnerCartButtons').hide();
+                  resolve(ev);
+                }
+              }  
+            });
+          },
+          error: function (err) {
+            console.log('error', err);
+            location.reload();
+          }
+        }
+        $.ajax(paramsUpdate);
+      }
+
+    });
+
+  }
+
+  // 
+  function __goToCustomerLogin() {
+    window.location.href = "/account/login";
+  }
+
+  $(".extend-protection-add-btn").on('click', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if(!($(this).next().hasClass("display-none"))) {
+      return;
+    }
+
+    let prescriptiontypeExist = $(this).data('prescriptiontype') || false;
+    let key = $(this).data('key');
+    let variant = $(this).data('variant');
+    let quantity = $(this).data('quantity');
+    let lineItemTitle = $(this).data('title');
+    let linePrice = $(this).closest('.cart__row.responsive-table__row').find('.cip').data('amt');
+    let selectedExtendQuantitySelector = $(this).closest('.cart__row.responsive-table__row').find('.extend-quantity');
+    let selectedExtendQuantity = $(selectedExtendQuantitySelector).find(":selected").text();
+    if(selectedExtendQuantity) {
+      selectedExtendQuantity = (selectedExtendQuantity.trim() || "").split(" ")[0];
+    }
+    selectedExtendQuantity = selectedExtendQuantity || quantity;
+
+    let warrantyPriceElem = $(this).closest('.cart__row.responsive-table__row').find('.warranty_title');
+    let warrantyPriceStr = warrantyPriceElem.length ? $($(warrantyPriceElem[0]).find('.price_text')[0]).data().warrantyprice : '';
+    let warrantyPrice = 0;
+    if(warrantyPriceStr.split('$').length > 1){
+      let priceStrWithoutDollarSymbol = warrantyPriceStr.split('$')[1];
+      if(priceStrWithoutDollarSymbol.includes('.')) {
+        warrantyPrice = parseFloat(priceStrWithoutDollarSymbol.replace(".", ""));
+      } else {
+        warrantyPrice = parseInt(priceStrWithoutDollarSymbol) * 100;
+      }
+    }
+    warrantyPrice = warrantyPrice * parseInt("" + selectedExtendQuantity) || 0;
+
+    let extendExist = $(this).data('extend') ? true : false;
+
+    // TODO: send proper price - for the app
+    linePrice = linePrice - warrantyPrice;
+    let price = parseInt(linePrice / quantity);
+    _getExtendOffer( variant, key, quantity, lineItemTitle, price, extendExist, prescriptiontypeExist);
+
+  });
+
+  async function _ifExtendWarranty(variant) {
+    if(!(window.Extend && window.ExtendShopify && window.Shopify.currency.active === "USD")) return;
+
+    var ifWarrantableObj = Extend.getOffer(variant);
+    var wait = await ifWarrantableObj;
+
+    if((((ifWarrantableObj._value || {}).plans || {}).adh || []).length > 0 ) {
+      return [true, ifWarrantableObj._value.plans.adh];
+    }
+
+    return false;
+  }
+
+  function _getPriceBasedVariantId(price) {
+    let roundOff = price;
+
+    if(price > 100000) roundOff = closedRoundToMultiple(price,  10000);
+    else roundOff = closedRoundToMultiple(price,  2500);
+
+    roundOff = Math.trunc(roundOff/100);
+    if(roundOff.toString().length == 2) roundOff = "0" + roundOff;
+    else if(roundOff.toString().length == 1) roundOff = "00" + roundOff;
+    return "extend_AAEYE" + roundOff;
+
+  }
+
+  function closedRoundToMultiple(num, multiple) {
+    if(!multiple) return num;
+
+    let remainder = num % multiple;
+    if( remainder == 0) return num;
+    if( remainder > multiple/2) return num + (multiple - remainder);
+    return num - remainder;
+  }
+
+  async function _getExtendOffer(variant, key, quantity, lineItemTitle, price, extendExist, prescriptiontypeExist ) {
+    var ifWarrantable = await _ifExtendWarranty(variant);
+    var keyWithoutColons = key.replace(":", "");
+
+    if(ifWarrantable) {
+
+      var offers = ifWarrantable;
+      if(prescriptiontypeExist) {
+        var priceVariant = _getPriceBasedVariantId(price);
+        var offers = await _ifExtendWarranty(priceVariant);
+      }
+
+      var elem = '<div class="warranty-btn-containers" id="extend-offer__' + keyWithoutColons + '"></div>';
+      var parentElem = '#extendProtection_' + key.replace(':', '');;
+      $(parentElem).prepend(elem);
+
+      var plans = offers[1];
+      for(var i=0; i< plans.length; i++) {
+        var planData = {
+          "planId": plans[i].id,
+          "price": plans[i].price,
+          "term": plans[i].contract.termLength,
+          title: plans[i].title
+        };
+
+        var btnText = '<span class="w-year">' + parseInt(planData.term/12) + ' Year</span> &nbsp;-&nbsp; <b class="w-price">$' + (parseInt(planData.price)/100).toFixed(2) + '</b>';
+        var ifChecked = i==0 ? 'checked="checked"' : '';
+
+        var labelItem = `<label class="warranty-label">
+						${btnText}
+						<input class="extendWarrantySelector" type="radio" ${ifChecked} name="extendWarranty-${key}" 
+                        data-planid="${planData.planId}" 
+                        data-price="${planData.price}"
+                        data-term="${planData.term}"
+                        data-title="${planData.title}"
+                        data-variant="${variant}"
+                        data-quantity="${quantity}"
+                        data-lineitemtitle="${lineItemTitle}"
+                        data-key="${key}">
+                        <span class="checkcircle"></span>
+                      </label>`;
+      
+        $("#extend-offer__" + keyWithoutColons).append(labelItem);
+      }
+      var addBtn = '<button type="button" class="warranty-add-btn">Add</button>';
+      if(prescriptiontypeExist) addBtn = '<button type="button" class="warranty-add-btn" data-prescription="true" >Add</button>';
+      if(extendExist) {
+        addBtn = '<button type="button" class="warranty-add-btn display-none">Add</button>';
+        addBtn += '<button type="button" class="warranty-update-btn">Update</button>';
+        if(prescriptiontypeExist) {
+          addBtn = '<button type="button" class="warranty-add-btn display-none" data-prescription="true">Add</button>';
+          addBtn += '<button type="button" class="warranty-update-btn" data-prescription="true">Update</button>';
+        }
+      }
+      $("#extend-offer__" + keyWithoutColons).append(addBtn);
+      $(parentElem).removeClass('display-none');
+    } else  {
+//       var selector = 'button.extend-protection-add-btn [data-key="' + key + '"]';
+      var buttons = $('button.extend-protection-add-btn');
+      for( var i=0;i < buttons.length; i++) {
+        var btnKey = $(buttons[i]).data("key");
+        if(btnKey != key) continue;
+        $(buttons[i]).hide();
+        break;
+      }
+      
+    }
+
+  };
+
+  var updateWarrantyKey = '';
+  $('.extend__add-protection').on("click",".warranty-update-btn",function(){
+    $(".coverSpinner").show();
+    var parentItem = $(this).parent();
+    var inputSelected = parentItem.find('.extendWarrantySelector:checked');
+    let data = inputSelected.data();
+    var pKey = data.key;
+    var relatedObj = {
+      'extend': data.planid + '-' + data.price
+    }
+    updateWarrantyKey = pKey;
+    removeExtendProduct(pKey, relatedObj, {"edit_warranty": addUpdatedWarranty});
+  });
+
+  function addUpdatedWarranty() {
+    if(!(updateWarrantyKey)) return;
+    var id = "#extendProtection_" + updateWarrantyKey.replace(":", "");
+    $(id).addClass("update_warranty");
+    $('.warranty-add-btn').click();
+  }
+
+  $('.extend__add-protection').on("click",".warranty-add-btn",function(){
+    $(".coverSpinner").show();
+    var parentItem = $(this).parent();
+    var inputSelected = parentItem.find('.extendWarrantySelector:checked');
+
+    let data = inputSelected.data();
+    data.isRx = ($(this).data() || {}).prescription || false;
+
+    var planDetails = {
+      planId: data.planid,
+      price: parseInt(data.price),
+      term: parseInt(data.term),
+      title: data.title
+    };
+
+    ExtendShopify.getPlanVariant(planDetails, async function(error, planVariant){
+      if(error) {
+        return;
+      } 
+      if(!(planVariant && planVariant.variantId)) return;
+
+      var extendItem = {
+        quantity: parseInt(data.quantity),
+        id: planVariant.variantId,
+        properties: {
+          "Ref": data.variant,
+          "Product": data.lineitemtitle,
+          "Term" : data.term/12 + ' years - sold by Extend'
+        }
+      };
+
+      if(parseInt(data.term/12) <= 1) {
+        extendItem.properties["Term"] = data.term/12 + ' year - sold by Extend';
+      }
+
+      // TODO-NOW: Need to update the properties in case of App, 
+      // Call cart.js and get the properties first and then update the properties
+
+      var lineItem = {
+        id: data.key,
+        quantity: parseInt(data.quantity),
+        properties: {
+          "Extend Title" : data.title,
+          "Extend Price" : '$' + (data.price/100),
+          "Term" : data.term/12 + ' years - sold by Extend',
+          "extend_exist" : true,
+          "ExtendVariantTitle": data.planid + '-' + data.price,
+          "Warranty added for": parseInt(data.quantity)
+        }
+      }
+
+      if(parseInt(data.term/12) <= 1) {
+        lineItem.properties["Term"] = data.term/12 + ' year - sold by Extend';
+      }
+
+      if(data.isRx) {
+        let getCart = {
+          type: 'GET',
+          url: '/cart.js',
+          dataType: 'json',
+          success: $.proxy(function (cartItems) {
+            return cartItems;
+          }, this)
+        };
+
+        let cart = await $.ajax(getCart);
+        
+        for(var i=0; i< ((cart || {}).items || []).length; i++) {
+          let receivedLineItem = cart.items[i];
+          if(receivedLineItem.key != data.key) continue;
+          lineItem.properties = {...receivedLineItem.properties , ...lineItem.properties};
+          if(lineItem.properties.extend_remove) delete lineItem.properties.extend_remove;
+          break;
+        }
+      }
+      
+      //   Add Extend Warranty  
+      var t = {
+        type: "POST",
+        url: "/cart/add.js",
+        data: extendItem,
+        dataType: "json",
+        success: $.proxy(function (e) {
+          // Update Line Item Properties corresponding to the Extend
+          _updateLineItemProperties(lineItem);
+          //         TODO-NOW
+          //         location.reload();
+          //         return;
+        }, this),
+        error: $.proxy(function (e, t) {
+          console.log("error" , e, t);
+        }, this)
+      };
+      $.ajax(t);
+
+    });
+
+  });
+
+  function _updateLineItemProperties(lineItem) {
+    $.ajax({
+      type: 'POST',
+      url: '/cart/change.js',
+      dataType: 'json',
+      data: lineItem,
+      success: function(res) {
+        checkInsurance(res, undefined, true);
+//         location.reload();
+        
+      },
+      error: function(res){
+        console.log(res);
+      }
+    });
+  }
+
+  if($('body').hasClass('template--cart')) {
+    var intervalForExpendAtCart = setInterval(function() {
+      if($("#cartForm").length > 0) {
+        $('.extend-protection-add-btn').click();
+        clearInterval(intervalForExpendAtCart);
+      }
+    }, 10);
+  }
+  
+  function formatMoney(price) {
+    if(typeof price == 'string') {
+      price = parseInt(price.trim());
+    }
+    price = price/100;    
+  	return '<span class="money">$' + price.toFixed(2) + '</span>';
+  }
+  
+  $("#draftOrder").on('click', function() {
+    $('#draftOrder').addClass('draftSpinner');
+    $('#draftOrder').attr('disabled','disabled');
+    createDraftOrder();
+  });
+  
+  function updateOrderProperty(properties, orderObj) {
+    orderObj["properties"] = [];
+    for (let key in properties) {
+      let propObj = {
+        "name": key,
+        "value": properties[key]
+      };
+      orderObj["properties"].push(propObj);
+    }
+  }
+  
+  async function createDraftOrder() {
+    let url= "https://app1.prescriptionserver.com/api/options/postDraftOrder";
+    
+    let lineItems = new Promise(function(resolve, reject) {
+      $.ajax({
+        type: 'POST',
+        url: '/cart.js',
+        dataType: 'json',
+        success: function(cartData) {
+          let order= { "line_items": [] };
+          for(var i=0; i< cartData.items.length; i++) {
+            let cartItem = cartData.items[i];
+            let orderObj = {
+              "quantity": cartItem.quantity,
+              "variant_id": cartItem.variant_id
+            }
+            if(cartItem.properties && Object.keys(cartItem.properties).length) {
+              updateOrderProperty(cartItem.properties, orderObj);
+            }
+            order["line_items"].push(orderObj);
+          }
+          resolve(order);
+        },
+        error: function(res){
+          reject(res);
+        }
+      });
+    });
+
+    let draftOrderProp = await lineItems;
+    let draftOrder = { "draft_order": draftOrderProp };
+    let orderPayload = {
+      shop: "designeroptics-com",
+      orderPayloadJson: JSON.stringify(draftOrder)
+    };
+    
+  	$.post( url, orderPayload).done(function(data){
+      $('#draftOrder').removeClass('draftSpinner');
+      $('#draftOrder').removeAttr('disabled');
+      $(".draft-order").append("<p class='draft-message'>Draft order ("+ (data.draft_order || {}).name +") is created</p>");
+
+    });
+  }
+
+</script>  

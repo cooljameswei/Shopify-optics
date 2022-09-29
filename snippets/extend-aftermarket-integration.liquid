@@ -1,0 +1,22 @@
+<script>
+
+  if (window.Extend && window.ExtendShopify && window.Shopify.currency.active === "USD") {
+
+    var leadToken = window.Extend.URLSearchParams('leadToken');
+
+    if(leadToken) {
+      Extend.aftermarketModal.open({
+        leadToken: leadToken,
+        onClose: function(plan, product, quantity) {
+          if(plan && product) {
+            ExtendShopify.addPlanToCart({plan: plan, product: product, leadToken: leadToken, quantity: quantity || 1}, function() {
+              window.location = '/cart'
+            }) 
+          }
+        }
+      }) 
+    }
+
+  }
+
+</script>

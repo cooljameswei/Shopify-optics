@@ -1,0 +1,43 @@
+{% for link in linklists[block.settings.links].links %}
+<a class="linklist__link" href="{{ link.url }}">{{ link.title }}</a>
+{% endfor %}
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "linkList",
+    "name": "Links",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Show for desktop",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "enabledMobile",
+            "label": "Show for mobile",
+            "default": true
+        },
+        {
+            "id": "align",
+            "label": "Alignment",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "auto"
+        },
+        {
+            "id": "links",
+            "label": "Link list",
+            "type": "link_list"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

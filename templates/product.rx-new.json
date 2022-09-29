@@ -1,0 +1,178 @@
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+      }
+    },
+    "page": {
+      "type": "product-page__product-new",
+      "blocks": {
+        "ppTitle": {
+          "type": "productPageTitle",
+          "settings": {
+            "noMargin": true,
+            "color": "rgba(0,0,0,0)",
+            "fontFamily": "base",
+            "fontSize": "medium"
+          }
+        },
+        "ppSwatch": {
+          "type": "productPageSwatch",
+          "settings": {
+            "noMargin": true
+          }
+        },
+        "ppATC": {
+          "type": "productPageATC",
+          "settings": {
+            "noMargin": true,
+            "stickyATC": "scroll"
+          }
+        },
+        "d9b619f3-9d97-4789-b78d-64c7d433e4ac": {
+          "type": "productPageTab",
+          "settings": {
+            "showInline": false,
+            "heading": "DESCRIPTION",
+            "content": "description",
+            "metafieldNS": "global",
+            "metafieldKey": "",
+            "page": "",
+            "customContent": "<p>Add custom content here!<\/p>",
+            "customLiquidContent": "",
+            "embedded_link": ""
+          }
+        },
+        "9f277c38-ccdb-4579-9e92-af62dea98d3b": {
+          "type": "productPageTab",
+          "settings": {
+            "showInline": false,
+            "heading": "RATINGS & REVIEWS",
+            "content": "reviews",
+            "metafieldNS": "global",
+            "metafieldKey": "",
+            "page": "",
+            "customContent": "<p>Add custom content here!<\/p>",
+            "customLiquidContent": "",
+            "embedded_link": ""
+          }
+        },
+        "ac47ac48-996c-4009-8c46-9cd18557085f": {
+          "type": "productPageTab",
+          "settings": {
+            "showInline": false,
+            "heading": "PRESCRIPTION GUIDE",
+            "content": "embedded_link",
+            "metafieldNS": "global",
+            "metafieldKey": "",
+            "page": "",
+            "customContent": "<p>Add custom content here!<\/p>",
+            "customLiquidContent": "",
+            "embedded_link": "https:\/\/youtu.be\/k24pK6I9g5g"
+          }
+        }
+      },
+      "block_order": [
+        "ppTitle",
+        "ppSwatch",
+        "ppATC",
+        "d9b619f3-9d97-4789-b78d-64c7d433e4ac",
+        "9f277c38-ccdb-4579-9e92-af62dea98d3b",
+        "ac47ac48-996c-4009-8c46-9cd18557085f"
+      ],
+      "settings": {
+        "view": "default",
+        "layout": "max-width",
+        "galleryStyle": "default",
+        "galleryPosition": "left",
+        "autoChange": false,
+        "galleryImageFit": "cover",
+        "galleryImageGap": 16,
+        "productNavigation": false,
+        "stock_enable": true,
+        "pdp_swatch_img_text": "*Swipe to view more color variants",
+        "california_residents_warning": "<p>\n        <strong class=\"FShipPTxt\">California Proposition 65<\/strong>\n        Proposition 65 is a California regulation that requires special warnings to be presented to customers if a product contains certain quantities of chemicals or toxicants known to the State of California to cause cancer, birth defects, or other reproductive harm. The following warning applies to the products linking to this page:\n      <\/p><b>WARNING:<\/b> Reproductive Harm – <a href=\"https:\/\/www.p65warnings.ca.gov\/\" target=\"_blank\">https:\/\/www.p65warnings.ca.gov\/<\/a>",
+        "social_share_enable": true
+      }
+    },
+    "1652869940741dc9a8": {
+      "type": "related-products-new",
+      "blocks": {
+        "fb6bf70a-9119-4bbf-a90f-1bd10c3c114d": {
+          "type": "condition_block",
+          "settings": {
+            "title": "For Eyeglasses",
+            "product_types": "Eyeglasses",
+            "check_collection": "blik-vision",
+            "match_product_tags": "",
+            "match_product_types": "",
+            "match_product_meta": "Shape,Rim Type,Bridge Type",
+            "toggle_condition_state": true
+          }
+        },
+        "99186a8c-0a3b-4d3f-800d-534c4f4198e7": {
+          "type": "condition_block",
+          "settings": {
+            "title": "For Sunglasses",
+            "product_types": "Sunglasses",
+            "check_collection": "sunglasses",
+            "match_product_tags": "",
+            "match_product_types": "",
+            "match_product_meta": "Shape,Rim Type,Bridge Type,Gender",
+            "toggle_condition_state": true
+          }
+        },
+        "45f785fd-6292-4073-8964-798abed8d11b": {
+          "type": "condition_block",
+          "settings": {
+            "title": "For Contact Lenses",
+            "product_types": "Contact Lenses",
+            "check_collection": "contact-lenses",
+            "match_product_tags": "",
+            "match_product_types": "",
+            "match_product_meta": "",
+            "toggle_condition_state": true
+          }
+        },
+        "c823e451-d8bc-4f8f-92a7-c81725ff09e6": {
+          "type": "condition_block",
+          "settings": {
+            "title": "For Eyewear Accessories",
+            "product_types": "Cleaning Cloth,Case,Miscellaneous,Lenses,Leash Cord",
+            "check_collection": "eyewear-accessories",
+            "match_product_tags": "",
+            "match_product_types": "",
+            "match_product_meta": "",
+            "toggle_condition_state": true
+          }
+        }
+      },
+      "block_order": [
+        "fb6bf70a-9119-4bbf-a90f-1bd10c3c114d",
+        "99186a8c-0a3b-4d3f-800d-534c4f4198e7",
+        "45f785fd-6292-4073-8964-798abed8d11b",
+        "c823e451-d8bc-4f8f-92a7-c81725ff09e6"
+      ],
+      "settings": {
+        "show_related_products": true,
+        "title": "RELATED PRODUCTS",
+        "ignore_collections": "frontpage,all",
+        "max_products_limit": 10
+      }
+    },
+    "16528700770d78e65c": {
+      "type": "custom_featured_collection",
+      "settings": {
+        "title": "Accessories",
+        "collection": "eyewear-accessories"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "page",
+    "1652869940741dc9a8",
+    "16528700770d78e65c"
+  ]
+}

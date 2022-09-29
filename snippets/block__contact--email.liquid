@@ -1,0 +1,25 @@
+<label class="contact__text" for="{{block.id}}">{{block.settings.name}}</label>
+<input required id="{{block.id}}" name="contact[email]" type="email" placeholder="{{block.settings.placeholder}}">
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "contactFormEmail",
+    "name": "Sender email field (*)",
+    "settings": [
+        {
+            "type": "text",
+            "id": "name",
+            "label": "Field name",
+            "default": "Input title"
+        },
+        {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder",
+            "default": "Example input"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

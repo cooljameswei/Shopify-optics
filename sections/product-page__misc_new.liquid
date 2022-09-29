@@ -1,0 +1,1309 @@
+
+<link rel="stylesheet" data-href="{{ 'tipr.css' | asset_url }}">
+<script data-src="{{ 'tipr.min.js' | asset_url }}" type="lazyload2"></script>
+<script type="lazyload2" data-src="https://kit.fontawesome.com/9f0f9dfbf7.js"></script> 
+<!-- NS Image zoom - START -->
+<script type="text/javascript" defer="defer" src="{{ 'jquery.zoom.min.js' | asset_url }}"></script>
+<!-- NS Image zoom - END -->
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = product.featured_image %}
+
+<style>
+  .slider--product .slide--product {
+    text-align: center;
+  }
+  {% render 'misc-new-style' %}
+  {% if section.settings.galleryPosition == "right" %}
+  .product__row {
+    flex-direction: row-reverse;
+  }
+  {% endif %}
+
+  .gallery__vertical img {
+    width: 100%;
+    object-fit: {{section.settings.galleryImageFit}};
+  }
+
+  .gallery__vertical {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    margin: 0px -{{section.settings.galleryImageGap | divided_by: 2}}px;
+  }
+
+  .gallery__vertical .col-12 {
+    padding: 0px {{section.settings.galleryImageGap | divided_by: 2}}px;
+    margin-top: {{section.settings.galleryImageGap}}px;
+  }
+  #wishlist-hero-product-page-button.product-form__item button {
+    border: 1px solid #c73b3d !important;
+    border-radius: 0px !important;
+    height: 53px !important;
+  }
+  .product__atc-container .pdp-btn-addcart-wishlist{
+    width: auto;
+    margin-right: 25px;
+  }
+  .product__atc-container .addtocart__button {
+    width: auto;
+  }
+  .product__atc .product__atc-container .quantity--input {
+    margin-bottom: 0;
+    margin-right: 25px;
+  }
+  .button.button--addToCart{
+    width: 100%;
+    padding: 15px 35px;
+  }
+  @media(max-width:375px){
+    #MainContent .shopify-product-form .product__atc .product__atc-container{
+      flex-wrap:wrap;
+    }
+    .product__atc .product__atc-container .quantity--input{
+      margin-bottom:15px;
+    }
+  }
+#colorcode {};
+</style>
+
+<div class="sticky--mobile hide-desktop sticky--closed hide">
+    <div class="sticky--container">
+      <div style="text-align: right">
+        <span class="sticky__close" onclick="BoosterTheme.ELEMENTS.closeSticky(this)"><i class="uil uil-times"></i></span>
+      </div>
+      <h4 style="text-align: center; margin-bottom: 1rem">{{product.title}}</h4>
+      {% render 'block__product-page--price-misc' with product as product %}
+      {% render 'block__product-page--swatch-misc' with product as product %}
+    </div>
+    <button
+      data-original-text="{%- if product.price == 0 and settings.freeShipping  %}{{settings.freeShippingText}}{% else %}{{ 'general.buttons.add_to_cart' | t  }}{% endif -%}"
+      data-buy-button="{{product.id}}"
+      onclick="BoosterTheme.ELEMENTS.stickyBuy(this, event)"
+      class="button button--primary button--{{settings['primaryButtonStyle']}}  button--primary__{{settings['primaryButtonStyle']}} sticky--atc__button">
+      <span data-button-text>
+      {%- if product.price == 0 and settings.freeShipping  %}
+        {{settings.freeShippingText}}
+      {% else %}
+          {{ 'general.buttons.add_to_cart' | t  }}
+      {% endif %}
+      </span> 
+    </button>
+    <button
+      data-product-id="{{product.id}}"
+      onclick="BoosterTheme.ELEMENTS.stickyBuy(this, event)"
+      class="button button--primary button--{{settings['primaryButtonStyle']}} hide button--primary__{{settings['primaryButtonStyle']}} sticky--open__button"
+    >
+      {%- if product.price == 0 and settings.freeShipping  %}
+        {{settings.freeShippingText}}
+      {% else %}
+          {{ 'general.buttons.add_to_cart' | t  }}
+      {% endif -%}
+    </button>
+</div>
+
+
+{% assign size = 'col-md-6' %}
+
+<div data-product-holder class="misc-row row product__row {{section.settings.layout}} product__row--{{section.settings.view}} page-width">
+  {%- comment -%}
+  Default gallery with thumbnails (always rendered - used for mobile, featured products, modals in case another gallery type is selected) 
+  {%- endcomment -%}
+  <div class="misc-gallery-container col-12 {{size}} gallery gallery__default {% if section.settings.galleryStyle != 'default'%}hide-desktop{%endif%}">
+    {% render 'gallery--default', product: product, section: section %}
+  </div>
+  {%- comment -%}
+  /Default gallery with thumbnails
+  {% endcomment %}
+
+  {%- comment -%}
+  Rendering according to the view (default, marketplace)
+  {%- endcomment -%}
+  <div class="col-12 {{size}} unflex" id="product--page">
+  {% comment %} PRODUCT FORM 1 of 2{% endcomment %}
+  {% form "product", product %}
+    {% assign firstTab = true %}
+    {% for block in section.blocks %}
+      {% if block.type == '@app' %}
+        <div class="col-12 {{section.settings.layout}} unflex no-gap">
+          {% render block %}
+        </div>
+        {% continue %}
+      {% endif %}
+      {% if block.type == 'productPageTab' %}
+        {% if block.settings.showInline and firstTab %}
+          {% assign firstTab = false %}
+          {% assign tabs = section.blocks | where: 'type', 'productPageTab' %}
+          {% if tabs.size > 0 %}
+            <div class="col-12 {{section.settings.layout}} unflex tab__container tab__container--product no-gap">
+              <div class="tab__holder">
+                {% assign first = true %}
+                {% for tab in tabs %}
+                  {% if tab.settings.showInline %}
+                    <span class="tab--product {% if first %}tab--active{% endif -%}" onclick="BoosterTheme.ELEMENTS.toggleTab(this, 'tab--{{tab.id}}')">{{tab.settings.heading}}</span>
+                    {% assign first = false %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+              {% assign first = true %}
+              {% for tab in tabs %}
+                {% if tab.settings.showInline %}
+                  {% render 'get-block', block: tab, section: section, first: first, product: product %}
+                  {% assign first = false %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% else %}
+          {% continue %}
+        {% endif %}
+      {% endif %}
+      {% render 'get-block', block: block, product: product, form: form %}
+      
+    {% else %}
+            
+      {% render 'block__product-page--title-misc', product: product, noMargin: true, current_variant: current_variant %}
+      {% render 'block__product-page--price-misc', product: product %}
+      {% render 'block__product-page--swatch-misc' product: product %}
+      {% render 'block__product-page--atc-misc', product: product, form: form %}
+      {% render 'misc-gallery-thumbs', product: product %}
+
+      {%- comment -%}
+      {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}	
+      {%- endcomment -%}
+    {% endfor %}
+    
+  {% endform %}
+  {% comment %} END PRODUCT FORM {% endcomment %}
+  </div>
+ 
+
+  {%- comment -%}
+  /Rendering according to the view
+  {%- endcomment -%}
+</div>
+{%- comment -%}
+/Product container row
+{%- endcomment -%}
+
+{% assign tabs = section.blocks | where: 'type', 'productPageTab' %}
+{% if tabs.size > 0 %}
+  <div class="col-12 {{section.settings.layout}} unflex tab__container tab__container--product">
+    <div class="tab__holder">
+      {% for tab in tabs %}
+        {% if tab.settings.showInline %}
+          {% continue %}
+        {% endif %}
+        <span class="tab--product {% if forloop.first %}tab--active{% endif -%}" onclick="BoosterTheme.ELEMENTS.toggleTab(this, 'tab--{{tab.id}}')">{{tab.settings.heading}}</span>
+      {% endfor %}
+    </div>
+    {% for tab in tabs %}
+      {% if tab.settings.showInline %}
+        {% continue %}
+      {% endif %}
+      {% render 'get-block', block: tab, section: section, first: forloop.first, product: product %}
+    {% endfor %}
+  </div>
+{% endif %}
+<!-- Product Description with metafields -->
+<div class="page-width">
+    <div class="grid__item product-desc" id="tab">
+      <div class="nav nav-tabs">
+        {% if product.description != blank %}
+        <a href="#tab2" class="product-details"><span>Description</span></a>
+        {% endif %}
+        <!--<a href="#home" class="product-details"><span>Details</span></a>-->
+        <a href="#tab4" class="product-review"><span>Ratings & Reviews</span></a>
+        {% if section.settings.prescription_guide_url != blank %}
+        <a href="#tab3"><span>Prescription Guide</span></a>
+        {% endif %}
+      </div>
+
+      <div class="tab-content">
+        {% if product.description != blank %}
+        <div class="accordion-item">
+          <div class="accordion">Description</div>
+          <div id="tab2" class="tab-pane fade booster--revert">
+            <p>{{ product.description }}</p>
+            <!-----Details Div---->
+            <div>
+            {% if product.metafields.ProductData.size > 0 %}
+            <div class="grid__item medium-up--one-third">
+              <h4>Product Details</h4>
+              <ul>
+                {% for field in product.metafields.ProductData %}
+                  {% if field contains 'Model' %}
+                    <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+                {% for field in product.metafields.ProductData %}
+                  {% if field contains 'Shape' %}
+                    <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+                {% for field in product.metafields.ProductData %}
+                  {% if field contains 'Gender' %}
+                    <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+                {% for field in product.metafields.ProductData %}
+                  {% if field contains 'Material' %}
+                    <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+            {% if product.variants.size > 1 %}
+            <div class="grid__item medium-up--one-third">
+              <h4>Color Details</h4>
+              {% for variant in product.variants %}
+              {% if variant.metafields.VariantData.size > 0 %}
+              <ul class="hidden-option" data-id={{variant.id}} style="display: none;">
+                {% for field in variant.metafields.VariantData %}
+                {% if field contains 'Size' or field contains 'BridgeType' or field contains 'RimType' or field contains 'Lens Width' or field contains 'Bridge Width' or field contains 'Temple Length' %}
+                <li></li>
+                {% else %}
+                <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% if product.variants.size > 1 %}
+            <div class="grid__item medium-up--one-third">
+              <h4>Size Details</h4>
+              {% for variant in product.variants %}
+              {% if variant.metafields.VariantData.size > 0 %}
+              <ul class="hidden-option" data-id={{variant.id}} style="display: none;">
+                {% for field in variant.metafields.VariantData %}
+                  {% if field contains 'Lens Width'%}
+                    <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                  {% endif %}
+                {% endfor %}
+                {% for field in variant.metafields.VariantData %}
+                {% if field contains 'Bridge Width' %}
+                <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                {% endif %}
+                {% endfor %}
+                {% for field in variant.metafields.VariantData %}
+                {% if field contains 'Temple Length' %}
+                <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                {% endif %}
+                {% endfor %}
+                {% for field in variant.metafields.VariantData %}
+                {% if field contains 'Size' %}
+                <li><h6>{{ field | first }}</h6> : {{ field | last }}</li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+            <!-----Details Div ended here---->
+          </div>
+        </div>
+        {% endif %}
+        {% if section.settings.prescription_guide_url != blank %}
+        <div class="accordion-item" id="mobPrescriptionVideo">
+          <div class="accordion">Prescription Guide</div>
+          <div id="tab3" class="tab-pane fade">
+            {% assign youtube_id = section.settings.prescription_guide_url | split:"/" | last %}
+            <div class="map-container"><iframe youtube-src="https://www.youtube.com/embed/{{youtube_id}}" frameborder="0" allow="encrypted-media" allowfullscreen></iframe></div>
+          </div>
+        </div>
+        {% endif %}
+        <div class="accordion-item">
+          <div class="accordion accordion-review">Reviews</div>
+          <div id="tab4" class="tab-pane fade">
+            {% include 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if section.settings.california_residents_warning != blank %}
+      </br>
+      <div id="prop-65-text" class="prop-65-text" style="display: inline-block;width:100%;margin-top: 10px;margin-bottom: 0;">
+        <a class="prop-65-link" data-element="touch-target link" role="button" tabindex="0">
+          <span class="prop-65-link-text">Proposition 65 warning for California residents</span>
+        </a>
+      </div>
+    {% endif %}    
+</div>
+    <!-- End Metafields area -->
+{% comment %}
+marketplace view - failover title (.hide-mobile)
+marketplace view - failover price (.hide-mobile)
+gallery failover for quickbuy modal/modals
+{% endcomment %}
+
+{% comment %}{% if section.settings.productNavigation %}
+{% render 'block__product-page--next__prev' %}
+{% endif %}{% endcomment %}
+<!-- NS - Image Zoom START-->
+<script type="text/javascript">
+  $(document).ready(function() {
+    let _sku = '{% if product.has_only_default_variant %}{{-current_variant.sku-}}{% else %}{{-current_variant.title-}}{% endif%}';
+    window.gaViewItem('{{-product.title-}}','{{-product.id-}}',{{-current_variant.price | divided_by:100 -}},'{{-product.vendor-}}','{{-collection.title | default:product.collections[0].title-}}',_sku,(document.querySelector('[name="quantity"]') && document.querySelector('[name="quantity"]').value || 1));
+  });
+  function toggleZoom (destroy = true) {
+    if (!window.matchMedia('(max-width: 1279px)').matches)
+    {
+        if(destroy && $('.zoom-container').length > 0){
+          if($('.zoom-container').zoom){
+            $('.zoom-container').trigger('zoom.destroy');  
+          }
+        }
+        if($('.zoom-container').length > 0){
+          $('.zoom-container')
+          .css('display', 'block')
+          .zoom({
+            url:$(".image-zoom").attr('data-zoom')
+          });
+        }else{
+          $('.image-zoom')
+          .wrap('<span class="zoom-container" style="display:inline-block"></span>')
+          .css('display', 'inline-block')
+          .parent()
+          .zoom({
+            url:$(".image-zoom").attr('data-zoom')
+          });
+        }
+    }
+    
+    // console.log(test);
+  }
+  
+</script>
+<script type="module">
+  if (!window.matchMedia('(max-width: 1279px)').matches){
+      toggleZoom(true);
+  }
+</script>
+<script type="application/json" id="ProductJson-{{ section.id }}" data-product-json>
+  {{ product | json }}
+</script>
+<!-- NS - Image Zoom END-->
+<script type="text/javascript">
+  window.MISC_TEMPLATE = window.MISC_TEMPLATE || {};
+  window.MISC_TEMPLATE.config = {
+    sectionId:{{-section.id | json-}}
+  };
+  window.addEventListener('item:added',function (event) {
+    let _productData = document.querySelector("[data-product-json]") && JSON.parse(document.querySelector("[data-product-json]").innerText) || undefined;
+      
+      let _selectedVariant = document.querySelector('[name="id"]');
+      let _productVariant = _productData.variants.filter((variant) => {
+        return Number(variant.id) === Number(_selectedVariant.value);
+      });
+      
+    window.gaAddToCart(_productData.title,_productData.id,(Number(_productVariant[0].price)/100),_productData.vendor,_productData.type,(_productVariant[0].title == "Default Title" ? _productVariant[0].sku : _productVariant[0].title ),(document.querySelector('[name="quantity"]') && document.querySelector('[name="quantity"]').value || 1))
+  });
+</script>
+<script data-src="{{ 'misc-new.js' | asset_url }}" type="lazyload2"></script>
+
+{% schema %}
+{
+  "name": {
+    "en": "Product page content"
+  },
+  "settings": [
+    {
+        "type" : "header",
+        "content": "Instructions"
+    },
+    {
+        "type": "paragraph",
+        "content": "Blocks marked with * MUST be included in order for the page to work."
+    },
+     {
+            "type": "header",
+            "content": "Help"
+        },
+        {
+        "type": "paragraph",
+        "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458187257)"
+        },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "view",
+      "label": "Product page type",
+      "options": [
+        {"value": "marketplace", "label": "Marketplace"},
+        {"value": "default", "label": "Default"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Page width",
+      "options": [
+        {"value": "max-width", "label": "Boxed"},
+        {"value": "full-width", "label": "Full width"}
+      ],
+      "default": "max-width"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "select",
+      "id": "galleryStyle",
+      "label": "Gallery Style",
+      "options": [
+        {"value": "default", "label": "Default"},
+        {"value": "verticalDouble", "label": "Vertical list (2 column)"},
+        {"value": "verticalSingle", "label": "Vertical list (1 column)"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "select",
+      "id": "galleryPosition",
+      "label": "Gallery Position",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "label": "Zoom image on hover",
+      "id": "autoZoom",
+      "info": "If enabled, hovering over an image will zoom it in. Otherwise works on click only.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "label": "Change image on hover",
+      "id": "autoChange",
+      "info": "If enabled, hovering a thumbnail will change the image. Otherwise works on click only.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "label": "Verical gallery image fit",
+      "id": "galleryImageFit",
+      "options": [
+        {"value": "contain", "label": "Preserve ratio"},
+        {"value": "cover", "label": "Adjust ratio to fill empty space - crop image"}
+      ],
+      "default": "cover",
+      "info": "In case your product's image doesn't fit the image ratio you've selected below, the image can either: "
+    },
+    {
+      "type": "range",
+      "label": "Gap between vertical gallery images",
+      "id": "galleryImageGap",
+      "unit": "px",
+      "min": 0,
+      "max": 50,
+      "default": 16,
+      "info": "Vertical gap between vertical gallery images."
+    },
+    {
+      "type": "paragraph",
+      "content": "Preserve ratio - the whole image will be shown in its original dimensions, but may cause empty/white space to appear"
+    },
+    {
+      "type": "paragraph",
+      "content": "Adjust the ratio to fill empty space - if the image doesn't fit the ratio, it will be cropped and adjusted to fill the space - no empty/white space"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "productNavigation",
+      "label": "Enable previous/next product",
+      "info": "Previews next and previous product links. Only works inside collections.",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "stock_enable",
+      "label": "Enable stock",
+	  "default": true
+    },
+    {
+      "type":"textarea",
+      "id":"california_residents_warning",
+      "label":"Proposition 65 warning for California residents"
+   }
+  ],
+  "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+          "type": "productPageCountdown",
+          "name": "Offer countdown",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "select",
+                "label": "Style",
+                "id": "style",
+                "default": "compact",
+                "options": [
+                  {"value": "compact", "label": "Compact"},
+                  {"value": "doublecolumn", "label": "Two columns"}
+                ]
+              },
+              {
+                "id": "title",
+                "label": "Countdown title",
+                "type": "text",
+                "default": "LIMITED TIME OFFER"
+              },
+              {
+                "id": "text",
+                "type": "text",
+                "label": "Warning text",
+                "default": "The price of this item will revert back to %price% at the end of this countdown.",
+                "info": "%price% will get replace by the products original price."
+              }
+          ]
+      },
+      {
+          "type": "productPageTitleMisc",
+          "name": "Product title",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+			  {
+                "type": "header",
+                "content": "Style"
+              },
+              {
+                "id": "color",
+                "type": "color",
+                "label": "Custom color",
+                "default": "rgba(0,0,0,0)"
+              },
+              {
+                "id": "fontFamily",
+                "label": "Font family",
+                "type": "select",
+                "options": [
+                  {"value": "base", "label": "Base"},
+                  {"value": "title", "label": "Title"}
+                ],
+                "default": "base"
+              },
+              {
+                "id": "fontSize",
+                "label": "Font size",
+                "type": "select",
+                "options": [
+                  {"value": "small", "label": "Small"},
+                  {"value": "base", "label": "Base"},
+                  {"value": "medium", "label": "Medium"},
+                  {"value": "big", "label": "Big"}
+                ],
+                "default": "medium"
+              }
+          ]
+      },
+      {
+          "type": "productPagePriceMisc",
+          "name": "Product price",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "header",
+                "content": "Style"
+              },
+              {
+                "id": "color",
+                "type": "color",
+                "label": "Custom color",
+                "default": "rgba(0,0,0,0)"
+              },
+              {
+                "id": "newPriceColor",
+                "type": "color",
+                "label": "Reduced price color",
+                "default": "rgba(0,0,0,0)"
+              },
+              {
+                "id": "oldPriceColor",
+                "type": "color",
+                "label": "Old price color",
+                "default": "rgba(0,0,0,0)"
+              },
+              {
+                "id": "fontFamily",
+                "label": "Font family",
+                "type": "select",
+                "options": [
+                  {"value": "base", "label": "Base"},
+                  {"value": "title", "label": "Title"}
+                ],
+                "default": "base"
+              },
+              {
+                "id": "fontSize",
+                "type": "select",
+                "label": "Font size",
+                "options": [
+                  {"value": "small", "label": "Small"},
+                  {"value": "base", "label": "Base"},
+                  {"value": "medium", "label": "Medium"},
+                  {"value": "big", "label": "Big"}
+                ],
+                "default": "medium"
+              },
+              {
+                "type": "header",
+                "content": "Sale"
+              },
+              {
+                "type": "select",
+                "id": "saleType",
+                "label": "Show sale badge as",
+                "options": [
+                  {"value": "percent", "label": "Percent (%)"},
+                  {"value": "amount", "label": "Money amount"},
+                  {"value": "text", "label": "Only 'SALE' text"},
+                  {"value": "none", "label": "Hide the sale badge"}
+                ],
+                "default": "percent"
+              }
+          ]
+      },
+      {
+          "type": "productPageSwatchMisc",
+          "name": "Product variants (*)",
+          "limit": 1,
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              }
+          ]
+      },
+      {
+        "type": "productPageBadge",
+        "name": "Image/Badges",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "noMargin",
+            "label": "Remove bottom space"
+          },
+          {
+            "type": "image_picker",
+            "label": "Badge image",
+            "id": "badge"
+          }
+        ]
+      },
+      {
+          "type": "productPageStock",
+          "name": "Product stock",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "select",
+                "label": "Max product stock",
+                "id": "stockLeft",
+                "options": [
+                  {"value": "10", "label": "10"},
+                  {"value": "100", "label": "100"},
+                  {"value": "1000", "label": "1000"},
+                  {"value": "inventory", "label": "Use real stock"}
+                ],
+                "default": "10"
+              },
+              {
+                "type": "range",
+                "id": "reduce",
+                "label": "Reduce inventory every",
+                "min": 0,
+                "max": 30,
+                "step": 1,
+                "unit": "s",
+                "info": "If set above 0, the stock amount will be reduced by 1 in the set interval. Doesn't work with real stock inventory. If you want to disable it, set it to 0.",
+                "default": 8
+              }
+          ]
+      },
+      {
+          "type": "productPageLDelivery",
+          "name": "Localized Delivery",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "text",
+                "label": "Icon",
+                "info": "Icon name copied over from Unicons icon library. You can find the list over at [Unicons](https://iconscout.com/unicons/explore/line).",
+                "id": "icon"
+              },
+              {
+                "type": "color",
+                "id": "iconColor",
+                "label": "Icon Color (optional)",
+                "default": "rgba(0,0,0,0)"
+              },
+              {
+                "type": "richtext",
+                "label": "Delivery text",
+                "default": "<p>Products will be delivered between %start% and %end%.</p>",
+                "id": "text"
+              },
+              {
+                "type": "text",
+                "label": "Start day offset",
+                "default": "1",
+                "id": "start"
+              },
+              {
+                "type": "text",
+                "label": "End day offset",
+                "default": "5",
+                "id": "end"
+              },
+              {
+                "type": "paragraph",
+                "content": "%start% and %end% will be replaced with the offset set above. Customers will see dates instead of numbers. (On 7/10/2022 with the start offset of 2, customers will see 7/12/2022)"
+              },
+              {
+                "type": "color",
+                "id": "textColor",
+                "label": "Text Color (optional)",
+                "default": "rgba(0,0,0,0)"
+              }
+          ]
+      },
+      {
+          "type": "productPageDelivery",
+          "name": "Icon + Text (Delivery)",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "text",
+                "label": "Icon",
+                "info": "Icon name copied over from Unicons icon library. You can find the list over at [Unicons](https://iconscout.com/unicons/explore/line).",
+                "id": "icon"
+              },
+              {
+                "type": "color",
+                "id": "iconColor",
+                "label": "Icon Color (optional)",
+                "default": "rgba(0,0,0,0)"
+              },
+              {
+                "type": "richtext",
+                "label": "Delivery text",
+                "default": "<p>Products are usually delivered in 3-7 days.</p>",
+                "id": "text"
+              },
+              {
+                "type": "color",
+                "id": "textColor",
+                "label": "Text Color (optional)",
+                "default": "rgba(0,0,0,0)"
+              }
+          ]
+      },
+      {
+          "type": "productPageWatching",
+          "name": "Watching product",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "select",
+                "label": "Max people",
+                "id": "max",
+                "options": [
+                  {"value": "10", "label": "10"},
+                  {"value": "100", "label": "100"},
+                  {"value": "1000", "label": "1000"}
+                ],
+                "default": "100"
+              },
+              {
+                "type": "text",
+                "label": "Custom Max People",
+                "id": "customMax",
+                "info": "This MUST be a number. It is optional. If left blank, the above value will be used."
+              },
+              {
+                "type": "range",
+                "id": "interval",
+                "label": "Update the number every",
+                "min": 0,
+                "max": 30,
+                "step": 1,
+                "unit": "s",
+                "default": 8
+              },
+              {
+                "type": "color",
+                "id": "iconColor",
+                "label": "Icon Color (optional)",
+                "default": "rgba(0,0,0,0)"
+              },
+              {
+                "type": "color",
+                "id": "textColor",
+                "label": "Text Color (optional)",
+                "default": "rgba(0,0,0,0)"
+              }
+          ]
+      },
+      {
+          "type": "productPageInCart",
+          "name": "Product in cart",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "select",
+                "label": "Max people",
+                "id": "max",
+                "options": [
+                  {"value": "10", "label": "10"},
+                  {"value": "100", "label": "100"},
+                  {"value": "1000", "label": "1000"}
+                ],
+                "default": "100"
+              },
+              {
+                "type": "text",
+                "label": "Custom Max People",
+                "id": "customMax",
+                "info": "This MUST be a number. It is optional. If left blank, the above value will be used."
+              },
+              {
+                "type": "range",
+                "id": "interval",
+                "label": "Update the number every",
+                "min": 0,
+                "max": 30,
+                "step": 1,
+                "unit": "s",
+                "default": 8
+              },
+              {
+                "type": "color",
+                "id": "iconColor",
+                "label": "Icon Color (optional)",
+                "default": "rgba(0,0,0,0)"
+              },
+              {
+                "type": "color",
+                "id": "textColor",
+                "label": "Text Color (optional)",
+                "default": "rgba(0,0,0,0)"
+              }
+          ]
+      },
+      {
+          "type": "productPageDescription",
+          "name": "Product description",
+          "settings": [
+            {
+              "id": "heading",
+              "label": "Description title",
+              "default": "Product description",
+              "type": "text"
+            },
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              }
+          ]
+      },
+      {
+          "type": "productPageAccordion",
+          "name": "Accordion",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "text",
+                "id": "heading",
+                "label": "Accordion heading",
+                "default": "Description"
+              },
+              {
+                "type": "radio",
+                "label": "Accordion content",
+                "id": "content",
+                "options": [
+                  {"value": "description", "label": "Description"},
+                  {"value": "reviews", "label": "Reviews"},
+                  {"value": "metafield", "label": "Metafield"},
+                  {"value":"page", "label": "Page"},
+                  {"value": "productPage", "label": "Product specific page"},
+                  {"value": "custom", "label": "Custom content"}
+                ],
+                "default": "description"
+              },
+              {
+                "type": "header",
+                "content": "Metafield"
+              },
+              {
+                "type": "text",
+                "id": "metafieldNS",
+                "label": "Metafield namespace",
+                "default": "global"
+              },
+              {
+                "type": "text",
+                "id": "metafieldKey",
+                "label": "Metafield key"
+              },
+              {
+                "type": "header",
+                "content": "Page"
+              },
+              {
+                "type": "page",
+                "label": "Page to show",
+                "id": "page"
+              },
+              {
+                "type": "header",
+                "content": "Custom content"
+              },
+              {
+                "type": "html",
+                "id": "customContent",
+                "label": "Custom content",
+                "default": "<p>Add custom content here!</p>"
+              }
+          ]
+      },
+      {
+          "type": "productPageTab",
+          "name": "Tab",
+          "settings": [
+              {
+                "type": "checkbox",
+                "label": "Show this tab inline",
+                "info": "Will place this tag on the side of the product, instead of below everything",
+                "default": false,
+                "id": "showInline"
+              },
+              {
+                "type": "text",
+                "id": "heading",
+                "label": "Tab heading",
+                "default": "Description"
+              },
+              {
+                "type": "radio",
+                "label": "Tab content",
+                "id": "content",
+                "options": [
+                  {"value": "description", "label": "Description"},
+                  {"value": "reviews", "label": "Reviews"},
+                  {"value": "metafield", "label": "Metafield"},
+                  {"value": "page", "label": "Page"},
+                  {"value": "productPage", "label": "Product specific page"},
+                  {"value": "custom", "label": "Custom content"}
+                ],
+                "default": "description"
+              },
+              {
+                "type": "header",
+                "content": "Metafield"
+              },
+              {
+                "type": "text",
+                "id": "metafieldNS",
+                "label": "Metafield namespace",
+                "default": "global"
+              },
+              {
+                "type": "text",
+                "id": "metafieldKey",
+                "label": "Metafield key"
+              },
+              {
+                "type": "header",
+                "content": "Page"
+              },
+              {
+                "type": "page",
+                "label": "Page to show",
+                "id": "page"
+              },
+              {
+                "type": "header",
+                "content": "Custom content"
+              },
+              {
+                "type": "html",
+                "id": "customContent",
+                "label": "Custom content",
+                "default": "<p>Add custom content here!</p>"
+              }
+          ]
+      },
+      {
+        "type": "productPageReviewStars",
+        "name": "Review stars",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "noMargin",
+            "label": "Remove bottom space"
+          },
+          {
+            "type": "paragraph",
+            "content": "Make sure to save the settings in order to initialize reviews."
+          }
+        ]
+      },
+      {
+        "type": "productPageTags",
+        "name": "Tags",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "noMargin",
+            "label": "Remove bottom space"
+          },
+          {
+            "type": "select",
+            "id": "style",
+            "options": [
+              {"value": "swatch", "label": "Swatch"},
+              {"value": "text", "label": "Text"}
+            ],
+            "label": "Tag style"
+          },
+          {
+            "type": "textarea",
+            "label": "Tags to exclude",
+            "id": "exclude",
+            "info": "Comma (,) separated list of tags to exclude. bstr-tag-* tags are excluded automatically."
+          }
+        ]
+      },
+      {
+          "type": "productPageATCMisc",
+          "name": "Add to cart (*)",
+          "limit": 1,
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              },
+              {
+                "type": "select",
+                "id": "stickyATC",
+                "options": [
+                  {"value": "disabled", "label": "Don't show sticky ATC"},
+                  {"value": "scroll", "label": "Show sticky ATC after scrolling past original"},
+                  {"value": "always", "label": "Always show sticky ATC"}
+                ],
+                "default": "scroll",
+                "label": "Sticky ATC (mobile)"
+              }
+          ]
+      },
+      {
+          "type": "productPageShare",
+          "name": "Social Media Share",
+          "settings": [
+              {
+                "type": "checkbox",
+                "id": "noMargin",
+                "label": "Remove bottom space"
+              }
+          ]
+      }
+    ]
+}
+{% endschema %}
+<script>
+  $(document).ready(function() {
+  	 // Tabs for metafields
+    if(window.innerWidth < 1200){
+      $('.nav-tabs').each(function(){
+        // For each set of tabs, we want to keep track of
+        // which tab is active and its associated content
+        var $active, $content, $links = $(this).find('a');
+
+        // If the location.hash matches one of the links, use that as the active tab.
+        // If no match is found, use the first link as the initial active tab.
+        $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+        $active.addClass('active');
+
+        $content = $($active[0].hash);
+
+        // Hide the remaining content
+        $links.not($active).each(function () {
+          $(this.hash).hide();
+        });
+
+        // Bind the click event handler
+        $(this).on('click', 'a', function(e){
+          // Make the old tab inactive.
+          $active.removeClass('active');
+          $content.hide();
+
+          // Update the variables with the new link and content
+          $active = $(this);
+          $content = $(this.hash);
+
+          // Make the tab active.
+          $active.addClass('active');
+          $content.show();
+
+          // Prevent the anchor's default click action
+          e.preventDefault();
+        });
+      });
+    }
+    if ($(window).width() < 992) {
+
+      $('#accesories').css('display','none');
+      $('.accordion').click(function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $this.toggleClass('active').next(".tab-pane").slideToggle(300).toggleClass('active').parent().siblings().find('.accordion').removeClass('active').next('.tab-pane').removeClass('active').slideUp(300)
+      });
+      $('.accordion').eq(0).trigger('click')
+
+    } else {
+      $('.nav-tabs').each(function() {
+        // For each set of tabs, we want to keep track of
+        // which tab is active and its associated content
+        var $active, $content, $links = $(this).find('a');
+
+        // If the location.hash matches one of the links, use that as the active tab.
+        // If no match is found, use the first link as the initial active tab.
+        $active = $($links.filter('[href="' + location.hash + '"]')[0] || $links[0]);
+        $active.addClass('active');
+
+        $content = $($active[0].hash);
+
+        // Hide the remaining content
+        $links.not($active).each(function() {
+          $(this.hash).hide();
+        });
+
+        // Bind the click event handler
+        $(this).on('click', 'a', function(e) {
+          $("#tab .sizing-guide-tab").removeClass("active");
+          $("#tab1").css("display", "none");
+          // Make the old tab inactive.
+          $active.removeClass('active');
+          $content.hide();
+
+          // Update the variables with the new link and content
+          $active = $(this);
+          $content = $(this.hash);
+
+          // Make the tab active.
+          $active.addClass('active');
+          $content.show();
+
+          // Prevent the anchor's default click action
+          e.preventDefault();
+        });
+      });
+    }
+    var flag = 0;
+    // Collapse/Expand button for color thumbs
+    //         if ($(".product-single__thumbnail-item").size() > 12) {
+    //           $("#color-thumb-button").show();
+    //         }
+    $(".color-thumb-button").click(function() {
+      flag++;
+      var $elem = $(".photos").find(".product-single__thumbnails");
+      if ($elem.hasClass("collapse")) {
+        $elem.removeClass("collapse");
+        $(this).text("Show Fewer Colors");
+      } else {
+        $elem.addClass("collapse");
+        $(this).text("Show More Colors");
+      }
+      if (flag > 1) {
+        $(".chatbox-first").css("display", "block");
+        $(".chatbox-second").css("display", "none");
+        flag = 0;
+      } else {
+        $(".chatbox-first").css("display", "none");
+        $(".chatbox-second").css("display", "block");
+      }
+    });
+
+    // Email function
+    $(".email-support").click(function(e) {
+      e.preventDefault();
+      var email = "support@designeroptics.com";
+      var subject = "{{product.title}}";
+      var mailto_link = 'mailto:' + email + '?subject=' + encodeURIComponent(subject);
+      document.location.href = mailto_link;
+    });
+
+    setTimeout(function() {
+      if ($("#tab4 #shopper_review_page #review_header div:first-child").hasClass('merchantheader')) {
+        $("#product_page").css("display", "none");
+        $(".overall.block").css("display", "none");
+        $(".stars.block").css("display", "none");
+        $(".percentage.block").css("display", "none");
+        $("#review_header img").css("display", "none");
+        $("#review_header").css("border", "none");
+        $("#review_image").css("display", "none");
+        var html = "<div class='merchantheader'>We are currently collecting product reviews for this item. If you are going to leave your own review for this product, please click the below link. </div>";
+        $("#review_header .merchantheader").replaceWith(html);
+      }
+    }, 1000);
+  })
+</script>

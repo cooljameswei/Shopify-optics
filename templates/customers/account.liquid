@@ -1,0 +1,762 @@
+{% render "account-prescription-css"%}
+{% assign customerId = customer.id | downcase %}
+
+{% if customer.default_address %}
+  {% assign daddy = true %}
+{% else %}
+  {% assign daddy = false %}
+{% endif %}
+
+<h1 class="title-heading">My Account</h1>
+<div class="cx-page-width cx-account">
+  <div class="row my-account-form">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-12" style="display: block;">
+      <div class="section-form">
+        <div class="section-form">
+          <div class="acc-item">
+              <div class="acc-item-header">
+                  <div class="acc-item-header-title">
+                      <p class="acc-item-header-title-h">Recent Order</p>
+                  </div>
+                  <div class="acc-item-header-buttons">
+                      <button type="button" class="acc-item-button border-red">
+                          View All Orders
+                      </button>
+                  </div>
+              </div>
+              <div class="acc-item-content">
+                  <div class="acc-item-content-header">
+                      <div class="acc-item-content-title">
+                          <h3 class="acc-item-content-title-h">Order Number <span>PND2383983</span></h3>
+                      </div>
+                      <div class="acc-item-content-buttons">  
+                          <button type="button" class="acc-item-button border-black">
+                              View details
+                          </button>
+                      </div>
+                  </div>
+                  <div class="acc-item-content-detail acc-inline-flex">
+                      <div class="acc-inline-flex">
+                          <div class="acc-item-pic-container">
+                              <img class="acc-item-pic" alt="Glass" src="glass1.png">
+                          </div>
+                          <div>
+                              <h3 class="mb-10">Burberry</h3>
+                              <p>Order date: 06/12/2018</p>
+                              <p>Order status: shipped</p>
+                              <p>Shipped to: Aron Ekstain</p>
+                          </div>
+                      </div>
+                      
+                      <div class="acc-cart-info">
+                          <p>Quantity: <b>1</b></p>
+                          <p><span>1000$</span></p>
+                      </div>
+                  </div>
+              </div>
+          
+          </div>
+          <div class="acc-item">
+              <div class="acc-item-header">
+                  <div class="acc-item-header-title">
+                      <p class="acc-item-header-title-h">Wishlist</p>
+                  </div>
+                  <div class="acc-item-header-buttons">
+                      <button type="button" class="acc-item-button border-red">
+                        Checkout
+                      </button>
+                      <button type="button" class="acc-item-button border-black">
+                        Clear All
+                      </button>
+                  </div>
+              </div>
+              <div class="acc-item-content">
+                  <div class="acc-item-content-header">
+                      
+                  </div>
+                  <div class="acc-item-content-detail">
+                    <div class="acc-inline-flex">
+                      <div class="acc-inline-flex">
+                          <div class="acc-item-pic-container">
+                              <img class="acc-item-pic" alt="Glass" src="glass1.png">
+                          </div>
+                          <div>
+                              <h3 class="mb-10">Burberry</h3>
+                              <p>Order date: 06/12/2018</p>
+                              <p>Order date: 06/12/2018</p>
+                              <button type="button" class="acc-item-button border-black">
+                                Add to Cart
+                              </button>
+                          </div>
+                      </div>
+                      
+                      <div class="acc-cart-info">
+                        <p>Quantity: <b>1</b></p>
+                        <p><span>1000$</span></p>
+                      </div>
+                    </div>
+                    <div class="acc-inline-flex">
+                      <div class="acc-inline-flex">
+                          <div class="acc-item-pic-container">
+                              <img class="acc-item-pic" alt="Glass" src="glass1.png">
+                          </div>
+                          <div>
+                              <h3 class="mb-10">Burberry</h3>
+                              <p>Order date: 06/12/2018</p>
+                              <p>Order date: 06/12/2018</p>
+                              <button type="button" class="acc-item-button border-black">
+                                Add to Cart
+                              </button>
+                          </div>
+                      </div>
+                      
+                      <div class="acc-cart-info">
+                        <p>Quantity: <b>1</b></p>
+                        <p><span>1000$</span></p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="acc-item">
+            <div class="acc-item-header">
+                <div class="acc-item-header-title">
+                    <p class="acc-item-header-title-h">Profile</p>
+                </div>
+                <div class="acc-item-header-buttons">
+                    <button type="button" class="acc-item-button border-red">
+                      Password
+                    </button>
+                </div>
+            </div>
+            <div class="acc-item-content">
+                <div class="acc-item-content-header">
+                    
+                </div>
+                <div class="acc-item-content-detail">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-6 col-lg-6" style="display: block;">
+                      <div class="acc-item-profile-form-item">
+                        <h3>First Name</h3>
+                        <p>Davron</p>
+                      </div>
+                      <div class="acc-item-profile-form-item">
+                        <h3>Last Name</h3>
+                        <p>Askarov</p>
+                      </div>
+                      <div class="acc-item-profile-form-item">
+                        <h3>Birthday</h3>
+                        <p>2022-01-01</p>
+                      </div>
+                      <div class="acc-item-profile-form-item">
+                        <h3>Birthday</h3>
+                        <p>2022-01-01</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-lg-6" style="display: block;">
+                      <div class="acc-item-profile-form-item">
+                        <h3>First Name</h3>
+                        <p>Davron</p>
+                      </div>
+                      <div class="acc-item-profile-form-item">
+                        <h3>Last Name</h3>
+                        <p>Askarov</p>
+                      </div>
+                      <div class="acc-item-profile-form-item">
+                        <h3>Birthday</h3>
+                        <p>2022-01-01</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-item-header">
+                <div class="acc-item-header-title">
+                    <p class="acc-item-header-title-h">Password</p>
+                </div>
+                <div class="acc-item-header-buttons">
+                    <button type="button" class="acc-item-button border-red">
+                      Reveal
+                    </button>
+                </div>
+            </div>
+            <div class="acc-item-content">
+              <div class="acc-item-content-header">
+                <div class="acc-item-content-title acc-item-pwd-content">
+                    <p class="acc-item-content-title-h">Password</p>
+                    <p class="acc-item-content-title-h">***********</p>
+                </div>
+                <div class="acc-item-content-buttons">  
+                    <button class="acc-item-button border-black">
+                        Edit
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="acc-item">
+          <div class="acc-item-header">
+              <div class="acc-item-header-title">
+                  <p class="acc-item-header-title-h"><span style="margin-right: 10px">{% render 'location-svg' %}</span>Address Book</p>
+              </div>
+              <div class="acc-item-header-buttons">
+                  <button type="button" class="acc-item-button border-red">
+                      View
+                  </button>
+              </div>
+          </div>
+          <div class="acc-item-content">
+              
+              
+          </div> 
+          <div class="acc-item-footer">
+              <button type="button" class="acc-item-button border-black">
+                  Add New +
+              </button> 
+          </div>
+      </div> -->
+        
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-12" style="display: block;">
+      <div class="acc-item">
+        <div class="acc-item-header">
+            <div class="acc-item-header-title">
+                <p class="acc-item-header-title-h"><span style="margin-right: 10px">{% render 'location-svg' %}</span>Prescription</p>
+            </div>
+        </div>
+        <div class="acc-item-content">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td>john@example.com</td>
+              </tr>
+              <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+                <td>mary@example.com</td>
+              </tr>
+              <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div> 
+        <div class="acc-item-footer acc-inline-right">
+          <button type="button" class="acc-item-button border-red">
+            Update Prescription
+          </button>
+        </div>
+      </div>
+      {% render 'customer-addresses' %} 
+    </div>
+  </div>
+  <!--
+  <div class="sidebar-nav">
+    <h3 class="content-block__title">Account Details</h3>
+    <button onclick="selectedNavItem('#orderHistory', '#displayOrderHistory');" 
+            id="displayOrderHistory" class="active-nav">
+      <span>{% render 'order-history-svg' %}</span>
+      Order History
+    </button>
+    <button onclick="selectedNavItem('#customerAddresses', '#displayAddresses');"
+            id="displayAddresses">
+      <span>{% render 'location-svg' %}</span>
+      View Addresses ({{ customer.addresses_count }})
+    </button>
+    <button onclick="selectedNavItem('#savedPresciptions', '#displaySavedPrescriptions')" 
+            id="displaySavedPrescriptions">
+      <span>{% render 'prescription-svg' %}</span>
+      Saved Prescriptions
+    </button>
+  </div>
+  <div class="data-container">
+    <div class="content-block steps" id="orderHistory">
+      	<h2 class="heading-title">Order History</h2>
+
+        {% paginate customer.orders by 20 %}
+          {% if customer.orders.size != 0 %}
+			<div class="order-table">
+            <table class="responsive-table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Date</th>
+                  <th>Payment Status</th>
+                  <th>Fulfillment Status</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in customer.orders %}
+                  <tr>
+                    <td data-label="{{'customer_area.account.order_num' }}"><a href="{{order.customer_url}}">{{order.name}}</a></td>
+                    <td data-label="{{'customer_area.account.date' }}">{{order.created_at | date: format: 'month_day_year'}}</td>
+                    <td data-label="{{'customer_area.account.payment' }}">{{order.financial_status_label}}</td>
+                    <td data-label="{{'customer_area.account.full' }}">{{order.fulfillment_status_label}}</td>
+                    <td data-label="{{'customer_area.account.total' }}">{{order.total_price | money | strip_html }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><a target="_blank" href="https://shopify-order-edit.herokuapp.com/order-editor/reorder/designeroptics-com.myshopify.com/{{order.id}}">Reorder</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+      		</div>
+
+          {% else %}
+            <p class="pres-sub-title">{{ 'customer_area.account.no_orders' | t }}</p>
+      		{% comment %}
+      		  {% render 'button', type: 'primary', text: "Check out our offering", url: routes.all_products_collection_url %}
+            {% endcomment %}
+          {% endif %}
+          {% if paginate.pages > 1 %}
+            <div class="pagination">
+              {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+            </div>
+          {% endif %}
+        {% endpaginate %}
+        <div class="w3-order-lookup"></div>
+      </div>
+    <div class="content-block steps" id="savedPresciptions">
+      <h2 class="heading-title">Saved Prescription</h2>
+      <p class="pres-sub-title">View Saved Prescriptions </p>
+      <div id="savedPrescriptionsList"></div>
+      <section id="unavailablePrescriptionMesg">No Prescription is saved.</section>
+    </div>
+    <div class="content-block steps" id="prescriptionData">
+        <h2 class="heading-title" id="profilePrescriptionName"></h2>
+        <p class="pres-sub-title" id="profilePrescriptionType"></p>
+        <hr class="show-md-plus">
+        <div id="prescriptionReaders" class="prescription-details">
+          <div class="row header-row mx-0">
+            <div class="col-custom">MAGNIFICATION</div>
+          </div>
+          <div class="row mx-0">
+          	<div class="col-custom" id="magnification">
+              <select class="custom-select"></select>
+            </div>
+          </div>
+          <div class="confirm-prescription" disabled="true" >
+            <button onclick="updatePrescription();">Update Prescription</button>
+          </div>
+        </div>
+        
+        <div id="prescriptionDetails" class="prescription-details">
+          <div class="header-row show-lg-plus">
+            <div class="prescription-sub-div-heading"></div>
+            <div class="prescription-sub-div-content">
+              <div class="row mx-0">
+                <div class="col-3-only" id="sphHeader">
+                  <div class="col-custom">
+                    SPH
+                    <button class="info-btn" id="sphInfoBtn">
+                      <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)"></path></g></g></svg>
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="col-3-only" id="cylHeader">
+                  <div class="col-custom">
+                    CYL
+                    <button class="info-btn" id="cylInfoBtn">
+                      <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)"></path></g></g></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-3-only" id="axisHeader">
+                  <div class="col-custom">
+                    Axis
+                    <button class="info-btn" id="axisInfoBtn">
+                      <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)"></path></g></g></svg>
+                    </button>
+                  </div>
+                </div>
+                <div id="addHeader" class="hide-single-vision">
+                  <div class="col-custom">
+                    ADD
+                    <button class="info-btn" id="addInfoBtn">
+                      <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)"></path></g></g></svg>
+                    </button>
+                  </div>
+                </div>
+                <div id="sghtHeader" class="hide-single-vision">
+                  <div class="col-custom">
+                    SG Ht
+                    <button class="info-btn" id="sghtInfoBtn">
+                      <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)"></path></g></g></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="show-lg-plus">
+            <div class="prescription-sub-div-heading">
+              <span class="prescription-row-title">OD</span>
+              <br>
+              <span class="prescription-row-subtitle">(Right Eye)</span>
+            </div>
+            <div class="prescription-sub-div-content">
+              <div class="row mx-0">
+                <div class="col-3-only" id="sphRt" >
+                  <div class="col-custom" style="min-height: 1px;position: relative;font-size: 1.6rem;width: 8.8rem;">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="col-3-only" id="cylRt">
+                  <div class="col-custom">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="col-3-only" id="axisRt">
+                  <div class="col-custom">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="test hide-single-vision" id="addRt">
+                  <div class="col-custom">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="test hide-single-vision" id="sghtRt">
+                  <div class="col-custom">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="show-lg-plus">
+          
+          <div class="show-lg-plus">
+            <div class="prescription-sub-div-heading">
+              <span class="prescription-row-title">OS</span>
+              <br>
+              <span class="prescription-row-subtitle">(Left Eye)</span>
+            </div>
+            <div class="prescription-sub-div-content">
+              <div class="row mx-0">
+                <div class="col-3-only" id="sphLt" >
+                  <div class="col-custom" style="min-height: 1px;position: relative;font-size: 1.6rem;width: 8.8rem;">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="col-3-only" id="cylLt">
+                  <div class="col-custom">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="col-3-only" id="axisLt">
+                  <div class="col-custom">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="test hide-single-vision" id="addLt">
+                  <div class="col-custom">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="test hide-single-vision" id="sghtLt">
+                  <div class="col-custom">
+                    <br>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="show-lg-plus">
+          
+          <div class="show-lg-plus">
+            <div class="prescription-sub-div-heading">
+              <span class="prescription-row-title">PD</span>
+              <br>
+              <span class="prescription-row-subtitle">(Pupillary<br>Distance)</span>
+            </div>
+            <div class="prescription-sub-div-content">
+              <div class="row mx-0">
+                <div class="col-3-only" id="pd">
+                  <div class="col-custom">
+                    <span class="field-col-sub-heading"></span>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="col-3-only" id="pdRt">
+                  <div class="col-custom">
+                    <span class="field-col-sub-heading">RIGHT PD</span>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="col-3-only" id="pdLt">
+                  <div class="col-custom">
+                    <span class="field-col-sub-heading">LEFT PD</span>
+                    <select class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="col-3-only"><div class="col-custom"></div></div>
+                <div class="col-3-only" id="showWhenOnePd"><div class="col-custom"></div></div>
+                <div class="hide-single-vision"><div class="col-custom"></div></div>
+                <div class="hide-single-vision"><div class="col-custom"></div></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="prescription_wrapper hidden-lg-plus">
+
+            <div class="section_heading_mob">
+              <span class="font-bold">OD</span><span class="small-text">(Right Eye)</span>
+            </div>
+
+            <div class="row mb-1rem">
+              <div class="col-custom">
+                SPH 
+                <button class="info-btn" id="sphInfoBtn2">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+              <div class="col-custom">
+                CYL 
+                <button class="info-btn" id="cylInfoBtn2">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+              <div class="col-custom">
+                Axis 
+                <button class="info-btn" id="axisInfoBtn2">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="row mb-2-5rem">
+              <div class="col-custom"  id="sphRtMob">
+                <div class="input-group">
+                  <select class="custom-select">
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-custom" id="cylRtMob">
+                <div class="input-group">
+                  <select class="custom-select">
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-custom" id="axisRtMob">
+                <div class="input-group">
+                  <select class="custom-select"></select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-1rem hide-single-vision">
+              <div class="col-custom">
+                ADD 
+                <button class="info-btn" id="addInfoBtn2">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+              <div class="col-custom" id="sghtRtMob">
+                SG Ht 
+                <button class="info-btn" id="sghtInfoBtn2">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="row mb-2-5rem pb-0-5rem hide-single-vision">
+              <div class="col-custom" id="addRtMob">
+                <div class="input-group">
+                  <select class="custom-select appearance-none">
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-custom" id="sghtRtMob">
+                <div class="input-group">
+                  <select class="custom-select appearance-none">
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="section_heading_mob section_os border-top-lightgrey3">
+              <span class="font-bold">OS</span><span class="small-text">(Left Eye)</span>
+            </div>
+
+            <div class="row mb-1rem">
+              <div class="col-custom">
+                SPH 
+                <button class="info-btn" id="sphInfoBtn3">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+              <div class="col-custom">
+                CYL 
+                <button class="info-btn" id="cylInfoBtn3">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+              <div class="col-custom">
+                Axis
+                <button class="info-btn" id="axisInfoBtn3">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="row mb-2-5rem">
+              <div class="col-custom" id="sphLtMob">
+                <div class="input-group">
+                  <select class="custom-select"></select>
+                </div>
+              </div>
+
+              <div class="col-custom" id="cylLtMob">
+                <div class="input-group">
+                  <select class="custom-select"></select>
+                </div>
+              </div>
+
+              <div class="col-custom" id="axisLtMob">
+                <div class="input-group">
+                  <select class="custom-select">
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row mb-1rem hide-single-vision">
+              <div class="col-custom">
+                ADD 
+                <button class="info-btn" id="addInfoBtn3">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+              <div class="col-custom">
+                SG Ht 
+                <button class="info-btn" id="sghtInfoBtn3">
+                  <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5"><g id="noun_Info_940946" transform="translate(-5.75 -5.75)"><g id="Group_1" data-name="Group 1" transform="translate(6 6)"><path id="Path_1" data-name="Path 1" d="M15.5,6A9.5,9.5,0,1,0,25,15.5a.432.432,0,1,0-.864,0,8.618,8.618,0,1,1-.155-1.646.432.432,0,1,0,.843-.169A9.5,9.5,0,0,0,15.5,6Zm-.216,4.318a.864.864,0,1,0,.864.864A.864.864,0,0,0,15.284,10.318Zm-1.336,2.591a.432.432,0,0,0,.04.864h1.08v6.045h-1.12a.432.432,0,0,0,.04.864h3.023a.432.432,0,1,0,0-.864h-1.08V13.341a.432.432,0,0,0-.432-.432H13.948Z" transform="translate(-6 -6)" stroke-width="0.5"></path></g></g></svg>
+                </button>
+              </div>
+            </div>
+
+
+            <div class="row mb-2-5rem pb-0-5rem hide-single-vision">
+              <div class="col-custom" id="addLtMob">
+                <div class="input-group">
+                  <select class="custom-select appearance-none">
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-custom" id="sghtLtMob">
+                <div class="input-group">
+                  <select class="custom-select appearance-none">
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="section_heading_mob section_os">
+              <span class="prescription-row-title">PD</span> 
+              <span class="small-text">(Pupillary Distance)</span>
+            </div>
+
+            <div class="row">
+              <div class="col-custom" id="pdMob">
+                <select class="custom-select appearance-none">
+                </select>
+              </div>
+              <div class="col-custom" id="pdRtMob">
+                <label class="custom-label">Right PD</label>
+                <select class="custom-select appearance-none">
+                </select>
+              </div>
+              <div class="col-custom" id="pdLtMob">
+                <label class="custom-label">Left PD</label>
+                <select class="custom-select appearance-none">
+                </select>
+              </div>
+            </div>
+          </div>
+              
+          <div class="row mx-0">
+            <label class="check-container">
+              <div class="option-title">TWO PD Number</div>
+              <input type="checkbox" name="pdCount" id="isTwoPd" onchange="isTwoPdUpdate()">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+              
+          
+          <div class="row prescription-upload-row border-top-lightgrey3 mb-0">
+            <div class="upload-container">
+              <div class="upload-icon-container mb-1rem">
+                <img src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/upload_ffd4fde4-9252-441a-bed7-a544eddab69a.svg?v=1623707540" alt="upload" src="https://cdn.shopify.com/s/files/1/0046/6966/9491/files/upload_ffd4fde4-9252-441a-bed7-a544eddab69a.svg?v=1623707540">
+              </div>
+
+              <div class="upload-title">
+                <strong>Upload Your Prescription</strong> (Optional)
+              </div>
+
+              <div class="upload-file-button">
+                <label for="file">Select Prescription File</label>
+                <input type="file"  name="file" id="file" accept="application/pdf" style="display:none;">
+              </div>
+
+              <div class="file-uploaded">
+                <div class="mb-1rem">
+                  <a class="btn-sm btn-primary-file" href="" target="_blank">View Prescription File</a> 
+                </div>
+                <div>
+                  <a class="btn-sm btn-secondary-file" onclick="removeFile()">Remove File</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="confirm-prescription" disabled="true">
+            <button onclick="updatePrescription()">Update Prescription</button>
+          </div>
+          
+        </div>
+      </div>
+    <div class="content-block steps" id="customerAddresses">
+      {% render 'customer-addresses' %}
+    </div>
+  </div>
+  -->
+</div>
+
+{% include "account-prescription" %}
+
+

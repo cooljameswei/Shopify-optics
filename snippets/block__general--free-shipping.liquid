@@ -1,0 +1,47 @@
+<div class="fsbar">
+<span class="fsbar__text" data-got-free-shipping="{{block.settings.gotFreeText|escape}}" data-free-shipping-text="{{block.settings.freeText|escape}}">
+{{block.settings.freeText}}
+</span>
+{% if block.settings.barHeight > 0 %}
+<div class="fsbar__bar" style="height: {{block.settings.barHeight}}px;">
+<div style="width: 0%" data-free-shipping-bar>
+
+</div>
+</div>
+{% endif %}
+</div>
+
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "freeShippingBar",
+    "name": "Free Shipping Bar [APP]",
+    "settings": [
+        {
+            "type": "text",
+            "label": "Free shipping text",
+            "id": "freeText",
+            "default": "Only %AMOUNT% more for free shipping!"
+        },
+        {
+            "type": "text",
+            "label": "Achieved shipping goal",
+            "id": "gotFreeText",
+            "default": "You are eligible for free shipping!"
+        },
+        {
+            "type": "range",
+            "label": "Bar height",
+            "id": "barHeight",
+            "default": 8,
+            "min": 0,
+            "max": 32,
+            "info": "If set to 0, bar will be disabled (hidden).",
+            "step": 1,
+            "unit": "px"
+        }
+    ]
+}
+{% endblockdef %}
+{% endcomment %}

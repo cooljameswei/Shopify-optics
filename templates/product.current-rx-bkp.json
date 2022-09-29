@@ -1,0 +1,123 @@
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+      }
+    },
+    "page": {
+      "type": "product-page__product",
+      "settings": {
+        "stock_enable": true,
+        "social_share_enable": true,
+        "collection": "",
+        "prescription_guide_url": "https:\/\/youtu.be\/k24pK6I9g5g",
+        "california_residents_warning": "<p>\n        <strong class=\"FShipPTxt\">California Proposition 65<\/strong>\n        Proposition 65 is a California regulation that requires special warnings to be presented to customers if a product contains certain quantities of chemicals or toxicants known to the State of California to cause cancer, birth defects, or other reproductive harm. The following warning applies to the products linking to this page:\n      <\/p><b>WARNING:<\/b> Reproductive Harm – <a href=\"https:\/\/www.p65warnings.ca.gov\/\" target=\"_blank\">https:\/\/www.p65warnings.ca.gov\/<\/a>"
+      }
+    },
+    "16474404958384229e": {
+      "type": "related-products-new",
+      "blocks": {
+        "3cfff91a-ff76-4c0c-9cdb-90cf92d03004": {
+          "type": "condition_block",
+          "settings": {
+            "title": "For Eyeglasses",
+            "product_types": "Eyeglasses",
+            "check_collection": "blik-vision",
+            "match_product_tags": "",
+            "match_product_types": "",
+            "match_product_meta": "Shape,Rim Type,Bridge Type",
+            "toggle_condition_state": true
+          }
+        },
+        "66d00c1f-7d41-4c5c-ad9f-13d9856e6e12": {
+          "type": "condition_block",
+          "settings": {
+            "title": "For Sunglasses",
+            "product_types": "Sunglasses",
+            "check_collection": "sunglasses",
+            "match_product_tags": "",
+            "match_product_types": "",
+            "match_product_meta": "Shape,Rim Type,Bridge Type,Gender",
+            "toggle_condition_state": true
+          }
+        },
+        "4eb49a96-769c-4086-bee8-6d8afc035cf1": {
+          "type": "condition_block",
+          "settings": {
+            "title": "For Contact Lenses",
+            "product_types": "Contact Lenses",
+            "check_collection": "contact-lenses",
+            "match_product_tags": "",
+            "match_product_types": "",
+            "match_product_meta": "",
+            "toggle_condition_state": true
+          }
+        },
+        "6cd87672-2bd9-43e6-84e2-cda4a40e35e0": {
+          "type": "condition_block",
+          "settings": {
+            "title": "For Eyewear Accessories",
+            "product_types": "Cleaning Cloth,Case,Miscellaneous,Lenses,Leash Cord",
+            "check_collection": "eyewear-accessories",
+            "match_product_tags": "",
+            "match_product_types": "",
+            "match_product_meta": "",
+            "toggle_condition_state": true
+          }
+        }
+      },
+      "block_order": [
+        "3cfff91a-ff76-4c0c-9cdb-90cf92d03004",
+        "66d00c1f-7d41-4c5c-ad9f-13d9856e6e12",
+        "4eb49a96-769c-4086-bee8-6d8afc035cf1",
+        "6cd87672-2bd9-43e6-84e2-cda4a40e35e0"
+      ],
+      "settings": {
+        "show_related_products": true,
+        "title": "RELATED PRODUCTS",
+        "ignore_collections": "frontpage,all",
+        "max_products_limit": 10
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "show_related_products": true,
+        "related_title": "Related Products"
+      }
+    },
+    "accessories_section": {
+      "type": "pdp-bottom-section",
+      "disabled": true,
+      "settings": {
+        "show": true,
+        "image": "shopify:\/\/shop_images\/Group_2435_1.jpg",
+        "mimage": "shopify:\/\/shop_images\/Group_2456.jpg",
+        "heading": "Questions about Versace 4361 Sunglasses?",
+        "subtitle": "Contact us for advice or more details.",
+        "phone": "+91718-412-0407",
+        "phone_subheading": "Call Us or order online",
+        "email_title": "Email an expert",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "164459309980a16adc": {
+      "type": "custom_featured_collection",
+      "settings": {
+        "title": "Accessories",
+        "collection": "eyewear-accessories"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "page",
+    "16474404958384229e",
+    "related",
+    "accessories_section",
+    "164459309980a16adc"
+  ]
+}

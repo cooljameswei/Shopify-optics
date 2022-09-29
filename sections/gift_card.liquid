@@ -1,0 +1,377 @@
+<style>
+
+{% assign base_font = settings.primaryFont %}
+
+{% assign font =base_font | font_face %}
+{% assign font = font | replace: '}', 'font-display: swap;}' %}
+{{ font }}
+
+
+* {
+  font-family: {{ base_font.family }}, {{ base_font.fallback_families }};
+  box-sizing: border-box;
+}
+
+body {
+  background: {{section.settings.background}};
+  margin: 0;
+  padding: 0;
+  color: {{section.settings.contentColor}};
+}
+
+.gift_card {
+  display: inline-block;
+  background-color: {{section.settings.cardColor}};
+  {% unless section.settings.cardBg == blank %}background-image: url({{section.settings.cardBg | img_url: '450x'}});{% endunless %}
+  {% unless section.settings.pattern %}
+  background-size: cover;
+  background-repeat: no-repeat;
+  {% endunless %}
+  border-radius: {{section.settings.cardRadius}}px;
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  margin: 32px auto;
+  overflow: hidden;
+}
+
+.gift_card img {
+  max-width: 100%;
+  height: auto;
+   -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  {% if section.settings.ribbon == 'black' %}
+  filter: brightness(0%);
+  {% endif %}
+}
+
+.gc__code {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+  background: {{section.settings.codeBg}};
+  color: {{section.settings.codeColor}};
+  font-size: 1.2em;
+}
+
+.gc__holder {
+  margin: auto auto;
+  margin-top: 32px;
+  width: 100%;
+  max-width: 650px;
+  display: block;
+  padding: 32px;
+  background: {{section.settings.contentBg}};
+  display: flex;
+  flex-direction: column;
+  border-radius: {{section.settings.contentRadius}}px;
+}
+
+.gc__value, .gc__expiry {
+  position: absolute;
+  font-size: 1.5em;
+  right: 20px;
+  top: 20px;
+  color: {{section.settings.valueColor}};
+  display: inline-flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.gc__expiry {
+  right: auto;
+  left: 20px;
+  text-align: left;
+  font-size: 0.85em;
+}
+
+.remaining {
+  font-size: 0.85em;
+}
+
+.gc__holder h1 {
+  margin: 0;
+}
+
+.gc__holder p {
+  line-height: 1.5em;
+}
+
+#qr-code {
+  margin: auto auto;
+  margin-top: 12px;
+}
+
+.qr-message {
+  margin: auto auto;
+}
+
+.logo {
+  {% if section.settings.logoPosition contains 'top' %}
+  margin-bottom: 24px;
+  {% else %}
+  margin-top: 24px;
+  {% endif %}
+  {% if section.settings.logoPosition contains 'right' %}
+  margin-left: auto;
+  {% endif %}
+  display: block;
+  max-width: 210px;
+  height: auto;
+}
+</style>
+
+{% assign customer = gift_card.customer %}
+
+<div class="gc__holder">
+{% if section.settings.logoPosition contains 'top' and section.settings.logo %}
+{% unless section.settings.customLogo != blank %}
+{% if settings.defaultLogo != nil %}
+  <img height="{{settings.defaultLogo.height}}" width="{{settings.defaultLogo.width}}" src="{{settings.defaultLogo | img_url: '256x'}}" alt="logo" class="logo logo--default">
+{% elsif settings.mobileLogo != nil %}
+  <img height="{{settings.mobileLogo.height}}" width="{{settings.mobileLogo.width}}" src="{{settings.mobileLogo | img_url: '256x'}}" alt="logo" class="logo logo--mobile">
+{% elsif settings.transparentLogo != nil %}
+  <img height="{{settings.transparentLogo.height}}" width="{{settings.transparentLogo.width}}" src="{{settings.transparentLogo | img_url: '256x'}}" alt="logo" class="logo logo--transparent">
+{% endif %}
+{% else %}
+<img height="{{section.settings.customLogo.height}}" width="{{section.settings.customLogo.width}}" src="{{section.settings.customLogo | img_url: '256x'}}" alt="logo" class="logo logo--transparent">
+{% endunless %}
+{% endif %}
+<h1>{{section.settings.title | replace: '%first_name%', customer.first_name | replace: '%last_name%', customer.last_name | replace: '%full_name%', customer.name | replace: '%email%', customer.email}}</h1>
+{{section.settings.content | replace: '%first_name%', customer.first_name | replace: '%last_name%', customer.last_name | replace: '%full_name%', customer.name | replace: '%email%', customer.email}}
+  <div class="gift_card">
+  <img src="{{ 'gift_card.png' | asset_url }}" alt="">
+    {% if section.settings.code %}
+    <div class="gc__code">
+    {{gift_card.code}}
+    </div>
+    {% endif %}
+    <div class="gc__value">
+    {% if section.settings.balance %}<div>{{gift_card.initial_value | money}}</div><div class="remaining">{{gift_card.balance | money}}</div>{% elsif section.settings.value %}{{gift_card.initial_value | money}}{% endif %}
+    </div>
+    {% if section.settings.expiry %}
+    <div class="gc__expiry">
+    {{gift_card.expires_on}}
+    </div>
+    {% endif %}
+  </div>
+  
+  {% if section.settings.qr %}
+    <div class="qr-message">{{section.settings.qrtext}}</div>
+    <div id="qr-code"></div>
+      <script>
+      new QRCode(document.getElementById("qr-code"), {
+        text: "{{ gift_card.qr_identifier }}",
+        width: 120,
+        height: 120
+      });
+    </script>
+  {% endif %}
+
+{% if section.settings.logoPosition contains 'bottom' and section.settings.logo %}
+{% unless section.settings.customLogo != blank %}
+{% if settings.defaultLogo != nil %}
+  <img height="{{settings.defaultLogo.height}}" width="{{settings.defaultLogo.width}}" src="{{settings.defaultLogo | img_url: '256x'}}" alt="logo" class="logo logo--default">
+{% elsif settings.mobileLogo != nil %}
+  <img height="{{settings.mobileLogo.height}}" width="{{settings.mobileLogo.width}}" src="{{settings.mobileLogo | img_url: '256x'}}" alt="logo" class="logo logo--mobile">
+{% elsif settings.transparentLogo != nil %}
+  <img height="{{settings.transparentLogo.height}}" width="{{settings.transparentLogo.width}}" src="{{settings.transparentLogo | img_url: '256x'}}" alt="logo" class="logo logo--transparent">
+{% endif %}
+{% else %}
+<img height="{{section.settings.customLogo.height}}" width="{{section.settings.customLogo.width}}" src="{{section.settings.customLogo | img_url: '256x'}}" alt="logo" class="logo logo--transparent">
+{% endunless %}
+{% endif %}
+</div>
+
+{% schema %}
+    {
+        "name": "Gift Card",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Branding"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show logo",
+            "default": false,
+            "id": "logo"
+          },
+          {
+            "type": "image_picker",
+            "label": "Custom logo",
+            "id": "customLogo",
+            "info": "If not selected, default logo will be rendered"
+          },
+          {
+            "type": "select",
+            "label": "Logo position",
+            "id": "logoPosition",
+            "options": [
+              {"value": "top-left", "label": "Top Left"},
+              {"value": "top-right", "label": "Top Right"},
+              {"value": "bottom-left", "label": "Bottom Left"},
+              {"value": "bottom-right", "label": "Bottom Right"}
+            ],
+            "default": "bottom-right"
+          },
+            {
+              "type": "header",
+              "content": "Content"
+            },
+            {
+              "type": "text",
+              "label": "Title",
+              "default": "Here's your gift card, %first_name%!",
+              "id": "title",
+              "info": "You can use %first_name%, %last_name%, %full_name%, %email% as variables inside your text."
+            },
+            {
+              "type": "richtext",
+              "label": "Description/Text",
+              "id": "content",
+              "default": "<p>Spend it wisely!</p>",
+              "info": "You can use %first_name%, %last_name%, %full_name%, %email% as variables inside your text."
+            },
+            {
+              "type": "richtext",
+              "label": "QR code instructions",
+              "id": "qrtext",
+              "default": "<p>Don't feel like typing? Show us this QR code and we'll scan it for you.</p>"
+            },
+            {
+                "type": "checkbox",
+                "label": "Show QR code",
+                "default": true,
+                "info": "Shows Gift Card's QR code as an image",
+              "id": "qr"
+            },
+            {
+                "type": "checkbox",
+                "label": "Show code",
+                "default": true,
+                "info": "Shows Gift Card's code in text format",
+              "id": "code"
+            },
+            {
+                "type": "checkbox",
+                "label": "Show value",
+                "default": true,
+                "info": "Show initial value",
+              "id": "value"
+            },
+            {
+                "type": "checkbox",
+                "label": "Show remaining balance",
+                "default": true,
+                "info": "Show remaining balance on the Gift Card",
+              "id": "balance"
+            },
+            {
+              "type": "checkbox",
+              "label": "Show expiry date",
+              "default": true,
+              "id": "expiry"
+            },
+            {
+              "type": "header",
+              "content": "Design"
+            },
+            {
+              "type": "color",
+              "id": "background",
+              "label": "Page background color",
+              "default": "#F4F4F4"
+            },
+            {
+              "type": "color",
+              "id": "contentBg",
+              "label": "Content background",
+              "default": "#FFFFFF"
+            },
+            {
+              "type": "color",
+              "id": "contentColor",
+              "label": "Context Text Color",
+              "default": "#000000"
+            },
+            {
+              "type": "range",
+              "label": "Content border radius",
+              "default": 10,
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "px",
+              "id": "contentRadius"
+            },
+            {
+              "type": "header",
+              "content": "Card design"
+            },
+            {
+              "type": "range",
+              "id": "cardRadius",
+              "label": "Card Border Radius",
+              "default": 20,
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "px"
+            },
+            {
+              "type": "color",
+              "id": "cardColor",
+              "label": "Card Color",
+              "default": "#868686"
+            },
+            {
+              "type": "image_picker",
+              "label": "Card Background",
+              "id": "cardBg"
+            },
+            {
+              "type": "checkbox",
+              "label": "Background is a pattern",
+              "info": "Enable this if you're using a small image as a background. It will repeat (tile) the image over the card.",
+              "id": "pattern",
+              "default": false
+            },
+            {
+              "id": "ribbon",
+              "type": "select",
+              "label": "Ribbon color",
+              "default": "black",
+              "options": [
+                {"value": "white", "label": "White"},
+                {"value": "black", "label": "Black"}
+              ]
+            },
+            {
+              "type": "color",
+              "label": "Value (balance) color",
+              "id": "valueColor",
+              "default": "#FFFFFF"
+            },
+            {
+              "type": "color",
+              "label": "Code color",
+              "info": "Text color for the code field",
+              "id": "codeColor",
+              "default": "#000000"
+            },
+            {
+              "type": "color",
+              "label": "Code background",
+              "info": "Background color for the code field",
+              "id": "codeBg",
+              "default": "#FFFFFF"
+            }
+        ]
+    }
+{% endschema %}

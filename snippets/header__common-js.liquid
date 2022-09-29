@@ -1,0 +1,65 @@
+<script>
+{% comment %}
+{% if section.settings.sticky %}
+(()=>{
+function debounce(func, timeout = 300){
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
+const headers = document.querySelectorAll('.main__navigation')
+const checkHs = ()=>{
+    headers.forEach(h=>{
+        if(window.scrollY > 120){
+            {% if section.settings.transparent and template == "index" %}h.classList.remove('page__header--transparent'){% endif %}
+            /*if(h.clientHeight) h.parentElement.style.height = h.clientHeight + 'px'*/
+            if(h.clientHeight) h.parentElement.style.height = '100px'
+            	return h.classList.add('page__header--sticky')
+        }
+        h.parentElement.style.height = null
+        h.classList.remove('page__header--sticky')
+        {% if section.settings.transparent and template == "index" %}h.classList.add('page__header--transparent'){% endif %}
+    })
+}
+window.addEventListener('scroll', debounce(checkHs, 75))
+window.addEventListener('resize', debounce(checkHs, 150))
+})()
+{% endif %}
+{% endcomment %}
+	/*----- Commented due to non-sticky header TW#33513957---*/
+  /*$(document).ready(function () {
+    $headerTopBar = $("#js-header-top-bar");
+    if($(window).width() > 767){
+       $(window).on("scroll resize", function () {
+         var topHeaderBarH, headerH;
+
+         0 < $headerTopBar.length &&
+           !$headerTopBar.hasClass("none") &&
+           ((topHeaderBarH = $headerTopBar.height()),
+            (headerH = $("#hdr_nav__menu").height()),
+
+            $(document).scrollTop() < topHeaderBarH
+            ? ($headerTopBar.css("top", "-" + parseInt($(document).scrollTop()) + "px"),
+               $("#hdr_nav__menu").css("top", parseInt(topHeaderBarH) - parseInt($(document).scrollTop()) + "px")
+              ) 
+            : (
+              $("#hdr_nav__menu").css("top", "0px"), 
+              $headerTopBar.css("top", "-" + topHeaderBarH + "px"),
+              $("body").css("padding-top", parseInt($headerTopBar.height()) + 55 + "px")
+            ));
+       });
+        (0 < $(".header-top-container").length && !$(".header-top-container").hasClass("none"))
+        ? ($headerTopBar.removeClass("none"),
+            $("#hdr_nav__menu").css("top", parseInt($headerTopBar.height()) + "px"),
+            $("body").css("padding-top", parseInt($headerTopBar.height()) + 55 + "px"),
+            parseInt($headerTopBar.height()))
+          : ($headerTopBar.addClass("none"), $("#hdr_nav__menu").attr("style", ""));
+        parseInt($("#header").height());
+        parseInt($(window).innerWidth());
+     
+    }
+  
+  });*/
+</script>

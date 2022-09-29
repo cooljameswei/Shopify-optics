@@ -1,0 +1,232 @@
+{%- comment -%} Grid Width Class Desktop {%- endcomment -%}
+{%- assign grid_width_class_desktop = 'boost-pfs-filter-grid-width-4' -%}
+{%- case section.settings.products_per_row -%}
+  {%- when 2 -%}
+    {%- assign grid_width_class_desktop = 'boost-pfs-filter-grid-width-2' -%}
+  {%- when 3 -%}
+    {%- assign grid_width_class_desktop = 'boost-pfs-filter-grid-width-3' -%}
+  {%- when 4 -%}
+    {%- assign grid_width_class_desktop = 'boost-pfs-filter-grid-width-4' -%}
+  {%- when 5 -%}
+    {%- assign grid_width_class_desktop = 'boost-pfs-filter-grid-width-5' -%}
+{%- endcase -%}
+
+{%- comment -%} Grid Width Class Mobile {%- endcomment -%}
+{%- assign grid_width_class_mobile = 'boost-pfs-filter-grid-width-mb-2' -%}
+{%- case section.settings.products_per_row_mobile -%}
+  {%- when 1 -%}
+    {%- assign grid_width_class_mobile = 'boost-pfs-filter-grid-width-mb-1' -%}
+  {%- when 2 -%}
+    {%- assign grid_width_class_mobile = 'boost-pfs-filter-grid-width-mb-2' -%}
+  {%- when 3 -%}
+    {%- assign grid_width_class_mobile = 'boost-pfs-filter-grid-width-mb-3' -%}
+{%- endcase -%}
+
+{%- comment -%} Soldout {%- endcomment -%}
+{%- assign sold_out = false -%}
+{%- assign sold_out_class = '' -%}
+{%- assign sold_out_text = section.settings.soldout_label -%}
+{%- unless product.available -%}
+  {%- assign sold_out = true -%}
+  {%- assign sold_out_class = 'sold-out' -%}
+{%- endunless -%}
+
+{%- comment -%} On Sale {%- endcomment -%}
+{%- assign on_sale = false -%}
+{%- assign sale_class = '' -%}
+{%- assign sale_text = section.settings.sale_label -%}
+{%- if product.compare_at_price > product.price -%}
+  {%- assign on_sale = true -%}
+  {%- assign sale_class =  'on-sale' -%}
+{%- endif -%}
+
+{%- comment -%} Product Image Size {%- endcomment -%}
+
+{%- assign default_default_size = "medium" -%}
+{%- assign default_sizes = "50vw" -%}
+{%- if default_size == nil -%}{%- assign default_size = default_default_size -%}{%- endif -%}
+{%- if sizes == nil -%}{%- assign sizes = default_sizes -%}{%- endif -%}
+
+{%- assign preview_image = product.featured_media.preview_image -%}
+{%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+{%- assign img_1 = '' -%}
+{%- if product.images[1] -%}
+{%- assign img_1 = product.images[1] -%}
+{%- else -%}
+{%- assign img_1 = product.images[0] -%}
+{%- endif -%}
+
+<div class="boost-pfs-filter-product-item boost-pfs-filter-product-item-grid {% if section.settings.active_image_swap and product.images[1] %} has-bc-swap-image{% endif %} {{ grid_width_class_desktop }} {{ grid_width_class_mobile }} {{ sold_out_class }} {{ sale_class }}" {% if section.settings.equal_height != 'false' %}data-image-width="{{ product.featured_image.width }}" data-image-height="{{ product.featured_image.height }}" {% endif %}>
+    {%- comment -%}{%- include 'boost-pfs-filter-json', product: product -%}{%- endcomment -%}
+    <div class="boost-pfs-filter-product-item-inner">
+        <div class="boost-pfs-filter-product-item-image" data-boost-image-loading-animation>
+          <a href="{{ product.url | within: collection }}" class="boost-pfs-filter-product-item-image-link lazyload" style="padding-top:{% unless preview_image == blank %}{{ 1 | divided_by: preview_image.aspect_ratio | times: 100 }}%{% else %}100%{% endunless %};">
+            <img class="boost-pfs-filter-product-item-main-image lazyload Image--lazyLoad"
+              data-src="{{ product.featured_image | img_url: '360x' }}"
+              data-srcset="
+                  {{ product.featured_image | img_url: '180x' }} 180w,
+                  {{ product.featured_image | img_url: '260x' }} 260w,
+                  {{ product.featured_image | img_url: '360x' }} 360w,
+                  {{ product.featured_image | img_url: '480x' }} 480w"
+              src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              sizes="{{ sizes }}"
+              data-img-flip ="{{ img_1 | img_url: '360x' }}"
+              data-img-flip-srcset ="
+                {{ img_1 | img_url: '180x' }} 180w,
+                {{ img_1 | img_url: '260x' }} 260w,
+                {{ img_1 | img_url: '360x' }} 360w,
+                {{ img_1 | img_url: '480x' }} 480w"
+              alt="{{ product.featured_image.alt | escape }}" />
+          </a>
+        </div>
+
+        {%- comment -%} PRODUCT LABEL {%- endcomment -%}
+        {%- if section.settings.show_sale_label or section.settings.show_sold_out_label or section.settings.show_lable_by_tag -%}
+        <div class="boost-pfs-filter-product-item-label">
+          {%- if sold_out and section.settings.show_sold_out_label -%}
+          <span class="soldout boost-pfs-filter-label">
+            {{ sold_out_text }}
+          </span>
+          {%- endif -%}
+          {%- if on_sale and section.settings.show_sale_label -%}
+          <span class="sale boost-pfs-filter-label">
+            {{ sale_text }}
+          </span>
+          {%- endif -%}
+
+          {%- comment -%} LABEL EXTEND BY TAG: New, Best, Featured {%- endcomment -%}
+          {%- if section.settings.show_lable_by_tag -%}
+            {%- assign showAll = true -%}
+            {%- if showAll -%}
+              {%- for tag in product.tags -%}
+                {% if forloop.index0 == 0%}
+                  <div class="tag_left">
+                {% elsif forloop.index0 == 2 %}
+                  <div class="tag_right">
+                {% endif %}
+                {%- if tag contains 'pfs:label-' -%}
+                  {%- assign t = tag | split: 'pfs:label-' -%}
+                  <span class="boost-pfs-filter-label tag {{ t }}">{{ t }}</span>
+                {%- endif -%}
+                {% if forloop.index0 == 1 %}
+                    </div>
+                {% elsif forloop.last %}
+                  </div>
+                {% endif %}
+              
+
+              {%- endfor -%}
+            {%- else -%}
+              {%- assign productTags = product.tags | reverse -%}
+              {%- for tag in productTags -%}
+                {%- if tag contains 'pfs:label-'-%}
+                  {%- assign t = tag | split: 'pfs:label-' -%}
+                  <span class="boost-pfs-filter-label tag {{ t }}">{{ t }}</span>
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+
+        <div class="boost-pfs-filter-product-bottom">
+          <a href="{{ product.url | within: collection }}" class="boost-pfs-filter-product-item-title">{{ product.title }}</a>
+          
+		  {%- if product.tags contains "pfs:delivery-" -%}	
+          	  {%- assign productTags = product.tags | reverse -%}
+           	  {%- for tag in productTags -%}
+                {%- if tag contains 'pfs:delivery-'-%}
+                  {%- assign t = tag | split: 'pfs:delivery-' -%}
+                  	<span class="boost-pfs-filter-label tag {{ t }}">{{ t }}</span>
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+          {% endif %}
+          
+          {%- if section.settings.show_vendor -%}
+            <p class="boost-pfs-filter-product-item-vendor">{{ product.vendor }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.show_product_review -%}
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+          {%- endif -%}
+
+          {%- if section.settings.show_price -%}
+            <p class="boost-pfs-filter-product-item-price">
+              {%- if on_sale -%}
+                <span class="boost-pfs-filter-product-item-sale-price">{{ product.price | money }}</span>
+                <s>{{ product.compare_at_price | money }}</s>
+              {%- else -%}
+                {%- if product.price_varies -%}
+                <span class="boost-pfs-filter-product-item-price-from-text">{{ section.settings.from }}</span>
+                {%- endif -%}
+                <span class="boost-pfs-filter-product-item-regular-price">{{ product.price | money }}</span>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+
+          {%- if section.settings.display_item_swatch -%}
+          {%- for product_option in product.options_with_values -%}
+            {%- if product_option.name == 'Color' or product_option.name == 'Colour' -%}
+              {%- assign product_option_count = product_option.values.size -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <ul class="boost-pfs-filter-item-swatch">
+            {%- for option in product.options -%}
+              {%- if option == 'Color' -%}
+                {%- assign index = forloop.index0 -%}
+                {%- assign colorlist = '' -%}
+                {%- assign color = '' -%}
+                {%- assign option_count = 0 -%}
+                {%- for variant in product.variants -%}
+                  {%- capture color -%}
+                    {{ variant.options[index] }}
+                  {%- endcapture -%}
+                  {%- unless colorlist contains color -%}
+                    {%- assign text = color | handleize -%}
+
+                    {%- if option_count < 4 and product_option_count > 0 -%}
+
+                        {%- if section.settings.swatch_color_display_type == 'swatch_color_display_type_image_color' -%}
+                        {%- assign icon-color-swatch = color | split: ' ' | handle | prepend: 'color-' | append: '.png' | file_url -%}
+                        {%- elsif section.settings.swatch_color_display_type == 'swatch_color_display_type_image_product' -%}
+                        {%- assign icon-color-swatch = variant.image.src | product_img_url: '24x' -%}
+                        {%- endif -%}
+
+                      <li>
+                        <div class="tooltip">
+                          {{color}}
+                        </div>
+                        <label data-value="{{ text }}" {%- if variant.image != null -%}  data-img="{{ variant.image.src | product_img_url: '300x' }} 300w"{%- endif -%} style="{% if section.settings.swatch_color_display_type != 'swatch_color_display_type_color' %}background-image: url({{ icon-color-swatch }});{% endif %} background-color: {{ color | split: ' ' | last | handle }};"></label>
+                        {%- assign option_count = option_count | plus : 1 -%}
+                      </li>
+                    {%- endif -%}
+
+                    {%- capture tempList -%}
+                      {{ colorlist | append: color | append: ' ' }}
+                    {%- endcapture -%}
+
+                    {%- assign colorlist = tempList -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- for product_option in product.options_with_values -%}
+              {%- if product_option.name == 'Color' or product_option.name == 'Colour' -%}
+                {%- if product_option.values.size > 4 -%}
+                <li class="boost-pfs-filter-item-swatch-more">
+                  <a href="{{ product.url}}" title="More Color">
+                    + {{ product_option.values.size | minus : 4 }}
+                  </a>
+                </li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+          {%- endif -%}
+        </div>
+    </div>
+</div>

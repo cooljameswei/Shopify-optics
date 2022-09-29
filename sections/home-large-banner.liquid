@@ -1,0 +1,432 @@
+<div class="page-width rb-best-sellers-banner padding-fix">
+  <div class="rb-container">
+    {% if section.settings.banner_title != blank %}
+    <h3 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.banner_title}}</h3>
+    {% endif %}
+    {% if section.settings.best_seller_banner_enable %}
+    <div class="cover-intro hide-in-mobile" style="background-image:url('{{ section.settings.background_img | img_url: '1250x1250' }}')">
+      <a href="{{section.settings.background_link}}" style="display:block; width:100%; height:100%;"></a>
+   	  <div class="banner-info">
+        <div class="text-wrapper rb-col-lg-5 rb-col-md-7">
+          <div class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.content}}</div>
+        </div>
+        <div class="right-side-content">
+          <h2>{{section.settings.heading-1}}</h2>
+          <h3>{{section.settings.sub-heading-1}}</h3>
+          <h2 class="even-heading">{{section.settings.heading-2}}</h2>
+          <h3>{{section.settings.sub-heading-2}}</h3>
+        </div>
+      </div> 
+    </div>
+    <div class="cover-intro hide-in-desktop" style="background-image:url('{{ section.settings.mbackground_img | img_url: '1250x1250' }}')">
+      <a href="{{section.settings.background_link}}" style="display:block; width:100%; height:100%;"></a>
+      <div class="banner-info">
+        <div class="text-wrapper">
+          <div class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.content}}</div>
+        </div>
+        <div class="right-side-content">
+          <div class="left-content">
+            <h2>{{section.settings.heading-1}}</h2>
+            <h3>{{section.settings.sub-heading-1}}</h3>
+          </div>
+          <div class="right-content">
+            <h2 class="even-heading">{{section.settings.heading-2}}</h2>
+          	<h3>{{section.settings.sub-heading-2}}</h3>
+          </div>
+        </div>  
+      </div> 
+    </div>
+	{% endif %}
+  </div>
+
+</div>
+{% schema %}
+{
+"name": "Home Large Banner",
+"settings": [
+	{
+	  "type": "text",
+      "id": "banner_title",
+      "label": "Title",
+	  "default":"OUR BEST SELLER ICONS"	
+	},
+	{
+	  "type":"checkbox",
+	  "id":"best_seller_banner_enable",
+	  "label":"Enable Large Banner",
+	  "default":true
+	},
+    {
+      "type": "image_picker",
+      "id": "background_img",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mbackground_img",
+      "label": "Mobile Background Image"
+    },
+	{
+      "type": "textarea",
+      "id": "content",
+      "label": "Content"
+    },
+	{
+      "type": "text",
+      "id": "heading-1",
+      "label": "Right Heading-1"
+    },
+	{
+      "type": "text",
+      "id": "sub-heading-1",
+      "label": "Right Sub Heading-1"
+    },
+	{
+      "type": "text",
+      "id": "heading-2",
+      "label": "Heading-2"
+    },
+	{
+      "type": "text",
+      "id": "sub-heading-2",
+      "label": "Right Sub Heading-2"
+    },
+    {
+      "id": "background_link",
+      "type": "url",
+      "label": "Backround Link"
+    }
+	],
+  "presets": [
+    {
+        "name": "home-large-banner",
+        "category": "Image"
+    }
+  ]
+}
+
+{% endschema %}
+
+<style>
+.rb-best-sellers-banner .hide-in-desktop {
+	display: none;
+}
+
+.rb-best-sellers-banner .hide-in-mobile {
+	display: block;
+}
+
+.rb-best-sellers-banner .rb-container {
+	margin-bottom: 10px;
+}
+
+
+
+.rb-best-sellers-banner .rb-container .cover-intro {
+	padding-top: 0;
+	position: relative;
+	background-position: center center;
+	background-size: cover;
+	height: 415px;
+	background-repeat: no-repeat;
+}
+
+.rb-best-sellers-banner .rb-container .cover-intro a:hover {
+	background-color: rgba(0, 0, 0, .3);
+}
+.rb-best-sellers-banner .rb-container .cover-intro .rb-col-md-7 {
+    -webkit-box-flex: 0;
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+    display: flex;
+    flex-wrap: wrap;
+} 
+.cover-intro{
+	position:relative;  
+}  
+.rb-best-sellers-banner .rb-container .cover-intro .text-wrapper {
+    position: absolute;
+    top:42%;
+  	left:6%;
+}
+.rb-best-sellers-banner .rb-container .cover-intro .text-wrapper div {
+    text-transform: uppercase;
+    text-align: center;
+	font-weight: 600;
+}  
+.rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2{
+  font-size:55px;
+  font-weight:700;
+  letter-spacing:6px;
+  /*color:#5f5f60;*/
+  color:#4a4949;
+}
+.rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 span{
+  font-size:25px;
+  display:block;
+  line-height:1;
+  /*color:#5f5f60;*/
+  color:#4a4949;
+}  
+.cover-intro .right-side-content{
+	position: absolute;
+    top: 21%;
+    right: 10px;
+    width: 25%;
+  	z-index:9; /* to fix z-index on mobile */
+}
+.cover-intro .right-side-content h2{
+  font-size:26px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  letter-spacing:4px;
+  /*color:#5f5f60;*/
+  color:#464646;
+  font-family:'Lato';
+}
+.rb-best-sellers-banner .rb-container .cover-intro .right-side-content h3 {
+	font-size: 16px;
+	font-weight: 300;
+	letter-spacing: 1px;
+	text-align: left;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.2;
+  	/*color:#5f5f60;*/
+  	color:#2c2b2b;
+}
+.cover-intro .right-side-content h2.even-heading{
+  	padding-top:46px;
+}
+ 
+@media(min-width:769px) and (max-width:1199px) {
+  .rb-best-sellers-banner .rb-container .cover-intro {
+	background-size:contain;
+	
+	}
+}
+@media(max-width:1050px){
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2{
+  	font-size: 40px;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 span{
+  	font-size:20px;
+  }
+  .cover-intro .right-side-content{
+  	top:26%;
+  }
+  .cover-intro .right-side-content h2{
+  	font-size: 22px;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content h3{
+  	font-size:14px;
+  }
+  .cover-intro .right-side-content h2.even-heading {
+    padding-top: 28px;
+  }
+}
+@media(max-width:991px){
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 {
+    	font-size: 40px;
+   }
+   .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 span {
+    	font-size: 16px;
+   }
+  .cover-intro .right-side-content h2 {
+    font-size: 18px;
+   }
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content h3 {
+    font-size: 12px;
+   }
+  .cover-intro .right-side-content {
+    top: 30%;
+	}	
+}  
+@media(max-width:800px){
+  .rb-best-sellers-banner .hide-in-mobile{
+  	display:none;
+  }
+  .rb-best-sellers-banner .hide-in-desktop{
+  	display:block;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro {
+	 background-image:url('{{ section.settings.background_img | img_url: "800x800" }}');
+	 padding-top: 0;
+     position: relative;
+     background-position: center center;
+     background-size: contain;
+	 background-repeat: no-repeat;
+     height: 700px;  
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper{
+  	top:14%;
+    width:100%;
+    padding:0px;
+    left: 0;
+  }
+   .rb-best-sellers-banner .rb-container .cover-intro .right-side-content{
+  	display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    width: 74%;
+    top: 40%;
+    right: 10%;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2{
+  	font-size: 50px;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper div{
+      width:100%;
+  }
+  .cover-intro .right-side-content h2.even-heading{
+  	padding-top:0px;
+  }
+  .right-side-content .left-content{
+  	width: 45%;
+  }
+  .right-side-content .right-content{
+  	width: 49%;
+  }
+  .cover-intro .right-side-content h2{
+  	font-size: 22px;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content h3{
+  	font-size: 16px;
+  }
+}
+@media(max-width:767px){
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content{
+  	width: 69%;
+    top: 39%;
+    right: 10%;
+    margin-right: 10px;
+    justify-content: flex-start;
+  }
+  .right-side-content .left-content {
+    width: 44%;
+    margin-right: 4%;
+	}
+  .right-side-content .right-content {
+    width: 47%;
+	}
+  .rb-best-sellers-banner .rb-container .cover-intro{
+  	height: 600px;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper{
+  	top:14%;
+  }
+  .cover-intro .right-side-content h2 {
+    font-size: 18px;
+  }
+}
+@media(max-width:650px){
+	.rb-best-sellers-banner .rb-container .cover-intro {
+      background-image:url('{{ section.settings.background_img | img_url: '470x425' }}');
+      padding-top: 0;
+      position: relative;
+      background-position: center center;
+      background-size: contain;
+	  background-repeat: no-repeat;
+      height: 415px;  
+	}
+  
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper{
+  	top:12%;
+    width:100%;
+    padding:0px;
+    left: 0;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2{
+  	font-size:50px;
+    text-align:center;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 span{
+  	font-size:20px;
+    line-height:0.5;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content{
+  	width: 68%;
+    top: 38%;
+    right: 5%;
+  }
+  .cover-intro .right-side-content h2{
+  	font-size:14px;
+    letter-spacing: 1px;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content h3{
+  	font-size: 12px;
+    letter-spacing: 0;
+  }
+  .cover-intro .right-side-content h2.even-heading{
+  	padding-top:0px;
+  }
+  .right-side-content .left-content {
+    width: 36%;
+  }
+  .right-side-content .right-content {
+    width: 47%;
+  }
+}
+@media(max-width:550px){
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content{
+  	width: 72%;
+  }
+  .right-side-content .left-content {
+    width: 40%;
+  }
+} 
+
+@media(max-width:450px){
+	.cover-intro .right-side-content h2{
+  		font-size:14px;
+  }	
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper{
+  	top:14%;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 {
+    font-size: 38px;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 span {
+    font-size: 14px;
+  }
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content {
+    top: 39%;
+    width:80%;
+    right:4%;
+  }
+  .right-side-content .left-content {
+    width: 45%;
+	}
+  .rb-best-sellers-banner .rb-container .cover-intro .right-side-content h3{
+  	font-size:11px;
+  }
+}  
+@media(max-width:400px){
+  	.rb-best-sellers-banner .rb-container .cover-intro .right-side-content {
+    	width: 88%;
+    	right: 0%;
+	}
+	.right-side-content .left-content {
+    	width: 46%;
+	}
+}
+@media(max-width:360px){
+	.rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 {
+    	font-size: 24px;
+	}
+  	.rb-best-sellers-banner .rb-container .cover-intro .text-wrapper h2 span {
+    	font-size: 12px;
+	}
+  	.rb-best-sellers-banner .rb-container .cover-intro .text-wrapper {
+    	top: 22%;
+	}
+  	.cover-intro .right-side-content h2 {
+      font-size: 12px;
+      margin-bottom:4px;
+	}
+  	.rb-best-sellers-banner .rb-container .cover-intro .right-side-content {
+      width: 87%;
+      top: 41%;
+    }
+}  
+</style>

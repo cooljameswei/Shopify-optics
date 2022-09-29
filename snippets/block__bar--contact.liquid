@@ -1,0 +1,53 @@
+{%- if settings.storeEmail != blank and block.settings.showEmail -%}
+   <a class="margin__horizontal" href="mailto:{{settings.storeEmail}}">E-mail us</a> 
+{%- endif -%}
+{%- if settings.storePhone != blank and block.settings.showPhone -%}
+    <a class="margin__horizontal" href="tel:{{settings.storePhone}}"> {{ settings.storePhone }}</a>
+{%- endif -%}
+
+{% comment %}
+{% blockdef %}
+{
+    "type": "contact",
+    "name": "Contact",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Show for desktop",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "enabledMobile",
+            "label": "Show for mobile",
+            "default": true
+        },
+        {
+            "id": "align",
+            "label": "Alignment",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "auto"
+        },
+        {
+            "id": "showPhone",
+            "label": "Show phone",
+            "type": "checkbox",
+            "default": true
+        },
+        {
+            "id": "showEmail",
+            "label": "Show email",
+            "type": "checkbox",
+            "default": true
+        }
+    ]
+    }
+{% endblockdef %}
+{% endcomment %}

@@ -1,0 +1,303 @@
+html {
+	font-size: 10px;
+}
+
+body .shipping-page * {
+	font-family: Lato,sans-serif;
+}
+
+.shipping-page {
+	width: 100%;
+	{% if section.settings.max_width %}
+		max-width: {{section.settings.max_width}};
+	{% endif %}
+
+	{% if section.settings.pageContentColor %}
+		color: {{section.settings.pageContentColor}};
+	{% endif %}
+
+	padding: 0 2rem;
+	line-height: 1.375;
+	margin: 25px auto 30px;
+	font-family: Lato, sans-serif;
+}
+
+.shipping-page:after, .shipping-page .page-width:after, .rte--indented-images:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+
+{% if section.settings.enable_title %}
+
+	.shipping-page h1.page-title {
+		font-size: 2.25em;
+		font-family: Lato,HelveticaNeue,"Helvetica Neue",sans-serif;
+		line-height: 1.1;
+	    font-weight: bold;
+		letter-spacing: 0;
+	    position: relative;
+    	margin: 0 0 0.625em;;
+	    text-transform: uppercase;
+		z-index: 2;
+		{% if section.settings.pageTitleHeaderColor %}
+			color: {{section.settings.pageTitleHeaderColor}};
+		{% endif %}
+		{% if section.settings.title_align %}
+			text-align: {{section.settings.title_align}};
+		{% endif %}
+	}
+
+	.shipping-page h1.page-title:after {
+		content: url({{ 'redline-with-circle.png' | asset_img_url: 'master', format: 'pjpg' }});
+    	position: absolute;
+    	bottom: -37px;
+    	left: 0;
+    	right: 0;
+		z-index: 2;
+	}
+{% endif %}
+
+
+{% if section.settings.content_padding %}
+	.shipping-page .content-block {
+		padding: {{section.settings.content_padding}};
+	}
+{% endif %}
+
+.shipping-page .shipping-head-sec {
+    
+	background: url({{ 'shipingbanner.jpg' | asset_img_url: '750', format: 'pjpg' }}) no-repeat;
+    background-size: cover;
+    height: 475px;
+    margin-top: -90px;
+    position: relative;
+}
+
+.shipping-page .shipping-head-text {
+    position: absolute;
+    left: 60px;
+    top: 260px;
+}
+
+.shipping-page .shipping-head-text h2 {
+	color: #fff;
+    margin: 0 0 10px 0;
+    font-size: 24px;
+	font-family: Lato, sans-serif;
+	font-weight: 600;
+	line-height: 1.1;
+}
+
+.shipping-page .shipping-head-text a {
+	{% unless section.settings.enable_link_colors %}
+		color: {{section.settings.linksColor}};
+	{% endunless %}
+	color: #f05355;
+	text-decoration: none;
+    background-color: transparent;
+	font-family: Lato, sans-serif;
+    transition: color .1s ease-in,background-color .1s ease-in;
+}
+
+.shipping-page .shipping-head-text a:hover {
+	{% unless section.settings.enable_link_colors %}
+		color: {{section.settings.linksHoverColor}};
+	{% endunless %}
+	color:#f05355;
+}
+
+.shipping-page .rte--indented-images > p, .shipping-page .ship-comitment p {
+	color: #424242;
+    font-size: 17px;
+    margin-bottom: 25px;
+    line-height: 26px;
+	font-family: Lato, sans-serif;
+}
+
+.shipping-page .ship-comitment p {
+	color: #ffffff;
+}
+
+.shipping-page .shipping-head-text p {
+	color: #fff;
+	font-size: 15.87px;
+	margin-bottom: 25px;
+    line-height: 26px;
+	font-family: Lato, sans-serif;
+}
+
+.shipping-page ul {
+	list-style: none;
+    margin: 50px 0;
+	padding:0px;
+}
+
+.shipping-page ul li {
+	color: #424242;
+	font-size: 17px;
+	margin-bottom: 25px;
+	line-height: 26px;
+	font-weight: 600;
+	font-family: Lato,sans-serif;
+}
+
+.shipping-page ul li:last-child {
+	margin-bottom:0;
+}
+
+.shipping-page ul li img {
+	position: relative;
+	top: -2px;
+}
+
+.shipping-page ul li img:last-child {
+	margin: 0 10px 0 0;
+}
+
+.shipping-page .rte--indented-images h3 {
+	font-size: 1.5em;
+	line-height: 1.1;
+    margin: 0 0 0.625em;
+    font-weight: bold;
+    color: #030303;
+	font-family: Lato,sans-serif;
+}
+
+.shipping-page .full-with-sec {
+	background: url(https://cdn.shopify.com/s/files/1/0046/6966/9491/t/7/assets/shipping-bg-1.jpg) no-repeat;
+	width: calc(100vw - 9px);
+	position: relative;
+	margin-left: -50vw;
+	margin-top: 50px;
+	left: 50%;
+	padding: 35px 0 10px 0;
+	color: #fff;
+	background-size: cover;
+}
+
+.shipping-page .full-with-sec .page-width {
+	padding: 0 60px;
+    margin: auto;
+	{% if section.settings.max_width %}
+		max-width: {{section.settings.max_width}};
+	{% endif %}
+}
+
+.shipping-page .ship-comitment h3 {
+	font-family: Lato, sans-serif;
+	line-height: 1.1;
+    margin: 0 0 0.625em;
+    font-weight: bold;
+    color: #030303;
+	font-size: 1.5em;
+
+}
+
+.shipping-page .ship-comitment ol {
+	list-style: none;
+	margin: 40px 0 40px 0;
+	padding: 0;
+	counter-reset: my-sec-counter;
+}
+
+.shipping-page .ship-comitment ol li {
+	font-size: 17px;
+	margin-bottom: 35px;
+	line-height: 26px;
+	position: relative;
+	padding-left: 65px;
+	font-family: Lato, sans-serif;
+}
+
+.shipping-page .ship-comitment ol li:before {
+	counter-increment: my-sec-counter;
+	content: "" counter(my-sec-counter) "";
+	background: #e65557;
+	width: 51px;
+	height: 40px;
+	position: absolute;
+	left: 0;
+	border-radius: 50%;
+	top: -15px;
+	padding: 13px 0 0 0;
+	text-align: center;
+}
+
+
+.shipping-page h4.BottomText {
+	color: #424242;
+	font-size: 22px;
+	text-align: center;
+	margin: 100px 0 -35px 0;
+	font-family: Lato, sans-serif;
+}
+@media(max-width:1256px){
+	.shipping-page .full-with-sec{
+		width:100vw;
+	}
+}
+@media only screen and (max-width: 767px) {
+	{% if section.settings.enable_title %}
+		.shipping-page h1.page-title {
+			margin-bottom: 0;
+			font-size: 1.875em;
+		}
+	{% endif %}
+	.shipping-page {
+		margin-bottom: 0px;
+		padding: 0 1.5rem;
+	}
+	.shipping-page .shipping-head-sec {
+		height: 200px;
+		margin-top: 0;
+	}
+	.shipping-page .shipping-head-text {
+		position: relative;
+		top: 62px;
+		left: auto;
+		padding: 10px 16px;
+	}
+	.shipping-page .shipping-head-text h2 {
+		font-size: 15px;
+	}
+	.shipping-page .shipping-head-text p {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.shipping-page .ship-comitment ol li:before {
+		top: 0;
+	}
+	.shipping-page h1.small--text-center {
+		margin-bottom: 0;
+	}
+	.shipping-page ul {
+		margin: 0;
+		padding: 0;
+	}
+	.shipping-page h4.BottomText {
+		font-size: 15px;
+		margin: 48px 0 -35px 0;
+	}
+
+	.shipping-page .full-with-sec .page-width {
+		padding: 0 15px;
+	}
+	.wrapper--bottom {
+		padding-top: 20px;
+	}
+}
+
+@media only screen and (min-width: 767px) {
+	.shipping-page .shipping-head-sec {
+    
+		background: url({{ 'shipingbanner.jpg' | asset_img_url: 'master', format: 'pjpg' }}) no-repeat;
+    	background-size: cover;
+    	height: 475px;
+    	margin-top: -90px;
+    	position: relative;
+	}
+
+}

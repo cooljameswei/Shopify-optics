@@ -1,0 +1,7 @@
+<div class="product__badges {% if block.settings.noMargin or noMargin %}margin__bottom--reduced{%endif-%}" {{block.shopify_attributes}}>
+{% if block.settings.badge != blank %}
+<img class="lazyload" height="{{block.settings.badge.height}}" width="{{block.settings.badge.width}}" loading="lazy" src="{{block.settings.badge | img_url: '10x'}}" data-src="{{block.settings.badge | img_url: '560x'}}" />
+{% else %}
+<img class="lazyload" loading="lazy" data-src="{{'badges.png' | asset_img_url: '560x'}}" />
+{% endif %}
+</div>

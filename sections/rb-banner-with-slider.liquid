@@ -1,0 +1,257 @@
+<div class="page-width banner-3-img padding-fix">
+
+  <div class="rb-container">
+    <div class="rb-row">
+      <div class="rb-col-md-6">
+        <div class="rb-banner-with-slider">
+         <div class="item-wrap">
+           <a href="https://designeroptics.com/collections/ray-ban">
+              <img src="{{'RB2283ST.jpg' | asset_url}}" alt="Banner-1"/>
+           </a>
+         </div>  
+         <div class="item-wrap">
+           <a href="https://designeroptics.com/collections/ralph-lauren">
+              <img src="{{'RL8188Q.jpg' | asset_url}}" alt="Banner-3"/>
+           </a>
+         </div>
+         <div class="item-wrap">
+          <a href="https://designeroptics.com/collections/versace">
+              <img src="{{'VE2240.jpg' | asset_url}}" alt="Banner-4"/>
+           </a>
+         </div>
+         <div class="item-wrap">
+           <a href="https://designeroptics.com/collections/vogue">
+              <img src="{{'VO5392S.jpg' | asset_url}}" alt="Banner-5"/>
+           </a>
+         </div>  
+        </div>
+      </div>
+      <div class="rb-col-md-6">
+        <div class="item-slide sunglasses-bg wow animated" style="visibility: visible; background-image:url('{{ section.settings.image_2 | img_url: '600x600' }}')">
+          <a href="{{ section.settings.image_2_link }}">
+            <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{ section.settings.image_2_title }}</span>
+          </a>
+        </div>
+        <div class="item-slide eyeglasses-bg" style="background-image:url('{{ section.settings.image_3 | img_url: '600x600' }}')">
+          <a href="{{ section.settings.image_3_link }}">
+            <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{ section.settings.image_3_title }}</span>
+
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<link rel="stylesheet" type="text/css" href="{{'slick.css' | asset_url}}"/>
+<link rel="stylesheet" type="text/css" href="{{'slick-theme.css' | asset_url}}"/>  
+<script type="text/javascript" src="{{'slick.min.js' | asset_url}}"></script>
+<script>
+	$('.rb-banner-with-slider').slick({
+      	infinite: true,
+		autoplay:  true,
+		arrows:  true,
+		speed: 1000,
+	})
+</script>
+{% schema %}
+{
+"name": "Slider + Two Images",
+"settings": [
+{
+"type": "image_picker",
+"id": "image_2",
+"label": "Right Top Image"
+},
+{
+"type": "text",
+"id": "image_2_title",
+"label": "Image 2 Title",
+"default": "Sunglasses"
+},
+{
+"id": "image_2_link",
+"type": "url",
+"label": "Right Top Link"
+},
+{
+"type": "image_picker",
+"id": "image_3",
+"label": "Right Bottom Image"
+},
+{
+"type": "text",
+"id": "image_3_title",
+"label": "Image 3 Title",
+"default": "Eyeglasses"
+},
+{
+"id": "image_3_link",
+"type": "url",
+"label": "Right Bottom Link"
+}
+],
+
+"presets": [
+{
+"name": "Slider + Two Images",
+"category": "Image"
+}
+]
+}
+
+
+{% endschema %}
+{{ 'home-page.css' | asset_url | stylesheet_tag }}
+<style>
+.banner-3-img .rb-row{
+display:flex;
+flex-wrap: wrap;
+padding-right: 13px;
+}
+
+.banner-3-img .rb-row .banner-wrapper{
+height: 527px;
+margin: 0 14.8px 0 14px;
+background-repeat: no-repeat;
+background-size: cover;
+position: relative;
+box-sizing: border-box;
+background-position: center center;
+}
+
+.banner-3-img .rb-row .banner-wrapper  a:hover{
+background-color:rgba(0,0,0,.3);
+}
+
+.banner-wrapper .label-logo {
+position: absolute;
+height: auto;
+width: 210px;
+top: 0;
+left: calc(50% - 105px);
+}
+
+.banner-3-img .banner-wrapper .label-logo svg{
+width: 45%;
+height: auto;
+display: block;
+margin: 0 auto;
+}
+
+.banner-3-img .rb-col-md-6{
+-webkit-box-flex: 0;
+flex: 0 0 50%;
+max-width: 50%;
+}
+
+.banner-3-img .rb-row .item-slide{
+padding: 0px;
+height: 255px;
+margin-bottom: 17px;
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+position: relative;
+}
+
+.banner-3-img .rb-row .item-slide span{
+text-align: center;
+width: 100%;
+box-sizing: border-box;
+font-size: 30px;
+position: absolute;
+bottom: 6%;
+left: 0;
+color: #fff;
+}
+
+.banner-3-img .rb-row .item-slide  a{
+width: 100%;
+height: 100%;
+display: block;
+}
+
+.banner-3-img .rb-row .item-slide  a:hover{
+background-color:rgba(0,0,0,.3);
+}
+.rb-banner-with-slider{
+	margin-bottom:30px;  
+}
+@media(max-width:1024px){
+  .banner-3-img .rb-row .item-slide{
+  	max-height:202px;
+  }
+  .rb-banner-with-slider{
+  	margin-right:15px;
+  }
+}
+@media(max-width:991px){
+  .banner-3-img .rb-row .item-slide {
+   	max-height: 194px;
+   }
+}
+@media(max-width:900px){
+  .banner-3-img .rb-row .item-slide {
+    max-height: 174px;
+   }
+}
+@media(min-width:850px) and (max-width:899px){
+	.banner-3-img .rb-row .item-slide {
+    	max-height: 31%;
+	}
+}
+@media(min-width:801px) and (max-width:849px){
+	.banner-3-img .rb-row .item-slide {
+    	max-height: 28%;
+	}	
+}  
+@media(min-width:768px) and (max-width:800px){
+  .rb-banner-with-slider .slick-slide img{
+  	margin:0px auto;
+  }
+  .banner-3-img .rb-row .item-slide {
+    max-height: 159px;
+   }
+}  
+@media only screen and (max-width: 800px) {
+.banner-3-img .rb-row{
+flex-direction:column;
+padding:0px;
+}
+
+.banner-3-img .rb-col-md-6 {
+width:100%;
+max-width:100%;
+}
+
+.banner-3-img .rb-row .banner-wrapper {
+margin:0px;
+}
+
+.banner-3-img .rb-row .item-slide{
+padding: 0px;
+margin: 20px;
+}
+}
+@media only screen and (max-width: 768px) {
+.banner-3-img .rb-row .banner-wrapper{
+background-image:url('{{ section.settings.image_1 | img_url: '470x527' }}');
+height:415px;
+}
+}
+@media(max-width:767px){
+  .rb-banner-with-slider{
+  	margin-bottom:0px;
+  }
+  .banner-3-img .rb-row .item-slide{
+  	height:255px;
+  }
+  .rb-banner-with-slider{
+  	margin-right:0px;
+  }
+}  
+</style>
+
+{% javascript %}
+{% endjavascript %}

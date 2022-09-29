@@ -1,0 +1,146 @@
+{% comment %}
+{% if paginate.pages > 1 %}
+<div class="col-12 center middle pagination">
+{% assign pgtype = type | default: settings.pagination %}
+{% case pgtype %}
+    {% when 'pages'%}
+        {% if paginate.next.is_link %}
+        {% assign baseurl = paginate.next.url %}
+        {% assign repl = paginate.current_page | plus: 1 %}
+        {% assign replstr = 'page=' | append: repl %}
+        {% assign baseurl = baseurl | replace: replstr, 'page=#page#' %}
+        {% else %}
+        {% assign baseurl = paginate.previous.url %}
+        {% assign repl = paginate.current_page | minus: 1 %}
+        {% assign replstr = 'page=' | append: repl %}
+        {% assign baseurl = baseurl | replace: replstr, 'page=#page#' %}
+        {% endif %}
+
+        {% if paginate.previous.is_link %}
+        <a onclick="BoosterTheme.ELEMENTS.renderChangePage(event, this, true)" href="{{baseurl | replace: '#page#', 1}}" class="pagination__page"><i class="uil uil-angle-double-left"></i></a>
+        <a onclick="BoosterTheme.ELEMENTS.renderChangePage(event, this, true)" href="{{paginate.previous.url}}" class="pagination__page"><i class="uil uil-angle-left"></i></a>
+        {% endif %}
+        {% assign iterstart = paginate.current_page | minus: 2 | at_least: 1 %}
+        {% assign iterend = paginate.current_page | plus: 2 | at_most: paginate.pages %}
+        {% for i in (iterstart..iterend) %}
+        {% unless i == paginate.current_page %}
+            <a onclick="BoosterTheme.ELEMENTS.renderChangePage(event, this, true)" href="{{baseurl | replace: '#page#', i}}" class="pagination__page">{{i}}</a>
+        {% else %}
+            <span class="pagination__page pagination__page--current">{{i}}</span>
+        {% endunless %}
+        {% endfor %}
+        {% if paginate.next.is_link %}
+        <a onclick="BoosterTheme.ELEMENTS.renderChangePage(event, this, true)" href="{{paginate.next.url}}" class="pagination__page"><i class="uil uil-angle-right"></i></a>
+        <a onclick="BoosterTheme.ELEMENTS.renderChangePage(event, this, true)" href="{{baseurl | replace: '#page#', paginate.pages}}" class="pagination__page"><i class="uil uil-angle-double-right"></i></a>
+        {% endif %}
+        {% comment %}
+        {% render 'paginate-button', url: paginate.next.url, text: 'Load more' %}
+        {% endcomment %}
+    {% when 'next' %}
+        {% if paginate.previous.is_link %}
+        <a onclick="BoosterTheme.ELEMENTS.renderChangePage(event, this, true)" href="{{paginate.previous.url}}" class="pagination__page"><i class="uil uil-angle-left"></i> {{'navigation.buttons.prev' | t}}</a>
+        {% endif %}
+        {% if paginate.next.is_link %}
+        <a onclick="BoosterTheme.ELEMENTS.renderChangePage(event, this, true)" href="{{paginate.next.url}}" class="pagination__page">{{'navigation.buttons.next' | t}} <i class="uil uil-angle-right"></i></a>
+        {% endif %}
+        <span class="pagination__page--current pagination__page">{{paginate.current_page}} of {{paginate.pages}}</span>
+    {% when 'loadmore' %}
+        {% if paginate.next.is_link %}
+        <a onclick="BoosterTheme.ELEMENTS.renderChangePage(event, this, false)" href="{{paginate.next.url}}" class="pagination__page">{{'navigation.buttons.load_more' | t}}<i class="uil uil-angle-down"></i></a>
+        {% endif %}
+    {% when 'infinite' %}
+        {% if paginate.next.is_link %}
+            <a href="{{paginate.next.url}}" class="pagination__page pagination--hidden hide"></a>
+        {% endif %}
+    {% when 'links' %}
+        {% if paginate.previous.is_link %}
+            <a href="{{paginate.previous.url}}" class="pagination__page"><i class="uil uil-angle-left"></i> {{'navigation.buttons.prev' | t}}</a>
+        {% endif %}
+        {% if paginate.next.is_link %}
+            <a href="{{paginate.next.url}}" class="pagination__page">{{'navigation.buttons.next' | t}} <i class="uil uil-angle-right"></i></a>
+        {% endif %}
+        <span class="pagination__page--current pagination__page">{{paginate.current_page}} of {{paginate.pages}}</span>
+{% endcase %}
+
+</div>
+{% endif %}{% endcomment %}
+{% if paginate.pages > 1 %}
+<ul class="boost-pfs-filter-bottom-pagination boost-pfs-filter-bottom-pagination-default">
+  {%- if paginate.previous -%}
+    <li><a href="{{ paginate.previous.url }}">←</a></li>
+  {%- else -%}
+    <li class="boost-pfs-filter-pagination-disabled"><span>←</span></li>
+  {%- endif -%}
+
+  {%- for part in paginate.parts -%}
+    {%- if part.is_link -%}
+      <li><a href="{{ part.url }}">{{ part.title }}</a></li>
+    {%- elsif part.title == '&hellip;' -%}
+      <li><span>...</span></li>
+    {%- else -%}
+      <li><span class="boost-pfs-filter-pagination-active">{{ part.title }}</span></li>
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if paginate.next -%}
+    <li><a href="{{ paginate.next.url }}">→</a></li>
+  {%- else -%}
+    <li class="boost-pfs-filter-pagination-disabled"><span>→</span></li>
+  {%- endif -%}
+</ul>
+{% endif %}
+<style>
+.boost-pfs-filter-bottom-pagination-default {
+   text-align: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 100%;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li:first-child.boost-pfs-filter-pagination-disabled, 
+ul.boost-pfs-filter-bottom-pagination-default>li:last-child.boost-pfs-filter-pagination-disabled {
+    opacity: .5;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li:first-child {
+    margin-right: 5px;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li:first-child, 
+ul.boost-pfs-filter-bottom-pagination-default>li:last-child {
+    border: 1px solid #3d4246;
+    font-size: 20px;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li {
+    display: inline-block;
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li a,
+ul.boost-pfs-filter-bottom-pagination-default>li span {
+    color: #000;
+    padding: 0;
+    margin: 0 6px;
+    font-weight: 400;
+    text-decoration: none;
+  	font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li span.boost-pfs-filter-pagination-active {
+    text-shadow: 0 0 1px #000;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li a:hover {
+    text-shadow: 0 0 1px #000;
+  	color:#000 !important;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li:first-child:not(.boost-pfs-filter-pagination-disabled):hover,
+ul.boost-pfs-filter-bottom-pagination-default>li:last-child:not(.boost-pfs-filter-pagination-disabled):hover {
+    background: #3d4246;
+}
+ul.boost-pfs-filter-bottom-pagination-default>li:first-child:not(.boost-pfs-filter-pagination-disabled):hover a,
+ul.boost-pfs-filter-bottom-pagination-default>li:last-child:not(.boost-pfs-filter-pagination-disabled):hover a {
+    color: #fff !important;
+}  
+</style>

@@ -1,0 +1,96 @@
+<div class="max-width row">
+    <div class="filter__bar">
+            {% comment %} <div id="removeFilters"></div> {% endcomment %}
+            <div class="filter__views">
+              <span>View As</span>
+                <button class="filter__view hide-mobile view--active" onclick="BoosterTheme.ELEMENTS.toggleCollectionView('card', this);">{% render 'get-icon', icon: 'cardView'%}</button>
+                <button class="filter__view hide-mobile" onclick="BoosterTheme.ELEMENTS.toggleCollectionView('detail', this);">{% render 'get-icon', icon: 'detailView'%}</button>
+            </div>
+      		{% if section.settings.showNumber %}<div class="collection__total-items">{{collection.products_count}} Products</div>{% endif %}	
+            <div class="filter__dropdown">
+                <i class="filter__icon uil uil-angle-down"></i>
+                <select onchange="BoosterTheme.ELEMENTS.renderSort(this)" id="sort-by">
+                    {% for option in collection.sort_options %}
+                        <option {% if option.value == collection.sort_by %}selected{% endif %} value="{{ option.value }}">{{ option.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+</div>
+
+{% schema %}
+{
+    "name": "Sort & Filter bar",
+    "settings": [
+		{
+        "type": "checkbox",
+        "label": "Show number of products",
+        "default": true,
+        "id": "showNumber"
+    	}	
+	]
+}
+{% endschema %}
+<style>
+  #shopify-section-template--14962273878224__sort{
+  	margin-bottom:10px;
+    border-bottom: 1px solid #e8e9eb;
+  }
+  .max-width{
+  	/*max-width:1200px;*/
+    /*------As per the new requiremnet TW#33265426-----*/
+    max-width: 1350px;
+    padding: 0 15px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 58px;
+  }
+  .filter__bar {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-items: self-start;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .filter__views{
+  	width:33.33%;
+    text-align:left;
+    line-height:0px;
+    margin-right:0px !important;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+  }
+  .filter__views span{
+  	margin-right:11px;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #666;
+  }
+  .filter__dropdown{
+  	width: 33.33%;
+    text-align: right;
+  }
+  .filter__bar select{
+  	padding-right: 30px;
+    line-height: 35px;
+    text-align: right;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #666;
+  }
+  .filter__bar .filter__icon {
+  	padding:5px;
+  }
+  .collection__total-items{
+  	width: 33.33%;
+    text-align: center;
+    line-height: 35px;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    color: #666;
+  }
+</style>

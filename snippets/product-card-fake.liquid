@@ -1,0 +1,48 @@
+<div class="card--default card--{{settings.cardStyle}}">
+
+{% if i %}
+{% assign image = 'product-' | append: i  %}
+{% else %}
+{% assign image = 'product-1' %}
+{% assign i = 1 %}
+{% endif %}
+
+{% assign name = 'Product ' | append: i %}
+
+<a class="card__img--container" href="#">
+<div class="card__img--ratio">
+  <div class="card__img" >
+      {{ image | placeholder_svg_tag: 'svg__thumb' }}
+  </div>
+</div>
+</a>
+
+{% unless settings.cardStyle == 'catalog' %}
+<div class="card__info">
+{% if settings.cardShowBrand %}
+<a class="card__brand" href="#">
+BoosterTheme
+</a>
+{% endif %}
+{% if settings.cardShowRating %}
+{% render 'product-card__review-stars' with product as product %}
+{% endif %}
+<a class="card__title" href="#">
+{{ name }}
+</a>
+<span class="card__price jsPrice">
+$129.99
+</span>
+
+<p class="card__description">
+Pellentesque gravida, massa vestibulum pellentesque cursus, arcu lacus faucibus turpis, ac placerat est lectus in ex. Nam fringilla lacus volutpat leo pretium, eu elementum erat.
+</p>
+
+{% unless settings.cardStyle == "noButton" %}
+<div class="card__buttons">
+  {% render 'sold-out-button', disabled: 'disabled' %}
+</div>
+{%endunless%}
+</div>
+{% endunless %}
+</div>

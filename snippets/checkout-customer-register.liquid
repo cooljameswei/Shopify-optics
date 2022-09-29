@@ -1,0 +1,39 @@
+{%- if settings.enable_password_creation and checkout.customer.has_account == false -%}
+<style>
+    .checkout_customer-hide-field {
+        display: none !important;
+    }
+</style>
+{%- capture customerRegisterHtml -%}
+    {%- form 'create_customer' -%}
+        <div class="first-name checkout_customer-hide-field">
+            <label for="first-name">First name</label>
+            <input type="text" name="customer[first_name]" value="{{-checkout.customer.first_name-}}" />
+        </div>
+        <div class="last-name checkout_customer-hide-field">
+            <label for="last-name">Last name</label>
+            <input type="text" name="customer[last_name]" value="{{-checkout.customer.last_name-}}" />
+        </div>
+        <div class="email checkout_customer-hide-field">
+            <label for="email">Email</label>
+            <input type="email" name="customer[email]" value="{{-checkout.customer.email-}}" />
+        </div>
+        <div class="fieldset">
+            <div class="field__input-btn-wrapper">
+                <div class="field__input-wrapper">
+                    <input class="field__input" type="password" name="customer[password]" placeholder="Password">                
+                </div>
+                <button class="field__input-btn btn" type="submit">Create</button>
+            </div>
+        </div>
+    {%- endform -%}
+{%- endcapture -%}
+<script>
+    const customerRegisterHtml = `{{-customerRegisterHtml | strip-}}`;
+    (function($) {
+        $(document).on("page:load page:change", function() {
+            Shopify.Checkout.OrderStatus.addContentBox('<h2>Create an account</h2>',customerRegisterHtml);
+        });
+    })(Checkout.$);
+</script>
+{%- endif -%}

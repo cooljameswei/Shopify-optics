@@ -1,0 +1,279 @@
+{% if section.blocks.size > 0 %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.min.js"></script>
+<style>
+    .press-video-slider {
+        padding: 40px 0;
+    }
+    .page-width {
+        max-width: 1350px;
+        margin:  0 auto;
+    }
+
+    .main-video-slider .video-slide-wrapper {
+        margin: 0 30px;
+    }
+
+    .main-video-slider .video-slide-wrapper .video--heading h4 {
+        font-size: 18px;
+        color: #000000;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .main-video-slider .video--img {
+        position: relative;
+    }
+
+    .main-video-slider .video--img .play-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+    }
+
+    .main-video-slider .video--img .play-icon img {
+        width: 60px;
+    }
+
+    .main-video-slider .btn-bottom { width: 100%; text-align: center; margin-top: 30px; z-index: 9; }
+    .main-video-slider .btn-bottom .button--primary { background-color: #c73c3d !important; }
+    .main-video-slider .btn-bottom .button--primary:hover { background-color: #000000 !important; color: #ffffff !important; }
+
+    .video-slider .slick-arrow {
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 9;
+        position: absolute;
+        background: transparent;
+        border: none;
+    }
+
+    .video-slider .slick-prev {
+        left: -30px;
+    }
+
+    .video-slider .slick-next {
+        right: -30px;
+    }
+    
+    .video-slider .slick-next img {
+        transform: rotate(180deg);
+    }
+
+    .main-video-slider .video--img a > img {
+        width: 100%;
+    }
+
+    @media screen and (min-width: 769px) {
+        .main-video-slider .video--img a > img {
+            height: 200px;
+            object-fit: cover;
+        }
+    }
+    @media(max-width:1349px){
+        .video-slider .slick-next{
+            right: 0px;
+            padding: 0;
+        }
+        .video-slider .slick-prev{
+            left: 0px;
+            padding: 0;
+        }
+    }
+
+</style>
+
+<div class="press-video-slider" id="s--{{section.id}}">
+    <div class="page-width">
+        {% render 'block__general--heading' with section as section %}
+        <div class="slider video-slider press-slider" id="video-slider">
+            {%- for block in section.blocks %}            
+            <div class="slide">
+                <div class="video-slide-wrapper">
+                    {% if block.settings.video__img != blank %}
+                    <div class="video--img">
+                        <a href="{{ block.settings.video__link }}" data-lity>
+                            <img src="{{ block.settings.video__img | img_url : "master" }}" alt="{{ block.settings.article__heading }}">
+                            <div class="play-icon">
+                                <img src="https://cdn.shopify.com/s/files/1/2807/8986/files/youtube.png?v=1654525944" alt="youtube" class="yt-icon">
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if block.settings.article__heading != blank %}
+                    <div class="video--heading">
+                        <h4>{{ block.settings.article__heading }}</h4>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {%- endfor -%}
+        </div>
+        {% if section.settings.btn__label != blank and section.settings.button_url != blank %}
+        <div class="btn-bottom">
+            <a href="{{ section.settings.button_url }}" class="button button--primary button--filled button--primary__filled
+            font__size--base font__family--base">{{ section.settings.btn__label }}</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endif %}
+
+<script>
+     if($(window).width()>768){
+        $('#video-slider').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        arrows: true,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+      });
+    }
+    if($(window).width()==768){
+        $('#video-slider').slick({
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        arrows: true,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+    });
+    }
+    if($(window).width()<=767 && $(window).width()>=350){
+        $('#video-slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+    });
+    }
+    if($(window).width()<=349){
+        $('#video-slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        prevArrow:"<button type='button' class='slick-prev slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+        nextArrow:"<button type='button' class='slick-next slick-arrow'><img src='https://cdn.shopify.com/s/files/1/2807/8986/files/arrow-left_d27945f3-1711-42f4-9d74-f5b4abad123a.png?v=1654527309'></button>",
+    });
+    }
+</script>
+
+{% schema %}
+{
+    "name": {
+        "en": "Press Video Slider"
+    },
+    "class": "main-video-slider",
+    "settings": [
+        {
+            "type": "text",
+            "label": "Heading",
+            "id": "heading"
+        },
+        {
+            "type": "color",
+            "id": "headingColor",
+            "default": "rgba(0,0,0,0)",
+            "label": "Heading Color"
+        },
+        {
+            "type": "select",
+            "id": "headingAlignment",
+            "label": "Heading alignment (left to right)",
+            "options": [
+                {
+                    "value": "start",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ],
+            "default": "center"
+        },
+        {
+            "type": "header",
+            "content": "Section layout"
+        },
+        {
+            "type": "radio",
+            "id": "displayFor",
+            "label": "Show this section on",
+            "options": [
+                {
+                    "value": "display--both",
+                    "label": "All devices"
+                },
+                {
+                    "value": "hide-desktop",
+                    "label": "Mobile only"
+                },
+                {
+                    "value": "hide-mobile",
+                    "label": "Desktop only"
+                }
+            ],
+            "default": "display--both"
+        },
+        {
+            "type": "checkbox",
+            "id": "nomargin",
+            "default": false,
+            "label": "Remove section's bottom margin"
+        },
+        {
+            "type": "textarea",
+            "id": "scopedCSS",
+            "label": "Section-scoped CSS",
+            "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+        },
+        {
+            "type": "text",
+            "label": "Button Label",
+            "id": "btn__label"
+        },
+        {
+            "type": "url",
+            "label": "Button URL",
+            "id": "button_url"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "video",
+            "name": "Video",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "video__img",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "label": "Heading",
+                    "id": "article__heading"
+                },
+                {
+                    "type": "url",
+                    "label": "Video link",
+                    "id": "video__link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "category": "slideshow",
+            "name": "Press Video Slider"
+        }
+    ]
+}
+{% endschema %}

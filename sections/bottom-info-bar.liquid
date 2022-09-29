@@ -1,0 +1,438 @@
+{% unless section.settings.enabled == false and section.settings.enabledMobile == false %}
+
+{% capture layoutConfig %}{% render 'common-layout' with section as section %}{% endcapture %}
+
+<div class="layout__{{-layoutConfig}}
+{% unless section.settings.enabledMobile%}hide-mobile{%endunless%} {% unless section.settings.enabled%}hide-desktop{%endunless%}
+{% unless section.settings.colorCombo == 'customCombo' %}{{ section.settings.colorCombo}}{% endunless %}
+colorCombo
+{{section.settings.fontSize}} info-bar" 
+style="{% if section.settings.colorCombo == 'customCombo' %}background-color: {{section.settings.customFillColor}}; color: {{section.settings.customContentColor}};{% endif %} padding-top: 2px; padding-bottom: 2px;"
+>
+  <div class="inherit middle row layout__content">
+  {% if section.blocks.size > 0 %}
+  {%- for block in section.blocks -%}
+    <div class="{%- unless block.settings.enabledMobile%}hide-mobile{%endunless%} {% unless block.settings.enabled%}hide-desktop{%endunless%} 
+    col-12 col-md middle center 
+    {% if forloop.length > 1 and block.settings.align == 'auto' %}
+    {% if forloop.first %}
+    start-md
+    {% elsif forloop.last %}
+    end-md
+    {% endif %}
+    {% else %}
+    {{block.settings.align}}-md
+    {% endif %}"
+    {% unless block.type == 'barTextMarquee' %}
+    style="flex-wrap: wrap; line-height: {{section.settings.height}}px; overflow: hidden; min-height: {{section.settings.height}}px;"
+    {% else %}
+    style="height: {{section.settings.height}}px; line-height: {{section.settings.height}}px; overflow: hidden;"
+    {% endunless -%}>
+      {% render 'get-block', block: block, section: section %}
+      </div>
+  {%- endfor -%}
+  {% else %}
+  <div class="col-12" style="height: {{section.settings.height}}px; line-height: {{section.settings.height}}px; overflow: hidden;">
+  </div>
+  {% endif %}
+  </div>
+</div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": {
+    "en": "Bottom bar"
+  },
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Click here to follow an interactive Tutorial](https://vimeo.com/458159228)"
+    },
+    {
+      "type": "header",
+      "content": "Enable/Disable"
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable for Desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enabledMobile",
+      "label": "Enable for mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section layout",
+      "options": [
+        {"value": "default", "label": "Global default"},
+        {"value": "boxed", "label": "Boxed"},
+        {"value": "stretchBg", "label": "Full width background"},
+        {"value": "stretchContent", "label": "Full width"}
+      ],
+      "default": "default"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Height",
+      "default": 30,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "label": "Font size",
+      "id": "fontSize",
+      "options": [
+        {"value": "font__size--small", "label": "Small"},
+        {"value": "font__size--base", "label": "Base"},
+        {"value": "font__size--medium", "label": "Medium"}
+      ],
+      "default": "font__size--small"
+    },
+    {
+        "type": "radio",
+        "id": "colorCombo",
+        "label": "Color combination",
+        "default": "primaryCombo",
+        "options": [
+            { "value": "primaryCombo", "label": "Primary combination" },
+            { "value": "secondaryCombo", "label": "Secondary combination" },
+            { "value": "customCombo", "label": "Custom combination"}
+        ]
+    },
+    {
+      "type": "color",
+      "id": "customFillColor",
+      "label": "Custom fill color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "customContentColor",
+      "label": "Custom content color",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+      {
+    "type": "contact",
+    "name": "Contact",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Show for desktop",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "enabledMobile",
+            "label": "Show for mobile",
+            "default": true
+        },
+        {
+            "id": "align",
+            "label": "Alignment",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "auto"
+        },
+        {
+            "id": "showPhone",
+            "label": "Show phone",
+            "type": "checkbox",
+            "default": true
+        },
+        {
+            "id": "showEmail",
+            "label": "Show email",
+            "type": "checkbox",
+            "default": true
+        }
+    ]
+    },{
+    "type": "linkList",
+    "name": "Links",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Show for desktop",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "enabledMobile",
+            "label": "Show for mobile",
+            "default": true
+        },
+        {
+            "id": "align",
+            "label": "Alignment",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "auto"
+        },
+        {
+            "id": "links",
+            "label": "Link list",
+            "type": "link_list"
+        }
+    ]
+},{
+    "type": "barTextMarquee",
+    "name": "Scrolling messages",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Show for desktop",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "enabledMobile",
+            "label": "Show for mobile",
+            "default": true
+        },
+        {
+            "id": "align",
+            "label": "Alignment",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "auto"
+        },
+        {
+            "id": "messages",
+            "type": "richtext",
+            "label": "Messages to scroll",
+            "info": "Separate messages with enter/return (new line)",
+            "default": "<p>This is one message</p><p>This is another one</p>"
+        }
+    ]
+},{
+    "type": "social",
+    "name": "Social media",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enabled",
+            "label": "Show for desktop",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "enabledMobile",
+            "label": "Show for mobile",
+            "default": true
+        },
+        {
+            "id": "align",
+            "label": "Alignment",
+            "type": "select",
+            "options": [
+                {"value": "auto", "label": "Auto"},
+                {"value": "start", "label": "Left"},
+                {"value": "center", "label": "Center"},
+                {"value": "end", "label": "Right"}
+            ],
+            "default": "auto"
+        }
+    ]
+},
+      {
+          "type": "freeShippingBar",
+          "name": "Free Shipping Bar [APP]",
+          "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled",
+                "label": "Show for desktop",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "enabledMobile",
+                "label": "Show for mobile",
+                "default": true
+            },
+            {
+                "id": "align",
+                "label": "Alignment",
+                "type": "select",
+                "options": [
+                    {"value": "auto", "label": "Auto"},
+                    {"value": "start", "label": "Left"},
+                    {"value": "center", "label": "Center"},
+                    {"value": "end", "label": "Right"}
+                ],
+                "default": "auto"
+            },
+            {
+        "type": "text",
+        "label": "Free shipping text",
+        "id": "freeText",
+        "default": "Only %AMOUNT% more for free shipping!"
+    },
+    {
+        "type": "text",
+        "label": "Achieved shipping goal",
+        "id": "gotFreeText",
+        "default": "You are eligible for free shipping!"
+    },
+    {
+        "type": "range",
+        "label": "Bar height",
+        "id": "barHeight",
+        "default": 8,
+        "min": 0,
+        "max": 32,
+        "info": "If set to 0, bar will be disabled (hidden).",
+        "step": 1,
+        "unit": "px"
+    }
+          ]
+      },
+      {
+          "type": "geoBlock",
+          "name": "Geo Block",
+          "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled",
+                "label": "Show for desktop",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "enabledMobile",
+                "label": "Show for mobile",
+                "default": true
+            },
+            {
+                "id": "align",
+                "label": "Alignment",
+                "type": "select",
+                "options": [
+                    {"value": "auto", "label": "Auto"},
+                    {"value": "start", "label": "Left"},
+                    {"value": "center", "label": "Center"},
+                    {"value": "end", "label": "Right"}
+                ],
+                "default": "auto"
+            },
+            {
+        "id": "text",
+        "label": "Block text",
+        "type": "textarea",
+        "default": "%flag_emoji% This is an example for your %country% in the city of %city% %flag_svg%"
+    },
+    {
+        "type": "paragraph",
+        "content": "Available variables:, %country%, %city%, %zip%, %flag_svg%, %flag_emoji%, %language_name%, %language_native%, %language_code%, %currency_code%, %currency_name%, %currency_symbol%"
+    },
+    {
+        "type": "paragraph",
+        "content": "Location is determined based on IP address. Accuracy of precise data (city - usually first bigger city, zip - matches city) can't be 100% trusted. We are continuously working on improving data accuracy for city and zip code information."
+    },
+    {
+        "id": "url",
+        "type": "url",
+        "label": "Block link"
+    }
+          ]
+      },
+      {
+          "type": "minicart",
+          "name": "Minicart",
+          "settings": [
+            {
+                "type": "checkbox",
+                "id": "enabled",
+                "label": "Show for desktop",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "enabledMobile",
+                "label": "Show for mobile",
+                "default": true
+            },
+            {
+                "id": "align",
+                "label": "Alignment",
+                "type": "select",
+                "options": [
+                    {"value": "auto", "label": "Auto"},
+                    {"value": "start", "label": "Left"},
+                    {"value": "center", "label": "Center"},
+                    {"value": "end", "label": "Right"}
+                ],
+                "default": "auto"
+            },
+            {
+        "type": "header",
+        "content": "Cart"
+    },
+    {
+        "type": "select",
+        "label": "Cart icon",
+        "id": "cartIcon",
+        "options": [
+            {
+                "value": "shopping-bag",
+                "label": "Bag"
+            },
+            {
+                "value": "shopping-cart",
+                "label": "Cart"
+            },
+            {
+                "value": "shopping-basket",
+                "label": "Basket"
+            },
+            {
+                "value": "text",
+                "label": "Text only"
+            }
+        ],
+        "default": "shopping-cart"
+    }
+          ]
+      }
+    ]
+}
+{% endschema %}

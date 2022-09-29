@@ -1,0 +1,62 @@
+{% render 'page-sale-css' %}
+
+<h1>Sale</h1>
+
+{% if linklists[page.handle].links.size > 0 %}
+  {% assign number_of_links = 0 %}
+  <div class="dflex">
+	{% for link in linklists[page.handle].links %}
+		{% if link.type == 'collection_link' %}
+    		{% assign collection = link.object %}
+        	{% assign number_of_links = number_of_links | plus: 1 %}
+    		<div class="collection-style">
+              <a href="{{ link.url }}" class="">
+                {% if collection.image %}
+                <picture>
+                  <source media="(min-width:1100px)" srcset="{{ collection | img_url: '404x404' }}">
+                  <source media="(min-width:900px)" srcset="{{ collection | img_url: '350x350' }}">
+                  <source media="(min-width:768px)" srcset="{{ collection | img_url: '275x275' }}">
+                  <source media="(min-width:600px)" srcset="{{ collection | img_url: '228x228' }}">
+                  <source media="(min-width:450px)" srcset="{{ collection | img_url: '175x175' }}">
+                  <img src="{{ collection | img_url: '125x125' }}" alt="{{ link.title | escape }}">
+                </picture>
+                {% else %}
+                {% assign product = collection.products.first %}
+                <picture>
+                  <source media="(min-width:1100px)" srcset="{{ product | img_url: '404x404' }}">
+                  <source media="(min-width:900px)" srcset="{{ product | img_url: '350x350' }}">
+                  <source media="(min-width:768px)" srcset="{{ product | img_url: '275x275' }}">
+                  <source media="(min-width:600px)" srcset="{{ product | img_url: '228x228' }}">
+                  <source media="(min-width:450px)" srcset="{{ product | img_url: '175x175' }}">
+                  <img src="{{ product | img_url: '125x125' }}" alt="{{ link.title | escape }}">
+                </picture>
+                {% endif %}
+              </a>
+                <p class="text-center">
+                  <a href="{{ link.url }}" class="">{{ link.title }}</a>
+                </p>
+              </div>
+    	{% endif %}
+    {% endfor %}
+   </div>
+{% else %}
+  <p>
+    You do not have a link list with a handle set to <kbd>{{ page.handle }}</kbd>, or you do and it's empty. 
+    Go ahead and create a link list called <b>{{ page.title }}</b> on your <a href="/admin/links" target="_blank">Navigation page</a> and populate that link list with links that point to collections, to see collections listed here.
+    Make sure the link list also has a handle set to <kbd>{{ page.handle }}</kbd>.
+  </p>
+{% endif %}
+
+{% schema %}
+{
+	"name":"Sales List Collections",
+	"class":"sales-list-collections",
+	"settings":[],
+	"presets": [
+		{
+			"category": "custom-page-sections",
+			"name": "Page List Collection-Sale"
+		}
+	]
+}
+{% endschema %}

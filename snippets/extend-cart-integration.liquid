@@ -1,0 +1,63 @@
+<script defer="defer">
+
+  if (window.Extend && window.ExtendShopify && window.Shopify.currency.active === 'USD') {
+
+    var slice = Array.prototype.slice;
+    var localCart = {{ cart | json }}
+
+    function findAll(element) {
+      var items = document.querySelectorAll(element);
+      return items ? slice.call(items, 0) : [];
+    }
+
+    function hardRefresh() {
+      location.href = location.hash ? location.href.substring(0, location.href.indexOf('#')) : location.href;
+    }
+
+    function initCartOffer() {
+
+      findAll('#extend-cart-offer').forEach(function(el){
+
+        var variantId = el.getAttribute('data-extend-variant')
+        var quantity = el.getAttribute('data-extend-quantity')
+
+        if(ExtendShopify.warrantyAlreadyInCart(variantId, localCart.items)){
+          return
+        }
+
+        Extend.buttons.renderSimpleOffer(el, {
+          referenceId: variantId,
+          onAddToCart: function (options) {
+            ExtendShopify.addPlanToCart(
+              {
+                plan: options.plan,
+                product: options.product,
+                quantity: quantity,
+              },
+              function (err) {
+                // an error occurred
+                if (err) {
+                  return;
+                } else {
+                  hardRefresh();
+                }
+              }
+            );
+          },
+        });
+      })
+
+      ExtendShopify.normalizeCart({cart: localCart, balance: false}, function (err, data) {
+        if (data && data.updates) {
+          // Effectively hard reloads the page; thus updating the cart 
+          hardRefresh();
+        }
+      });  
+    }
+    
+    //initial cart offers
+    initCartOffer()
+    
+  }
+
+</script>

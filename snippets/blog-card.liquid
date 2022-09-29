@@ -1,0 +1,18 @@
+<a href="{{article.url}}" class="bcard--default bcard--{{settings.blogCardStyle}} border-radius">
+    <div class="bcard__img--container">
+        <div class="bcard__img--ratio">
+            <div class="bcard__img border-radius">
+            {% unless article.image == nil %}
+                {% render 'ratio-image', ratioType: 'vw', dratio: '25', mratio: '100', image: article.image.src, alt: article.image.alt %}
+            {% else %}
+                {{'collection-1' | placeholder_svg_tag: 'svg__thumb'}}
+            {% endunless %}
+            </div>
+        </div>
+    </div>
+    <div class="bcard__info inherit">
+        <span class="bcard__title">{{article.title}}</span>
+        {% if settings.blogCardExcerpt %}<p class="bcard__excerpt">{{article.excerpt | default: article.content | truncate: 140 | strip_html }}</p>{% endif %}
+        {% if settings.blogCardAuthor %}<span class="bcard__author">by {{article.author}}</span>{% endif %}
+    </div>
+</a>

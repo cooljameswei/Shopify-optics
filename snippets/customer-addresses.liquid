@@ -1,0 +1,338 @@
+{% if customer.default_address %}
+  {% assign daddy = true %}
+{% else %}
+  {% assign daddy = false %}
+{% endif %}
+
+{% paginate customer.addresses by 5 %}
+
+<div id="AddressNewForm" class="address-new-form hide content-block form-vertical address-form-common">
+  {% form 'customer_address', customer.new_address %}
+  {% if form.posted_successfully? %}
+  {{'customer_area.account.success_addy' | t}}
+  {% else %}
+  {% assign errors = form.errors | default_errors %}
+  {% endif %}
+  <h2 class="h3">Add a New Address</h2>
+
+  <label for="AddressFirstNameNew">First Name</label>
+  <input type="text" id="AddressFirstNameNew" name="address[first_name]">
+
+  <label for="AddressLastNameNew">Last Name</label>
+  <input type="text" id="AddressLastNameNew" name="address[last_name]">
+
+  <label for="AddressCompanyNew" class="m-label">Company</label>
+  <input type="text" id="AddressCompanyNew" name="address[company]">
+
+  <label for="AddressAddress1New" class="m-label">Address 1</label>
+  <input type="text" id="AddressAddress1New" name="address[address1]">
+
+  <label for="AddressAddress2New" class="m-label">Address 2</label>
+  <input type="text" id="AddressAddress2New" name="address[address2]">
+
+  <label for="AddressCityNew">City</label>
+  <input type="text" id="AddressCityNew" name="address[city]">
+
+  <label for="AddressCountryNew">Country</label>
+  <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+
+  <label for="AddressProvinceNew" class="m-label">Province</label>
+  <select id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}"></select>
+  <label for="AddressZipNew">Postal/Zip Code</label>
+  <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+
+  <label for="AddressPhoneNew">Phone</label>
+  <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+
+  {{ form.set_as_default_checkbox }}
+  <label for="address_default_address_new">Set as default address</label>
+
+  <p><input type="submit" class="btn add-addr-btn" value="ADD ADDRESS"></p>
+  <p class="text-center"><button type="button" class="address-new-toggle add-addr-cancel">Cancel</button></p>
+
+  {% endform %}
+</div>
+
+  <div class="acc-item">
+    <div class="acc-item-header">
+      <div class="acc-item-header-title">
+          <p class="acc-item-header-title-h"><span style="margin-right: 10px">{% render 'location-svg' %}</span>Address Book</p>
+      </div>
+      <div class="acc-item-header-buttons">
+          <button type="button" class="acc-item-button border-red">
+              View
+          </button>
+      </div>
+    </div>
+    <div class="acc-item-content">
+      {% for address in customer.addresses %}
+      <div class="acc-item-content-header">
+        <div class="acc-item-content-title">
+            <h3 class="acc-item-content-title-h">Set as primary address</h3>
+        </div>
+        <div class="acc-item-content-buttons">  
+            <button class="acc-item-button border-black address-edit-toggle addr-edit-del-link" data-form-id="{{ address.id }}">
+                Edit
+            </button>
+            <form class="addr-edit-del-link"
+                  method="post"
+                  action="/account/addresses/{{ address.id }}" 
+                  >
+            </form>
+        </div>
+      </div>
+      <div class="acc-item-content-detail">
+        
+        {% if address == customer.default_address %}
+        <p class="mb-10"><strong>Default</strong></p>
+        {% endif %}
+        {{ address | format_address }}
+        
+      </div>
+      {% endfor %}
+    </div>
+    <div class="acc-item-footer">
+      <button id="addressNewToggle" type="button" class="acc-item-button border-black">
+          Add New +
+      </button> 
+    </div>
+  </div>
+
+  <!-- {% for address in customer.addresses %} -->
+  <!-- {% if address == customer.default_address %}
+  <p class="mb-10"><strong>Default</strong></p>
+  {% endif %}
+  {{ address | format_address }} -->
+
+  <!-- <button type="button" class="address-edit-toggle addr-edit-del-link" data-form-id="{{ address.id }}">Edit</button>
+  <form class="addr-edit-del-link"
+        method="post"
+        action="/account/addresses/{{ address.id }}" 
+        >
+    <input type="hidden" name="_method" value="delete" />
+    <input onclick="confirmDelete(event)" type="submit" class="button button--secondary button--secondary__filled address-delete addr-edit-del-link" value="Delete">
+  </form> -->
+
+  <!-- <div id="EditAddress_{{ address.id }}" class="hide form-vertical address-form-common edit-addr">
+    {% form 'customer_address', address %}
+    {% if form.posted_successfully? %}
+    {{'customer_area.account.update_addy' | t}}
+    {% else %}
+    {{ form.errors | default_errors }}
+    {% endif %}
+
+    <h4>Edit address</h4>
+    
+    <label for="AddressFirstName_{{ form.id }}">First Name</label>
+    <input type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{address.first_name}}">
+
+    <label for="AddressLastName_{{ form.id }}">Last Name</label>
+    <input type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{address.last_name}}">
+
+    <label for="AddressCompany_{{ form.id }}" class="m-label">Company</label>
+    <input type="text" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{address.company}}">
+
+    <label for="AddressAddress1_{{ form.id }}" class="m-label">Address 1</label>
+    <input type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{address.address1}}">
+
+    <label for="AddressAddress2_{{ form.id }}" class="m-label">Address 2</label>
+    <input type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{address.address2}}">
+
+    <label for="AddressCity_{{ form.id }}">City</label>
+    <input type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{address.city}}">
+
+    <label for="AddressCountry_{{ form.id }}">Country</label>
+    <select id="AddressCountry_{{ form.id }}" class="address-country-option" name="address[country]" value="{{address.country}}" data-default="{{ address.country }}">{{ all_country_option_tags }}</select>
+
+    <label for="AddressProvince_{{ form.id }}">Province</label>
+    <select id="AddressProvince_{{ form.id }}" name="address[province]" value="{{address.province}}" data-default="{{ address.province }}"></select>
+    
+    <label for="AddressZip_{{ form.id }}" class="m-label">Postal/Zip Code</label>
+    <input type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ address.zip }}" autocapitalize="characters">
+
+    <label for="AddressPhone_{{ form.id }}">Phone</label>
+    <input type="tel" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ address.phone }}">
+
+    {{ form.set_as_default_checkbox }}
+    <label for="address_default_address_{{ form.id }}">Set as default address</label>
+    
+    <input type="submit" class="button button--primary button--primary__filled add-addr-btn" value="UPDATE ADDRESS">
+    <p class="text-center" style="margin-top: 0.6rem;">
+      <button type="button" class="add-addr-cancel address-edit-toggle" data-form-id="{{ address.id }}">Cancel</button>
+    </p>
+    {% endform %}
+  </div>
+  {% unless forloop.last %}<hr>{% endunless %}
+  {% endfor %} -->
+<!-- <div class="content-block">
+  <p><button id="addressNewToggle" type="button" class="btn address-new-toggle add-addr-new-btn">Add a new Address</button></p>
+</div> -->
+<!-- 
+{% if paginate.pages > 1 %}
+<div class="pagination">
+  {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+</div>
+{% endif %} -->
+{% endpaginate %}
+
+
+<style>
+
+  #customerAddresses .content-block {
+    margin-bottom: 20px;
+  }
+  #customerAddresses .address-content p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.375;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+  }
+  #customerAddresses .address-content h2 {
+    letter-spacing: inherit;
+    text-transform: inherit;
+    font-family: Karla,HelveticaNeue,"Helvetica Neue",sans-serif;
+    font-weight: 700;
+    font-size: 1.875em;
+    margin-bottom: 20px;
+  }
+  #customerAddresses button.add-addr-cancel {
+    background-color: #fff;
+    border: none;
+    color: #c63b3d;
+    text-decoration: none;
+  }
+  #customerAddresses button.add-addr-cancel:hover {
+    color:#a02e30;
+  }
+  #customerAddresses button.add-addr-new-btn, button.add-addr-new-btn {
+    font-size: .8125em;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 15px 45px;
+    transition: color .1s ease-in,background-color .1s ease-in;
+    border-radius: 0;
+    background-color: #c63b3d;
+    color: #fff;
+    border: 1px solid transparent;
+  }
+  #customerAddresses button.add-addr-new-btn:hover{
+    background-color: #CE3330;
+  }
+  #customerAddresses button.add-addr-new-btn:active {
+    background-color: #782324;
+  }
+  #customerAddresses .address-form-common label {
+    font-size: .75em;
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 1.3rem;
+    text-transform: uppercase;
+  }
+  #customerAddresses .address-form-common input {
+    width: 100%;
+    margin-bottom: 1.4rem;
+  }
+  
+  #customerAddresses .address-form-common select {
+    width: 100%;
+    border-radius: 0;
+    margin-bottom: 13px;
+    background-image: none;
+    background-color: #fff;
+    padding: 4px 9px 4px 10px;
+    border: 1px solid #9f9f9f;
+  }
+  
+  #customerAddresses .pl {
+    padding-left: 20px;
+  }
+  
+  #customerAddresses .address-form-common .m-label {
+    margin-left: 20px;
+  }
+  #customerAddresses .address-form-common .m-label + input,
+  #customerAddresses .address-form-common .m-label + select {
+    margin-left: 20px;
+    width: calc(100% - 20px);
+  }
+  #customerAddresses .address-form-common #address_default_address_new {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    margin-top: 1.4rem;
+  }
+  #customerAddresses .address-form-common #address_default_address_new + label {
+    display: inline-block;
+    margin-bottom: 1.4rem;
+    vertical-align: bottom;
+  }
+  #customerAddresses .address-form-common input.add-addr-btn {
+    letter-spacing: .15em;
+    color: white;
+    background-color: #c63b3d;
+    font-weight: bold;
+    font-size: .8125em;
+    padding: 15px;
+  }
+  #customerAddresses .address-form-common input.add-addr-btn:hover {
+    background-color:#a02e30;
+  }
+  
+  #customerAddresses .edit-addr input[type="checkbox"] {
+    display: inline-block;
+    margin-bottom: 2rem;
+    vertical-align: middle;
+    margin-top: 0.7rem;
+    margin-right: 0.5rem;
+    width: auto;
+  }
+  
+  #customerAddresses .edit-addr input[type="checkbox"] + label {
+    display: inline-block;
+    margin-bottom: 2rem;
+    vertical-align: middle;
+    margin-top: 0.7rem;
+  }
+  #customerAddresses .addr-edit-del-link {
+    background: none;
+    border: none;
+    color: #c63b3d;
+    padding: 0;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+    display: inline-block;
+  }
+  #customerAddresses .addr-edit-del-link:hover {
+    background: none;
+    border: none;
+    color: #8c292a;
+  }
+  #customerAddresses .mb-10 {
+    margin-bottom: 1rem !important;
+  }
+</style>
+
+<script>
+  
+  var toggleBtns = document.getElementsByClassName("address-new-toggle");
+  const toggleFormFn = () => {
+    document.getElementById("AddressNewForm").classList.toggle("hide");
+  };  
+  
+  var addrEditBtns = document.getElementsByClassName("address-edit-toggle");
+  const addrEditFormFn = (e) => {
+    let formId = (e.target.dataset || {}).formId;
+    if(!formId) return;
+    document.getElementById("EditAddress_" + formId).classList.toggle("hide");
+  }
+  
+  Array.from(toggleBtns).forEach(function(btn) {
+    btn.addEventListener('click', toggleFormFn);
+  });
+  
+  Array.from(addrEditBtns).forEach(function(btn) {
+    btn.addEventListener('click', addrEditFormFn);
+  });
+  
+</script>

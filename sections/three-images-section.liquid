@@ -1,0 +1,226 @@
+<div class="page-width three-img-sec" id="s--{{section.id}}" style="padding:0px;">
+    <div class="rb-container">
+      {% if section.settings.shop_by_title != blank %}
+        <h2 class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.shop_by_title}}</h2>  
+      {% endif %}
+      <div class="rb-row" style="display:flex;">
+          <div class="rb-col-md-4 item-wrapper">
+            {% if section.settings.section_1_link != blank %}
+              <a href="{{section.settings.section_1_link}}" >
+                  <img class="lazyload" data-src="{{ section.settings.section_1 | img_url: '800x800' }}">
+                  <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_1_title}}</span> 
+              </a>
+              {% else %}
+              <img class="lazyload" data-src="{{ section.settings.section_1 | img_url: '800x800' }}">
+              <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_1_title}}</span> 
+            {% endif %}  
+          </div>
+          <div class="rb-col-md-4 item-wrapper">
+            {% if section.settings.section_2_link != blank %}
+              <a href="{{section.settings.section_2_link}}">
+                  <img class="lazyload" data-src="{{ section.settings.section_2 | img_url: '800x800' }}">
+                  <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_2_title}}</span>
+              </a> 
+              {% else %}
+              <img class="lazyload" data-src="{{ section.settings.section_2 | img_url: '800x800' }}">
+              <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_2_title}}</span>
+            {% endif %}  
+          </div>
+          <div class="rb-col-md-4 item-wrapper">
+            {% if section.settings.section_3_link != blank %}
+              <a href="{{section.settings.section_3_link}}">
+                  <img class="lazyload" data-src="{{ section.settings.section_3 | img_url: '800x800' }}">
+                  <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_3_title}}</span>
+              </a>
+              {% else %}
+              <img class="lazyload" data-src="{{ section.settings.section_3 | img_url: '800x800' }}">
+              <span class="wow fadeInUp" data-wow-duratio1="2s" style="visibility: visible; animation-name: fadeInUp;">{{section.settings.section_3_title}}</span>
+            {% endif %}   
+          </div>
+      </div>
+    </div>
+  </div>
+  {% schema %}
+    {
+      "name": "Three Images Section",
+        "settings": [
+        {
+          "type": "text",
+          "id": "shop_by_title",
+          "label": "Title"
+        },
+        {
+          "type": "select",
+          "id": "textAlignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "over-img",
+              "label": "Over Image"
+            },
+            {
+              "value": "bottom-img",
+              "label": "Bottom Image"
+            }
+          ],
+          "default": "over-img"
+        },
+        {
+          "type": "image_picker",
+          "id": "section_1",
+          "label": "Section 1 Image"
+        },
+        {
+          "type": "text",
+          "id": "section_1_title",
+          "label": "Section 1 Title"
+        },
+        {
+          "type": "url",
+          "id": "section_1_link",
+          "label": "Section 1 Link"
+        },
+          {
+          "type": "image_picker",
+          "id": "section_2",
+          "label": "Section 2 Image"
+        },
+        {
+          "type": "text",
+          "id": "section_2_title",
+          "label": "Section 2 Title"
+        },
+        {
+          "type": "url",
+          "id": "section_2_link",
+          "label": "Section 2 Link"
+        },
+          {
+          "type": "image_picker",
+          "id": "section_3",
+          "label": "Section 3 Image"
+        },
+        {
+          "type": "text",
+          "id": "section_3_title",
+          "label": "Section 3 Title"
+        },
+        {
+          "type": "url",
+          "id": "section_3_link",
+          "label": "Section 3 Link"
+        },
+        {
+          "type": "range",
+          "id": "margin-bottom",
+          "min": 0,
+          "max": 100,
+          "default": 30,
+          "unit": "px",
+          "label": "Margin-bottom"
+        }
+      ],
+  
+       "presets": [
+      {
+          "name": "Three Images Section",
+          "category": "Image"
+      }
+      ]
+    }
+  {% endschema %}
+  
+<style>
+  .rb-container{
+    max-width:1350px;
+    margin:30px auto;
+    margin-bottom: {{section.settings.margin-bottom}}px;
+  }
+  div.rb-container:not(.booster--revert) > h2 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 30px;
+      text-transform: uppercase;
+      margin: 0;
+      text-align: center;
+      letter-spacing: normal;
+      line-height: 1;
+      margin-bottom: 30px;
+  }
+  
+  .three-img-sec .rb-container .item-wrapper {
+    position: relative;
+    padding: 15px 10px;
+  }
+  .three-img-sec .rb-container .item-wrapper a img{
+    transition: all .2s ease-in-out;
+  }
+  .three-img-sec .rb-container .item-wrapper a img:hover{
+    transform: scale(1.03);
+  }
+  
+  .three-img-sec .rb-container .item-wrapper img {
+    width:100%;
+    transition: all .3s;
+    margin-bottom: 28px;
+  }
+  
+  .three-img-sec .rb-container .rb-col-md-4 {
+      -webkit-box-flex: 0;
+      flex: 0 0 33.33333%;
+      max-width: 33.33333%;
+  }
+  
+  #s--{{section.id}}.three-img-sec .rb-container span {
+    width: 100%;
+    display: block;
+    letter-spacing: 0.02em;
+    {% if section.settings.textAlignment == 'over-img' %}
+      position: absolute;
+      bottom: 50px;
+      color: white;
+      text-align: left;
+      font-size: 34px;
+      font-weight: 600;
+      padding: 0px 25px;
+    {% elsif section.settings.textAlignment == 'bottom-img' %}
+      position:static;
+      color: black;
+      text-align: center;
+      font-size: 22px;
+      font-weight: normal;
+    {% endif %} 
+  }
+  /* to solve horizontal scroll start */
+  .three-img-sec .rb-container .rb-row .item-wrapper a{
+      position:relative;
+  }
+  /* to solve horizontal scroll end */
+  
+  @media only screen and (max-width: 800px) {
+    .three-img-sec .rb-container .rb-row {
+        flex-direction:column;
+    }
+    
+    .three-img-sec .rb-container .item-wrapper {
+        width:100%;
+        max-width:100%;
+        padding: 15px 20px;
+    }
+    .three-img-sec .rb-container .rb-col-md-4 {
+        -webkit-box-flex: 0;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+  
+  }
+  @media(max-width:767px){
+    div.rb-container:not(.booster--revert) > h2{
+      font-size: 19px;
+    }
+  }
+</style>
+  
+  {% javascript %}
+  {% endjavascript %}
+  

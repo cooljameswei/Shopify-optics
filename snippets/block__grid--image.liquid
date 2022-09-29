@@ -1,0 +1,67 @@
+<style>
+#grid__block--{{-block.id}} img {
+    object-fit: {{block.settings.backgroundSize}};
+}
+
+{% if block.settings.imageText != blank %}
+{% assign hasText = true %}
+#grid__block--{{-block.id}} .text__content {
+    color: {{block.settings.textColor}};
+    background-color: {{block.settings.textFillColor}};
+    {% if block.settings.fullwidthText %}
+    width: 100%;
+    {% endif %}
+}
+{% endif %}
+</style>
+{% if block.settings.url != blank %}
+<a id="grid__block--{{-block.id}}" class="grid__block center grid__block--image" href="{{block.settings.url}}">
+    {% if block.settings.overlayOpacity > 0 %}
+        <div
+        class="overlay"
+        style="opacity: {{block.settings.overlayOpacity | times: 0.01}}; background-color: {{block.settings.overlayColor}};">
+        </div>
+    {% endif %}
+    {%- unless block.settings.backgroundImage == nil -%}
+        {% render 'image', src: block.settings.backgroundImage, size: '960x' %}
+    {% else %}
+    {% if settings.demo %}
+        <img data-src="https://source.unsplash.com/random/960x" loading="lazy" class="lazyload">
+    {% else %}
+        {{'image' | placeholder_svg_tag: 'svg__thumb'}}
+    {% endif %}
+    {%- endunless -%}
+    {% if hasText %}
+    <div class="text__overlay {{block.settings.verticalAlignment}} {{block.settings.horizontalAlignment}}">
+        <div class="text__content {{block.settings.horizontalAlignment}} font__size--{{-block.settings.fontSize}}">
+        {{block.settings.imageText}}
+        </div>
+    </div>
+    {% endif %}
+</a>
+{% else %}
+<div id="grid__block--{{-block.id}}" class="grid__block center grid__block--image">
+    {% if block.settings.overlayOpacity > 0 %}
+        <div
+        class="overlay"
+        style="opacity: {{block.settings.overlayOpacity | times: 0.01}}; background-color: {{block.settings.overlayColor}};">
+        </div>
+    {% endif %}
+    {%- unless block.settings.backgroundImage == nil -%}
+    {% render 'image', src: block.settings.backgroundImage, size: '960x' %}
+    {% else %}
+    {% if settings.demo %}
+        <img data-src="https://source.unsplash.com/random/960x" loading="lazy" class="lazyload">
+    {% else %}
+        {{'image' | placeholder_svg_tag: 'svg__thumb'}}
+    {% endif %}
+    {%- endunless -%}
+    {% if hasText %}
+    <div class="text__overlay {{block.settings.verticalAlignment}} {{block.settings.horizontalAlignment}}">
+        <div class="text__content {{block.settings.horizontalAlignment}} font__size--{{-block.settings.fontSize}}">
+        {{block.settings.imageText}}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endif %}

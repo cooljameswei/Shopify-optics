@@ -1,0 +1,46 @@
+<!-- /snippets/product-card.liquid -->
+{% comment %}
+The product card snippet is passed a liquid object, used in this file
+as "product". The object is either "product" or "item", the latter if
+it is from search results.
+{% endcomment %}
+<div class="new-product-card">
+  {% if product.featured_image.src != blank %}
+  <div class="product-card__image-wrap">
+    <a href="{{ product.url | within: collection }}"><img src="{{ product.featured_image.src | img_url: '370X200' }}" alt="{{ product.featured_image.alt | escape }}"></a>
+  </div>
+  {% endif %}
+  <div class="product-card__content">
+    {% if settings.product_vendor_enable %}
+    <div class="product-card__brand">{{ product.vendor }}</div>
+    {% endif %}
+    <div class="product-card__name"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></div>
+
+    <div class="product-card__p">
+      {% if product.available %}
+      <div class="price">{{ product.price  | money }}</div>
+      {% if product.compare_at_price %}
+      <div class="compare_price">{{ product.compare_at_price | money }}</div>
+      {% endif %}
+      {% else %}
+      <div class="product-card__availability">
+        Sold Out
+      </div>
+      {% endif %}
+    </div>
+ 
+    <div class="variants-wrapper hide">
+      {% for variant in product.variants %}
+      {% if variant.available %}
+      <div class="variant-item" data-img="{{variant.image | img_url:"370X200"}}" style="background-image:url('{{variant.image | img_url:"45X45"}}')">
+       <div class="tooltip-wrap"><span>{{ variant.title }}</span></div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <a class="product_card_btn" href="{{ product.url | within: collection }}">
+      Show Now
+    </a>
+    
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<ul>
+  {%- if paginate.previous -%}
+    <li><a href="{{ paginate.previous.url }}">←</a></li>
+  {%- else -%}
+    <li class="boost-pfs-filter-pagination-disabled"><span>←</span></li>
+  {%- endif -%}
+
+  {%- for part in paginate.parts -%}
+    {%- if part.is_link -%}
+      <li><a href="{{ part.url }}">{{ part.title }}</a></li>
+    {%- elsif part.title == '&hellip;' -%}
+      <li><span>...</span></li>
+    {%- else -%}
+      <li><span class="boost-pfs-filter-pagination-active">{{ part.title }}</span></li>
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if paginate.next -%}
+    <li><a href="{{ paginate.next.url }}">→</a></li>
+  {%- else -%}
+    <li class="boost-pfs-filter-pagination-disabled"><span>→</span></li>
+  {%- endif -%}
+</ul>

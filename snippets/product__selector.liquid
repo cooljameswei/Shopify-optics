@@ -1,0 +1,10 @@
+{% if product.variants.size == 1 or product.has_only_default_variant %}
+    <input name="id" type="hidden" value="{{product.variants[0].id}}">
+{% else %}
+    <select name="id">
+        {% assign vars = product.variants | where: 'available', true %}
+        {% for variant in vars %}
+        <option value="{{variant.id}}">{{variant.title}}</option>
+        {% endfor %}
+    </select>
+{% endif %}

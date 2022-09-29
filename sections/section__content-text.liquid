@@ -1,0 +1,566 @@
+<style>
+#shopify-section-{{section.id}}{
+  margin-bottom: 0px !important;
+}
+</style>
+
+{% for block in section.blocks %}
+
+<style type="text/css">
+{% render 'common-css' with block as section %}
+
+{% if block.settings.layout == "stretchContent" %}
+#s--{{block.id}} .tximage__image {
+  padding: 0px;
+}
+{%endif%}
+
+#s--{{block.id}} .s__content {
+  {% if block.settings.imagePosition == "right" %}
+  flex-direction: row-reverse;
+  {%endif%}
+}
+
+#s--{{block.id}} img {
+  width: 100%;
+}
+</style>
+
+{% assign iWidth = block.settings.imageWidth %}
+{% assign tWidth = 12 | minus: block.settings.imageWidth %}
+
+<div id="s--{{block.id}}" class="{% render 'common-class', section: section, class: 'row', bg: false, vAlign: false %}">
+<div class="row {{ block.settings.verticalAlignment }} layout__content s__content">
+    {% case block.type %}
+    {% when 'imageText' %}
+        <div class="col-12 col-md-{{-iWidth}} tximage__image">
+            {% if block.settings.overlayOpacity > 0 %}
+            <div class="overlay" style="opacity: {{block.settings.overlayOpacity | times: 0.01}}; background-color: {{block.settings.overlayColor}};"></div>
+            {% endif %}
+            {% unless block.settings.image == nil %}
+              {% render 'ratio-image', image: block.settings.image, mratio: '12', dratio: iWidth, ratioType: 'col' %}
+            {% else %}
+              {%if settings.demo %}
+                <img class="lazyload" loading="lazy" data-src="https://source.unsplash.com/random/700x700">
+              {% else %}
+                {{'image' | placeholder_svg_tag: 'svg__thumb'}}
+              {% endif %}
+            {% endunless %}
+        </div>
+    {% when 'videoText' %}
+        <div class="col-12 col-md-{{-iWidth}} tximage__video video--responsive">
+            {% unless block.settings.video == blank %}
+                {% if block.settings.video.type == 'youtube' %}
+                    <iframe class="lazyload" id="player" type="text/html"
+                    data-src="https://www.youtube.com/embed/{{-block.settings.video.id}}"
+                    frameborder="0"></iframe>
+                {% else %}
+                    <iframe class="lazyload" data-src="https://player.vimeo.com/video/{{-block.settings.video.id}}" frameborder="0" allowfullscreen></iframe>
+                {% endif %}
+            {% endunless %}
+        </div>
+    {% endcase %}
+  <div class="inherit col-12 col-md-{{-tWidth}} unflex tximage__txt">
+    <div class="no-gap col-12 margin__bottom--12 {{block.settings.horizontalAlignment}} s__block">
+      <h2 class="font__family--title">{{block.settings.heading}}</h2>
+    </div>
+    <div class="no-gap col-12 margin__bottom--12 {{block.settings.horizontalAlignment}} s__block">
+      {{block.settings.text}}
+    </div>
+    <div class="no-gap col-12 margin__bottom--12 {{block.settings.horizontalAlignment}}">
+      {%- if block.settings.wideButton -%}{%- assign class = "button--full-width" -%}{%- endif -%}
+      {% render 'button', url: block.settings.url, text: block.settings.buttonText, type: block.settings.buttonType, buttonType: block.settings.buttonStyle, class: class %}
+    </div>
+  </div>
+</div>
+</div>
+{% else %}
+<div id="s--{{block.id}}" class="{% render 'common-class', section: section, class: 'row', bg: false, vAlign: false %}">
+<div class="row middle layout__content s__content">
+  <div class="col-12 col-md-6 tximage__image">
+    {%if settings.demo %}
+      <img class="lazyload" loading="lazy" data-src="https://source.unsplash.com/random/700x700">
+    {% else %}
+      {{'image' | placeholder_svg_tag: 'svg__thumb'}}
+    {% endif %}
+  </div>
+  <div class="inherit col-12 col-md-6 unflex tximage__txt">
+    <div class="no-gap col-12 margin__bottom--12 start s__block">
+      <h2 class="font__family--title">This is a great heading</h2>
+    </div>
+    <div class="no-gap col-12 margin__bottom--12 start s__block">
+      Enjoy an unlimited amount of blocks in this bulk section.
+    </div>
+    <div class="no-gap col-12 margin__bottom--12 start">
+      {%- if block.settings.wideButton -%}{%- assign class = "button--full-width" -%}{%- endif -%}
+      {% render 'button', url: '#', text: "Here's a button", type: 'primary', buttonType: 'filled', class: class %}
+    </div>
+  </div>
+</div>
+</div>
+{% endfor %}
+
+
+{% schema %}
+{
+    "name": {
+        "en": "Content + text (bulk)"
+    },
+    "settings": [],
+    "blocks": [
+    {
+        "type": "imageText",
+        "name": "Image + Text",
+        "settings": [
+          {
+    "type": "header",
+    "content": "Section layout"
+},
+{
+  "type": "radio",
+  "id": "displayFor",
+  "label": "Show this section on",
+  "options": [
+    {"value": "display--both", "label": "All devices"},
+    {"value": "hide-desktop", "label": "Mobile only"},
+    {"value": "hide-mobile", "label": "Desktop only"}
+  ],
+  "default": "display--both"
+},
+{
+  "type": "select",
+  "id": "layout",
+  "label": "Section layout",
+  "options": [
+    {"value": "default", "label": "Global default"},
+    {"value": "boxed", "label": "Boxed"},
+    {"value": "stretchBg", "label": "Full width background"},
+    {"value": "stretchContent", "label": "Full width"}
+  ],
+  "default": "default"
+},
+{
+  "type": "checkbox",
+  "id": "nomargin",
+  "default": false,
+  "label": "Remove section's bottom margin"
+},
+{
+  "type": "textarea",
+  "id": "scopedCSS",
+  "label": "Section-scoped CSS",
+  "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+},
+{
+  "type": "range",
+  "id": "height",
+  "label": "Minimum height",
+  "default": 0,
+  "min": 0,
+  "max": 800,
+  "step": 10,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "padding",
+  "label": "Section padding",
+  "default": 0,
+  "min": 0,
+  "max": 50,
+  "step": 5,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "lineMargin",
+  "label": "Space between blocks",
+  "default": 12,
+  "min": 0,
+  "max": 50,
+  "step": 1,
+  "unit": "px"
+},
+          {
+    "type": "header",
+    "content": "Section background"
+  },
+  {
+    "id": "backgroundColor",
+    "type": "color",
+    "default": "rgba(0,0,0,0)",
+    "label": "Background color"
+  },
+          {
+    "type": "header",
+    "content": "Section content"
+},
+{
+  "type": "color",
+  "id": "contentColor",
+  "label": "Default text color",
+  "default": "rgba(0,0,0,0)"
+},
+{
+  "type": "select",
+  "id": "horizontalAlignment",
+  "label": "Content alignment (left to right)",
+  "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+  ],
+  "default": "center"
+},
+{
+  "type": "select",
+  "id": "verticalAlignment",
+  "label": "Content alignment (top to bottom)",
+  "options": [
+    {"value": "top", "label": "Top"},
+    {"value": "middle", "label": "Middle"},
+    {"value": "bottom", "label": "Bottom"}
+  ],
+  "default": "middle"
+},
+          {
+            "type": "header",
+            "content": "Image"
+          },
+          {
+            "type": "select",
+            "id": "imagePosition",
+            "label": "Image position",
+            "options": [
+              {"value": "left", "label": "Left"},
+              {"value": "right", "label": "Right"}
+            ],
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "imageWidth",
+            "label": "Image width",
+            "options": [
+              {"value": "9", "label": "75%"},
+              {"value": "8", "label": "66%"},
+              {"value": "6", "label": "50%"},
+              {"value": "4", "label": "33%"},
+              {"value": "3", "label": "25%"}
+            ],
+            "default": "6"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Overlay"
+          },
+          {
+            "type": "range",
+            "id": "overlayOpacity",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "label": "Overlay opacity",
+            "default": 40,
+            "unit": "%"
+          },
+          {
+            "type": "color",
+            "id": "overlayColor",
+            "label": "Overlay color",
+            "default": "#000000"
+          },
+          {
+            "type": "text",
+            "label": "Heading",
+            "id": "heading",
+            "default": "Look at this image!"
+          },
+          {
+            "type": "richtext",
+            "label": "Text",
+            "id": "text",
+            "default": "<p>Section text for this image text block</p>"
+          },
+          {
+            "type": "header",
+            "content": "Button"
+          },
+          {
+            "id": "buttonText",
+            "label": "Button text",
+            "type": "text",
+            "default": "Get this now!"
+          },
+          {
+            "id": "url",
+            "type": "url",
+            "label": "Links to"
+          },
+          {
+            "type": "header",
+            "content": "Button style"
+          },
+          {
+            "id": "wideButton",
+            "type": "checkbox",
+            "label": "Make the button full width",
+            "default": false
+          },
+          {
+            "id": "buttonType",
+            "type": "select",
+            "label": "Color combination",
+            "options": [
+              {"value": "primary", "label": "Primary"},
+              {"value": "secondary", "label": "Secondary"}
+            ],
+            "default": "primary"
+          },
+          {
+              "id": "buttonStyle",
+              "type": "select",
+              "label": "Button style",
+              "options": [
+                  {"value": "default", "label": "Default"},
+                  {"value": "filled", "label": "Filled"},
+                  {"value": "ghost", "label": "Ghost"},
+                  {"value": "underlined", "label": "Underlined"},
+                  {"value": "text", "label": "Text"}
+              ],
+              "default": "default"
+          }
+      ]
+    },
+    {
+        "type": "videoText",
+        "name": "Video + Text",
+        "settings": [
+          {
+    "type": "header",
+    "content": "Section layout"
+},
+{
+  "type": "radio",
+  "id": "displayFor",
+  "label": "Show this section on",
+  "options": [
+    {"value": "display--both", "label": "All devices"},
+    {"value": "hide-desktop", "label": "Mobile only"},
+    {"value": "hide-mobile", "label": "Desktop only"}
+  ],
+  "default": "display--both"
+},
+{
+  "type": "select",
+  "id": "layout",
+  "label": "Section layout",
+  "options": [
+    {"value": "default", "label": "Global default"},
+    {"value": "boxed", "label": "Boxed"},
+    {"value": "stretchBg", "label": "Full width background"},
+    {"value": "stretchContent", "label": "Full width"}
+  ],
+  "default": "default"
+},
+{
+  "type": "checkbox",
+  "id": "nomargin",
+  "default": false,
+  "label": "Remove section's bottom margin"
+},
+{
+  "type": "textarea",
+  "id": "scopedCSS",
+  "label": "Section-scoped CSS",
+  "info": "Rules beginning with ##scoped will be scoped to this section. (Example: ##scoped h1 {color: blue})"
+},
+{
+  "type": "range",
+  "id": "height",
+  "label": "Minimum height",
+  "default": 0,
+  "min": 0,
+  "max": 800,
+  "step": 10,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "padding",
+  "label": "Section padding",
+  "default": 0,
+  "min": 0,
+  "max": 50,
+  "step": 5,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "lineMargin",
+  "label": "Space between blocks",
+  "default": 12,
+  "min": 0,
+  "max": 50,
+  "step": 1,
+  "unit": "px"
+},
+          {
+    "type": "header",
+    "content": "Section background"
+  },
+  {
+    "id": "backgroundColor",
+    "type": "color",
+    "default": "rgba(0,0,0,0)",
+    "label": "Background color"
+  },
+          {
+    "type": "header",
+    "content": "Section content"
+},
+{
+  "type": "color",
+  "id": "contentColor",
+  "label": "Default text color",
+  "default": "rgba(0,0,0,0)"
+},
+{
+  "type": "select",
+  "id": "horizontalAlignment",
+  "label": "Content alignment (left to right)",
+  "options": [
+    {"value": "start", "label": "Left"},
+    {"value": "center", "label": "Center"},
+    {"value": "end", "label": "Right"}
+  ],
+  "default": "center"
+},
+{
+  "type": "select",
+  "id": "verticalAlignment",
+  "label": "Content alignment (top to bottom)",
+  "options": [
+    {"value": "top", "label": "Top"},
+    {"value": "middle", "label": "Middle"},
+    {"value": "bottom", "label": "Bottom"}
+  ],
+  "default": "middle"
+},
+          {
+            "type": "header",
+            "content": "Video"
+          },
+          {
+            "type": "select",
+            "id": "imagePosition",
+            "label": "Video position",
+            "options": [
+              {"value": "left", "label": "Left"},
+              {"value": "right", "label": "Right"}
+            ],
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "imageWidth",
+            "label": "Video width",
+            "options": [
+              {"value": "9", "label": "75%"},
+              {"value": "8", "label": "66%"},
+              {"value": "6", "label": "50%"},
+              {"value": "4", "label": "33%"},
+              {"value": "3", "label": "25%"}
+            ],
+            "default": "6"
+          },
+          {
+            "type": "video_url",
+            "accept": ["youtube", "vimeo"],
+            "id": "video",
+            "label": "Video URL"
+          },
+          {
+            "type": "header",
+            "content": "Overlay"
+          },
+          {
+            "type": "text",
+            "label": "Heading",
+            "id": "heading",
+            "default": "Look at this image!"
+          },
+          {
+            "type": "richtext",
+            "label": "Text",
+            "id": "text",
+            "default": "<p>Section text for this image text block</p>"
+          },
+          {
+            "type": "header",
+            "content": "Button"
+          },
+          {
+            "id": "buttonText",
+            "label": "Button text",
+            "type": "text",
+            "default": "Get this now!"
+          },
+          {
+            "id": "url",
+            "type": "url",
+            "label": "Links to"
+          },
+          {
+            "type": "header",
+            "content": "Button style"
+          },
+          {
+            "id": "wideButton",
+            "type": "checkbox",
+            "label": "Make the button full width",
+            "default": false
+          },
+          {
+            "id": "buttonType",
+            "type": "select",
+            "label": "Color combination",
+            "options": [
+              {"value": "primary", "label": "Primary"},
+              {"value": "secondary", "label": "Secondary"}
+            ],
+            "default": "primary"
+          },
+          {
+              "id": "buttonStyle",
+              "type": "select",
+              "label": "Button style",
+              "options": [
+                  {"value": "default", "label": "Default"},
+                  {"value": "filled", "label": "Filled"},
+                  {"value": "ghost", "label": "Ghost"},
+                  {"value": "underlined", "label": "Underlined"},
+                  {"value": "text", "label": "Text"}
+              ],
+              "default": "default"
+          }
+      ]
+    }
+    ],
+    "presets": [
+      {
+        "category": "Content + text",
+        "name": "Content + Text (bulk)",
+        "settings": {
+        },
+        "blocks": [
+        ]
+      }
+    ]
+  }
+{% endschema %}

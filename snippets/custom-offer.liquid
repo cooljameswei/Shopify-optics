@@ -1,0 +1,50 @@
+
+<script type="text/javascript">
+    window.CUSTOM_OFFER = window.CUSTOM_OFFER || {};
+    window.CUSTOM_OFFER.productVariants = window.CUSTOM_OFFER.productVariants || [];
+    {%- for variant in product.variants -%}
+        window.CUSTOM_OFFER.productVariants.push({
+            variant_id:{{-variant.id | json-}},
+            custom_offer:{{-variant.metafields.my_fields.custom_offer | json-}}
+        });
+    {%- endfor -%}
+    window.CUSTOM_OFFER.hideChildNodesPriceWrapper = () => {
+        let priceWrapperChildNodes = document.querySelectorAll("span.jsPrice") || [];
+        if(priceWrapperChildNodes.length > 0){
+            priceWrapperChildNodes = Array.prototype.slice.call(priceWrapperChildNodes);
+            for (let index = 0; index < priceWrapperChildNodes.length; index++) {
+                let priceWrapperChildNode = priceWrapperChildNodes[index];
+                priceWrapperChildNode.classList.add("hide");
+            }
+        }
+    }
+    window.CUSTOM_OFFER.showHideCustomOfferText = (toggleState) => {
+        let customOfferTexts =document.getElementsByClassName("custom__offer-text") || undefined;
+        if(customOfferTexts.length > 0){
+            customOfferTexts = Array.prototype.slice.call(customOfferTexts);
+            for (let index = 0; index < customOfferTexts.length; index++) {
+                let customOfferText = customOfferTexts[index];
+                toggleState === "show" ? (
+                    customOfferText.classList.remove("hide")
+                ) : (
+                    customOfferText.classList.add("hide")
+                );
+            }  
+        }
+    }
+    window.CUSTOM_OFFER.showPriceElement = (toggleState) => {
+        let priceWrapperChildNodes = document.querySelectorAll("span.jsPrice") || [];
+        if(priceWrapperChildNodes.length > 0){
+            priceWrapperChildNodes = Array.prototype.slice.call(priceWrapperChildNodes);
+            for (let index = 0; index < priceWrapperChildNodes.length; index++) {
+                let priceWrapperChildNode = priceWrapperChildNodes[index];
+                toggleState === "show" ? (
+                    priceWrapperChildNode.classList.remove("hide")
+                ) : (
+                    priceWrapperChildNode.classList.add("hide")
+                );
+            }
+        }
+        window.CUSTOM_OFFER.showHideCustomOfferText("hide");
+    }
+</script>
